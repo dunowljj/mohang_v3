@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mohang.mapper.OrganizationMapper">
+	<cache />
+	
+	<!-- 폼에 작성한 이름을 DB에 저장 -->
+	<insert id="organizationInsert" parameterType="Organization">
+		insert into organization(
+		o_num, account_num, o_name, o_homepage, o_phonenumber) 
+		values(
+		organization_seq.nextval, #{account_num},#{o_name},#{o_homepage},#{o_phonenumber}
+		)
+	</insert>
+
+
+
+
+
+</mapper>

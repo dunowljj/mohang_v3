@@ -1,0 +1,158 @@
+@charset "UTF-8";
+
+	.statisticsPage{
+	margin-top: 160px;
+	width: 100%;
+	}
+	
+	
+	.subsubTitle {
+	margin-top: 20px;
+	color: #400080;
+	border-top: #808080 solid 2px;
+	}
+	
+	.result{
+	width: 100%;
+	border: #808080 solid 1px;
+	border-radius: 10px;
+	margin-top: 20px;
+	}
+	
+	.titleName{
+	margin-top: 20px;
+	margin-left: 20px;
+	color: #400080;
+	}
+	
+
+	.row{
+	display:flex;
+	}
+	
+	
+	.r_title{
+	flex:4;
+	text-align: center;
+	border-right: #808080 solid 2px;
+	padding: 10px 0px;
+	}
+	.r_content{
+	flex:10;
+	padding: 10px 10px;
+	position: relative;
+    left: 10px;
+	}
+	
+/* 	.float{
+	float: left;
+	}
+	
+	.clearFloat{
+	clear: both;
+	} */
+	
+	.rowBox{
+	display:flex;
+	border-top: #808080 solid 2px;
+	}
+	.rowBox1{
+	flex:7;
+	}
+	.rowBox2{
+	flex:5;
+	}
+	
+	
+	.statisticsBox{
+	border-top: #808080 solid 2px;
+	}
+	.s_row{
+	display:flex;
+	width: 100%;
+	}
+
+	.s_title{
+	flex:2.25;
+	text-align: center;
+	border-right: #808080 solid 2px;
+	padding: 10px 0px;
+	vertical-align: middle;
+	}
+	.s_content{
+	flex:15;
+	padding: 10px 10px;
+	position: relative;
+    left: 10px;
+	}
+	
+	.btnPage{
+	width:30%;
+	margin: 0 auto;
+	}
+	
+	.btn{
+	width:100%;
+	height:40px;
+	margin: 30px;
+	}
+	
+	
+	
+	/*  listpage.css*/
+	.general_wrapper{
+	width : 100%;
+    margin-top: 160px;
+    height: 1184px;
+}
+	
+	.like_event {
+	float : left;
+    width: 180px;
+    height: 105%;
+}
+.like_event_exp span:first-child{
+	font-weight :bold;
+	font-size : 15px;
+}
+.like_event_exp span:nth-child(2){
+	display : inline-block;
+	float:right;
+}
+.like_event_exp span:nth-child(3){
+	color:gray;
+	font-size:10px;
+}
+.like_event_exp{
+	height : 105%;
+	background-color: #E6E6E6;
+	padding: 4px;
+}
+.like_event_top{
+	height: 67%;
+}
+.like_event_bottom {
+	height : 33%;
+	text-align: right;
+	padding-top: 17px;
+}
+.like_event_wrap{
+	height : 120px;
+	margin: 25px 0px;
+}
+#empty_likeList{
+	text-align: center;
+	margin-top: 200px;
+}
+#empty_likeList button{
+	width: 30%;
+    height: 30px;
+    font-size : 12px;
+}
+
+
+	
+	
+	
+
+	

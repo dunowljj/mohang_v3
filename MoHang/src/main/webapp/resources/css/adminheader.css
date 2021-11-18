@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+#admin_main1 li{
+	list-style-type : none;
+	 display : inline;
+	 padding-left:50px;
+}
+
+#admin_main1 a{
+	 text-decoration:none ;
+}
+
+
+nav{
+	float : right;
+	 margin-right: 321px;
+}

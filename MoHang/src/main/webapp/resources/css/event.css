@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+	.applyPage{
+	margin-top: 180px;
+	width: 100%;
+	
+	}
+	.subTitle{
+	border-bottom: #808080 solid 2px;
+	}
+	.subsubTitle{
+	color: #400080;
+	}
+	
+	.applyForm{
+	width: 100%;
+	border: #808080 solid 2px;
+	border-radius: 10px;
+	}
+	
+	h6 b{
+	font-size: 18px;
+    position: relative;
+    top: 20px;
+	margin:10px ;
+	color: #400080;
+	}
+	
+	.tr1{
+		height: 70px;
+	}
+	
+	.tb{
+	width: 100%;
+	text-align: center;
+	height:300px;
+	margin-top:30px;
+	border-top: #808080 solid 1px;
+	padding-bottom:30px;
+	}
+
+	.tbname{
+	width: 150px;
+	border-right: #808080 solid 1px;
+	margin: 5px 5px 0px 5px;
+	padding-left:20px;
+	text-align: left;
+	}
+	
+	.form-control{
+	width: 40%;
+	height: 30px;
+	margin-left:10px;
+	}
+	
+	.btn{
+	margin: 0 auto;
+    width: 160px;
+    height: 40px;
+    text-align: center;
+	}
+	
+	.btnPage{
+	text-align: center;
+	}
+	
+	textarea{
+	width: 500px;;
+	}
+	
+	.period{
+	position: relative;
+    left: -315px;
+	}
+
+	.gray{
+    height: 30px;
+	border: 1.5px solid #ced4da;
+    appearance: none;
+    border-radius: 0.25rem;
+    font-size: 15px;
+    
+	}
+	
+	.goLeft{
+	position: relative;
+    left: -210px;
+    }
+    
+    
+	.bb{
+	position: relative;
+    left: -888px;
+    }
+    
+    .textarea{
+    width: 90%;
+    height: 200px;
+    font-size: 13px;
+    padding:10px;
+    position: relative;
+    left: -30px;
+    
+    }
+    
+    .tdLength{
+    width:400px;
+    }
+   
+  	.tbinput{
+  	padding-left:10px;
+  	}
+  	
+   #small{
+   width:35%;
+   }
+      #small2{
+   width:15%;
+   }
+   
+   #e_priceSmall{
+   width:15%;
+	float: left;
+   }
+   
+   .checkBox{
+       position: relative;
+    left: -410px;
+    top: 5px;
+   }
+      /*event/applyInsertFormshow.jsp */
+   	.s_tbname{
+	width: 55px;
+	border-right: #808080 solid 1px;
+	margin: 5px 5px 0px 5px;
+	padding-left:20px;
+	text-align: left;
+	}
+	
+	.s_tbcontent{
+	text-align: left;
+    padding-left: 20px;
+	}
+   
+   
+   /* event/applyList.jsp */
+   .listArccodian{
+	margin: 0 auto;
+	margin-top: 10px;
+	}
+
+	.arccodianBox{
+	width:90%;
+	display: table;
+	table-layout: fixed;
+	margin-left: 115px;
+	}
+
+	.imageSize{
+
+	width:60px;
+	height:60px;
+	}
+
+
+	.arccodianBox figure {
+	margin: 0 auto;
+    display:table-cell;
+   	opacity:0.3;
+	}
+
+	figcaption{
+	margin: 10px 0px 0px 6px;
+	}
