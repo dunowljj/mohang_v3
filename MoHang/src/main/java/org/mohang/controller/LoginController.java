@@ -1,67 +1,51 @@
-/*package org.mohang.controller;
+package org.mohang.controller;
 
-import java.io.IOException;
+import org.mohang.domain.MemberVO;
+import org.mohang.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import lombok.extern.log4j.Log4j;
 
-import mohang.action.Action;
-import mohang.action.ActionForward;
-import mohang.action.event.EventDetailAction;
-import mohang.action.login.JoinAction;
-import mohang.action.login.LoginAction;
 
-@WebServlet("/Login/*")
-public class LoginController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    public LoginController() {
-        super();
-    }
-    
-    public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String requestURI = request.getRequestURI();
-		String contextPath = request.getContextPath();
-		String command = requestURI.substring(contextPath.length() + 7);
-		Action action = null;
-		ActionForward forward = null;
-		if (command.equals("login.do")) {
-			action = new LoginAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("join.do")) {
-			action = new JoinAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+@Controller
+@RequestMapping("/login/*")
+@Log4j
+public class LoginController{
+	@Autowired
+	private MemberService memberservice;
+	
+	@RequestMapping(value="/join", method=RequestMethod.GET)
+	public void getJoin(){
+		log.info("회원가입페이지");
+	}
+	
+	@RequestMapping(value="/join", method=RequestMethod.POST)
+	public String postJoin(MemberVO member) throws Exception{
+		log.info("회원가입 진입");
+		memberservice.memberJoin(member);
+		log.info("회원가입성공");
+		return "/Main";
+	}
+	
+	
+	
+	
+	
+	
+	@GetMapping("/login")
+	public String login(){
+	
+	return "/module/login/login";
+	}
+	
+	/*@PostMapping("/login")
+	public String login(){
 		
-		if (forward != null) {
-			if (forward.isRedirect()) {
-				response.sendRedirect(forward.getPath());
-			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
-				dispatcher.forward(request, response);
-			}
-		}
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response);
-	}
-
+	
+	}*/
 }
-*/
