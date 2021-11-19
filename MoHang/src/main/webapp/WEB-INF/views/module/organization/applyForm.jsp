@@ -25,7 +25,7 @@
 		</div>
 
 
-		<form  action="applyFormInsertAction.do" method="post">
+		<form  action="/organization/insertOrganization" method="post">
 			<div class="applyForm">
 				<table class="tb">
 					<tr>
