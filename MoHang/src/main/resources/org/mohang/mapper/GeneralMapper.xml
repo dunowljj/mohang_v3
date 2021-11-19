@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.mohang.mapper.GeneralMapper">
+	
+	<!-- 회원 정보  -->
+	<select id="selectInformation">
+		select
+			account_gender, account_birth_date, account_phonenumber,
+			account_interest, account_email,account_address
+		form
+			account
+	</select>
+	<update id="updateInformation">
+		update 
+			table account 
+		set 
+			account_gender = #{account_gender},
+			account_birth_date = #{account_brith_date},
+			account_phonenumber = #{account_phonenumber},
+			account_interest = #{account_interest},
+			account_email = #{account_email},
+			account_address = #{account_address}
+		where
+			account_num = #{account_num}
+	</update>
+	<update id="updatePassword">
+		update 
+			table Account 
+		set 
+			account_password = #{account_password}
+		where
+			account_num = #{account_num}
+	</update>
+	<!-- 관심목록 -->
+	
+	
+
+</mapper> 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html> 
 <html>
 <head>
@@ -29,13 +30,13 @@
 							기본정보
 							<hr><br>
 							이메일(ID)	<br>
-							xxxxx@naver.com
+							<c:out value="${account.account_email}"/>
 							<br><br>
 							이름/기업명<br>
-							이상엽
+							<c:out value="${account.account_name}"/><c:out value="${organization.O_Name}"/>
 							<br><br>
 							전화번호 <br>
-							010-xxxx-xxxx 
+							<c:out value="${account.phoneNumber}"/>
 	<!-- 					</form> -->
 					</div>
 					<div class="form_right">

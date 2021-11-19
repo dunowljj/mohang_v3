@@ -1,127 +1,63 @@
-/*package org.mohang.controller;
+package org.mohang.controller;
 
-import java.io.IOException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import lombok.extern.log4j.Log4j;
 
-import mohang.action.ActionForward;
-import mohang.action.general.GeneralAction;
-import mohang.action.general.InformationUpdateFormAction;
-import mohang.action.general.LikeListAction;
-import mohang.action.general.LikeListEmptyAction;
-import mohang.action.general.ModalPrAction;
-import mohang.action.general.ModalPrAction2;
-import mohang.action.general.ReserveFormAction;
-import mohang.action.general.ReserveListAction;
-import mohang.action.general.ReviewListAction;
-import mohang.action.general.TicketDetailAction;
-
-@WebServlet("/general/*")
-public class GeneralController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    public GeneralController() {
-        super();
-    }
-
-	public void doProcess(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String requestURI = request.getRequestURI(); 
-		String contextPath = request.getContextPath(); 
-		String command = requestURI.substring(contextPath.length() + 9); 
-		System.out.println(command);
-		GeneralAction action = null; 
-		ActionForward forward = null; 
+@Log4j
+@Controller
+@RequestMapping("/general/*")
+public class GeneralController {
+	
+	
+	@GetMapping("/updateInformation")
+	public String getInformation(){
 		
-		if(command.equals("informationUpdateForm.do")) {
-    		action = new InformationUpdateFormAction();
-    		try {
-				forward = action.execute(request, response);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}else if(command.equals("reserveForm.do")) {
-    		action = new ReserveFormAction();
-    		try {
-				forward = action.execute(request, response);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}else if(command.equals("reserveList.do")) {
-    		action = new ReserveListAction();
-    		try {
-				forward = action.execute(request, response);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}else if(command.equals("likeList.do")) {
-    		action = new LikeListAction();
-    		try {
-				forward = action.execute(request, response);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}else if(command.equals("likeListEmpty.do")) {
-    		action = new LikeListEmptyAction();
-    		try {
-				forward = action.execute(request, response);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}else if(command.equals("reviewList.do")) {
-    		action = new ReviewListAction();
-    		try {
-				forward = action.execute(request, response);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}else if(command.equals("modal.do")) {
-    		action = new ModalPrAction();
-    		try {
-				forward = action.execute(request, response);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}else if(command.equals("modal2.do")) {
-    		action = new ModalPrAction2();
-    		try {
-				forward = action.execute(request, response);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}else if(command.equals("ticketDetail.do")) {
-    		action = new TicketDetailAction();
-    		try {
-				forward = action.execute(request, response);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}
+		return "module/general/informationUpdateForm";
+	}
+	@PostMapping("/updateInformation")
+	public String updateInformation(){
 		
-		if(forward != null) {
-			if(forward.isRedirect()) {
-				response.sendRedirect(forward.getPath()); 
-			}else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath()); 
-				dispatcher.forward(request, response);
-			}
-		}
+		return "module/general/informationUpdateForm";
 	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doProcess(request, response);
+	
+	@GetMapping("/insertReserve")
+	public String insertReserve(){
+		log.info("insertRe");
+		
+		return "";
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doProcess(request, response);
+	@GetMapping("/getReserve")
+	public String getReserve(){
+		log.info("getRe");
+		
+		return "";
+	}
+	
+	@GetMapping("/reserve")
+	public String reserve(){
+		log.info("reserve");
+		return "module/general/reserveForm";
+	}
+	@GetMapping("/listMyReserve")
+	public String listMyReserve(){
+		log.info("reserve");
+		return "module/general/reserveList";
+	}
+	
+	@GetMapping("/deleteReserve")
+	public String deleteReserve(){
+		log.info("delReserve");
+		return "";
+	}
+	
+	@GetMapping("/listMyReview")
+	public String listMyReview(){
+		log.info("MyReview");
+		return "module/general/likeList";
 	}
 
 }
-*/

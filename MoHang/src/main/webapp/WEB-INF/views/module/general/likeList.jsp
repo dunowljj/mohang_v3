@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,23 +20,24 @@
 					<!-- 행사 1 -->
 				<div class='like_row_container'>
 					<div class='likeList_table_wrap'>
-						<div class='like_one_wrap'>
-							<div class='like_event_image'>
-								<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>
-								<img class='like_event_images' src='${pageContext.request.contextPath}/resources/images/행사1_1.jpg' alt='like_event'>
+						<c:forEach var="name" items="${likeMaker}">
+							<div class='like_one_wrap'>
+								<div class='like_event_image'>
+									<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>
+									<img class='like_event_images' src='${pageContext.request.contextPath}/resources/images/행사1_1.jpg' alt='like_event'>
+								</div>
+								<div class=''>
+									<c:out value="${eventHall.eh_location}"/>10월 10일(토) 금천구
+								</div>
+								<div class="">
+									<span><c:out value="${event.e_name}"/></span>
+								</div>
+								<div class="like_event_bottom">
+									<span>무료</span>	
+									<span><span><i class="far fa-eye"></i></span><c:out value="${event.e_hitcount}"/></span>
+								</div>	
 							</div>
-							<div class=''>
-								10월 30일(토) 금천구
-							</div>
-							<div class="">
-								<span>kosta223기 인성교육</span>
-							</div>
-							<div class="like_event_bottom">
-								<span>무료</span>	
-								<span><span><i class="far fa-eye"></i></span>조회수xx</span>
-							</div>	
-						</div>
-						
+						</c:forEach>
 						<div class='like_one_wrap'>
 							<div class='like_event_image'>
 								<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>

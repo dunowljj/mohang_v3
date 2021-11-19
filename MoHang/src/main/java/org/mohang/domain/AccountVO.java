@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GeneralVO {
+public class AccountVO {
 	//general db column;
 	private String account_num;
 	private String account_id;
