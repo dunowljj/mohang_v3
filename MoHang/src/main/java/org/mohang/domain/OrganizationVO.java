@@ -12,7 +12,7 @@ public class OrganizationVO  {
 	private String account_num;
 	private String o_name;
 	private String o_homepage;
-	private String o_phonenumber;
+	private String o_phoneNumber;
 	
 
 }

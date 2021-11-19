@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>단체정보수정</title>
 
-
+<script type="text/javascript" src="../resources/js/organization.js"></script>
 <link href="../resources/css/organization.css" rel="stylesheet">
 
 </head>
@@ -25,23 +28,24 @@
 		</div>
 
 
-		<form>
-			<div class="applyForm" action="InformationUpdateAction.java">
+		<form action="/organization/inforamtionUpdateForm">
+			<div class="applyForm">
 				<table class="tb">
 					<tr>
 						<td class="tbname">단체명</td>
 						<td class="tbinput"><input type="text" class="form-control" name="o_name"
-							value=></td>
+							value='<c:out value="${organization.o_name}"/>' readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td class="tbname">단체홈페이지</td>
 						<td class="tbinput"><input type="text" class="form-control" name="o_name"
-							value=></td>
+							value='<c:out value="${organization.o_homepage}"/>' readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td class="tbname">단체전화번호</td>
-						<td class="tbinput"><input type="text" class="form-control" name="o_name"
-							value=></td>
+						<td class="tbinput">
+						<input type="text" class="form-control" name="o_name"
+							value='<c:out value="${organization.o_phoneNumber}"/>'  readonly="readonly"></td>
 					</tr>
 				</table>
 			</div>
