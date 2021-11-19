@@ -18,15 +18,15 @@
 	data-bs-ride="carousel">
 	<div id="header_nav">
 		<ul>
-			<li><a href="/MoHang/search/eventsearch.do?field=모든 분야">전체</a></li>
-			<li><a href="/MoHang/search/eventsearch.do?field=사업/창업">사업/창업</a></li>
-			<li><a href="/MoHang/search/eventsearch.do?field=IT/개발">IT/개발</a></li>
-			<li><a href="/MoHang/search/eventsearch.do?field=마케팅/홍보">마케팅/홍보</a></li>
-			<li><a href="/MoHang/search/eventsearch.do?field=디자인/기획">디자인/기획</a></li>
-			<li><a href="/MoHang/search/eventsearch.do?field=문화/예술">문화/예술</a></li>
-			<li><a href="/MoHang/search/eventsearch.do?field=취미/생활">취미/생활</a></li>
-			<li><a href="/MoHang/search/eventsearch.do?field=건강/의료">건강/의료</a></li>
-			<li><a href="/MoHang/Review/ReviewList.do">리뷰게시판</a></li>
+			<li><a href="/search/searchform?field=모든 분야">전체</a></li>
+            <li><a href="/search/searchform?field=사업/창업">사업/창업</a></li>
+            <li><a href="/search/searchform?field=IT/개발">IT/개발</a></li>
+            <li><a href="/search/searchform?field=마케팅/홍보">마케팅/홍보</a></li>
+            <li><a href="/search/searchform?field=디자인/기획">디자인/기획</a></li>
+            <li><a href="/search/searchform?field=문화/예술">문화/예술</a></li>
+            <li><a href="/search/searchform?field=취미/생활">취미/생활</a></li>
+            <li><a href="/search/searchform?field=건강/의료">건강/의료</a></li>
+            <li><a href="/review/list">리뷰게시판</a></li>
 		</ul>
 	</div>
 	<div class="carousel-inner">
