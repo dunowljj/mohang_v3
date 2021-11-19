@@ -1,6 +1,6 @@
 package org.mohang.service;
 
 
-public class SearchService {
+public interface SearchService {
 
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -13,7 +14,7 @@
 <div id="mask"></div>
 	<div id="searchform">
 		<div id="searchform_in">
-			<form action="/MoHang/search/eventsearch2.do" method="post" id="searchform_form"> 
+			<form action="/search/searchform" method="post" id="searchform_form"> 
 			<div class="searchform_one">
 				<div class="searchtitle">
 					개최기간
@@ -70,37 +71,38 @@
 						<span>행사 분야</span>
 						<div></div>
 						<div>
-							<input type="radio" id="filter-cost-0" value="모든 분야" class="with-gap" name='event-field'>
+							<input type="radio" id="filter-cost-0" value="모든 분야" class="with-gap" name='field'>
 							<label for="filter-cost-0">모든 분야</label>
 						</div>
 						<div>
-							<input type="radio" id="filter-cost-0" value="사업/창업" class="with-gap" name='event-field'>
+							<input type="radio" id="filter-cost-0" value="사업/창업" class="with-gap" name='field'>
 							<label for="filter-cost-0">사업/창업</label>
 						</div>
 						<div>
-							<input type="radio" id="filter-cost-0" value="IT/개발" class="with-gap" name='event-field'>
+							<input type="radio" id="filter-cost-0" value="IT/개발" class="with-gap" name='field'>
 							<label for="filter-cost-0">IT/개발</label>
 						</div>
 						<div>
-							<input type="radio" id="filter-cost-0" value="마케팅/홍보" class="with-gap" name='event-field'>
+							<input type="radio" id="filter-cost-0" value="마케팅/홍보" class="with-gap" name='field'>
 							<label for="filter-cost-0">마케팅/홍보</label>
 						</div>
 						<div>
-							<input type="radio" id="filter-cost-0" value="디자인/기획" class="with-gap" name='event-field'>
+							<input type="radio" id="filter-cost-0" value="디자인/기획" class="with-gap" name='field'>
 							<label for="filter-cost-0">디자인/기획</label>
 						</div>
 						<div>
-							<input type="radio" id="filter-cost-0" value="문화/예술" class="with-gap" name='event-field'>
+							<input type="radio" id="filter-cost-0" value="문화/예술" class="with-gap" name='field'>
 							<label for="filter-cost-0">문화/예술</label>
 						</div>
 						<div>
-							<input type="radio" id="filter-cost-0" value="취미/생활" class="with-gap" name='event-field'>
+							<input type="radio" id="filter-cost-0" value="취미/생활" class="with-gap" name='field'>
 							<label for="filter-cost-0">취미/생활</label>
 						</div>
 						<div>
-							<input type="radio" id="filter-cost-0" value="건강/의료" class="with-gap" name='event-field'>
+							<input type="radio" id="filter-cost-0" value="건강/의료" class="with-gap" name='field'>
 							<label for="filter-cost-0">건강/의료</label>
 						</div>
+							
 						<div class="row1">
 							<div class="button_1">
 								<a class="button_cancel">취소</a>
@@ -118,15 +120,15 @@
 						<span>행사 유형</span>
 						<div></div>
 						<div>
-							<input type="radio" id="filter-cost-0" value="세미나/콘퍼런스" class="with-gap" name='event-type'>
+							<input type="radio" id="filter-cost-0" value="세미나/콘퍼런스" class="with-gap" name='type'>
 							<label for="filter-cost-0">세미나/콘퍼런스</label>
 						</div>
 						<div>
-							<input type="radio" id="filter-cost-0" value="강의/교육" class="with-gap" name='event-type'>
+							<input type="radio" id="filter-cost-0" value="강의/교육" class="with-gap" name='type'>
 							<label for="filter-cost-0">강의/교육</label>
 						</div>
 						<div>
-							<input type="radio" id="filter-cost-0" value="축제/공연" class="with-gap" name='event-type'>
+							<input type="radio" id="filter-cost-0" value="축제/공연" class="with-gap" name='type'>
 							<label for="filter-cost-0">축제/공연</label>
 						</div>
 						<div class="row1">
@@ -139,35 +141,40 @@
 						</div>
 					</div>
 						<input type="text" id="check" value="${check }" class="check" name='check' style="display: none;">
+						<input type="hidden" name="field" value="<c:out value='${search.field.replace(","," ")}' />">
+						<input type="hidden" name="type" value="${search.type }">
+						<input type="hidden" name="price" value="${search.price }">
+						<input type="hidden" name="keyword" value="${search.keyword }">
 				</div>
 			</div>
+
 				</form>
 			<div class="searchform_one">
 				<div class="searchtitle">
 					선택된 검색 옵션
 				</div>
 				
-				<c:if test="${!empty keyword }">
-					<div class="filter-btn" id="keyword1">검색어 :${keyword }<i class="far fa-times-circle cursor-pointer"></i></div>
+				<c:if test="${!empty search.keyword }">
+					<div class="filter-btn" id="keyword1">검색어 :${search.keyword }<i class="far fa-times-circle cursor-pointer"></i></div>
 				</c:if>
 				<div class="filter-btn" id="field1" style="display: none;">행사 분야 <i class="far fa-times-circle cursor-pointer"></i></div>
-				<c:if test="${!empty type }">
-				<div class="filter-btn" id="type1" >${type }<i class="far fa-times-circle cursor-pointer"></i></div>
+				<c:if test="${!empty search.type }">
+				<div class="filter-btn" id="type1" ><c:out value='${search.type.replace(","," ")}' /><i class="far fa-times-circle cursor-pointer"></i></div>
 				</c:if>
-				<c:if test="${!empty price }">	
-					<div class="filter-btn" id="price1">${price }<i class="far fa-times-circle cursor-pointer"></i></div>
+				<c:if test="${!empty search.price }">	
+					<div class="filter-btn" id="price1"><c:out value='${search.price.replace(","," ")}' /><i class="far fa-times-circle cursor-pointer"></i></div>
 				</c:if>	
-				<c:if test="${!empty field  }">
-					<div class="filter-btn" id="field1">${field }<i class="far fa-times-circle cursor-pointer"></i></div>
+				<c:if test="${!empty search.field  }">
+					<div class="filter-btn" id="field1"><c:out value='${search.field.replace(","," ")}' /><i class="far fa-times-circle cursor-pointer"></i></div>
 				</c:if>
 			</div>
 			<div class="line"></div>
 			<c:choose >
-				<c:when test="${!empty field  }">
-				<div class="eventfieldtitle">${field }</div>
+				<c:when test="${!empty search.field  }">
+				<div class="eventfieldtitle">${search.field }</div>
 				</c:when>
 				<c:otherwise>
-				<div class="eventfieldtitle">${field }</div>
+				<div class="eventfieldtitle">${search.field }</div>
 				</c:otherwise>
 			</c:choose>
 			

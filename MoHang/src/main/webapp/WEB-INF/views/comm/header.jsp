@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -151,10 +152,10 @@
       class="navbar navbar-expand-lg text-uppercase fixed-top bg-secondary"
       id="mainNav">
       <div class="container">
-         <a class="navbar-brand" href="/MoHang/Main/MoHang.do"><img
+         <a class="navbar-brand" href="/Main"><img
             src="../resources/images/logo.png"
             style="width: 140px; height: 80p; background: black;"></a>
-         <form method="post" action="/MoHang/search/eventsearch.do" class="event-search" >
+         <form method="post" action="/search/searchform" class="event-search" >
             <i class="fas fa-search" id="search_img"></i>
              <input   class="eventus-input" id="einput" type="search" name="keyword">
          </form>
@@ -195,7 +196,7 @@
 
       </div>
    </nav>
-<script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
+<!-- <script src="../jquery-ui-1.12.1/datepicker-ko.js"></script> -->
 <script type="text/javascript">
 //마이페이지 다운 이벤트
 $(document).click(function(e) {

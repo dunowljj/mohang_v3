@@ -1,69 +1,40 @@
-/*package org.mohang.controller;
+package org.mohang.controller;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import mohang.action.Action;
-import mohang.action.ActionForward;
-import mohang.action.main.MainAction;
-import mohang.action.search.EventSearchAction;
-import mohang.action.search.EventSearchAction2;
+import org.mohang.domain.Search;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
-@WebServlet("/search/*")
-public class SearchController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
- 
-    public SearchController() {
-        super();
-    }
-    public void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
-    	String requestURI = request.getRequestURI();
-    	String contextPath = request.getContextPath(); 
-    	String command = requestURI.substring(contextPath.length()+8);
-    	Action action = null; 
-    	ActionForward forward = null;
-    	if(command.equals("eventsearch.do")) {
-    		action = new EventSearchAction();
-    		try {
-				forward = action.execute(request, response);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}else if(command.equals("eventsearch2.do")) {
-    		action = new EventSearchAction2();
-    		try {
-				forward = action.execute(request, response);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}
+import lombok.extern.log4j.Log4j;
+
+@Controller
+@RequestMapping("/search")
+@Log4j
+public class SearchController  {
+    @GetMapping("searchform")
+    public String GetsearchForm(Search search, Model model){
+    	String field = search.getField();
+    	String type = search.getType();
+    	String price = search.getPrice();
     	
-    	if(forward !=null) {
-    		if(forward.isRedirect()) {
-    			response.sendRedirect(forward.getPath());
-    		}else {
-    			RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
-    			dispatcher.forward(request, response);
-    		}
-    	}
-    	
+    	field =field.replace(",", " ");
+        return "module/search/searchform";
     }
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response);
-	}
-
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response);
-	}
-
+    @PostMapping("searchform")
+    public String postSearchForm(Search search, Model model ){
+    	String field = search.getField();
+    	String type = search.getType();
+    	String price = search.getPrice();
+    	String keyword = search.getKeyword();
+    	model.addAttribute("search.field", field);
+    	model.addAttribute("search.type", type);
+    	model.addAttribute("search.price", price);
+    	model.addAttribute("search.keyword", keyword);
+    	System.out.println(search.toString());
+    	return "module/search/searchform";
+    }
 }
-*/
