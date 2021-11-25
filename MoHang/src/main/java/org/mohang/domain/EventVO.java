@@ -19,13 +19,16 @@ public class EventVO {
 	private Date e_startRecruiteDate;
 	private Date e_endRecruiteDate;
 	private String e_type;
+	private String e_field;
 	private int e_price;
 	private String e_detail;
 	private int e_recruitePeople;
+	private String e_fname;
 	private String e_personName;
 	private String e_personPhoneNumber;
 	private String e_personEmail;
 	private int e_hitCount;
 	private int e_like;
 	private String eh_reservation_num;
+	private String e_dfname;
 }

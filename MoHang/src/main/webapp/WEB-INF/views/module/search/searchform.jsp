@@ -141,14 +141,13 @@
 						</div>
 					</div>
 						<input type="text" id="check" value="${check }" class="check" name='check' style="display: none;">
+				</div>
+			</div>
+			</form>
 						<input type="hidden" name="field" value="<c:out value='${search.field.replace(","," ")}' />">
 						<input type="hidden" name="type" value="${search.type }">
 						<input type="hidden" name="price" value="${search.price }">
 						<input type="hidden" name="keyword" value="${search.keyword }">
-				</div>
-			</div>
-
-				</form>
 			<div class="searchform_one">
 				<div class="searchtitle">
 					선택된 검색 옵션

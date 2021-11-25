@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.mohang.mapper.EventMapper">
+
+	<select id="listEvent" resultType="org.mohang.domain.EventVO">
+	 <![CDATA[
+		select  e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event where e_hitcount <=5 order by e_hitcount desc 
+     ]]>	
+	</select>
+	<select id ="listMonthEvent" resultType="org.mohang.domain.EventVO">
+		select  e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event where e_startdate like  '%'||#{search}||'%'	
+	</select>
+	
+
+</mapper>

@@ -12773,7 +12773,7 @@ html {
 
 .eventbox {
 	position: relative;
-	height: 230px;
+	height: 295px;
 }
 
 .eventbox_img {
@@ -13225,4 +13225,8 @@ span {
 .raking_c{
 	font-size: 17px;
 }
-
+.active{
+	color: red;
+    text-decoration: revert;
+    font-size: 20px;
+}

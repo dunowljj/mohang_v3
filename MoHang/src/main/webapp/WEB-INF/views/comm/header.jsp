@@ -15,6 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 <script type="text/javascript" src="../resources/js/jquery.js"></script>
 <script type="text/javascript" src="../resources/js/slick.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- 달력 -->
 
 
@@ -23,75 +24,168 @@
    var year = now.getFullYear(); // 연도
    var month = now.getMonth() + 1; // 월
    var lastDate = new Date(year, month, 0).getDate();
+   function clickpage(i) {
+	   	  
+		  
+   }
    $(function() {
+	 
       if(document.getElementById('month')){
-      document.getElementById("month").innerHTML = '<em>' + year + '년</em>' + '<em>' + month + '월</em>';
-            
-      document.getElementById("day").innerHTML = html;
-      var html = '<ul>';
-      for (var i = 1; i <= lastDate; i++) {
-         html += '<li><a href="#" class="on">' + i + '</a></li>';
-      }
-      html += '</ul>';
-      document.getElementById("day").innerHTML = html;
-      html = '';
+    	  eventService.monthview({year:year,month:month},function(list){
+  			
+    	 
+	      document.getElementById("month").innerHTML = '<em>' + year + '년</em>' + '<em>' + month + '월</em>';
+	           
+	      document.getElementById("day").innerHTML = html;
+	    
+	      var html = '<ul>';
+	      for (var i = 1; i <= lastDate; i++) {
+	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+year+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
+	      }
+	     
+	      html += '</ul>';
+	      document.getElementById("day").innerHTML = html;
+	      html = '';
+	      
+	      for (var j = 0, len = list.length || 0; j < len; j++) {
+		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
+		    	 var date= list[j].e_startDate.substring(8,10);
+		    	 
+		    	 $('#day ul li .on'+date).attr('class','active')
+
+		  }
+	 
+      })
       $('input[name=year]').val(year);
       $('input[name=month]').val(month);
-      $('#year_prev')
-            .click(
-                  function() {
-                     if (month == 1) {
-                        month = 13;
-                        year = year - 1;
-                     }
-                     month = month - 1;
-                     document.getElementById("month").innerHTML = '<em>'
-                           + year + '년</em>' + '<em>' + month
-                           + '월</em>';
-                     lastDate = new Date(year, month, 0).getDate();
-                     document.getElementById("day").innerHTML = html;
-                     var html = '<ul>';
-                     for (var i = 1; i <= lastDate; i++) {
-                        html += '<li><a href="#" class="on">' + i
-                              + '</a></li>';
-                     }
-                     html += '</ul>';
-                     document.getElementById("day").innerHTML = html;
-                     html = '';
-                     $('input[name=year]').val(year);
-                     $('input[name=month]').val(month);
-                  })
+      $('#year_prev').click(function() {
+       	 var slider_div = $('#container .slider-div');
+       	 $(slider_div[0]).remove();
+       	 $('#day').after("<div class='slider-div'></div>")
+            if (month == 1) {
+               month = 13;
+               year = year - 1;
+            }
+            month = month - 1;
+            eventService.monthview({year:year,month:month},function(list){
+           	
+             document.getElementById("month").innerHTML = '<em>'
+                   + year + '년</em>' + '<em>' + month
+                   + '월</em>';
+             lastDate = new Date(year, month, 0).getDate();
+             document.getElementById("day").innerHTML = html;
+             var html = '<ul>';
+             for (var i = 1; i <= lastDate; i++) {
+    	         html += '<li><a href="#" class="on'+i+'">' + i + '</a></li>';
+    	         
+    	     }
+             html += '</ul>';
+             document.getElementById("day").innerHTML = html;
+             html = '';
+             for (var j = 0, len = list.length || 0; j < len; j++) {
+		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
+		    	 var date = list[j].e_startDate.substring(8,10);
+		    	 
+		    	 $('#day ul li .on'+date).attr('class','active')
+
+			 }
+             var str="";
+   	   		 for(var i=0, len = list.length||0;i<len;i++){
+   				list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+   				list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+   				str += '<div class="eventbox">'
+   				str +=	'<div class="eventbox_in">'
+   		        str +=	 '<div class="eventbox_img">'
+   		        str +=    '<a href="#"><img src="../resources/images/'+list[i].e_fname+'"'
+   		        str +=     ' alt="" style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+   		        str +=	    '</div>'
+   		        str +=       '<div class="heart">'
+   	            str +=        '<img src="../resources/images/빈하트.png" alt="" style="width: 16px; height: 16px;">'
+   	            str +=			'</div>'
+   	            str +=           '<div class="eventbox_context">'
+   	            str +=            '<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+   	            str +=			   '<p class="event_title">'+list[i].e_name+'</p>'
+   	            str +=				'</div>'
+   	            str +=				  '<div class="eventbox_context2">'
+   	            str +=    				'<span class="price">'+list[i].e_price+'원</span>'
+   	            str +=					 '<div class="none"></div>'
+   	            str += 					  '<img class="view" src="../resources/images/눈.png"><span>0</span>'
+   				str +=				       '</div> </div></div>'
+   			 }
+   	         $(slider_div[0]).slick('slickAdd',str);
+             $('input[name=year]').val(year);
+             $('input[name=month]').val(month);
+             
+            })
+	  })
       $('#year_next').click(
+    		  	  
                   function() {
+                	 console.log('test')
+                	 var slider_div = $('#container .slider-div');
+                 	 $(slider_div[0]).remove(); 
                      if (month == 12) {
                         month = 0;
                         year = year + 1;
                      }
                      month = month + 1;
-                     document.getElementById("month").innerHTML = '<em>'
-                           + year + '년</em>' + '<em>' + month
-                           + '월</em>';
-                     lastDate = new Date(year, month, 0).getDate();
-                     document.getElementById("day").innerHTML = html;
-                     var html = '<ul>';
-                     for (var i = 1; i <= lastDate; i++) {
-                        html += '<li><a href="#" class="on">' + i
-                              + '</a></li>';
-                     }
-                     html += '</ul>';
-                     document.getElementById("day").innerHTML = html;
-                     html = '';
-                     $('input[name=year]').val(year);
-                     $('input[name=month]').val(month);
+                     eventService.monthview({year:year,month:month},function(list){
+	                     document.getElementById("month").innerHTML = '<em>'
+	                           + year + '년</em>' + '<em>' + month
+	                           + '월</em>';
+	                     lastDate = new Date(year, month, 0).getDate();
+	                     document.getElementById("day").innerHTML = html;
+	                     var html = '<ul>';
+	                     for (var i = 1; i <= lastDate; i++) {
+	            	         html += '<li><a href="#" class="on'+i+'">' + i + '</a></li>';
+	            	         
+	            	     }
+	                     html += '</ul>';
+	                     document.getElementById("day").innerHTML = html;
+	                     html = '';
+	                     for (var j = 0, len = list.length || 0; j < len; j++) {
+	        		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
+	        		    	 var date = list[j].e_startDate.substring(8,10);
+	        		    	 
+	        		    	 $('#day ul li .on'+date).attr('class','active')
+	
+	        	    	 }
+	                     var str="";
+	           	   		 for(var i=0, len = list.length||0;i<len;i++){
+	           				list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+	           				list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+	           				str += '<div class="eventbox">'
+	           				str +=	'<div class="eventbox_in">'
+	           		        str +=	 '<div class="eventbox_img">'
+	           		        str +=    '<a href="#"><img src="../resources/images/'+list[i].e_fname+'"'
+	           		        str +=     ' alt="" style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+	           		        str +=	    '</div>'
+	           		        str +=       '<div class="heart">'
+	           	            str +=        '<img src="../resources/images/빈하트.png" alt="" style="width: 16px; height: 16px;">'
+	           	            str +=			'</div>'
+	           	            str +=           '<div class="eventbox_context">'
+	           	            str +=            '<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+	           	            str +=			   '<p class="event_title">'+list[i].e_name+'</p>'
+	           	            str +=				'</div>'
+	           	            str +=				  '<div class="eventbox_context2">'
+	           	            str +=    				'<span class="price">'+list[i].e_price+'원</span>'
+	           	            str +=					 '<div class="none"></div>'
+	           	            str += 					  '<img class="view" src="../resources/images/눈.png"><span>0</span>'
+	           				str +=				       '</div> </div></div>'
+	           			 }
+	           	         $(slider_div[0]).slick('slickAdd',str);
+	                     $('input[name=year]').val(year);
+	                     $('input[name=month]').val(month);
+                     })  
                   })
    
       }
    })
+
 </script>
 
 <script>
-   $(
-         function() {
+   $(function() {
             $('.slider-div')
                   .slick(
                         {
