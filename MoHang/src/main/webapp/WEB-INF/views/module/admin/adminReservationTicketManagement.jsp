@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,19 +56,23 @@
 			</tr>
 		</thead>
 		<tbody>
+		<c:forEach items="${ticket}" var="TicketReservationDTO">
 			<tr>
 				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이서준</font></font></th>
-				<td><a href="/MoHang/Review/ReviewDetail.do"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/18</font></font></a></td>
+						style="vertical-align: inherit;">${TicketReservationDTO.account_name }</font></font></th>
+				<td><a href="/MoHang/Review/ReviewDetail.do"><font style="vertical-align: inherit;">
+						<fmt:formatDate value = "${TicketReservationDTO.ticket_reservation_time }" pattern="yyyy-MM-dd"/></font></a></td>
 				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">무료</font></font></td>
+						style="vertical-align: inherit;">${TicketReservationDTO.ticket_reservation_price}</font></font></td>
 				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">예약완료</font></font></td>
+						style="vertical-align: inherit;">${TicketReservationDTO.ticket_reservation_status }</font></font></td>
 				<td><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;"><button>예약취소</button></font></font></td>
 			</tr>
-			<tr>
+			</c:forEach>
+			
+			
+			<!-- <tr>
 				<th scope="row"><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;">이용환</font></font></th>
 				<td><font style="vertical-align: inherit;"><font
@@ -125,7 +131,7 @@
 						style="vertical-align: inherit;">미관람</font></font></td>
 				<td><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;"></font></font></td>
-			</tr>
+			</tr> -->
 			
 		</tbody>
 		</table>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 폼에 작성한 데이터를 DB에 저장 -->
+<mapper namespace="org.mohang.mapper.AdminMapper">
+	<!-- 승인반려리스트조회 -->
+	 <select id="listApprove" resultType="org.mohang.domain.ApproveDTO">
+	    select a.ap_num, e.e_name, a.admin_num, a.ap_date, a.ap_check
+	 	from approve a, event e, event_hall_reservation r
+	 	where r.ap_num = a.ap_num and  e.e_num = r.e_num
+	 </select>
+	 
+	 
+	 <!-- 승인반려리스트삭제- 왜냐하면 조인했으니깐 이벤트홀 ap_num을 먼저 삭제 하는거다.-->
+	 <delete id="deleteEventHall" >
+	 	delete event_hall_reservation where ap_num = #{ap_num} 
+	 </delete>
+	 
+	  <!-- 승인반려리스트삭제 -->
+	 <delete id="deleteApprove" >
+	 	delete approve where ap_num = #{ap_num}
+	 </delete>
+	 
+	  <!--승인반려리스트승인- 승인버튼 눌렀을때 비고란버튼들이 없어지면서 리스트에 뜨게끔  -->
+	 <select id="listApprovebtn" resultType="org.mohang.domain.ApproveDTO">
+	 	select a.ap_num, e.e_name, a.admin_num, a.ap_date, a.ap_check
+	 	from approve a, event e, event_hall_reservation r
+	 	where r.ap_num = a.ap_num and  e.e_num = r.e_num 	
+	 </select>	
+	 
+	 
+	 <!-- 회원관리 리스트 조회 -->
+	 <select id="listAccount" resultType="org.mohang.domain.AccountVO">
+	 	select account_id,account_name, account_birth_date,account_phonenumber
+	 	from account
+	 </select>
+	 
+	 
+	 <!-- 티켓예약리스트 조회 -->
+	 <select id="listreservationTicket" resultType ="org.mohang.domain.TicketReservationDTO">
+	 	select a.account_name, t.ticket_reservation_time, t.ticket_reservation_price, 
+		t.ticket_reservation_status
+		from account a , ticket_reservation t
+		where t.account_num = a.account_num
+	 </select>
+	
+	 
+	
+	
+	 
+</mapper>

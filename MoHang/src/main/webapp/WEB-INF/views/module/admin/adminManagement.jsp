@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,32 +47,25 @@
 	</colgroup>
 		<thead>
 			<tr class="table-active">
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이름</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">아이디</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">전화번호</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">나이</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">비고</font></font></th>
+				<th scope="col"><font style="vertical-align: inherit;">이름</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">아이디</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">전화번호</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">생년월일</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">비고</font></th>
 			</tr>
 		</thead>
 		<tbody>
+			<c:forEach items="${account}" var="account">
 			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이서준</font></font></th>
-				<td><a href="/MoHang/views/admin/AdminManagementDetail.do"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">서준123</font></font></a></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
+				<th scope="row"><font style="vertical-align: inherit;">${account.account_name}</font></th>
+				<td><a href="/admin/adminManagementDetail"><font
+						style="vertical-align: inherit;">${account.account_id}</font></a></td>
+				<td><font style="vertical-align: inherit;">${account.account_phoneNumber}</font></td>
+				<td><font style="vertical-align: inherit;">${account.account_birth_date}</font></td>
+				<td><font style="vertical-align: inherit;"><button>삭제</button></font></td>
 			</tr>
-			<tr>
+			</c:forEach>
+			<!-- <tr>
 				<th scope="row"><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;">이용환</font></font></th>
 				<td><font style="vertical-align: inherit;"><font
@@ -129,7 +124,7 @@
 						style="vertical-align: inherit;">5짱나이</font></font></td>
 				<td><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
-			</tr>
+			</tr> -->
 			
 		</tbody>
 		</table>
