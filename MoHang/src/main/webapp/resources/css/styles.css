@@ -12771,9 +12771,8 @@ html {
 	display: inline-block;
 }
 
-.eventbox {
+.eventbox4 {
 	position: relative;
-	height: 230px;
 }
 
 .eventbox_img {
@@ -12850,22 +12849,29 @@ span {
 
 .day_box {
 	margin: 0 auto;
-	width: 200px;
+    width: 210px;
 }
 
 .event_box {
 	height: 400px;
 }
-
+.eventbox_in1{
+	float: left;
+}
 .event_inner {
 	
 }
-
+.eventbox1{
+	
+}
 .month_event_box {
 	margin-bottom: 60px;
 	height: 450px;
 }
 
+.month_event_box_in{
+	
+}
 .eventus-input {
 	background-color: #fcfcfc !important;
 	border: 1px solid rgba(17, 17, 17, .03) !important;
@@ -13029,7 +13035,7 @@ span {
 .eventfieldtitle {
 	font-size: 30px;
 	margin-top: 10px;
-	width: 140px;
+	width: 165px;
 	height: 35px;
 }
 
@@ -13225,4 +13231,8 @@ span {
 .raking_c{
 	font-size: 17px;
 }
-
+.active{
+	color: red;
+    text-decoration: revert;
+    font-size: 20px;
+}

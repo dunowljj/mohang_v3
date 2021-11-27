@@ -38,7 +38,7 @@
 			<button class="btn btn-secondary my-2 my-sm-01" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
 		</form>
 		<a id="btn btn-secondary my-2 my-sm-02" class="btn_1" style="color:red; text-decoration:none;">공지사항</a>&nbsp;&nbsp;&nbsp;
-		<a id="btn btn-secondary my-2 my-sm-03" class="btn_1" href="/MoHang/admin/AdminReview.do" style="text-decoration:none;"> 리뷰</a>
+		<a id="btn btn-secondary my-2 my-sm-03" class="btn_1" href="/admin/listReview" style="text-decoration:none;"> 리뷰</a>
 	
 	
 	
@@ -169,7 +169,7 @@
 			<button type="cancel" class="btn btn-secondary btn-sm" type="reset" style="margin-top: 32px;
              	float: right;">선택삭제</button>
 			<button type="button" class="btn btn-secondary btn-sm" style="margin-top: 32px;
-             	float: right; margin-right: 20px;"><a href="/MoHang/admin/AdminNoticeInsertForm.do" style=" text-decoration:none;">글쓰기</a></button>
+             	float: right; margin-right: 20px;"><a href="/admin/noticeInsertForm" style=" text-decoration:none;">글쓰기</a></button>
 		</div>
 		
 	</div>

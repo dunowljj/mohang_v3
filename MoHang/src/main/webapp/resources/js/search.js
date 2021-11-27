@@ -4,6 +4,7 @@ $(function() {
 	var searchs = $('.search_dropcontent');
 	var buttoncancel = $('.button_cancel');
 	var buttonconfirm = $('.button_confirm');
+	
 	$.each(buttons, function(i, item) {
 		$(item).click(function(e) {
 			pwUp_wrapWindowByMask ();
@@ -53,21 +54,32 @@ $(function() {
 	// 검색 추가 필터 이벤트 and form
 	var filterbtn = $('.filter-btn');
 	var value = '';
+	var inputs = $('input[type="hidden"]');
 	$('input[type=radio]').on('change',function() {
 		value = this.value;
 		if($(this).attr('name')=='price'){
 			$(filterbtn.get(3)).html(value+'<i class="far fa-times-circle cursor-pointer"></i>');
 			$(filterbtn.get(3)).css('display','');
-		}else if($(this).attr('name')=='event-type'){
+			$($(inputs[2]).val(""));
+		}else if($(this).attr('name')=='type'){
 			$(filterbtn.get(1)).html(value+'<i class="far fa-times-circle cursor-pointer"></i>');
 			$(filterbtn.get(1)).css('display','');
-		}else if ($(this).attr('name')=='event-field'){
+			$($(inputs[1]).val(""));
+		}else if ($(this).attr('name')=='field'){
 			$(filterbtn.get(2)).html(value+'<i class="far fa-times-circle cursor-pointer"></i>');
 			$(filterbtn.get(2)).css('display','');
+			$($(inputs[0]).val(""));
+			$('.eventfieldtitle').html("");
+			value = value.replace(',',' ');
+			
 			$('.eventfieldtitle').html(value);
 			$('.eventfieldtitle').css('display','');
+			
+		}else if ($(this).attr('name')=='keyword'){
+			$($(inputs[3]).val(""));
 		}
-		$("#searchform_form").submit();
+			$("#searchform_form").submit();
+		
 	})
 	// 기간 form 
 	$('#toDate').on('change',function(){
@@ -80,18 +92,25 @@ $(function() {
 	// 검색 삭제 필터 이벤트
 	var filterbtns = $('.filter-btn');
 	var text = '';
+	
 	$.each(filterbtns, function(i, item) {
 		$(item).on('click',function(e) {
 			$(item).hide();
+			
 			text = $(item).text();
 			var id=$(this).attr('id');
 			if(id=='field1'){
 				$('.eventfieldtitle').html('<div class="eventfieldtitle"></div>');
 				$("#check").val('field');
+				$($(inputs[0]).val(""));
 			}else if(id=='type1'){
 				$("#check").val('type');
+				$($(inputs[1]).val(""));
 			}else if(id== 'price1'){
 				$("#check").val('price');
+				$($(inputs[2]).val(""));
+			}else if(id== 'keyword1'){
+				$($(inputs[3]).val(""));
 			}
 			$("#searchform_form").submit();	
 			$('input[type=radio]').each(function(i) {
@@ -99,6 +118,7 @@ $(function() {
 				if(value==text){
 					$(this).attr('checked',false);
 				}
+				
 				
 			})
 		})

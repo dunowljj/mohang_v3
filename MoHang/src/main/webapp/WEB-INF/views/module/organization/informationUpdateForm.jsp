@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>단체정보수정</title>
-
 
 <link href="../resources/css/organization.css" rel="stylesheet">
 
@@ -13,6 +15,7 @@
 <body>
 
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
+<script type="text/javascript" src="../resources/js/organization.js"></script>
 <div id="container-box1">
 	<div id="container">
 
@@ -25,23 +28,26 @@
 		</div>
 
 
-		<form>
-			<div class="applyForm" action="InformationUpdateAction.java">
+		<form action="/organization/updateOrganization" method="post">
+			<div class="applyForm">
 				<table class="tb">
+				<input type="hidden" name="o_num" value='<c:out value="${organization.o_num}"/>'></td>
+		
 					<tr>
 						<td class="tbname">단체명</td>
 						<td class="tbinput"><input type="text" class="form-control" name="o_name"
-							value=></td>
+							value='<c:out value="${organization.o_name}"/>' readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td class="tbname">단체홈페이지</td>
-						<td class="tbinput"><input type="text" class="form-control" name="o_name"
-							value=></td>
+						<td class="tbinput"><input type="text" class="form-control" name="o_homepage"
+							value='<c:out value="${organization.o_homepage}"/>' readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td class="tbname">단체전화번호</td>
-						<td class="tbinput"><input type="text" class="form-control" name="o_name"
-							value=></td>
+						<td class="tbinput">
+						<input type="text" class="form-control" name="o_phoneNumber"
+							value='<c:out value="${organization.o_phoneNumber}"/>'  readonly="readonly"></td>
 					</tr>
 				</table>
 			</div>
@@ -49,7 +55,7 @@
 
 			<div class="btnPage">
 			
-				<button type="button" class="btn btn-primary btn-sm" type="submit">수정</button>
+				<button type="submit" class="btn btn-primary btn-sm">단체 변경</button>
 			</div>
 	</form>
 	</div>

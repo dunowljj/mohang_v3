@@ -6,13 +6,22 @@
 
 	
 	<!-- 폼에 작성한 이름을 DB에 저장 -->
-	<insert id="organizationInsert">
+	<insert id="insertOrganization">
 		insert into organization(
-		o_num, account_num, o_name, o_homepage, o_phonenumber) 
+		o_num, account_num, o_name, o_homepage, o_phoneNumber) 
 		values(
-		organization_seq.nextval, #{account_num},#{o_name},#{o_homepage},#{o_phonenumber}
+		organization_seq.nextval, #{account_num},#{o_name},#{o_homepage},#{o_phoneNumber}
 		)
 	</insert>
+	
+	<select id="getOrganization" resultType="org.mohang.domain.OrganizationVO">
+		<!-- onum->accountNum으로 변경하기.  -->
+		select * from organization where #{o_num} = o_num
+	</select>
+	
+	<update id="updateOrganization">
+		update organization set o_name = #{o_name}, o_homepage = #{o_homepage}, o_phoneNumber = #{o_phoneNumber} where  o_num =#{o_num} 
+	</update>
 
 
 

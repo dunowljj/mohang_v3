@@ -1,10 +1,12 @@
 package org.mohang.service;
 
-import org.springframework.stereotype.Service;
+import org.mohang.domain.AccountVO;
 
 
-
-@Service
-public class GeneralService {
-
+public interface GeneralService  {
+	
+	public AccountVO getInformation(String account_num);
+	
+	public boolean updateInformation(AccountVO accountVO);
 }
+

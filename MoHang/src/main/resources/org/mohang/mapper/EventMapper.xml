@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.mohang.mapper.EventMapper">
+
+	<select id="listEvent" resultType="org.mohang.domain.EventVO">
+	 <![CDATA[
+		select  e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event order by e_hitcount desc
+     ]]>	
+	</select>
+	<select id ="listMonthEvent" resultType="org.mohang.domain.EventVO">
+	<![CDATA[
+		select  e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event where e_startdate like  '%'||#{search}||'%' and rownum < 10 order by e_hitcount desc
+	]]>	
+	</select>
+	
+	<!-- 신청한 이벤트 정보 DB등록. 등록한 단체번호 o_num이 넘어와야할듯.-->
+	<insert id="insertApply">
+		insert into event(e_num, o_num, e_name, e_startDate, e_endDate, e_startRecruiteDate, e_endRecruiteDate, e_type, e_field, e_price, e_detail,  e_recruitePeople,  e_fname, e_personName, e_personPhoneNumber,  e_personEmail, eh_reservation_num, e_dfname)
+		values(event_seq.nextval, #{o_num}, #{e_name}, #{e_startDate}, #{e_endDate}, #{e_startRecruiteDate}, #{e_endRecruiteDate}, #{e_type}, #{e_field}, #{e_price}, #{e_detail}, #{e_recruitePeople}, #{e_fname}, #{e_personName}, #{e_personPhoneNumber}, #{e_personEmail}, #{eh_reservation_num}, #{e_dfname})
+	</insert>
+	
+	<select id="listApply" resultType="org.mohang.domain.EventVO" >
+	select * from event
+	</select>
+	
+	<select id="getApply" resultType="org.mohang.domain.EventVO" >
+	select * from event where e_num = #{e_num}
+	</select>
+
+</mapper>

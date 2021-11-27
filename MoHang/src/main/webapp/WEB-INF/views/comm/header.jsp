@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,87 +11,242 @@
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet" />
 <link href="../resources/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="../resources/css/slick.css" />
-<link rel="stylesheet" type="text/css" href="../resources/css/slick-theme.css" />
-<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="../resources/css/slick-theme.css" />
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet">
 <script type="text/javascript" src="../resources/js/jquery.js"></script>
 <script type="text/javascript" src="../resources/js/slick.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- 달력 -->
 
 
 <script>
-   var now = new Date(); // 현재 날짜 및 시간
-   var year = now.getFullYear(); // 연도
-   var month = now.getMonth() + 1; // 월
-   var lastDate = new Date(year, month, 0).getDate();
+	var now = new Date(); // 현재 날짜 및 시간
+	var year = now.getFullYear(); // 연도
+	var month = now.getMonth() + 1; // 월
+	var lastDate = new Date(year, month, 0).getDate();
+	
+	//두자리인지 한자리인지
+	var leadingZeros = function (date, num) {
+		 var zero = '';
+		 date = date.toString();
+		
+		 if (date.length < num) {
+		  for (i = 0; i < num - date.length; i++)
+		   zero += '0';
+		 }
+		 return zero + date;
+	}
+
+   function clickpage(i) {
+	   var param =i.split(",");
+	   var date =leadingZeros(param[0],2);
+	   var month =leadingZeros(param[1],2);
+	   eventService.dayview({date:date,month:month},function(list){
+		 
+		  var html = "";
+	 	  for(var i = 0, len = list.length || 0; i < len; i++){
+	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+	 		  html +='<div class="eventbox4">'
+			  html +=' <div class="eventbox_in1">'
+			  html +='	 <div class="eventbox_img">'
+			  html +='		<a href="#"><img src="../resources/images/'+list[i].e_fname+'" alt=""'
+			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+			  html +='	 </div>'
+			  html +='<div class="eventbox_context1">'
+			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+			  html += '</div>'
+			  html +='<div class="eventbox_context3">'
+			  html +='<span class="price">'+list[i].e_price+'원</span>'
+			  html +='	 </div></div>'
+	 	  }
+	 	  $(".month_event_box_in").html(html);
+	   })
+       
+		  
+   }
+   
    $(function() {
+	 
       if(document.getElementById('month')){
-      document.getElementById("month").innerHTML = '<em>' + year + '년</em>' + '<em>' + month + '월</em>';
-            
-      document.getElementById("day").innerHTML = html;
-      var html = '<ul>';
-      for (var i = 1; i <= lastDate; i++) {
-         html += '<li><a href="#" class="on">' + i + '</a></li>';
-      }
-      html += '</ul>';
-      document.getElementById("day").innerHTML = html;
-      html = '';
+    	  eventService.monthview({year:year,month:month},function(list){
+  			
+	      document.getElementById("month").innerHTML = '<em>' + year + '년</em>' + '<em>' + month + '월</em>';
+	           
+	      document.getElementById("day").innerHTML = html;
+	    
+	      var html = '<ul>';
+	      for (var i = 1; i <= lastDate; i++) {
+	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
+	      }
+	     
+	      html += '</ul>';
+	      document.getElementById("day").innerHTML = html;
+	      html = '';
+	      
+	      for (var j = 0, len = list.length || 0; j < len; j++) {
+		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
+		    	 var date= list[j].e_startDate.substring(8,10);
+		    	 
+		    	 $('#day ul li .on'+date).attr('class','active')
+
+		  }
+ 		  var html = "";
+	 	  for(var i = 0, len = list.length || 0; i < len; i++){
+	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+	 		  html +='<div class="eventbox4">'
+			  html +=' <div class="eventbox_in1">'
+			  html +='	 <div class="eventbox_img">'
+			  html +='		<a href="#"><img src="../resources/images/'+list[i].e_fname+'" alt=""'
+			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+			  html +='	 </div>'
+			  html +='<div class="eventbox_context1">'
+			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+			  html += '</div>'
+			  html +='<div class="eventbox_context3">'
+			  html +='<span class="price">'+list[i].e_price+'원</span>'
+			  html +='	 </div></div>'
+	 	  }
+	 	  $(".month_event_box_in").html(html);
+      })
       $('input[name=year]').val(year);
       $('input[name=month]').val(month);
-      $('#year_prev')
-            .click(
-                  function() {
-                     if (month == 1) {
-                        month = 13;
-                        year = year - 1;
-                     }
-                     month = month - 1;
-                     document.getElementById("month").innerHTML = '<em>'
-                           + year + '년</em>' + '<em>' + month
-                           + '월</em>';
-                     lastDate = new Date(year, month, 0).getDate();
-                     document.getElementById("day").innerHTML = html;
-                     var html = '<ul>';
-                     for (var i = 1; i <= lastDate; i++) {
-                        html += '<li><a href="#" class="on">' + i
-                              + '</a></li>';
-                     }
-                     html += '</ul>';
-                     document.getElementById("day").innerHTML = html;
-                     html = '';
-                     $('input[name=year]').val(year);
-                     $('input[name=month]').val(month);
-                  })
+      $('#year_prev').click(function() {
+       	
+       	 $('#day').after("<div class='slider-div'></div>")
+            if (month == 1) {
+               month = 13;
+               year = year - 1;
+            }
+            month = month - 1;
+            eventService.monthview({year:year,month:month},function(list){
+           	
+             document.getElementById("month").innerHTML = '<em>'
+                   + year + '년</em>' + '<em>' + month
+                   + '월</em>';
+             lastDate = new Date(year, month, 0).getDate();
+             document.getElementById("day").innerHTML = html;
+             var html = '<ul>';
+	   	     for (var i = 1; i <= lastDate; i++) {
+	   	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
+	   	     }
+	   	     
+	   	     html += '</ul>';
+	   	     document.getElementById("day").innerHTML = html;
+             html = '';
+             for (var j = 0, len = list.length || 0; j < len; j++) {
+		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
+		    	 var date = list[j].e_startDate.substring(8,10);
+		    	 
+		    	 $('#day ul li .on'+date).attr('class','active')
+
+			 }
+             var html = "";
+             if(list.length!=0){
+		   	 	 for(var i = 0, len = list.length || 0; i < len; i++){
+		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+		   	 		  html +='<div class="eventbox4">'
+		   			  html +=' <div class="eventbox_in1">'
+		   			  html +='	 <div class="eventbox_img">'
+		   			  html +='		<a href="#"><img src="../resources/images/'+list[i].e_fname+'" alt=""'
+		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+		   			  html +='	 </div>'
+		   			  html +='<div class="eventbox_context1">'
+		   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+		   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+		   			  html += '</div>'
+		   			  html +='<div class="eventbox_context3">'
+		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
+		   			  html +='	 </div></div>'
+		   	 	 }
+             }else{
+            	 html = "";
+             }
+	   	 	 $(".month_event_box_in").html(html);
+             $('input[name=year]').val(year);
+             $('input[name=month]').val(month);
+             
+            })
+	  })
       $('#year_next').click(
+    		  	  
                   function() {
                      if (month == 12) {
                         month = 0;
                         year = year + 1;
                      }
                      month = month + 1;
-                     document.getElementById("month").innerHTML = '<em>'
-                           + year + '년</em>' + '<em>' + month
-                           + '월</em>';
-                     lastDate = new Date(year, month, 0).getDate();
-                     document.getElementById("day").innerHTML = html;
-                     var html = '<ul>';
-                     for (var i = 1; i <= lastDate; i++) {
-                        html += '<li><a href="#" class="on">' + i
-                              + '</a></li>';
-                     }
-                     html += '</ul>';
-                     document.getElementById("day").innerHTML = html;
-                     html = '';
-                     $('input[name=year]').val(year);
-                     $('input[name=month]').val(month);
+                     eventService.monthview({year:year,month:month},function(list){
+	                     document.getElementById("month").innerHTML = '<em>'
+	                           + year + '년</em>' + '<em>' + month
+	                           + '월</em>';
+	                     lastDate = new Date(year, month, 0).getDate();
+	                     document.getElementById("day").innerHTML = html;
+	                     var html = '<ul>';
+		           	     for (var i = 1; i <= lastDate; i++) {
+		           	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
+		           	     }
+		           	     
+		           	     html += '</ul>';
+		           	     document.getElementById("day").innerHTML = html;
+	                     html = '';
+	                     for (var j = 0, len = list.length || 0; j < len; j++) {
+	        		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
+	        		    	 var date = list[j].e_startDate.substring(8,10);
+	        		    	 
+	        		    	 $('#day ul li .on'+date).attr('class','active')
+	
+	        	    	 }
+	                     var html = "";
+	                     if(list.length!=0){
+	        		   	 	 for(var i = 0, len = list.length || 0; i < len; i++){
+	        		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+	        		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+	        		   	 		  html +='<div class="eventbox4">'
+	        		   			  html +=' <div class="eventbox_in1">'
+	        		   			  html +='	 <div class="eventbox_img">'
+	        		   			  html +='		<a href="#"><img src="../resources/images/'+list[i].e_fname+'" alt=""'
+	        		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+	        		   			  html +='	 </div>'
+	        		   			  html +='<div class="eventbox_context1">'
+	        		   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+	        		   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+	        		   			  html += '</div>'
+	        		   			  html +='<div class="eventbox_context3">'
+	        		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
+	        		   			  html +='	 </div></div>'
+	        		   	 	 }
+	                     }else{
+	                    	 html = "";
+	                     }
+	        	   	 	 $(".month_event_box_in").html(html);
+	                     $('input[name=year]').val(year);
+	                     $('input[name=month]').val(month);
+                     })  
                   })
    
       }
    })
+//    $(function(){
+// 	   //베스트 행사
+// 		var hidden = $("input[name=account_Interest]").val();
+// 		console.log("hidden :"+hidden);
+// 		eventService.besteventview(hidden,function(list){
+			
+// 		})
+//    })
+  
 </script>
 
 <script>
-   $(
-         function() {
+   $(function() {
             $('.slider-div')
                   .slick(
                         {
@@ -134,69 +290,70 @@
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-   crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script>
 <!-- Google fonts-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-   rel="stylesheet" type="text/css" />
+	rel="stylesheet" type="text/css" />
 <link
-   href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-   rel="stylesheet" type="text/css" />
+	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../resources/css/styles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </head>
 <body id="page-top">
-   <!-- Navigation-->
-   <nav
-      class="navbar navbar-expand-lg text-uppercase fixed-top bg-secondary"
-      id="mainNav">
-      <div class="container">
-         <a class="navbar-brand" href="/MoHang/Main/MoHang.do"><img
-            src="../resources/images/logo.png"
-            style="width: 140px; height: 80p; background: black;"></a>
-         <form method="post" action="/MoHang/search/eventsearch.do" class="event-search" >
-            <i class="fas fa-search" id="search_img"></i>
-             <input   class="eventus-input" id="einput" type="search" name="keyword">
-         </form>
-         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="nav-eventbar">
-               <li><a href="/MoHang/organization/applyForm.do">단체정보신청</a></li>
-               <li><a href="/MoHang/event/applyList.do">신청 리스트확인</a></li>
-            </ul>
-            <ul class="nav-loginbar">
-               <li><a href="/MoHang/Login/login.do">로그인</a></li>
-               <li><a href="/MoHang/Login/join.do">회원가입</a></li>
-            </ul>
-            <div id="pro_box">
-               <a href="#"><img src="../resources/images/프로필.png"></a>
-               <div class="button">
-                  <img src="../resources/images/button.png">
-               </div>
-               <div id="myPage1" style="display: none">
-                  <ul>
-                     <li>xxx님</li>
-                     <li><a href="/MoHang/general/likeList.do">관심있는 행사</a></li>
-                     <li><a href="/MoHang/organization/applyForm.do">단체 정보 신청</a></li>
-                     <li><a href="/MoHang/event/insertForm.do">행사 신청</a></li>
-                     <li><a href="/MoHang/event/applyList.do">my 행사 리스트</a></li>
-                     <li><a href="/MoHang/event/statisticsList.do">결과 분석 그래프</a></li>
-                     <li><a href="#">1:1 채팅</a></li>
-                     <li><a href="/MoHang/general/reserveList.do">예약확인</a></li>
-                     <li><a href="/MoHang/general/reviewList.do">리뷰 작성 및 확인</a></li>
-                     <li><a href="/MoHang/general/informationUpdateForm.do">회원 정보 수정</a></li>
-                     <li><a href="#">로그 아웃</a></li>
-                  </ul>
-               </div>
+	<!-- Navigation-->
+	<nav
+		class="navbar navbar-expand-lg text-uppercase fixed-top bg-secondary"
+		id="mainNav">
+		<div class="container">
+			<a class="navbar-brand" href="/Main"><img
+				src="../resources/images/logo.png"
+				style="width: 140px; height: 80p; background: black;"></a>
+			<form method="post" action="/search/searchform" class="event-search">
+				<i class="fas fa-search" id="search_img"></i> <input
+					class="eventus-input" id="einput" type="search" name="keyword">
+			</form>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="nav-eventbar">
+					<li><a href="/MoHang/organization/applyForm.do">단체정보신청</a></li>
+					<li><a href="/MoHang/event/applyList.do">신청 리스트확인</a></li>
+				</ul>
+				<ul class="nav-loginbar">
+					<li><a href="/MoHang/Login/login.do">로그인</a></li>
+					<li><a href="/MoHang/Login/join.do">회원가입</a></li>
+				</ul>
+				<div id="pro_box">
+					<a href="#"><img src="../resources/images/프로필.png"></a>
+					<div class="button">
+						<img src="../resources/images/button.png">
+					</div>
+					<div id="myPage1" style="display: none">
+						<ul>
+							<li>xxx님</li>
+							<li><a href="/MoHang/general/likeList.do">관심있는 행사</a></li>
+							<li><a href="/MoHang/organization/applyForm.do">단체 정보 신청</a></li>
+							<li><a href="/MoHang/event/insertForm.do">행사 신청</a></li>
+							<li><a href="/MoHang/event/applyList.do">my 행사 리스트</a></li>
+							<li><a href="/MoHang/event/statisticsList.do">결과 분석 그래프</a></li>
+							<li><a href="#">1:1 채팅</a></li>
+							<li><a href="/MoHang/general/reserveList.do">예약확인</a></li>
+							<li><a href="/MoHang/general/reviewList.do">리뷰 작성 및 확인</a></li>
+							<li><a href="/MoHang/general/informationUpdateForm.do">회원
+									정보 수정</a></li>
+							<li><a href="#">로그 아웃</a></li>
+						</ul>
+					</div>
 
-            </div>
+				</div>
 
 
-         </div>
+			</div>
 
-      </div>
-   </nav>
-<script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
-<script type="text/javascript">
+		</div>
+	</nav>
+	<!-- <script src="../jquery-ui-1.12.1/datepicker-ko.js"></script> -->
+	<script type="text/javascript">
 //마이페이지 다운 이벤트
 $(document).click(function(e) {
    

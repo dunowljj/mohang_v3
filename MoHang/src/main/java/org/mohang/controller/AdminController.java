@@ -1,4 +1,20 @@
-//package org.mohang.controller;
+package org.mohang.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.mohang.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import lombok.extern.log4j.Log4j;
+
 //
 //import java.io.IOException;
 //
@@ -126,3 +142,137 @@
 //	}
 //
 //}
+
+@Log4j
+@Controller
+@RequestMapping("/admin/")
+public class AdminController {
+	@Autowired
+	private AdminService service;
+
+	/* 관리자 메인화면페이지를 보여준다. */
+	@GetMapping("/mohang")
+	public String admin() {
+		log.info("--------------");
+		return "module/admin/adminmain";
+	}
+
+	/* 행사반려승인리스트에서 승인리스트만 받아와서 조회해준다. */
+	@GetMapping("listApprove")
+	public String listapprove(Model model) {
+		List list = new ArrayList<>();
+		list = service.listApprove();
+		System.out.println("List : " + list);
+		model.addAttribute("approve", service.listApprove());
+		return "module/admin/adminApprove";
+	}
+
+	/* 행사반려승인리스트에서 반려 버튼 눌렀을시 삭제되어 삭제된거 제외후 다시 리스트에 뿌려주는 부분 */
+	@GetMapping("deleteApprove")
+	public String deleteApprove(@RequestParam("ap_num") String ap_num) {
+		log.info("delete@@@@@@@@@@@@@@@@@@!!!!!");
+		if (service.deleteEventHall(ap_num) == 1) {
+			// rttr.addFlashAttribute("ap_num", "1");
+			if (service.deleteApprove(ap_num) == 1) {
+				
+			}
+		}
+		
+		return "redirect:/admin/approve";
+	}
+
+	/* 행사반려승인리스트에서 승인 버튼 눌렀을시 승인되어 리스트 비고란에 버튼들이 없어지면서 다시 리스트를 보여주는 부분 */
+	/* 이부분은 버튼삭제에 대한 부분이 아직 완성된거 아님 11월27일 오후 1시55분기준*/
+	@GetMapping("listApprovebtn")
+	public String listApprovebtn(Model model) {
+		model.addAttribute("approve",service.listApprovebtn());
+		log.info("@@@@@@@@@@@");
+		return "module/admin/adminApprove";
+	}
+
+	/* 행사신청디테일 조회 승인리스트에서 예를들어 이름 클릭시 지금처럼 디테일페이지로 이동 */
+	@GetMapping("getApprove")
+	public String getApprove() {
+		
+		return "module/admin/adminApproveDetail";
+	}
+
+	/* 행사예약티켓 조회 예약한 티켓리스트들을 보여준다. */
+	@GetMapping("listReservationTicket")
+	public String listreservationTicket(Model model) {
+		model.addAttribute("ticket",service.listreservationTicket());
+		return "module/admin/adminReservationTicketManagement";
+	}
+
+	/* 예약티켓 삭제버튼 눌렀을시에 적용되어 다시 삭제가 되고 삭제된 리스트를 보여준다. 아직미정 */
+	@PostMapping("deleteTicket")
+	public String deleteTicket() {
+
+		return "moule/admin/adminReservationTicketManagement";
+	}
+
+	/* 게시판 공지사항을 들어갔을때 공지사항 리스트들을 보여준다. */
+	@GetMapping("listNotice")
+	public String notice() {
+
+		return "module/admin/adminNotice";
+	}
+
+	/* 게시판 공지사항 삭제버튼 눌렀을시 리스트 목록에서 삭제되고 다시 삭제되고 남은 리스트들을 보여준다 */
+	@PostMapping("deleteNotice")
+	public String deleteNotice() {
+
+		return "redirect:/module/admin/adminNotice";
+	}
+
+	/* 공지사항게시판에서 글쓰기를 눌렀을시 등록폼으로 이동할 수 있게 하는 부분 */
+	@GetMapping("noticeInsertForm")
+	public String noticeInsertForm() {
+
+		return "module/admin/adminNoticeInsertForm";
+	}
+
+	/* 등록된 리뷰게시판을 조회하는 부분이다. */
+	@GetMapping("listReview")
+	public String getReview() {
+
+		return "/module/admin/adminReviewManagement";
+	}
+
+	/* 리뷰게시판 리스트에서 수정 버튼 눌렀을시 수정된거를 다시 포함하여 리뷰게시판에 뿌려주는 부분 */
+	@PostMapping("updateReview")
+	public String updateReview() {
+
+		return "redirect:/module/admin/adminReviewManagement";
+	}
+
+	/* 리뷰게시판 리스트에서 삭제 버튼 눌렀을시 삭제 된거 제외후 다시 리뷰게시판에 뿌려주는 부분 */
+	@PostMapping("deleteReview")
+	public String deleteReview() {
+
+		return "redirect:/module/admin/adminReviewManagement";
+	}
+
+	/* 등록된 회원에 대한 리스트들을 보여준다. */
+	@GetMapping("listAccount")
+	public String management(Model model) {
+		model.addAttribute("account", service.listAccount());
+
+		return "module/admin/adminManagement";
+	}
+
+	/* 회원정보삭제 버튼 눌렀을시 다시 회원리스트로 삭제된거 제외한 후 리스트로 돌아간다. */
+	@PostMapping("deleteManagement")
+	public String deletemanagement() {
+
+		return "redirect:module/admin/adminManagement";
+	}
+
+	/* 예를들어 회원관리 리스트에서 아이디를 눌렀을시 회원정보에 대한 디테일이 나오게끔 */
+	@GetMapping("managementDetail")
+	public String managementDetail() {
+
+		return "module/admin/adminManagementDetail";
+	}
+
+}

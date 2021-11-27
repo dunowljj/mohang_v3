@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +25,7 @@
 						</a>
 						<div class='review_event_exp'>
 							<div class="review_event_top">
-								<span>kosta223기 인성교육</span><span>무료</span>
+								<span><c:out value='kosta223기 인성교육'/></span><span>무료</span>
 								<span><br>10월 28일(목) 금천구</span><br>
 							</div>
 							<div class="review_event_bottom">

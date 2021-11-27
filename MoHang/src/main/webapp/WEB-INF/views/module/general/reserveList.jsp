@@ -29,41 +29,43 @@
 						<th class='reserveList_h6'>관리</th>
 						<th class='reserveList_h7'>상태</th>
 					</tr>
+					
+				<c:forEach items="" var="obj">
 					<tr class='reserveList_row1'>
 						<td class='reserveList_d1'rowspan='2'>
-							2021.10.24
-							(12:42:30)
+							<c:out value='신청날짜'/>2021.10.24
+							<c:out value='신청일시'/>(12:42:30)
 							<div>진행중</div>
 						</td>
 						<td class='reserveList_d2'>
 							<b>코스타 223기 인성교육 "화성 입국 면접"</b>
 							<div class="img_reserveList"><img src='${pageContext.request.contextPath}/resources/images/1ron.jpg' alt='reserveList_image'></div>
 						</td>
-						<td class='reserveList_d3'>2021.10.28(목)<br>
-						09:00~16:00
+						<td class='reserveList_d3'>2021.10.26(목)<c:out value='${event.e_startDate}'/>~<c:out value='${event.e_endDate}'/>2021.10.28(목)<br>
 						</td>
-						<td class='reserveList_d4'>kosta 가산 </td>
-						<td class='reserveList_d5'>최종금액 	 xxx원</td>
+						<td class='reserveList_d4'><c:out value='${event.eh_location}'/>kosta 가산 </td>
+						<td class='reserveList_d5'>최종금액<c:out value='가격*수량'/> 원</td>
 						<td class='reserveList_d6'>
 							<button class='cancel_openMask' value="예약취소">예약취소</button><br>
 							<button class='ticket_openMask' value="상세보기">상세보기</button>
 						</td>
-						<td class='reserveList_d7'>결제완료</td>
+						<td class='reserveList_d7'><c:out value='${ticketPay.ticket_payment_status}'/>결제완료</td>
 					</tr>
 					<tr class='reserveList_row2'>
 						<td class='reserveList_d2'>
-						이정준<br>
-						01046666218<br>
-						uuufg3322@naver.com
+							<c:out value="${account.account_name}"/> 이정준<br>
+							<c:out value="${account.account_id}"/>01046666218<br>
+							<c:out value="${account.account_password}"/>uuufg3322@naver.com
 						</td>
 						<td class='reserveList_d3'></td>
 						<td class='reserveList_d4'></td>
 						<td class='reserveList_d5'></td>
-						<td class='reserveList_d6'>수량</td>
+						<td class='reserveList_d6'><c:out value="${ticketReserve.Ticket__Reservation_Amount}"/> 매</td>
 						<td class='reserveList_d7'></td>
 					</tr>
+				</c:forEach>
 					<!--더미2 시작-->
-					<tr class='reserveList_row1'>
+					<tr class='reserveList_row2'>
 						<td class='reserveList_d1'rowspan='2'>
 							2021.10.24
 							(12:42:30)
