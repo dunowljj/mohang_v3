@@ -20,8 +20,11 @@ button{
 	width : 100%;
 }
 .form_wrap{
-	line-height: 3;
+	line-height: 2;
 	font-size:22px;
+}
+#updateForm input{
+	margin : 15px 0;
 }
 .form_head{
     width: 46%;

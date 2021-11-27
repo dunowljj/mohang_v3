@@ -7,5 +7,5 @@ public interface GeneralMapper {
 	
 	public int updatePassword(AccountVO account);
 	
-	
+	public AccountVO getInformation(String account_num);
 }

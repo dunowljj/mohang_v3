@@ -1,5 +1,7 @@
 package org.mohang.domain;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,10 +17,10 @@ public class AccountVO {
 	private String account_name;
 	private String account_email;
 	private String account_address;
-	private String account_join_date;
+	private Date account_join_date;
+	private int account_mileage;
 	private String account_interest;
-	private String account_img;
+	private Date account_birth_date;
 	private String account_gender;
-	private int account_age;
-	private int account_mileage;	
+	private String account_phonenumber;	
 }
