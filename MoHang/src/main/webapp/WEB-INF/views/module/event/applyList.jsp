@@ -2,6 +2,10 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,17 +64,14 @@
 			</tr>
 		</thead>
 		<tbody>
+		
+		<c:forEach items="${eventList}" var="event">
 			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></th>
-				<td onclick="event.cancelBubble=true"><a href="/MoHang/event/applyInsertFormShow.do" ><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">~여행을 떠나요</font></font></a></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/17</font></font></td>
-				<td><div class="arrow"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;" >승인대기</font></font></div></td>
-				<td onclick="event.cancelBubble=true"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><a href="/MoHang/event/insertFormUpdate.do"><button>수정</button><button style="display:none">결제</button></a></font></font></td>
+				<th scope="row"><font style="vertical-align: inherit;"><c:out value="${event.e_num}"/></font></th>
+				<td onclick="event.cancelBubble=true"><a href="/event/getApply" ><c:out value="${event.e_name}"/></font></a></td>
+				<td><font style="vertical-align: inherit;"><c:out value="${event.e_applyDate}"/></font></td>
+				<td><div class="state"><font style="vertical-align: inherit;">아래의 말이랑 맞춰야하는데ㄱㄷ 자스로 처리</font></div></td>
+				<td onclick="event.cancelBubble=true"><font style="vertical-align: inherit;"><a href="/event/insertFormUpdate.do"><button>수정</button><button style="display:none">결제</button></a></font></td>
 			</tr>
 			<tr>
 				<td colspan="5" >
@@ -115,236 +116,9 @@
 					</div>
 				</td>
 			</tr>
-	<!-- 아코디언  한덩어리 실험 -->
-<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></th>
-				<td onclick="event.cancelBubble=true"><a href="/MoHang/event/applyInsertFormShow.do" ><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">~여행을 떠나요</font></font></a></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/17</font></font></td>
-				<td><div class="arrow"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;" >승인대기</font></font></div></td>
-				<td onclick="event.cancelBubble=true"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><a href="/MoHang/event/insertFormUpdate.do"><button>수정</button><button style="display:none">결제</button></a></font></font></td>
-			</tr>
-			<tr>
-				<td colspan="5" >
-					<div class="listArccodian">
-					<!-- 이미지+글조합 -->
-						<div class="arccodianBox">
-							<figure >
-								<img src="../resources/images/승인1.png" alt="승인대기" class="imageSize" id="img1"/>
-								<figcaption>승인대기</figcaption>
-							</figure>
-				
-							<figure>
-								<img src="../resources/images/승인3.png" alt="승인반려" class="imageSize" id="img3"/>
-								<figcaption>승인반려</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인4.png" alt="승인완료" class="imageSize" id="img4"/>
-								<figcaption>승인완료</figcaption>
-							</figure>
-							
-						<figure>
-								<img src="../resources/images/승인5.png" alt="결제대기" class="imageSize" id="img5"/>
-								<figcaption>결제대기</figcaption>
-							</figure>
-						
-								<figure>
-								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6"/>
-								<figcaption>행사대기</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7"/>
-								<figcaption>행사진행중</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8"/>
-								<figcaption>행사완료</figcaption>
-							</figure> 
-						</div>
-					</div>
-				</td>
-			</tr>
-			
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></th>
-				<td onclick="event.cancelBubble=true"><a href="/MoHang/event/applyInsertFormShow.do" ><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">~여행을 떠나요</font></font></a></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/17</font></font></td>
-				<td><div class="arrow"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;" >승인대기</font></font></div></td>
-				<td onclick="event.cancelBubble=true"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><a href="/MoHang/event/insertFormUpdate.do"><button>수정</button><button style="display:none">결제</button></a></font></font></td>
-			</tr>
-			<tr>
-				<td colspan="5" >
-					<div class="listArccodian">
-					<!-- 이미지+글조합 -->
-						<div class="arccodianBox">
-							<figure >
-								<img src="../resources/images/승인1.png" alt="승인대기" class="imageSize" id="img1"/>
-								<figcaption>승인대기</figcaption>
-							</figure>
-				
-							<figure>
-								<img src="../resources/images/승인3.png" alt="승인반려" class="imageSize" id="img3"/>
-								<figcaption>승인반려</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인4.png" alt="승인완료" class="imageSize" id="img4"/>
-								<figcaption>승인완료</figcaption>
-							</figure>
-							
-						<figure>
-								<img src="../resources/images/승인5.png" alt="결제대기" class="imageSize" id="img5"/>
-								<figcaption>결제대기</figcaption>
-							</figure>
-						
-								<figure>
-								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6"/>
-								<figcaption>행사대기</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7"/>
-								<figcaption>행사진행중</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8"/>
-								<figcaption>행사완료</figcaption>
-							</figure> 
-						</div>
-					</div>
-				</td>
-			</tr>
-			
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></th>
-				<td onclick="event.cancelBubble=true"><a href="/MoHang/event/applyInsertFormShow.do" ><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">~여행을 떠나요</font></font></a></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/17</font></font></td>
-				<td><div class="arrow"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;" >승인대기</font></font></div></td>
-				<td onclick="event.cancelBubble=true"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><a href="/MoHang/event/insertFormUpdate.do"><button>수정</button><button style="display:none">결제</button></a></font></font></td>
-			</tr>
-			<tr>
-				<td colspan="5" >
-					<div class="listArccodian">
-					<!-- 이미지+글조합 -->
-						<div class="arccodianBox">
-							<figure >
-								<img src="../resources/images/승인1.png" alt="승인대기" class="imageSize" id="img1"/>
-								<figcaption>승인대기</figcaption>
-							</figure>
-				
-							<figure>
-								<img src="../resources/images/승인3.png" alt="승인반려" class="imageSize" id="img3"/>
-								<figcaption>승인반려</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인4.png" alt="승인완료" class="imageSize" id="img4"/>
-								<figcaption>승인완료</figcaption>
-							</figure>
-							
-						<figure>
-								<img src="../resources/images/승인5.png" alt="결제대기" class="imageSize" id="img5"/>
-								<figcaption>결제대기</figcaption>
-							</figure>
-						
-								<figure>
-								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6"/>
-								<figcaption>행사대기</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7"/>
-								<figcaption>행사진행중</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8"/>
-								<figcaption>행사완료</figcaption>
-							</figure> 
-						</div>
-					</div>
-				</td>
-			</tr>
-			
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></th>
-				<td onclick="event.cancelBubble=true"><a href="/MoHang/event/applyInsertFormShow.do" ><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">~여행을 떠나요</font></font></a></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/17</font></font></td>
-				<td><div class="arrow"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;" >승인대기</font></font></div></td>
-				<td onclick="event.cancelBubble=true"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><a href="/MoHang/event/insertFormUpdate.do"><button>수정</button><button style="display:none">결제</button></a></font></font></td>
-			</tr>
-			<tr>
-				<td colspan="5" >
-					<div class="listArccodian">
-					<!-- 이미지+글조합 -->
-						<div class="arccodianBox">
-							<figure >
-								<img src="../resources/images/승인1.png" alt="승인대기" class="imageSize" id="img1"/>
-								<figcaption>승인대기</figcaption>
-							</figure>
-				
-							<figure>
-								<img src="../resources/images/승인3.png" alt="승인반려" class="imageSize" id="img3"/>
-								<figcaption>승인반려</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인4.png" alt="승인완료" class="imageSize" id="img4"/>
-								<figcaption>승인완료</figcaption>
-							</figure>
-							
-						<figure>
-								<img src="../resources/images/승인5.png" alt="결제대기" class="imageSize" id="img5"/>
-								<figcaption>결제대기</figcaption>
-							</figure>
-						
-								<figure>
-								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6"/>
-								<figcaption>행사대기</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7"/>
-								<figcaption>행사진행중</figcaption>
-							</figure>
-							
-							<figure>
-								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8"/>
-								<figcaption>행사완료</figcaption>
-							</figure> 
-						</div>
-					</div>
-				</td>
-			</tr>
-			
-			
-			
-			
-			
-	
+		</c:forEach>
+					
+					
 			
 		</tbody>
 		</table>

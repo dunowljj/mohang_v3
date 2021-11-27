@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
 public interface OrganizationService {
 	public int insertOrganization(OrganizationVO organizationVO);
 	public OrganizationVO getOrganization(String account_num);
-	public int updateOrganization(OrganizationVO organization);
+	public int updateOrganization(OrganizationVO organizationVO);
 }

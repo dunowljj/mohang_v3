@@ -20,7 +20,7 @@
 	</select>
 	
 	<update id="updateOrganization">
-		update organization set o_name = #{o_name}, o_homePage=#{o_homepage}, o_phoneNumber =,#{o_phoneNumber} where #{account_num} = account_num 
+		update organization set o_name = #{o_name}, o_homepage = #{o_homepage}, o_phoneNumber = #{o_phoneNumber} where  o_num =#{o_num} 
 	</update>
 
 
