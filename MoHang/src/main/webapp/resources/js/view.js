@@ -3,8 +3,9 @@
  */
 console.log("Reply Module........");
 
-var eventService = (function() {
 
+var eventService = (function() {
+	
 	//베스트 행사
 	function view(callback, error) {
 		$.getJSON("/view/list.json",
@@ -33,30 +34,32 @@ var eventService = (function() {
 			}
 		});
 	}
-//	$.ajax({
-//	type : 'get',
-//	url : "/view/list",
-//	success : function(list, status, xhr) {
-//		if (callback) {
-//			callback(list);
-//		}
-//	},
-//	error : function(xhr, status, er) {
-//		if (error) {
-//			error(er);
-//		}
-//	}
-//});
+	function dayview(param,callback,error){
+		var month = param.month;
+		var date = param.date;
+		$.getJSON("/view/day/"+month+"/"+date+".json",
+				function (data) {
+					if (callback) {
+						callback(data);
+					}
+				}).fail(function(xhr, status, err) {
+			if (error) {
+				error();
+			}
+		});
+	}
+		
+		
 	
-
+	
 
 	return {
 		view : view,
-		monthview : monthview
+		monthview : monthview,
+		dayview : dayview
 	};
 
 })();
-
 $(document).ready(function () {
 	var slider_div = $('.slider-div');
 	var str ="";
@@ -83,7 +86,8 @@ $(document).ready(function () {
             str += 					  '<img class="view" src="../resources/images/눈.png"><span>0</span>'
 			str +=				       '</div> </div></div>'
 		}
-		$(slider_div[2]).slick('slickAdd',str);
+		$(slider_div[1]).slick('slickAdd',str);
 		
 	})
+	
 })

@@ -6,11 +6,13 @@
 
 	<select id="listEvent" resultType="org.mohang.domain.EventVO">
 	 <![CDATA[
-		select  e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event where e_hitcount <=5 order by e_hitcount desc 
+		select  e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event order by e_hitcount desc
      ]]>	
 	</select>
 	<select id ="listMonthEvent" resultType="org.mohang.domain.EventVO">
-		select  e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event where e_startdate like  '%'||#{search}||'%'	
+	<![CDATA[
+		select  e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event where e_startdate like  '%'||#{search}||'%' and rownum < 10 order by e_hitcount desc
+	]]>	
 	</select>
 	
 

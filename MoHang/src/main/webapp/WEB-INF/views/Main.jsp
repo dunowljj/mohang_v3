@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>MoHang?</title>
@@ -20,14 +21,14 @@
 	<div id="header_nav">
 		<ul>
 			<li><a href="/search/searchform?field=모든 분야" class="on">전체</a></li>
-            <li><a href="/search/searchform?field=사업/창업">사업/창업</a></li>
-            <li><a href="/search/searchform?field=IT/개발">IT/개발</a></li>
-            <li><a href="/search/searchform?field=마케팅/홍보">마케팅/홍보</a></li>
-            <li><a href="/search/searchform?field=디자인/기획">디자인/기획</a></li>
-            <li><a href="/search/searchform?field=문화/예술">문화/예술</a></li>
-            <li><a href="/search/searchform?field=취미/생활">취미/생활</a></li>
-            <li><a href="/search/searchform?field=건강/의료">건강/의료</a></li>
-            <li><a href="/review/list">리뷰게시판</a></li>
+			<li><a href="/search/searchform?field=사업/창업">사업/창업</a></li>
+			<li><a href="/search/searchform?field=IT/개발">IT/개발</a></li>
+			<li><a href="/search/searchform?field=마케팅/홍보">마케팅/홍보</a></li>
+			<li><a href="/search/searchform?field=디자인/기획">디자인/기획</a></li>
+			<li><a href="/search/searchform?field=문화/예술">문화/예술</a></li>
+			<li><a href="/search/searchform?field=취미/생활">취미/생활</a></li>
+			<li><a href="/search/searchform?field=건강/의료">건강/의료</a></li>
+			<li><a href="/review/list">리뷰게시판</a></li>
 		</ul>
 	</div>
 	<div class="carousel-inner">
@@ -58,23 +59,28 @@
 <div id="container-box">
 	<div id="container">
 		<div class="month_event_box">
-		<p class="title">이달의 행사 일정</p>
-		<form action="" method="post" id="year_monthform">
-			<input type="hidden" name="year" value="" >
-			<input type="hidden" name="month" value="" >
-			<div class="day_box"><a href="#" id="year_prev"><img src="../resources/images/prev.png" ></a><div id="month"></div><a href="#" id="year_next"><img src="../resources/images/next.png" ></a></div>
-			<div id="day">
-			</div>
-			<div class="slider-div">
-			</div>	
-		</form>
+			<p class="title">이달의 행사 일정</p>
+			<form action="" method="post" id="year_monthform">
+				<input type="hidden" name="year" value=""> <input
+					type="hidden" name="month" value="">
+				<div class="day_box">
+					<a href="#" id="year_prev"><img
+						src="../resources/images/prev.png"></a>
+					<div id="month"></div>
+					<a href="#" id="year_next"><img
+						src="../resources/images/next.png"></a>
+				</div>
+				<div id="day"></div>
+				<div class="month_event_box_in">
+					
+					
+				</div>
+			</form>
 		</div>
 		<p class="title">추천 행사</p>
-		<div class="slider-div">
-		</div>
+		<div class="slider-div"></div>
 		<p class="title">베스트 행사</p>
-		<div class="slider-div">
-		</div>
+		<div class="slider-div"></div>
 	</div>
 </div>
 
