@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,9 +21,11 @@
 
 <jsp:include page="/WEB-INF/views/comm/adminheader.jsp"></jsp:include>
 
+
 <div class ="dd" style= "display : none">	
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 </div>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin.js"></script>
 	
 	<div id="container-box1" style = "clear:both";>
 	<div id="container">
@@ -52,20 +56,29 @@
 						style="vertical-align: inherit;">비고</font></font></th>
 			</tr>
 		</thead>
+		
 		<tbody>
+		<c:forEach items="${approve}" var="approveDTO">
 			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></th>
-				<td><a href="/MoHang/Review/ReviewDetail.do"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">~여행을 떠나요</font></font></a></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/17</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">심사중</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>반려</button><button>승인</button></font></font></td>
+				<th scope="row"><font style="vertical-align: inherit;">${approveDTO.ap_num}</font></th>
+				<td><a href="/MoHang/Review/ReviewDetail.do"><font style="vertical-align: inherit;">
+						${approveDTO.e_name}</font></a></td>
+				<td><font style="vertical-align: inherit;">
+				<fmt:formatDate value="${approveDTO.ap_date}" pattern="yyyy-MM-dd"/>
+						</font></td>
+				<td><font style="vertical-align: inherit;">
+						${approveDTO.ap_check}</font></td>
+				
+				<td><font style="vertical-align: inherit;">
+						<a href="/admin/deleteApprove?ap_num=${approveDTO.ap_num}" ><button class="btn1" >반려</button></a>
+						<a href="/admin/insertApprove" ><button class="btn1" >승인</button></a>
+						</font>
+<!-- 						onclick= "btn_hide()" -->
+				</td>
 			</tr>
-			<tr>
+			</c:forEach>
+			
+			<!-- <tr>
 				<th scope="row"><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;">2</font></font></th>
 				<td><font style="vertical-align: inherit;"><font
@@ -113,7 +126,7 @@
 				<td><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;"></font></font></td>
 			</tr>
-			
+			 -->
 		</tbody>
 		</table>
 
