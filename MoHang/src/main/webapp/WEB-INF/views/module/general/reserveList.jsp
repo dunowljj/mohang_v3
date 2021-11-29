@@ -12,6 +12,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general-script.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_modal-script.js"></script>
 	<div id="container-box1">
 		<div id="container">
 			<div class="general_wrapper">

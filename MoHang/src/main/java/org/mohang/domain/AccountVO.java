@@ -23,4 +23,6 @@ public class AccountVO {
 	private Date account_birth_date;
 	private String account_gender;
 	private String account_phonenumber;	
+	
+//	private GeneralAttachFileVO attach;
 }

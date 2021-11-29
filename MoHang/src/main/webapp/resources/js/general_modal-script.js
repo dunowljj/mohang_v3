@@ -84,10 +84,21 @@ function pwUp_wrapWindowByMask (){
 	$('.pwUp_ModalPopup').center();
 	$('#wrap').attr('overflow', 'hidden');
 }
+
+//value 값 청소 
+function pwUp_cleanModal(){
+	$("#pw_update_form input").val("");
+//	$("#pw_update_form input").attr('value', '');
+}
+
+
 function pwUp_unwrapWindowByMask (){
 	$('#mask').fadeOut();
 	$('.pwUp_ModalPopup').hide(); 
+	pwUp_cleanModal();
 }
+
+
 
 /*버튼 클릭시 위 함수 콜*/ 
 $(function () { 

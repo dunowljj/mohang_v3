@@ -20,21 +20,24 @@
 					<!-- 행사 1 -->
 				<div class='like_row_container'>
 					<div class='likeList_table_wrap'>
-						<c:forEach var="name" items="${likeMaker}">
+						<c:forEach var="like" items="${likeList}">
 							<div class='like_one_wrap'>
 								<div class='like_event_image'>
-									<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>
-									<img class='like_event_images' src='${pageContext.request.contextPath}/resources/images/행사1_1.jpg' alt='like_event'>
-								</div>
-								<div class=''>
-									<c:out value="${eventHall.eh_location}"/>10월 10일(토) 금천구
-								</div>
-								<div class="">
-									<span><c:out value="${event.e_name}"/></span>
-								</div>
-								<div class="like_event_bottom">
-									<span>무료</span>	
-									<span><span><i class="far fa-eye"></i></span><c:out value="${event.e_hitcount}"/></span>
+									<a href=''><img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''></a>
+									<img class='like_event_images' src="${pageContext.request.contextPath}/resources/images/${like.e_fname}" alt='like_event'>
+								</div> 
+								<div class="like_one_wrap_bottom">
+									<div class=''>
+										<c:out value="${like.e_startRecruiteDate}"/><c:out value="${like.eh_location}"/>
+									</div>
+									<div class="">
+										<span><c:out value="${like.e_name}"/></span>
+									</div>
+									<div class="like_event_bottom">
+										<div>무료</div>
+										<div>　</div>	
+										<div><span><i class="far fa-eye"></i></span><c:out value="조회수 ${like.e_hitcount}"/></div>
+									</div>
 								</div>	
 							</div>
 						</c:forEach>

@@ -2,9 +2,12 @@ package org.zerock.service;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.GeneralLikeListDTO;
 import org.mohang.service.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,10 +24,14 @@ public class GeneralServiceTests {
 	@Setter(onMethod_ = @Autowired)
 	private GeneralService service;
 	
+//	@Test
+//	public void test() {
+//		AccountVO vo = service.getInformation("A-2");
+//		log.info(vo);
+//	}
 	@Test
-	public void test() {
-		AccountVO vo = service.getInformation("A-2");
-		log.info(vo);
+	public void testlistLikes(){
+		service.listLikes("2").forEach(like -> log.info(like));
+		 
 	}
-
 }

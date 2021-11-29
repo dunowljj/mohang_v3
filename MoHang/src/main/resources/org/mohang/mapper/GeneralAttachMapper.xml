@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.mohang.mapper.GeneralAttachMapper">
+	
+	<select id="getInformationAttach" resultType="org.mohang.domain.GeneralAttachFileDTO">
+		select 
+			account_uuid, account_path, account_fileName, account_fileType
+		from
+			account_attach
+		where
+			account_num = #{account_num}
+	</select>
+	
+	<update id="updateInformationAttach">
+		update
+			account_attach
+		set
+			account_uuid = #{account_uuid},
+			account_path = #{account_path},
+			account_fileName = #{account_fileName},
+			account_fileType = #{account_fileType}
+		where
+			account_num = #{account_num}
+	</update>
+
+</mapper> 
