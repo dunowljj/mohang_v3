@@ -5623,7 +5623,7 @@ margin-top
 	border-top: 0.125rem solid rgba(0, 0, 0, 0.125);
 }
 
-.card-footer:last-child {
+.card-:last-child {
 	border-radius: 0 0 0.375rem 0.375rem;
 }
 
@@ -9697,12 +9697,13 @@ important
 	-bs-bg-opacity: 1;
 	background-color: rgba(var(- -bs-white-rgb), var(- -bs-bg-opacity))
 		!important;
+	max-width: 25rem;
 }
 
 .bg-body { -
 	-bs-bg-opacity: 1;
 	background-color: rgba(var(- -bs-body-bg-rgb), var(- -bs-bg-opacity))
-		!important;
+		!important;WWWW
 }
 
 .bg-transparent { -
@@ -12593,6 +12594,7 @@ html {
 .footer {
 	border-top: 1px solid #333;
 	background-color: #fdfdfd;
+	clear: both;
 }
 
 .copyright {
@@ -12668,6 +12670,10 @@ html {
 
 #Notice_container {
 	border-top: 1px solid #333;
+	clear: both;
+	margin-top: 80px;
+    display: inline-block;
+    width: 100%;
 }
 
 #pro_box {
@@ -12721,10 +12727,17 @@ html {
 	width: 1265px;
 	margin: 0 auto;
 }
+@media (min-width 768px){
+	#container-box {
+		margin-top: 15px;
+	    max-height: 768px;
+		margin-bottom: 50px;
+	}
+}
 
 #container-box {
 	margin-top: 15px;
-	max-height: 1320px;
+    max-height: 1750px;
 	margin-bottom: 50px;
 }
 
@@ -12814,10 +12827,8 @@ span {
 
 .heart {
 	width: 30px;
-	height: 30px;
-	position: absolute;
-	right: 10px;
-	top: 5px;
+    height: 30px;
+    float: right;
 }
 
 #month {
@@ -12865,8 +12876,8 @@ span {
 	
 }
 .month_event_box {
-	margin-bottom: 60px;
-	height: 450px;
+	max-height: 1300px;
+    min-height: 750px;
 }
 
 .month_event_box_in{
@@ -12903,7 +12914,7 @@ span {
 }
 
 #container-box1 {
-	max-height: 2500px;
+	min-height: 2500px;
 	margin-bottom: 85px;
 }
 
@@ -13059,6 +13070,7 @@ span {
 	width: 290px;
 	float: right;
 	margin-top: 20px;
+	margin-right: -85px;
 }
 
 #eventbox {
@@ -13207,7 +13219,7 @@ span {
 .nav-eventbar{
 	list-style-type: none;
     margin-top: 15px;
-    margin-left: 160px;
+    margin-left: 260px;
 }
 .nav-eventbar li{
 	display: inline-block;

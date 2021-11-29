@@ -16,13 +16,16 @@
 	
 	<select id="getOrganization" resultType="org.mohang.domain.OrganizationVO">
 		<!-- onum->accountNum으로 변경하기.  -->
-		select * from organization where #{o_num} = o_num
+		select * from organization where o_num = #{o_num}
 	</select>
 	
 	<update id="updateOrganization">
 		update organization set o_name = #{o_name}, o_homepage = #{o_homepage}, o_phoneNumber = #{o_phoneNumber} where  o_num =#{o_num} 
 	</update>
-
+	<!-- 충돌 조심 -->
+	<select id ="getOrganizationOnum" resultType="org.mohang.domain.OrganizationVO">
+		select o_name,o_homepage from organization where o_num = #{o_num}
+	</select>
 
 
 

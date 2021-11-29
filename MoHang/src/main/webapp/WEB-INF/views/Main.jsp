@@ -20,7 +20,6 @@
 	data-bs-ride="carousel">
 	<div id="header_nav">
 		<ul>
-			<li><a href="/search/searchform?field=모든 분야" class="on">전체</a></li>
 			<li><a href="/search/searchform?field=사업/창업">사업/창업</a></li>
 			<li><a href="/search/searchform?field=IT/개발">IT/개발</a></li>
 			<li><a href="/search/searchform?field=마케팅/홍보">마케팅/홍보</a></li>
@@ -70,11 +69,9 @@
 					<a href="#" id="year_next"><img
 						src="../resources/images/next.png"></a>
 				</div>
+				<input type="hidden" name="account_Interest" value="문화/예술" />
 				<div id="day"></div>
-				<div class="month_event_box_in">
-					
-					
-				</div>
+				<div class="month_event_box_in"></div>
 			</form>
 		</div>
 		<p class="title">추천 행사</p>
