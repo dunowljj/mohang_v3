@@ -1,6 +1,6 @@
 package org.mohang.controller;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 
 import org.mohang.service.AdminService;
@@ -166,6 +166,12 @@ public class AdminController {
 		model.addAttribute("approve", service.listApprove());
 		return "module/admin/adminApprove";
 	}
+	
+	/*승인반려리스트에서 글 제목 눌렀을시 디테일 페이지로 이동하게끔*/
+	/*@GetMapping("listDetail")
+	public String listDetail(@RequestParam("ap_num") String ap_num, Model model){
+		
+	}*/
 
 	/* 행사반려승인리스트에서 반려 버튼 눌렀을시 삭제되어 삭제된거 제외후 다시 리스트에 뿌려주는 부분 */
 	@GetMapping("deleteApprove")
@@ -178,11 +184,10 @@ public class AdminController {
 			}
 		}
 		
-		return "redirect:/admin/approve";
+		return "module/admin/approve";
 	}
 
 	/* 행사반려승인리스트에서 승인 버튼 눌렀을시 승인되어 리스트 비고란에 버튼들이 없어지면서 다시 리스트를 보여주는 부분 */
-	/* 이부분은 버튼삭제에 대한 부분이 아직 완성된거 아님 11월27일 오후 1시55분기준*/
 	@GetMapping("listApprovebtn")
 	public String listApprovebtn(Model model) {
 		model.addAttribute("approve",service.listApprovebtn());
@@ -204,25 +209,31 @@ public class AdminController {
 		return "module/admin/adminReservationTicketManagement";
 	}
 
-	/* 예약티켓 삭제버튼 눌렀을시에 적용되어 다시 삭제가 되고 삭제된 리스트를 보여준다. 아직미정 */
-	@PostMapping("deleteTicket")
-	public String deleteTicket() {
-
-		return "moule/admin/adminReservationTicketManagement";
+	/* 예약티켓 삭제버튼 눌렀을시에 적용되어 다시 삭제가 되고 삭제된 리스트를 보여준다.  */
+	@GetMapping("deleteTicket")
+	public String deleteTicket(@RequestParam("ticket_reservation_num") String ticket_reservation_num) {
+		log.info("티켓리스트 삭제");
+		if(service.deleteTicketReservation(ticket_reservation_num)==1){
+			
+		}
+		return "redirect:listReservationTicket";
 	}
 
 	/* 게시판 공지사항을 들어갔을때 공지사항 리스트들을 보여준다. */
 	@GetMapping("listNotice")
-	public String notice() {
-
+	public String notice(Model model) {
+		model.addAttribute("notice",service.listNotice());
+		
 		return "module/admin/adminNotice";
 	}
 
 	/* 게시판 공지사항 삭제버튼 눌렀을시 리스트 목록에서 삭제되고 다시 삭제되고 남은 리스트들을 보여준다 */
-	@PostMapping("deleteNotice")
-	public String deleteNotice() {
-
-		return "redirect:/module/admin/adminNotice";
+	@GetMapping("deleteNotice")
+	public String deleteNotice(@RequestParam("notice_num") String notice_num) {
+		if(service.deleteNotice(notice_num)==1){
+			
+		}
+		return "redirect:listNotice";
 	}
 
 	/* 공지사항게시판에서 글쓰기를 눌렀을시 등록폼으로 이동할 수 있게 하는 부분 */
@@ -231,11 +242,18 @@ public class AdminController {
 
 		return "module/admin/adminNoticeInsertForm";
 	}
+	
+	/*공지사항게시판에서 글제목눌렀을때 디테일페이지로 이동하게끔*/
+	@GetMapping("noticeDetail")
+	public String noticeDetail(@RequestParam("notice_num") String notice_num, Model model){
+				model.addAttribute("detailNotice" ,service.detailNotice(notice_num));
+				return "module/admin/adminNoticeDetail";
+	}
 
 	/* 등록된 리뷰게시판을 조회하는 부분이다. */
 	@GetMapping("listReview")
-	public String getReview() {
-
+	public String getReview(Model model) {
+		model.addAttribute("review", service.listReview());
 		return "/module/admin/adminReviewManagement";
 	}
 
@@ -247,10 +265,13 @@ public class AdminController {
 	}
 
 	/* 리뷰게시판 리스트에서 삭제 버튼 눌렀을시 삭제 된거 제외후 다시 리뷰게시판에 뿌려주는 부분 */
-	@PostMapping("deleteReview")
-	public String deleteReview() {
-
-		return "redirect:/module/admin/adminReviewManagement";
+	@GetMapping("deleteReview")
+	public String deleteReview(@RequestParam("review_num") String review_num) {
+		if(service.deleteReview(review_num) == 1){
+			log.info("리뷰게시판 삭제완료");
+		}
+		
+		return "redirect:listReview";
 	}
 
 	/* 등록된 회원에 대한 리스트들을 보여준다. */
@@ -261,18 +282,25 @@ public class AdminController {
 		return "module/admin/adminManagement";
 	}
 
-	/* 회원정보삭제 버튼 눌렀을시 다시 회원리스트로 삭제된거 제외한 후 리스트로 돌아간다. */
-	@PostMapping("deleteManagement")
-	public String deletemanagement() {
-
-		return "redirect:module/admin/adminManagement";
+	/* 회원정보삭제 버튼 눌렀을시 다시 회원리스트로 삭제된거 제외한 후 리스트로 돌아간다.  아직 보류*/
+	/*
+	@GetMapping("deleteAccount")
+	public String deletemanagement(@RequestParam("account_num") String account_num) {
+		log.info("회원리스트삭제완료");
+		if(service.deleteAccount(account_num)==1){
+			
+		}
+		return "redirect:listAccount";
 	}
+	*/
 
 	/* 예를들어 회원관리 리스트에서 아이디를 눌렀을시 회원정보에 대한 디테일이 나오게끔 */
-	@GetMapping("managementDetail")
+	@GetMapping("accountDetail")
 	public String managementDetail() {
 
 		return "module/admin/adminManagementDetail";
 	}
+	
+	
 
 }

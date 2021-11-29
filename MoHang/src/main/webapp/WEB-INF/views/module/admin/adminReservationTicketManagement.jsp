@@ -43,31 +43,22 @@
 	</colgroup>
 		<thead>
 			<tr class="table-active">
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이름</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">예약날짜</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">가격</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">예약현황</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">비고</font></font></th>
+				<th scope="col"><font style="vertical-align: inherit;">이름</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">예약날짜</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">가격</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">예약현황</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">비고</font></th>
 			</tr>
 		</thead>
 		<tbody>
 		<c:forEach items="${ticket}" var="TicketReservationDTO">
 			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">${TicketReservationDTO.account_name }</font></font></th>
+				<th scope="row"><font style="vertical-align: inherit;">${TicketReservationDTO.account_name }</font></th>
 				<td><a href="/MoHang/Review/ReviewDetail.do"><font style="vertical-align: inherit;">
 						<fmt:formatDate value = "${TicketReservationDTO.ticket_reservation_time }" pattern="yyyy-MM-dd"/></font></a></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">${TicketReservationDTO.ticket_reservation_price}</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">${TicketReservationDTO.ticket_reservation_status }</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>예약취소</button></font></font></td>
+				<td><font style="vertical-align: inherit;">${TicketReservationDTO.ticket_reservation_price}</font></td>
+				<td><font style="vertical-align: inherit;">${TicketReservationDTO.ticket_reservation_status }</font></td>
+				<td><font style="vertical-align: inherit;"><a href="/admin/deleteTicket?ticket_reservation_num=${TicketReservationDTO.ticket_reservation_num}" ><button>예약취소</button></a></font></td>
 			</tr>
 			</c:forEach>
 			

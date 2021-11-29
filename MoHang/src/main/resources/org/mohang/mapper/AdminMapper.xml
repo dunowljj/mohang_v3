@@ -34,21 +34,63 @@
 	 
 	 <!-- 회원관리 리스트 조회 -->
 	 <select id="listAccount" resultType="org.mohang.domain.AccountVO">
-	 	select account_id,account_name, account_birth_date,account_phonenumber
+	 	select account_id,account_name, account_birth_date,account_phonenumber,account_num
 	 	from account
 	 </select>
 	 
 	 
+	 <!-- 회원관리 리스트 삭제 -->
+	  <!-- 
+	 <delete id="deleteAccount">
+	 	delete account where account_num = #{account_num}
+	 </delete>
+	 -->
+	 
 	 <!-- 티켓예약리스트 조회 -->
 	 <select id="listreservationTicket" resultType ="org.mohang.domain.TicketReservationDTO">
-	 	select a.account_name, t.ticket_reservation_time, t.ticket_reservation_price, 
-		t.ticket_reservation_status
+	 	select a.account_name, t.ticket_reservation_time, t.ticket_reservation_price,
+		t.ticket_reservation_status, t.ticket_reservation_num
 		from account a , ticket_reservation t
 		where t.account_num = a.account_num
 	 </select>
 	
 	 
+	 <!-- 리뷰리스트 조회 -->
+	 <select id="listReview" resultType ="org.mohang.domain.ReviewVO">
+	 	select review_num, review_title, review_writer, review_date, review_hitcount	
+	 	from review	
+	 </select>	
+	
+	<!-- 공지사항리스트 조회 -->
+	<select id="listNotice" resultType="org.mohang.domain.NoticeVO">
+		select notice_num, notice_title, notice_writer, notice_date, notice_hitcount
+		from notice
+	</select>
+	
+	<!-- 공지사항에서 글 제목눌렀을시 디테일 페이지로 이동하는 부분 -->
+	<select id="detailNotice" resultType="org.mohang.domain.NoticeVO">
+		select notice_num, notice_title, notice_writer, notice_date, notice_hitcount
+		from notice
+		where notice_num=#{notice_num}
+	</select>
+	
+	<!-- 공지사항 삭제버튼 눌렀을시 리스트 삭제 -->
+	<delete id="deleteNotice">
+		delete notice where notice_num=#{notice_num}
+	</delete>
 	
 	
+	<!-- 리뷰게시판 리스트 삭제 -->
+	<delete id="deleteReview">
+		delete review where review_num = #{review_num}
+	</delete>
+	
+	 
+	 <!-- 티켓예매리스트에서 예매취소 버튼 눌렀을시 리스트에서 삭제되게 -->
+	 <delete id="deleteTicketReservation">
+	 delete ticket_reservation where ticket_reservation_num = #{ticket_reservation_num}
+	 </delete>
+	 
+	 
 	 
 </mapper>

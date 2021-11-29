@@ -61,7 +61,7 @@
 		<c:forEach items="${approve}" var="approveDTO">
 			<tr>
 				<th scope="row"><font style="vertical-align: inherit;">${approveDTO.ap_num}</font></th>
-				<td><a href="/MoHang/Review/ReviewDetail.do"><font style="vertical-align: inherit;">
+				<td><a href="/admin/adminApproveDetail?ap_num=${approveDTO.ap_num}"><font style="vertical-align: inherit;">
 						${approveDTO.e_name}</font></a></td>
 				<td><font style="vertical-align: inherit;">
 				<fmt:formatDate value="${approveDTO.ap_date}" pattern="yyyy-MM-dd"/>

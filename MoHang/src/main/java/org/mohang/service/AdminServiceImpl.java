@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.mohang.domain.AccountVO;
 import org.mohang.domain.ApproveDTO;
+import org.mohang.domain.NoticeVO;
+import org.mohang.domain.ReviewVO;
 import org.mohang.domain.TicketReservationDTO;
 import org.mohang.mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,14 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.listAccount();
 	}
 	
+	
+	/*
+    public int deleteAccount(String account_num) {
+		
+		return mapper.deleteAccount(account_num);
+	}
+	*/
+	
 	public int deleteApprove(String ap_num){
 		return mapper.deleteApprove(ap_num);
 	}
@@ -48,4 +58,42 @@ public class AdminServiceImpl implements AdminService {
 	public List<TicketReservationDTO> listreservationTicket(){
 		return mapper.listreservationTicket();
 	}
+	
+	public List<ReviewVO> listReview(){
+		return mapper.listReview();
+	}
+	
+	public List<NoticeVO> listNotice(){
+		return mapper.listNotice();
+	}
+
+
+	public NoticeVO detailNotice(String notice_num) {
+		
+		return	mapper.detailNotice(notice_num);
+	}
+
+	
+	public int deleteReview(String review_num) {
+		
+		return mapper.deleteReview(review_num);
+	}
+
+	
+	public int deleteTicketReservation(String ticket_reservation_num) {
+		
+		return mapper.deleteTicketReservation(ticket_reservation_num);
+	}
+
+	
+	public int deleteNotice(String notice_num) {
+		
+		return mapper.deleteNotice(notice_num);
+	}
+
+	
+	
+	
+	
+	
 }
