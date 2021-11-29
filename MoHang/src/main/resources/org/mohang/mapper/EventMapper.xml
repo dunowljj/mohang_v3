@@ -125,16 +125,24 @@
 	</insert>
 
 	<select id="listApply" resultType="org.mohang.domain.EventVO">
-		select * from event
+		select * from event order by e_applyDate desc
 	</select>
 
 	<select id="getApply" resultType="org.mohang.domain.EventVO">
 		select * from event where e_num = #{e_num}
 	</select>
+		
 	<select id="eventDetail" resultType="org.mohang.domain.EventVO">
 		select
 		* from
 		event where e_num = #{e_num} order by e_hitcount desc
 	</select>
-
+	
+	<update id="updateApply">
+	update event set  o_num =  #{o_num}, e_name = #{e_name}, e_startDate=#{e_startDate}, e_endDate=#{e_endDate}, e_startRecruiteDate=#{e_startRecruiteDate}, e_endRecruiteDate= #{e_endRecruiteDate},
+	 e_type=#{e_type}, e_field= #{e_field}, e_price= #{e_price}, e_detail = #{e_detail}, 
+e_recruitePeople=#{e_recruitePeople},  e_fname= #{e_fname}, e_personName=#{e_personName},
+ e_personPhoneNumber=#{e_personPhoneNumber},  e_personEmail= #{e_personEmail}, eh_num=#{eh_num}, e_dfname= #{e_dfname}
+ where e_num = #{e_num}
+	</update>
 </mapper>

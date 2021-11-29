@@ -80,7 +80,10 @@ public class EventServiceImpl implements EventService{
 		return mapper.eventHallGet(e_num);
 	}
 	
-	
+	@Override
+	public int updateApply(EventVO eventVO){
+		return mapper.updateApply(eventVO);
+}
 
 }
 

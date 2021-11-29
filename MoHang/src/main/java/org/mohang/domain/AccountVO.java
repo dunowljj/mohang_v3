@@ -1,32 +1,28 @@
 package org.mohang.domain;
 
-import java.sql.Date; 
+import java.sql.Date;  
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-
 public class AccountVO {
-
-	private String accountNum;
-	private String accountId;
-	private String accountPassword;
-	private String accountName;
-	private String accountEmail;
-	private String accountAddress;
-	private String accountAddress2;
-	private String accountAddress3;
-	private Date accountJoindate;
-	private int accountMileage;
-	private String accountInterest;
-	private Date accountBirthdate;
-	private String accountGender;
-	private String accountPhonenumber;	
-
+   //general db column;
+   private String account_num;
+   private String account_id;
+   private String account_password;
+   private String account_name;
+   private String account_email;
+   private String account_address;
+   private Date account_join_date;
+   private int account_mileage;
+   private String account_interest;
+   private Date account_birth_date;
+   private String account_gender;
+   private String account_phoneNumber;   
+   private String accountAddress3;
+   private String accountAddress2;
 }

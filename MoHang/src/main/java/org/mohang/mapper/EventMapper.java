@@ -18,6 +18,7 @@ public interface EventMapper {
 	
 	public EventVO getApply(String e_num);
 
+
 	public List<EventVO> listRecommendEvent(String account_Interest);
 
 	public EventVO eventDetail(String e_num);
@@ -27,5 +28,7 @@ public interface EventMapper {
 	public int getTotalCount(Search search);
 	//충돌 조심
 	public EventHallVO eventHallGet(String e_num);
+
+	public int updateApply (EventVO eventVO);
 
 }

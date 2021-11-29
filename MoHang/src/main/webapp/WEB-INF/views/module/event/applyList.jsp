@@ -67,11 +67,11 @@
 		
 		<c:forEach items="${eventList}" var="event">
 			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><c:out value="${event.e_num}"/></font></th>
-				<td onclick="event.cancelBubble=true"><a href="/event/getApply" ><c:out value="${event.e_name}"/></font></a></td>
+				<th scope="row"><font style="vertical-align: inherit;"></font></th>
+				<td onclick="event.cancelBubble=true"><a href="/event/getApply?e_num=${event.e_num}" ><c:out value="${event.e_name}"/></font></a></td>
 				<td><font style="vertical-align: inherit;"><c:out value="${event.e_applyDate}"/></font></td>
 				<td><div class="state"><font style="vertical-align: inherit;">아래의 말이랑 맞춰야하는데ㄱㄷ 자스로 처리</font></div></td>
-				<td onclick="event.cancelBubble=true"><font style="vertical-align: inherit;"><a href="/event/insertFormUpdate.do"><button>수정</button><button style="display:none">결제</button></a></font></td>
+				<td onclick="event.cancelBubble=true"><font style="vertical-align: inherit;"><a href="/event/insertFormUpdate?e_num=${event.e_num}"><button>수정</button><button style="display:none">결제</button></a></font></td>
 			</tr>
 			<tr>
 				<td colspan="5" >

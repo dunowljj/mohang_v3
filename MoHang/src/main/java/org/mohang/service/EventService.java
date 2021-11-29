@@ -17,6 +17,8 @@ public interface EventService {
 	public List<EventVO> listApply();
 	
 	public EventVO getApply(String e_num);
+	
+	public int updateApply(EventVO eventVO);
 
 	public List<EventVO> listRecommendEvent(String account_Interest);
 
