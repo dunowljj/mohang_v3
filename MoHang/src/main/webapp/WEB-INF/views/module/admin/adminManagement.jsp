@@ -62,7 +62,7 @@
 						style="vertical-align: inherit;">${account.account_id}</font></a></td>
 				<td><font style="vertical-align: inherit;">${account.account_phoneNumber}</font></td>
 				<td><font style="vertical-align: inherit;">${account.account_birth_date}</font></td>
-				<td><font style="vertical-align: inherit;"><button>삭제</button></font></td>
+				<td><font style="vertical-align: inherit;"><a href="/admin/deleteAccount?account_num=${account.account_num}"><button>삭제</button></a></font></td>
 			</tr>
 			</c:forEach>
 			<!-- <tr>
