@@ -39,6 +39,15 @@ public class OrganizationServiceImpl implements OrganizationService {
 		
 		return organizationMapper.updateOrganization(organizationVO);
 	}
+	/*
+	 * 충돌 조심
+	 * (non-Javadoc)
+	 * @see org.mohang.service.OrganizationService#getOrgainzationOnum(java.lang.String)
+	 */
+	@Override
+	public OrganizationVO getOrganizationOnum(String o_num) {
+		return organizationMapper.getOrganizationOnum(o_num);
+	}
 	
 	
 

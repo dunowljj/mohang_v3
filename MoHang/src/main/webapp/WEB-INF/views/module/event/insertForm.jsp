@@ -1,20 +1,21 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equive="Content-Type" contentType="text/html; charset=UTF-8">
 <title>Event Apply Form</title>
 <link href="../resources/css/event.css" rel="stylesheet">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 	<!--데이트피커링크  -->
-<link rel="stylesheet"
+	<link rel="stylesheet"
 		href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>  
+	<script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
 
 	<script
 		src="${pageContext.request.contextPath}/resources/js/eventInsertForm.js"
@@ -33,9 +34,9 @@
 				</div>
 
 
-				<form action="/event/insertApply" method="post">
-				
-					 <div class="applyForm">
+				<form action="/event/insertApply" method="post" enctype="multipart/form-data" id="form">
+
+					<div class="applyForm">
 						<table class="tb">
 							<h6>
 								<b>행사 상세정보</b>
@@ -43,16 +44,16 @@
 							<tr class="tr1">
 								<td class="tbname">행사명</td>
 								<td class="tbinput "><input type="text"
-									class="form-control" id="small" name="e_name" placeholder="ex) 청춘 잡페어"></td>
+									class="form-control" id="small" name="e_name"
+									placeholder="ex) 청춘 잡페어"></td>
 							</tr>
 							<tr class="tr1">
 								<td class="tbname">행사기간</td>
 								<td class="tbinput">
 									<div class="period">
-									
-										<input type="text" class="gray" id="fromDate" name="e_startDate" >
-										~ 
-										<input type="text" class="gray" id="toDate" name="e_endDate">
+										<input type="text" class="gray dateType" id="fromDate"
+											name="e_startDate" readonly="readonly"> ~ <input type="text"
+											class="gray dateType" id="toDate" name="e_endDate"  readonly="readonly">
 									</div>
 								</td>
 							</tr>
@@ -60,29 +61,31 @@
 								<td class="tbname">모집기간</td>
 								<td class="tbinput">
 									<div class="period">
-										<input type="text" class="gray" id="recruiteFromDate" name="e_startRecruiteDate">
-										~ 
-										<input type="text" class="gray" id="recruiteToDate" name="e_endRecruiteDate">
+										<input type="text" class="gray dateType" id="recruiteFromDate"
+											name="e_startRecruiteDate"  readonly="readonly"> ~ <input type="text"
+											class="gray dateType" id="recruiteToDate"
+											name="e_endRecruiteDate"  readonly="readonly">
 									</div>
 								</td>
 							</tr>
 							<tr class="tr1">
 								<td class="tbname">대관장소</td>
-								<td class="tbinput">
-									<select class="form-select form-select-sm form-control" id="small"
-									aria-label=".form-select-sm example" name="eh_reservation_num">
+								<td class="tbinput"><select
+									class="form-select form-select-sm form-control" id="small"
+									aria-label=".form-select-sm example" name="eh_num">
 										<option selected>대관장소 택1</option>
-										<option value="A">A 대여장</option>
-										<option value="B">B 대여장</option>
-										<option value="C">C 대여장</option>
-										<option value="D">D 대여장</option>
-										<option value="E">E 대여장</option>
+										<option value="1">A 대여장</option>
+										<option value="2">B 대여장</option>
+										<option value="3">C 대여장</option>
+										<option value="4">D 대여장</option>
+										<option value="5">E 대여장</option>
 								</select></td>
 							</tr>
 							<tr class="tr1">
 								<td class="tbname">모집인원</td>
-								<td class="tbinput">
-									<input type="text"class="form-control half" name="e_recruitePeople" placeholder="ex) 150" id="small2"></td>
+								<td class="tbinput"><input type="text"
+									class="form-control half" name="e_recruitePeople"
+									placeholder="ex) 150" id="small2"></td>
 								<td class="bb">명</td>
 							</tr>
 							<tr class="tr1">
@@ -113,20 +116,26 @@
 							</tr>
 							<tr class="tr1">
 								<td class="tbname">가격</td>
-								<td class="tbinput"><input type="text" class="form-control"
-									placeholder="5,000" name="e_price" id="e_priceSmall" value="120">
-									<div class="checkBox">
-										<input type="checkbox" name="e_priceCheck" id="e_priceCheck"
-											onClick="checkDisable(this.form)"> 무료
-									</div></td>
+								<td class="tbinput">
+									<span class="price"> <input type="text"
+										class="form-control" name="e_price" placeholder="ex) 5,000 "
+										id="e_priceSmall" />
+								</span> 
+								<span class="checkBox"> <input type="checkbox"
+										name="e_priceCheck" id="e_priceCheck" onClick="checkDisable(this.form)"> 무료 
+
+
+								</td>
+
+
 							</tr>
 							<tr class="tr1">
 								<td class="tbname">행사대표이미지</td>
 								<td class="tbinput">
 									<div class="goLeft">
-										<img alt="image" src="" id="titleImage" width="30%" >&nbsp&nbsp
+										<img alt="image" src="" id="titleImage" width="30%">&nbsp&nbsp
 										<input type="file" class="form-select-sm" accept='image/*'
-											onchange='openFile(event)' name="e_fname">
+											onchange='openFile(event)' name="e_file">
 									</div>
 								</td>
 							</tr>
@@ -136,13 +145,15 @@
 									<div class="goLeft">
 										<img alt="image" src="" id="contentImage" width="30%">&nbsp&nbsp
 										<input type="file" class="form-select-sm" accept='image/*'
-											onchange='openFile2(event)' name="e_dfname">
+											onchange='openFile2(event)' name="e_dfile">
 									</div>
 								</td>
 							</tr>
+							
 							<tr class="tr1">
 								<td class="tbname">행사상세내용</td>
-								<td><textarea class="gray textarea" rows="3" cols="50" name="e_detail"></textarea></td>
+								<td><textarea class="gray textarea" rows="3" cols="50"
+										name="e_detail"></textarea></td>
 							</tr>
 						</table>
 						<br> <br>
@@ -153,39 +164,49 @@
 						<table class="tb">
 							<tr>
 								<td class="tbname">주최자 성함</td>
-								<td class="tbinput"><input type="text" class="form-control"  id="small" 
-									placeholder="ex) 홍길동" name="e_personName"></td>
+								<td class="tbinput"><input type="text" class="form-control"
+									id="small" placeholder="ex) 홍길동" name="e_personName"></td>
 							</tr>
 							<tr>
 								<td class="tbname">주최자 전화번호</td>
-								<td class="tbinput"><input type="text" class="form-control"  id="small" 
-									placeholder="ex) 01012345678" name="e_personPhoneNumber"></td>
+								<td class="tbinput"><input type="text" class="form-control"
+									id="small" placeholder="ex) 01012345678"
+									name="e_personPhoneNumber"></td>
 							</tr>
 							<tr>
 								<td class="tbname">주최자 이메일</td>
-								<td class="tbinput"><input type="text" class="form-control"  id="small" 
-									placeholder="ex) gildong01@naver.com" name="e_personEmail"></td>
-<!-- 								<td class="tbinput tdLength">
+								<td class="tbinput"><input type="text" class="form-control"
+									id="small" placeholder="ex) gildong01@naver.com"
+									name="e_personEmail"></td>
+								<!-- 								<td class="tbinput tdLength">
 <!-- 									<input type="text" class="gray half" name="email1"> -->
-<!-- 									 @  -->
-<!-- 									 <input type="text"class="gray half" name="email2"></td> -->
-<!-- 								<td class="tbinput"> -->
-<!-- 									<select class="form-select half form-select-sm" id="small" aria-label="Default select example"> -->
-<!-- 										<option selected>이메일 선택</option> -->
-<!-- 										<option value="naver.com">naver.com</option> -->
-<!-- 										<option value="gmail.com">gmail.com</option> -->
-<!-- 										<option value="daum.net">daum.net</option> -->
-<!-- 									</select> -->
-<!-- 								</td>  -->
+								<!-- 									 @  -->
+								<!-- 									 <input type="text"class="gray half" name="email2"></td> -->
+								<!-- 								<td class="tbinput"> -->
+								<!-- 									<select class="form-select half form-select-sm" id="small" aria-label="Default select example"> -->
+								<!-- 										<option selected>이메일 선택</option> -->
+								<!-- 										<option value="naver.com">naver.com</option> -->
+								<!-- 										<option value="gmail.com">gmail.com</option> -->
+								<!-- 										<option value="daum.net">daum.net</option> -->
+								<!-- 									</select> -->
+								<!-- 								</td>  -->
 
 							</tr>
 
+							<%-- <%	//String >Date로 변환
+							SimpleDateFormat std = new SimpleDateFormat("yyyy-MM-dd");
+							Date e_startDate = std.parse(${e_startDate});
+							Date e_endDate = std.parse(eventVO.getE_endDate());
+							Date e_startRecruiteDate = std.parse(eventVO.getE_startRecruiteDate());
+							Date e_endRecruiteDate = std.parse(eventVO.getE_endRecruiteDate());
+							 %> --%>
+
 						</table>
 					</div>
-				<!-- 	applyForm -->
-					<br> 
+					<!-- 	applyForm -->
+					<br>
 					<div class="btnPage">
-						<button class="btn btn-primary btn-sm" type="submit">제출</button>
+						<button class="btn btn-primary btn-sm" type="submit" id="uploadBtn">제출</button>
 						&nbsp&nbsp&nbsp&nbsp
 						<button class="btn btn-secondary btn-sm" type="reset">취소</button>
 					</div>

@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <style>
 	*{font-family: 'Jua', sans-serif;}
@@ -38,41 +39,40 @@
 <jsp:include page="/WEB-INF/views/comm/header.jsp" flush="false"></jsp:include>
 	<div id="header_nav">
 		<ul>
-			<li><a href="#">전체</a></li>
-			<li><a href="#">사업/창업</a></li>
-			<li><a href="#">IT/개발</a></li>
-			<li><a href="#">마케팅/홍보</a></li>
-			<li><a href="#">디자인/기획</a></li>
-			<li><a href="#">문화/예술</a></li>
-			<li><a href="#">취미/생활</a></li>
-			<li><a href="#">건강/의료</a></li>
-			<li><a href="/MoHang/Review/ReviewList.do">리뷰게시판</a></li>
+			<li><a href="/search/searchform?field=모든 분야" class="on">전체</a></li>
+			<li><a href="/search/searchform?field=사업/창업">사업/창업</a></li>
+			<li><a href="/search/searchform?field=IT/개발">IT/개발</a></li>
+			<li><a href="/search/searchform?field=마케팅/홍보">마케팅/홍보</a></li>
+			<li><a href="/search/searchform?field=디자인/기획">디자인/기획</a></li>
+			<li><a href="/search/searchform?field=문화/예술">문화/예술</a></li>
+			<li><a href="/search/searchform?field=취미/생활">취미/생활</a></li>
+			<li><a href="/search/searchform?field=건강/의료">건강/의료</a></li>
+			<li><a href="/review/list">리뷰게시판</a></li>
 		</ul>
 	</div>
 	<div id="container-box1">
 	<div id="container">
-  <img src="../resources/images/행사1.jpg" style="float: left;" height="318">
+  <img src="../resources/images/${event.e_fname }" style="float: left;" height="318" width="500px">
   <div class="box">
-  <div class="card bg-light mb-3" style="max-width: 21rem;">
+  <div class="card bg-light mb-3" style="max-width: 25rem; height: 320px;">
   <div class="card-header">전시회정보<div style="display: inline-block; padding-left: 210px;"><img src="../resources/images/빈하트.png" style="width: 20px; height: 20px;"></div></div>
   <div class="card-body" style="padding: 2rem 1rem;">
-    <p class="card-text">기간: 2021-10-14 ~ 2021-10-17
-    <br>
-   						시간: 10:00 ~ 18:00
+    <p class="card-text">기간: <fmt:formatDate pattern="yyyy-MM-dd"
+									value="${event.e_startDate }" />~<fmt:formatDate pattern="yyyy-MM-dd"
+									value="${event.e_endDate }" />
+    
 	<br>
-						장소: 제1전시실, 제2전시실
+						장소: ${eventhall.eh_location }
 	<br>
-						주최: 이엑스스포테인먼트
+						단체: ${organization.o_name }
 	<br>
-						전화번호: 02-3456-2751
-	<br>
-						팩스번호:
+						전화번호: ${event.e_personName }
 	<br>					
-						담당자: 조성철 팀장
+						담당자: ${event.e_personName }
 	<br>					
-						이메일: thegolfshow@naver.com
+						이메일: ${event.e_personEmail }
 	<br>
-						홈페이지: https://www.theleisureshow.co.kr/</p>
+						홈페이지: ${organization.o_homepage }</p>
   </div>
 </div>
 	<button type="button" class="btn btn-primary">좋아요</button>
@@ -81,12 +81,10 @@
 
 </div>
 </div>
-<div style="margin-left: 320px; margin-top: 150px;"><img src="../resources/images/행사2.jpg" class="absolute" width="300px" height="300px">
-	<img src="../resources/images/행사3.jpg" class="absolute" width="300px" height="300px">
-	<img src="../resources/images/행사4.jpg" class="absolute" width="300px" height="300px"></div>
+<div style="margin-left: 320px; margin-top: 150px;"><img src="../resources/images/${event.e_dfname }" class="absolute" width="300px" height="300px">
 	
-	<h1 style="font-size:30px; margin-top: 30px; margin-bottom: 13rem; margin-left: 320px;">
-		<span style="color: #000000;">행사정보를 입력하세요~!~!</span>
+	<h1 style="font-size:30px; margin-top: 30px; margin-bottom: 13rem;">
+		<span style="color: #000000;">${event.e_detail }</span>
 	</h1>
 </div>
 <jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>

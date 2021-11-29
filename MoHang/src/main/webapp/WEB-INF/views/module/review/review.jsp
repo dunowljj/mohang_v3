@@ -12,7 +12,6 @@
 	<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 	<div id="header_nav">
 		<ul>
-			<li><a href="/MoHang/search/eventsearch.do?field=모든 분야">전체</a></li>
 			<li><a href="/MoHang/search/eventsearch.do?field=사업/창업">사업/창업</a></li>
 			<li><a href="/MoHang/search/eventsearch.do?field=IT/개발">IT/개발</a></li>
 			<li><a href="/MoHang/search/eventsearch.do?field=마케팅/홍보">마케팅/홍보</a></li>

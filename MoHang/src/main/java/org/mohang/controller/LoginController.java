@@ -1,67 +1,117 @@
-/*package org.mohang.controller;
+package org.mohang.controller;
 
-import java.io.IOException;
+import java.util.Random;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.mail.internet.MimeMessage;
 
-import mohang.action.Action;
-import mohang.action.ActionForward;
-import mohang.action.event.EventDetailAction;
-import mohang.action.login.JoinAction;
-import mohang.action.login.LoginAction;
+import org.mohang.domain.AccountVO;
+import org.mohang.service.AccountService;
+//import org.mohang.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@WebServlet("/Login/*")
-public class LoginController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    public LoginController() {
-        super();
-    }
-    
-    public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String requestURI = request.getRequestURI();
-		String contextPath = request.getContextPath();
-		String command = requestURI.substring(contextPath.length() + 7);
-		Action action = null;
-		ActionForward forward = null;
-		if (command.equals("login.do")) {
-			action = new LoginAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("join.do")) {
-			action = new JoinAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+import lombok.extern.log4j.Log4j;
+
+
+@Controller
+@RequestMapping("/login/*")
+@Log4j
+public class LoginController{
+	@Autowired
+	private AccountService accountService;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	//회원가입 get
+	@GetMapping("/join")
+	public String joinGET(){
+		log.info("회원가입 페이지 진입");
+		return "module/login/join";
+	}
+	
+	//회원가입 post
+	@PostMapping("/join")
+	public String joinPost(AccountVO account) throws Exception{
+		log.info("join진입");
+		accountService.memberJoin(account);
+		log.info("서비스 성공");
+		return "redirect:/Main";
+	}
+	
+	//아이디 중복 검사
+	@PostMapping("/accountIdChk")
+	@ResponseBody
+	public String accountIdChkPOST(String accountId) throws Exception{
+		log.info("체크 진입");
+		int result = accountService.idCheck(accountId);
+		log.info("결과" + result);
+		if (result != 0) {
+
+			return "fail"; // 중복 아이디가 있음
+
+		} else {
+
+			return "success"; // 중복 아이디 없음
+			
+		}	
+	}
+	
+	//이메일 인증
+	@GetMapping("/mailCheck")
+	@ResponseBody
+	public String mailCheckGET(String email) throws Exception{
+		log.info("이메일 데이터 전송");
+		log.info("인증번호" + email);
+		
+		//난수
+		Random random = new Random();
+		int checkNum = random.nextInt(88888) + 11111;
+		log.info("인증번호" + checkNum);
+		
+		//이메일 보내기
+		String setFrom = "zhsks9707@naver.com";
+        String toMail = email;
+        String title = "회원가입 인증 이메일 입니다.";
+        String content = 
+        				"저희 MoHang 홈페이지 회원가입을 진심으로 축하드립니다." +
+        				"<br><br>" +
+        				"회원가입에 필요한 인증번호는" + checkNum + "입니다." +
+        				"<br><br>" +
+        				"인증번호를 입력 후 회원가입을 진행해주세요." +
+        				"<br><br>" +
+        				"빠이~";
+        
+		try {
+
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(setFrom);
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content, true);
+			mailSender.send(message);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		if (forward != null) {
-			if (forward.isRedirect()) {
-				response.sendRedirect(forward.getPath());
-			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
-				dispatcher.forward(request, response);
-			}
-		}
+		String num = Integer.toString(checkNum);
+		return num;
 	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response);
+	
+	//로그인 get
+	@GetMapping("/login")
+	public String loginGET(){
+		log.info("로그인 페이지 진입");
+		return "module/login/login";
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response);
-	}
-
+	
+	
 }
-*/

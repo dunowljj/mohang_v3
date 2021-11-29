@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,37 +52,36 @@
 		 <col style="width:50px;">
 		 <col style="width:70px;">
 		 <col style="width:30px;">	
+		 <col style="width:70px;">	
 		 
 	</colgroup>
 		<thead>
 			<tr class="table-active">
-				<th scop="col"><input type="checkbox"></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이름</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">아이디</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">전화번호</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">나이</font></font></th>
-				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">비고</font></font></th>
+				<th scope="col"><input type="checkbox"></th>
+				<th scope="col"><font style="vertical-align: inherit;">번호</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">제목</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">작성자</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">작성일</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">조회수</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">비고</font></th>
 			</tr>
 		</thead>
 		<tbody>
+		<c:forEach items= "${notice}" var ="NoticeVO">
 			<tr>
-			    <th scop="row"><input type="checkbox"></th>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이서준</font></font></th>
-				<td><a href="/MoHang/Review/ReviewDetail.do"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">서준123</font></font></a></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
+			    <th scope="row"><input type="checkbox"></th>
+				<th scope="row"><font style="vertical-align: inherit;">${NoticeVO.notice_num}</font></th>
+				<td><a href="/admin/noticeDetail?notice_num=${NoticeVO.notice_num}"><font style="vertical-align: inherit;">${NoticeVO.notice_title}</font></a></td>
+				<td><font style="vertical-align: inherit;">${NoticeVO.notice_writer}</font></td>
+				<td><font style="vertical-align: inherit;"><fmt:formatDate value ="${NoticeVO.notice_date}" pattern = "yyyy-MM-dd"/></font></td>
+				<td><font style="vertical-align: inherit;">${NoticeVO.notice_hitcount}</font></td>
+				<td><font style="vertical-align: inherit;"><a href="" ><button>수정</button></a>
+																				<a href="/admin/deleteNotice?notice_num=${NoticeVO.notice_num}"><button>삭제</button></a>
+				</font></td>
 			</tr>
+		</c:forEach>
+			
+			<!-- 
 			<tr>
 			    <th scop="row"><input type="checkbox"></th>
 				<th scope="row"><font style="vertical-align: inherit;"><font
@@ -146,7 +147,7 @@
 				<td><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
 			</tr>
-			
+			 -->
 		</tbody>
 		</table>
 

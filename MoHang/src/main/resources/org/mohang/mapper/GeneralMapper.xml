@@ -5,7 +5,7 @@
 
 <mapper namespace="org.mohang.mapper.GeneralMapper">
 	
-	<!-- 회원 정보  -->
+	<!-- 회원 정보  업데이트폼-->
 	<select id="getInformation" resultType="org.mohang.domain.AccountVO" parameterType="String">
 <!-- 	<![CDATA[ -->
 		select
@@ -17,6 +17,7 @@
 			account_num = #{account_num}
 <!-- 	]]> -->
 	</select>
+	
 	<update id="updateInformation">
 		update 
 			account 
@@ -30,6 +31,16 @@
 		where
 			account_num = #{account_num}
 	</update>
+	
+	<select id="getPassword" resultType="String">
+		select
+			account_password
+		from
+			account
+		where 
+			account_num = #{account_num}
+	</select>
+	
 	<update id="updatePassword">
 		update 
 			Account 
@@ -38,8 +49,22 @@
 		where
 			account_num = #{account_num}
 	</update>
+		<!-- 회원 정보  업데이트폼 end-->
+	
 	<!-- 관심목록 -->
+	<select id="listLikes" resultType="org.mohang.domain.GeneralLikeListDTO">
+		select
+			eh.eh_location, e.e_name, e.e_hitcount,e.e_price,
+			e.e_startrecruitedate, e.e_fname, l.like_status
+		from
+			account a, event e, liked l, event_hall eh
+		where
+			a.account_num = #{account_num} and l.like_status = '1'
+	</select>
+	<update id='updateLikeStatus'>
+		update
+			
 	
-	
+	</update>
 
 </mapper> 

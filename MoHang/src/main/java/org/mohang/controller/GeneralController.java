@@ -9,6 +9,8 @@ import java.util.UUID;
 
 import org.mohang.domain.AccountVO;
 import org.mohang.domain.GeneralAttachFileDTO;
+import org.mohang.domain.GeneralAttachFileVO;
+import org.mohang.domain.GeneralPasswordVO;
 import org.mohang.service.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,10 +21,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -37,16 +42,44 @@ public class GeneralController {
 	
 	@GetMapping("/updateInformation")
 	public String getInformation(Model model){
-		
-		model.addAttribute("account",service.getInformation("A-2"));
+		GeneralAttachFileDTO dto = service.getAttach("2");
+//		log.info("dfsafd" +dto.getAccount_path());
+//		log.info(dto.getAccount_path());
+		model.addAttribute("account", service.getInformation("2"));
+		if(dto != null){
+		model.addAttribute("attach",dto);
+		}
 		return "module/general/informationUpdateForm";
 	}
 	@PostMapping("/updateInformation")
-	public String updateInformation(AccountVO account, Model model){
-		if(service.updateInformation(account)){
+	public String updateInformation(AccountVO account, GeneralAttachFileVO attach, Model model){
+		log.info(account.toString());
+		log.info(attach.toString());
+		if(service.updateInformation(account, attach)){
 			log.info("success");
 		}
 		return "redirect:/general/updateInformation";
+	}
+	@PostMapping("/updatePassword")
+	public String updatePassword(GeneralPasswordVO pw, @RequestParam String account_num, RedirectAttributes rttr){
+		log.info("start pw@@@@@@@@@@@@@@@");
+		if(!service.matchPresentPassword(account_num, pw.getPassword())){
+			
+			rttr.addFlashAttribute("message", "현재 비밀번호가 일치하지 않습니다.");
+			return "redirect:/general/updateInformation";
+//					+ "?account_num="+account_num;
+			
+		}else if(!service.matchNewPassword(pw.getPassword1(), pw.getPassword2())){
+			
+			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
+			return "redirect:/general/updateInformation";
+//					+ "?account_num="+account_num;
+		}
+			service.updatePassword(account_num, pw.getPassword1());
+			rttr.addFlashAttribute("message", "비밀번호가 변경되었습니다.");
+			
+			return "redirect:/general/updateInformation";
+//				+ "?account_num="+account_num;
 	}
 	
 	@GetMapping("/insertReserve")
@@ -79,9 +112,11 @@ public class GeneralController {
 		return "";
 	}
 	
-	@GetMapping("/listMyReview")
-	public String listMyReview(){
+	@GetMapping("/listLikes")
+	public String listMyLikes(Model model){
 		log.info("MyReview");
+		model.addAttribute("likeList",service.listLikes("2"));
+		log.info(service.listLikes("2").get(0).getE_startRecruiteDate());
 		return "module/general/likeList";
 	}
 	@GetMapping("/listMyPartIn")
@@ -148,7 +183,7 @@ public class GeneralController {
 			//IE has file path
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
 			log.info("only file name: " + uploadFileName);
-			attachDTO.setName(uploadFileName);
+			attachDTO.setAccount_fileName(uploadFileName);
 			
 			UUID uuid = UUID.randomUUID();
 			
@@ -160,13 +195,13 @@ public class GeneralController {
 				File saveFile = new File(uploadPath, uploadFileName);
 				uploadFile.transferTo(saveFile);
 				
-				attachDTO.setUuid(uuid.toString());
-				attachDTO.setUploadPath(uploadFolderPath);
+				attachDTO.setAccount_uuid(uuid.toString());
+				attachDTO.setAccount_path(uploadFolderPath);
 				
 				//check image type file
 				if (checkImageType(saveFile)){
 					
-					attachDTO.setImage(true);
+					attachDTO.setAccount_fileType(true);
 					
 					FileOutputStream thumbnail = new FileOutputStream(
 							new File(uploadPath, "s_" + uploadFileName));
@@ -227,6 +262,13 @@ public class GeneralController {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	@GetMapping(value = "/getAttach",
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<GeneralAttachFileDTO> getAttach(String account_num){
+		
+		return new ResponseEntity<>(service.getAttach(account_num), HttpStatus.OK);
 	}
 	
 

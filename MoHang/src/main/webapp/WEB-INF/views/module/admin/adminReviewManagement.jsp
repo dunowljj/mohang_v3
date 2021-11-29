@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,7 +68,25 @@
 				</tr>
 		</thead>
 		<tbody>
+			<c:forEach items = "${review}" var = "ReviewVO">
 			<tr>
+			    <th scope="row"><input type="checkbox"></th>
+				<th scope="row"><font style="vertical-align: inherit;">${ReviewVO.review_num }</font></th>
+				<td><a href="/MoHang/Review/ReviewDetail.do"><font style="vertical-align: inherit;">${ReviewVO.review_title}</font></a></td>
+				<td><font style="vertical-align: inherit;">${ReviewVO.review_writer }</font></td>
+				<td><font style="vertical-align: inherit;"><fmt:formatDate value="${ReviewVO.review_date}" pattern ="yyyy-MM-dd"/></font></td>
+				<td><font style="vertical-align: inherit;">${ReviewVO.review_scope }</font></td>
+				<td><font style="vertical-align: inherit;"><a href="" ><button>수정</button></a>
+																				<a href="/admin/deleteReview?review_num=${ReviewVO.review_num}" ><button>삭제</button></a>
+				</font></td>
+				
+				<!-- <td><font style="vertical-align: inherit;"><button>수정</button>&nbsp;<button>삭제</button></font></td> -->
+			</tr>
+			</c:forEach>
+			
+			
+			
+<!-- 			<tr>
 			    <th scop="row"><input type="checkbox"></th>
 				<th scope="row"><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;">1</font></font></th>
@@ -140,22 +160,7 @@
 						style="vertical-align: inherit;">99999</font></font></td>
 				<td><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;"><button>수정</button>&nbsp;<button>삭제</button></font></font></td>
-			</tr>
-			<tr>
-			    <th scop="row"><input type="checkbox"></th>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></th>
-				<td><a href="/MoHang/Review/ReviewDetail.do"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">~여행을떠나요</font></font></a></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이서준</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/8</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">99999</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>수정</button>&nbsp;<button>삭제</button></font></font></td>
-			</tr>
+			</tr> -->
 			
 		</tbody>
 		</table>

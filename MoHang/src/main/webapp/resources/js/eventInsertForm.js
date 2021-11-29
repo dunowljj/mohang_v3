@@ -97,17 +97,54 @@ $(function() {
         
     });
     
-    //무료클릭시 값 0 으로 바뀌는 자스문
-    $(document).ready(function(){
-    	$("#e_priceCheck").change(function(){
+
+ $(document).ready(function(){
+
+
+    	//무료클릭시 값 0 으로 바뀜
+ $("#e_priceCheck").on("click",function(){
     		if($("#e_priceCheck").is(":checked")){
-    			$("#e_priceSmall").val("0")
+    			$("#e_priceSmall").val("0");
     		}
     	});
+ 
+ 
+//파일 ajax로 보내기 
+$("#uploadBtn").on("click",function(e){
+	e.preventDefault();
+	
+	var form = $("#form")[0];
+	 var formData = new FormData(form);
+	 
+	 var e_fname = $("input[name='e_file']");
+	 var e_dfname = $("input[name='e_dfile']");
+	 
+	 var e_file = e_fname.files;
+	 var e_dfile = e_dfname.files;
+	 
+	 
+	 
+	 formData.append("e_file", e_file);
+	 formData.append("e_dfile", e_dfile);
+	 
+ 
+ 		$.ajax({
+ 			url: "insertApply",
+ 			processData:false,
+ 			contentType:false,
+ 			data: formData,
+ 			type:"POST",
+ 			success: function(result){
+ 				alert("신청되었습니다.");
+ 			}
+ 		});
+ 	
+ 	});
+
     });
     
-    //무료클릭시 0으로 바뀌고 + 비활성화되게하는거. 
-    function checkDisable(frm)
+//무료클릭시 0으로 바뀌고 + 비활성화되게하는거. 
+   function checkDisable(frm)
     {
         if( frm.e_priceCheck.checked == true ){
     	   frm.e_priceSmall.disabled = true;
@@ -115,7 +152,7 @@ $(function() {
     	   frm.e_priceSmall.disabled = false;
     	}
     }
-    
+   
     
     
     //행사대표이미지 미리보기
@@ -130,6 +167,7 @@ $(function() {
     		reader.readAsDataURL(input.files[0]); 
     	};
     
+    
     //행사상세이미지	
     	openFile2 = function(event) { 
     		var input2 = event.target;
@@ -141,6 +179,8 @@ $(function() {
     		}; 
     		reader2.readAsDataURL(input2.files[0]); 
     	};
+    	
+    	
     	
     
 

@@ -4,29 +4,145 @@
 
 <mapper namespace="org.mohang.mapper.EventMapper">
 
-	<select id="listEvent" resultType="org.mohang.domain.EventVO">
+	<select id="listBestEvent" resultType="org.mohang.domain.EventVO">
 	 <![CDATA[
-		select  e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event order by e_hitcount desc
-     ]]>	
+		select  e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event order by e_hitcount desc
+     ]]>
 	</select>
-	<select id ="listMonthEvent" resultType="org.mohang.domain.EventVO">
+	<select id="listMonthEvent" resultType="org.mohang.domain.EventVO">
 	<![CDATA[
-		select  e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event where e_startdate like  '%'||#{search}||'%' and rownum < 10 order by e_hitcount desc
-	]]>	
+		select  e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event where e_startdate like  '%'||#{search}||'%'
+	]]>
 	</select>
-	
-	<!-- 신청한 이벤트 정보 DB등록. 등록한 단체번호 o_num이 넘어와야할듯.-->
-	<insert id="insertApply">
-		insert into event(e_num, o_num, e_name, e_startDate, e_endDate, e_startRecruiteDate, e_endRecruiteDate, e_type, e_field, e_price, e_detail,  e_recruitePeople,  e_fname, e_personName, e_personPhoneNumber,  e_personEmail, eh_reservation_num, e_dfname)
-		values(event_seq.nextval, #{o_num}, #{e_name}, #{e_startDate}, #{e_endDate}, #{e_startRecruiteDate}, #{e_endRecruiteDate}, #{e_type}, #{e_field}, #{e_price}, #{e_detail}, #{e_recruitePeople}, #{e_fname}, #{e_personName}, #{e_personPhoneNumber}, #{e_personEmail}, #{eh_reservation_num}, #{e_dfname})
-	</insert>
-	
-	<select id="listApply" resultType="org.mohang.domain.EventVO" >
-	select * from event
+	<select id="listRecommendEvent" resultType="org.mohang.domain.EventVO">
+		select
+		e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from
+		event where e_field = #{account_Interest} order by e_hitcount desc
 	</select>
-	
-	<select id="getApply" resultType="org.mohang.domain.EventVO" >
-	select * from event where e_num = #{e_num}
+	<select id="listEvent" resultType="org.mohang.domain.EventVO"
+		parameterType="org.mohang.domain.Search">
+		<![CDATA[
+			select 
+			    e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount ,e_field,e_type
+			from 
+			      (
+			      select /*+INDEX_DESC(event pk_event_num) */
+			        rownum rn, e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount,e_field,e_type
+			      from 
+			        event
+			      where
+			      
+		]]>
+					
+					<if test="keyword !=null and !keyword.equals('') ">
+						
+						e_name like '%'||#{keyword}||'%' and
+					</if>
+					<if test="field !=null and !field.equals('')">
+						 e_field =  #{field}  and
+					</if>
+					<if test="type !=null and !type.equals('')">
+						 e_type  =  #{type} and
+					</if>
+					<if test="price != null and !price.equals('') and price.equals('무료')">
+						 e_price =  0 and
+					</if>
+					<if test="price != null and !price.equals('') and price.equals('유료/무료')">
+						 e_price >= 0 and
+					</if>
+					<if test="price != null and !price.equals('') and price.equals('유료')">
+						 e_price >  0 and
+					</if>
+ 					<if test="startDate != null and !startDate.equals('') ">
+						<![CDATA[
+						(e_startdate >=  #{startDate}
+						]]>
+					</if>
+					<if test="endDate != null and !endDate.equals('')">
+						<![CDATA[
+						and e_enddate <=  #{endDate}) and
+						]]>
+					</if> 
+		<![CDATA[
+		      rownum <= #{pageNum} * #{amount}
+		      )
+		  where rn > (#{pageNum} -1) * #{amount}   
+		]]>
+		
+					
+	</select>
+	<select id="getTotalCount" resultType="int" parameterType="org.mohang.domain.Search">
+		select count(*) from event  
+			<trim prefix="where (" suffix=")" prefixOverrides="and">
+					<if test="keyword !=null and !keyword.equals('') ">
+						and e_name like '%'||#{keyword}||'%'
+					</if>
+					<if test="field !=null and !field.equals('') ">
+						and e_field = #{field}  
+					</if>
+					<if test="type !=null and !type.equals('')">
+						and e_type  = #{type} 
+					</if>
+					<if test="price != null and !price.equals('') and price.equals('무료')">
+						and e_price = 0
+					</if>
+					<if test="price != null and !price.equals('') and price.equals('유료/무료')">
+						and e_price >= 0
+					</if>
+					<if test="price != null and !price.equals('') and price.equals('유료')">
+						and e_price > 0
+					</if>
+	 				<if test="startDate != null and !startDate.equals('') "> 
+						<![CDATA[
+						and (e_startdate >=  #{startDate}
+						]]>
+					</if>
+					<if test="endDate != null and !endDate.equals('')">
+						<![CDATA[
+						and e_enddate <=  #{endDate})
+						]]>
+					</if> 
+			</trim>
+	</select>
+	<select id="eventHallGet" resultType="org.mohang.domain.EventHallVO">
+		select * from event_hall where eh_num = #{eh_num}
 	</select>
 
+	<!-- 용환!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+    <!-- 지혜!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+	<!-- 신청한 이벤트 정보 DB등록. 등록한 단체번호 o_num이 넘어와야할듯. -->
+	<insert id="insertApply">
+		insert into event(e_num, o_num, e_name, e_startDate,
+		e_endDate, e_startRecruiteDate, e_endRecruiteDate, e_type, e_field,
+		e_price, e_detail, e_recruitePeople, e_fname, e_personName,
+		e_personPhoneNumber, e_personEmail, eh_reservation_num, e_dfname)
+		values(event_seq.nextval, #{o_num}, #{e_name}, #{e_startDate},
+		#{e_endDate}, #{e_startRecruiteDate}, #{e_endRecruiteDate}, #{e_type},
+		#{e_field}, #{e_price}, #{e_detail}, #{e_recruitePeople}, #{e_fname},
+		#{e_personName}, #{e_personPhoneNumber}, #{e_personEmail},
+		#{eh_reservation_num}, #{e_dfname})
+	</insert>
+
+	<select id="listApply" resultType="org.mohang.domain.EventVO">
+		select * from event order by e_applyDate desc
+	</select>
+
+	<select id="getApply" resultType="org.mohang.domain.EventVO">
+		select * from event where e_num = #{e_num}
+	</select>
+		
+	<select id="eventDetail" resultType="org.mohang.domain.EventVO">
+		select
+		* from
+		event where e_num = #{e_num} order by e_hitcount desc
+	</select>
+	
+	<update id="updateApply">
+	update event set  o_num =  #{o_num}, e_name = #{e_name}, e_startDate=#{e_startDate}, e_endDate=#{e_endDate}, e_startRecruiteDate=#{e_startRecruiteDate}, e_endRecruiteDate= #{e_endRecruiteDate},
+	 e_type=#{e_type}, e_field= #{e_field}, e_price= #{e_price}, e_detail = #{e_detail}, 
+e_recruitePeople=#{e_recruitePeople},  e_fname= #{e_fname}, e_personName=#{e_personName},
+ e_personPhoneNumber=#{e_personPhoneNumber},  e_personEmail= #{e_personEmail}, eh_num=#{eh_num}, e_dfname= #{e_dfname}
+ where e_num = #{e_num}
+	</update>
 </mapper>

@@ -53,22 +53,38 @@ function checkGender(){
 
 })();
 
-/* var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|png)$");*/
-var maxSize = 5242880;
-function checkExtension(fileName, fileSize){
-    
-    if(fileSize >= maxSize){
-      alert("파일 사이즈 초과");
-      return false;
-    }
-    
-//	    if(regex.test(fileName)){
-//	      alert("해당 종류의 파일은 업로드할 수 없습니다.");
-//	      return false;
-//	    }
-    return true;
-  }
 
+
+
+function showUploadResult(uploadResult){
+    uploadImg = $("#uploadImg");
+	fildat = $("#fileDat");
+
+	console.log(uploadResult.account_path)
+    if(!uploadResult){ 
+    	uploadImg.attr('src', '${pageContext.request.contextPath}/resources/images/프로필.png')
+    	console.log(uploadResult.account_path)
+    	return; }
+    
+    uploadFile = $("input[name='uploadFile']");
+//	    absolutePath = "\${pageContext.request.contextPath}/"
+//		var uploadFolder = "C:\\Users\\jhwoo_nb\\git\\mohang_v3\\MoHang\\src\\main\\webapp\\resources\\images";
+    if(uploadResult.account_fileType){
+			var fileCallPath =  encodeURIComponent(uploadResult.account_path + "/s_"+uploadResult.account_uuid +"_"+uploadResult.account_fileName);
+			uploadFile.data('uuid', uploadResult.account_uuid);
+			uploadFile.data('fileName', uploadResult.account_fileName);
+			uploadFile.data('type', uploadResult.account_fileType);
+			uploadFile.data('path', uploadResult.account_path);
+			uploadImg.attr('src', '/general/display?filename='+fileCallPath);
+			
+		    $("#fileDat input[name='account_uuid']").val(uploadResult.account_uuid)
+		    $("#fileDat input[name='account_path']").val(uploadResult.account_path)
+		    $("#fileDat input[name='account_fileName']").val(uploadResult.account_fileName)
+		    $("#fileDat input[name='account_fileType']").val(uploadResult.account_fileType)
+			
+		}
+		
+    };
 
 //function changeUploadImg(){
 //    var uploadImg = document.getElementById("uploadImg");
@@ -82,42 +98,7 @@ function checkExtension(fileName, fileSize){
 //    	uploadImg.style.height = "66px";
 //    }
 //}
-$("#uploadImg").on("click","img", function(e){
-    
-    console.log("view image");
-    
-    var uploadImg = $(this);
-    
-    var path = encodeURIComponent(uploadImg.data("path")+"/" + uploadImg.data("uuid")+"_" + uploadImg.data("filename"));
-    
-//    if(uploadimg.data("type")){
-//      showImage(path.replace(new RegExp(/\\/g),"/"));
-//    }else {
-      //download 
-      self.location ="/download?fileName="+path
-//    }
-    
-    
-});
-  
-function showImage(fileCallPath){
-	    
-    alert(fileCallPath);
-    
-    $(".bigPictureWrapper").css("display","flex").show();
-    
-    $(".bigPicture")
-    .html("<img src='/display?fileName="+fileCallPath+"' >")
-    .animate({width:'100%', height: '100%'}, 1000);
-    
-  }
 
-  $(".bigPictureWrapper").on("click", function(e){
-    $(".bigPicture").animate({width:'0%', height: '0%'}, 1000);
-    setTimeout(function(){
-      $('.bigPictureWrapper').hide();
-    }, 1000);
-  });
 
 
 
