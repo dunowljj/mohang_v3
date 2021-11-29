@@ -118,16 +118,21 @@
    width:15%;
    }
    
-   #e_priceSmall{
+ /*   .e_priceSmall{
    width:15%;
 	float: left;
+   } */
+   
+   .price .form-control{
+   width: 15%;
+   float: left;	
    }
    
    .checkBox{
-       position: relative;
-    left: -410px;
-    top: 5px;
-   }
+  position: relative;
+  left: -405px;
+  top: 5px;
+   } 
       /*event/applyInsertFormshow.jsp */
    	.s_tbname{
 	width: 55px;

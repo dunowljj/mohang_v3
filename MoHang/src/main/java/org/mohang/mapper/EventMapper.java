@@ -16,4 +16,6 @@ public interface EventMapper {
 	
 	public EventVO getApply(String e_num);
 
+	public int updateApply (EventVO eventVO);
+
 }

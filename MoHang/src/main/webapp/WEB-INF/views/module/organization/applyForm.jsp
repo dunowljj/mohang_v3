@@ -43,7 +43,7 @@
 					<tr>
 						<td class="tbname">단체전화번호</td>
 						<td class="tbinput">
-							<input type="text" class="form-control aa" name="o_phonenumber"placeholder="ex) 02-0000-0000">
+							<input type="text" class="form-control aa" name="o_phoneNumber"placeholder="ex) 02-0000-0000">
 						</td>
 					</tr>
 				</table>

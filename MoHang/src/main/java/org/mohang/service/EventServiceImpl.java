@@ -46,7 +46,10 @@ public class EventServiceImpl implements EventService{
 
 	}
 	
-	
+	@Override
+	public int updateApply(EventVO eventVO){
+		return mapper.updateApply(eventVO);
+}
 
 }
 
