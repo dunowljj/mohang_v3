@@ -1,5 +1,7 @@
 package org.mohang.domain;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +13,7 @@ public class ChatVO {
 
 	private String chat_num;
 	private String room_num;
-	private String account_num;
 	private String chat_history;
-	private String chat_time;
+	private Date chat_time;
 
 }

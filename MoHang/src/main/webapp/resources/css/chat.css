@@ -36,7 +36,7 @@ li{
     -moz-transition: .5s;
     -o-transition: .5s;
     -webkit-transition: .5s;
-    transition: .5s
+    transition: .5s;
 }
 
 .people-list .chat-list li {
@@ -96,7 +96,7 @@ li{
 
 .chat .chat-history {
     padding: 20px;
-    border-bottom: 2px solid #fff
+    border-bottom: 2px solid #fff;
 }
 
 .chat .chat-history ul {
@@ -206,6 +206,12 @@ li{
     float: right
 }
 
+
+#chat-container{
+	margin-top: 150px;
+}
+
+
 .clearfix:after {
     visibility: hidden;
     display: block;
@@ -242,11 +248,11 @@ li{
 @media only screen and (min-width: 768px) and (max-width: 992px) {
     .chat-app .chat-list {
         height: 650px;
-        overflow-x: auto
+        overflow-x: auto;
     }
     .chat-app .chat-history {
         height: 600px;
-        overflow-x: auto
+        overflow-x: auto;
     }
 }
 

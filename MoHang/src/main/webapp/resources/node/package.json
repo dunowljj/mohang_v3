@@ -1,0 +1,18 @@
+{
+	"name": "mohang",
+	"version": "1.0.0",
+	"description": "",
+	"main": "chatServer.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"files": [
+		"../../WEB-INF/views/module/chat/"
+	],
+	"dependencies": {
+		"express": "4.17.1",
+		"express-session": "^1.17.2"
+	},
+	"author": "",
+	"license": "ISC"
+}
