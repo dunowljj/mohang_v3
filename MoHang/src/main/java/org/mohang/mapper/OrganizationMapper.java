@@ -7,4 +7,6 @@ public interface OrganizationMapper {
 	public int insertOrganization(OrganizationVO organization);
 	public OrganizationVO getOrganization(String account_num);
 	public int updateOrganization(OrganizationVO organization);
+	//충돌조심
+	public OrganizationVO getOrganizationOnum(String o_num);
 }

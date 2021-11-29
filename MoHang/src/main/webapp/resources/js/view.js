@@ -8,7 +8,7 @@ var eventService = (function() {
 	
 	//베스트 행사
 	function view(callback, error) {
-		$.getJSON("/view/list.json",
+		$.getJSON("/view/best.json",
 				function(data) {
 					if (callback) {
 						callback(data);
@@ -34,6 +34,7 @@ var eventService = (function() {
 			}
 		});
 	}
+	//일로 검색
 	function dayview(param,callback,error){
 		var month = param.month;
 		var date = param.date;
@@ -48,21 +49,62 @@ var eventService = (function() {
 			}
 		});
 	}
-		
-		
-	
+	//추천 행사
+	function recommend(param,callback,error){
+		$.ajax({
+			type : 'post',
+			url : '/view/recommend',
+			data : {'account_Interest':param },
+			dataType : 'json',
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}	
+	//검색 리스트 
+//	function searchlist(param,callback,error){
+//		var field = param.field;
+//		var type = param.type;
+//		var price = param.price;
+//		var keyword = param.keyword;
+//		$.ajax({
+//			type : 'post',
+//			url : '/search/searchform',
+//			data : {"field" :field,"type":type,"price":price,"keyword":keyword},
+//			success : function(result, status, xhr) {
+//				if (callback) {
+//					callback(result);
+//				}
+//			},
+//			error : function(xhr, status, er) {
+//				if (error) {
+//					error(er);
+//				}
+//			}
+//		})
+//	}	
 	
 
 	return {
 		view : view,
 		monthview : monthview,
-		dayview : dayview
+		dayview : dayview,
+		recommend : recommend
+//		searchlist:searchlist
 	};
 
 })();
 $(document).ready(function () {
 	var slider_div = $('.slider-div');
 	var str ="";
+	//베스트 행사
 	eventService.view(function(list){
 		for(var i=0, len = list.length||0;i<len;i++){
 			list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
@@ -70,7 +112,7 @@ $(document).ready(function () {
 			str += '<div class="eventbox">'
 			str +=	'<div class="eventbox_in">'
 	        str +=	 '<div class="eventbox_img">'
-	        str +=    '<a href="#"><img src="../resources/images/'+list[i].e_fname+'"'
+	        str +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\"'
 	        str +=     ' alt="" style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
 	        str +=	    '</div>'
 	        str +=       '<div class="heart">'
@@ -89,5 +131,36 @@ $(document).ready(function () {
 		$(slider_div[1]).slick('slickAdd',str);
 		
 	})
-	
+	$(function(){
+	    var slider_div = $('.slider-div');
+		var str ="";
+	    //추천 행사
+		var hidden = $("input[name=account_Interest]").val();
+		eventService.recommend(hidden,function(list){
+			console.log("list :" +list);
+			for(var i=0, len = list.length||0;i<len;i++){
+				list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+				list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+				str += '<div class="eventbox">'
+				str +=	'<div class="eventbox_in">'
+		        str +=	 '<div class="eventbox_img">'
+		        str +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\"'
+		        str +=     ' alt="" style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+		        str +=	    '</div>'
+		        str +=       '<div class="heart">'
+	            str +=        '<img src="../resources/images/빈하트.png" alt="" style="width: 16px; height: 16px;">'
+	            str +=			'</div>'
+	            str +=           '<div class="eventbox_context">'
+	            str +=            '<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+	            str +=			   '<p class="event_title">'+list[i].e_name+'</p>'
+	            str +=				'</div>'
+	            str +=				  '<div class="eventbox_context2">'
+	            str +=    				'<span class="price">'+list[i].e_price+'원</span>'
+	            str +=					 '<div class="none"></div>'
+	            str += 					  '<img class="view" src="../resources/images/눈.png"><span>0</span>'
+				str +=				       '</div> </div></div>'
+			}
+			$(slider_div[0]).slick('slickAdd',str);
+		})
+   })
 })

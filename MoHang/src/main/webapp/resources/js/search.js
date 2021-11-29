@@ -10,10 +10,8 @@ $(function() {
 			pwUp_wrapWindowByMask ();
 			$(searchs.get(i)).show();
 			$(searchs.get(i)).click(function(e) {
-				
 				e.stopPropagation();
 			})
-
 		})
 	})
 	// 검색 필터 창 끄기
@@ -50,46 +48,64 @@ $(function() {
 			e.preventDefault();
 			unwrapAllMask()
 		});
+		
 	});
 	// 검색 추가 필터 이벤트 and form
 	var filterbtn = $('.filter-btn');
 	var value = '';
 	var inputs = $('input[type="hidden"]');
+	
 	$('input[type=radio]').on('change',function() {
 		value = this.value;
 		if($(this).attr('name')=='price'){
 			$(filterbtn.get(3)).html(value+'<i class="far fa-times-circle cursor-pointer"></i>');
 			$(filterbtn.get(3)).css('display','');
 			$($(inputs[2]).val(""));
+			$($(inputs[6]).val(""));
 		}else if($(this).attr('name')=='type'){
 			$(filterbtn.get(1)).html(value+'<i class="far fa-times-circle cursor-pointer"></i>');
 			$(filterbtn.get(1)).css('display','');
 			$($(inputs[1]).val(""));
+			$($(inputs[5]).val(""));
 		}else if ($(this).attr('name')=='field'){
 			$(filterbtn.get(2)).html(value+'<i class="far fa-times-circle cursor-pointer"></i>');
 			$(filterbtn.get(2)).css('display','');
 			$($(inputs[0]).val(""));
+			$($(inputs[4]).val(""));
 			$('.eventfieldtitle').html("");
-			value = value.replace(',',' ');
-			
+			value = value.replace(',','');
 			$('.eventfieldtitle').html(value);
 			$('.eventfieldtitle').css('display','');
-			
 		}else if ($(this).attr('name')=='keyword'){
 			$($(inputs[3]).val(""));
+			$($(inputs[7]).val(""));
+			$($(inputs[13]).val(""));
 		}
 			$("#searchform_form").submit();
+			
 		
 	})
 	// 기간 form 
-	$('#toDate').on('change',function(){
-		var fromDate =$("#fromDate").val();
-		if(fromDate !=null || fromDate ==''){
-			$("#searchform_form").submit();			
-		}
-		
+	var e_startdate= '';
+	var e_enddate ='';
+	$('#e_startdate').on('change',function(){
+		e_startdate =$("#e_startdate").val();
+		console.log(e_startdate)
 	})
-	// 검색 삭제 필터 이벤트
+	$('#e_enddate').on('change',function(){
+		e_enddate =$("#e_enddate").val();
+		console.log(e_enddate)
+		if(e_startdate>=e_enddate){
+
+			$("#e_enddate").val("연도-월-일");
+			$("#e_startdate").val("연도-월-일");
+			alert('다시 입력 해주세요')
+		}else{
+			$("#searchform_form").submit();
+		}
+	})
+
+	// 검색어 삭제 필터벤트
 	var filterbtns = $('.filter-btn');
 	var text = '';
 	
@@ -103,14 +119,18 @@ $(function() {
 				$('.eventfieldtitle').html('<div class="eventfieldtitle"></div>');
 				$("#check").val('field');
 				$($(inputs[0]).val(""));
+				$($(inputs[4]).val(""));
 			}else if(id=='type1'){
 				$("#check").val('type');
 				$($(inputs[1]).val(""));
+				$($(inputs[5]).val(""));
 			}else if(id== 'price1'){
 				$("#check").val('price');
 				$($(inputs[2]).val(""));
+				$($(inputs[6]).val(""));
 			}else if(id== 'keyword1'){
 				$($(inputs[3]).val(""));
+				$($(inputs[7]).val(""));
 			}
 			$("#searchform_form").submit();	
 			$('input[type=radio]').each(function(i) {
@@ -118,8 +138,6 @@ $(function() {
 				if(value==text){
 					$(this).attr('checked',false);
 				}
-				
-				
 			})
 		})
 	});
@@ -148,8 +166,18 @@ $(function() {
     });
 	// 페이지 이동
     $('.eventbox_in').on('click',function(){
-    	location.href="#";
+    	var e_num =$(this).find('input').val();
+    	location.href='/event/eventDetail?e_num='+e_num;
 
     })
-
+    // 검색 페이지 미완성
+//    function search() {
+//    	var inputs = $('input[type="hidden"]');
+//        eventService.searchlist({"field" :$(inputs[0]).val(),"type":$(inputs[1]).val(),"price":$(inputs[2]).val(),"keyword":$(inputs[3]).val()},function(list){
+//        	
+//        })
+//	}
+    
+    
+    
 })

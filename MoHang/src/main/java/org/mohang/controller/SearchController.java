@@ -1,6 +1,12 @@
 package org.mohang.controller;
 
+import java.util.List;
+
+import org.mohang.domain.EventVO;
+import org.mohang.domain.PageDTO2;
 import org.mohang.domain.Search;
+import org.mohang.service.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,26 +21,46 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/search")
 @Log4j
 public class SearchController  {
-    @GetMapping("searchform")
-    public String GetsearchForm(Search search, Model model){
-    	String field = search.getField();
-    	String type = search.getType();
-    	String price = search.getPrice();
-    	
-    	field =field.replace(",", " ");
-        return "module/search/searchform";
-    }
+	@Autowired
+    EventService eventService;
     @PostMapping("searchform")
-    public String postSearchForm(Search search, Model model ){
-    	String field = search.getField();
-    	String type = search.getType();
-    	String price = search.getPrice();
-    	String keyword = search.getKeyword();
-    	model.addAttribute("search.field", field);
-    	model.addAttribute("search.type", type);
-    	model.addAttribute("search.price", price);
-    	model.addAttribute("search.keyword", keyword);
-    	System.out.println(search.toString());
-    	return "module/search/searchform";
+    public String postSearchForm(@ModelAttribute("search")  Search search,Model model){
+    	
+    	search =search.replace(search);
+    	List<EventVO> list =eventService.listEvent(search);
+    	log.info("search :"+search);
+    	int total = eventService.getTotalCount(search);
+    	model.addAttribute("total", total);
+    	model.addAttribute("list", eventService.listEvent(search));
+    	log.info("list :"+eventService.listEvent(search));
+    	model.addAttribute("pageMaker", new PageDTO2 (search,total));
+    	return "/module/search/searchform";
     }
+    @GetMapping("searchform")
+    public String getSearchForm(@ModelAttribute("search") Search search,Model model){
+    	log.info("get");
+    	search =search.replace(search);
+    	List<EventVO> list =eventService.listEvent(search);
+    	log.info("search :"+search);
+    	int total = eventService.getTotalCount(search);
+    	model.addAttribute("total", total);
+    	model.addAttribute("list", eventService.listEvent(search));
+    	log.info("list :"+eventService.listEvent(search));
+    	model.addAttribute("pageMaker", new PageDTO2 (search,total));
+    	return "/module/search/searchform";
+    }
+    @PostMapping("secondsearch")
+    public String postSecondSearch(@ModelAttribute("search") Search search, Model model){
+    	search =search.replace(search);
+    	List<EventVO> list =eventService.listEvent(search);
+    	log.info("search :"+search);
+    	int total = eventService.getTotalCount(search);
+    	model.addAttribute("total", total);
+    	model.addAttribute("list", eventService.listEvent(search));
+    	log.info("list :"+eventService.listEvent(search));
+    	model.addAttribute("pageMaker", new PageDTO2 (search,total));
+    	return "/module/search/searchform";
+    	
+    }
+
 }

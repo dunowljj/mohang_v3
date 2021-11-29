@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.mohang.domain.EventVO;
 import org.mohang.service.EventService;
+import org.mohang.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,8 @@ public class EventController  {
 
 	@Autowired
 	private EventService eventService;
-	
+	@Autowired
+	private OrganizationService organizationService;
 	//행사신청정보페이지
 	@GetMapping("/insertForm")
 	public String insertForm(){
@@ -71,7 +73,17 @@ public class EventController  {
 	
 	//행사정보확인페이지
 	@GetMapping("/eventDetail")
-	public String eventDetail(){
+	public String eventDetail(@RequestParam("e_num") String e_num, Model model){
+		//행사 정보
+		model.addAttribute("event", eventService.eventDetail(e_num));
+		EventVO event = eventService.eventDetail(e_num);
+		String o_num = event.getO_num();
+		String eh_num = event.getEh_num();
+		//단체 정보
+		model.addAttribute("organization", organizationService.getOrganizationOnum(o_num));
+		//행사장 정보
+		model.addAttribute("eventhall", eventService.eventHallGet(eh_num));
+		log.info("eventhall :"+ eventService.eventHallGet(eh_num));
 		return "module/event/eventDetail";
 	}
 	

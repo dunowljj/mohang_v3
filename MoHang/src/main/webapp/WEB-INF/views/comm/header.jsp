@@ -21,8 +21,91 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- 달력 -->
 
-
+<script type="text/javascript" src="../resources/js/search.js"></script>
 <script>
+	  $(function() {
+         $('.slider-div').slick(
+                {
+                   slide : 'div', //슬라이드 되어야 할 태그 ex) div, li 
+                   infinite : true, //무한 반복 옵션    
+                   slidesToShow : 4, // 한 화면에 보여질 컨텐츠 개수
+                   slidesToScroll : 1, //스크롤 한번에 움직일 컨텐츠 개수
+                   speed : 100, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+                   arrows : true, // 옆으로 이동하는 화살표 표시 여부
+                   dots : true, // 스크롤바 아래 점으로 페이지네이션 여부
+                   autoplay : false, // 자동 스크롤 사용 여부
+                   autoplaySpeed : 10000, // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+                   pauseOnHover : true, // 슬라이드 이동   시 마우스 호버하면 슬라이더 멈추게 설정
+                   vertical : false, // 세로 방향 슬라이드 옵션
+
+                   prevArrow : "<button type='button' class='slick-prev'>Previous</button>", // 이전 화살표 모양 설정
+                   nextArrow : "<button type='button' class='slick-next'>Next</button>", // 다음 화살표 모양 설정
+
+                   draggable : true, //드래그 가능 여부 
+
+                   responsive : [ // 반응형 웹 구현 옵션
+                   {
+                      breakpoint : 960, //화면 사이즈 960px
+                      settings : {
+                         //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                         slidesToShow : 3
+                      }
+                   }, {
+                      breakpoint : 768, //화면 사이즈 768px
+                      settings : {
+                         //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                         slidesToShow : 2
+                      }
+                   } ]
+
+                });
+                
+                
+      })
+      $(function() {
+         $('.month_event_box_in').slick(
+                {
+                   slide : 'div', //슬라이드 되어야 할 태그 ex) div, li 
+                   infinite : true, //무한 반복 옵션    
+                   slidesToShow : 4, // 한 화면에 보여질 컨텐츠 개수
+                   slidesToScroll : 1, //스크롤 한번에 움직일 컨텐츠 개수
+                   speed : 100, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+                   arrows : true, // 옆으로 이동하는 화살표 표시 여부
+                   dots : true, // 스크롤바 아래 점으로 페이지네이션 여부
+                   autoplay : false, // 자동 스크롤 사용 여부
+                   autoplaySpeed : 10000, // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+                   pauseOnHover : true, // 슬라이드 이동   시 마우스 호버하면 슬라이더 멈추게 설정
+                   vertical : false, // 세로 방향 슬라이드 옵션
+
+                   prevArrow : "<button type='button' class='slick-prev'>Previous</button>", // 이전 화살표 모양 설정
+                   nextArrow : "<button type='button' class='slick-next'>Next</button>", // 다음 화살표 모양 설정
+
+                   draggable : true, //드래그 가능 여부 
+
+                   responsive : [ // 반응형 웹 구현 옵션
+                   {
+                      breakpoint : 960, //화면 사이즈 960px
+                      settings : {
+                         //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                         slidesToShow : 3
+                      }
+                   }, {
+                      breakpoint : 768, //화면 사이즈 768px
+                      settings : {
+                         //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                         slidesToShow : 2
+                      }
+                   } ]
+
+                });
+                
+                
+      })
+   
+      
+</script>
+<script>
+	
 	var now = new Date(); // 현재 날짜 및 시간
 	var year = now.getFullYear(); // 연도
 	var month = now.getMonth() + 1; // 월
@@ -47,23 +130,43 @@
 	   eventService.dayview({date:date,month:month},function(list){
 		 
 		  var html = "";
-	 	  for(var i = 0, len = list.length || 0; i < len; i++){
-	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
-			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-	 		  html +='<div class="eventbox4">'
-			  html +=' <div class="eventbox_in1">'
-			  html +='	 <div class="eventbox_img">'
-			  html +='		<a href="#"><img src="../resources/images/'+list[i].e_fname+'" alt=""'
-			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
-			  html +='	 </div>'
-			  html +='<div class="eventbox_context1">'
-			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
-			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
-			  html += '</div>'
-			  html +='<div class="eventbox_context3">'
-			  html +='<span class="price">'+list[i].e_price+'원</span>'
-			  html +='	 </div></div>'
-	 	  }
+		  if(list.length>=8){
+		 	  for(var i = 0, len = list.length || 0; i < 8; i++){
+		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+		 		  html +='<div class="eventbox4">'
+				  html +=' <div class="eventbox_in1">'
+				  html +='	 <div class="eventbox_img">'
+					  html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+				  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+				  html +='	 </div>'
+				  html +='<div class="eventbox_context1">'
+				  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+				  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+				  html += '</div>'
+				  html +='<div class="eventbox_context3">'
+				  html +='<span class="price">'+list[i].e_price+'원</span>'
+				  html +='	 </div></div>'
+		 	  }
+		  }else{
+			  for(var i = 0, len = list.length || 0; i < len; i++){
+		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+		 		  html +='<div class="eventbox4">'
+				  html +=' <div class="eventbox_in1">'
+				  html +='	 <div class="eventbox_img">'
+			      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+				  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+				  html +='	 </div>'
+				  html +='<div class="eventbox_context1">'
+				  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+				  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+				  html += '</div>'
+				  html +='<div class="eventbox_context3">'
+				  html +='<span class="price">'+list[i].e_price+'원</span>'
+				  html +='	 </div></div>'
+		 	  }
+		  }
 	 	  $(".month_event_box_in").html(html);
 	   })
        
@@ -81,6 +184,7 @@
 	    
 	      var html = '<ul>';
 	      for (var i = 1; i <= lastDate; i++) {
+	    	 i= leadingZeros(i,2);
 	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
 	      }
 	     
@@ -91,28 +195,50 @@
 	      for (var j = 0, len = list.length || 0; j < len; j++) {
 		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
 		    	 var date= list[j].e_startDate.substring(8,10);
-		    	 
+		    	 date= leadingZeros(date,2);
 		    	 $('#day ul li .on'+date).attr('class','active')
 
 		  }
  		  var html = "";
-	 	  for(var i = 0, len = list.length || 0; i < len; i++){
-	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
-			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-	 		  html +='<div class="eventbox4">'
-			  html +=' <div class="eventbox_in1">'
-			  html +='	 <div class="eventbox_img">'
-			  html +='		<a href="#"><img src="../resources/images/'+list[i].e_fname+'" alt=""'
-			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
-			  html +='	 </div>'
-			  html +='<div class="eventbox_context1">'
-			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
-			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
-			  html += '</div>'
-			  html +='<div class="eventbox_context3">'
-			  html +='<span class="price">'+list[i].e_price+'원</span>'
-			  html +='	 </div></div>'
-	 	  }
+ 		  if(list.length>=8){
+		 	  for(var i = 0, len = list.length || 0; i < 8; i++){
+		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+		 		  html +='<div class="eventbox4">'
+				  html +=' <div class="eventbox_in1">'
+				  html +='	 <div class="eventbox_img">'
+				  html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+				  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+				  html +='	 </div>'
+				  html +='<div class="eventbox_context1">'
+				  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+				  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+				  html += '</div>'
+				  html +='<div class="eventbox_context3">'
+				  html +='<span class="price">'+list[i].e_price+'원</span>'
+				  html +='	 </div></div>'
+					 
+				  $('.month_event_box_in').slick('slickAdd',html);
+		 	  }
+ 		  }else{
+ 			 for(var i = 0, len = list.length || 0; i < len; i++){
+		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+		 		  html +='<div class="eventbox4">'
+				  html +=' <div class="eventbox_in1">'
+				  html +='	 <div class="eventbox_img">'
+				  html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+				  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+				  html +='	 </div>'
+				  html +='<div class="eventbox_context1">'
+				  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+				  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+				  html += '</div>'
+				  html +='<div class="eventbox_context3">'
+				  html +='<span class="price">'+list[i].e_price+'원</span>'
+				  html +='	 </div></div>'
+		 	  }
+ 		  }  
 	 	  $(".month_event_box_in").html(html);
       })
       $('input[name=year]').val(year);
@@ -134,6 +260,7 @@
              document.getElementById("day").innerHTML = html;
              var html = '<ul>';
 	   	     for (var i = 1; i <= lastDate; i++) {
+	   	    	 i= leadingZeros(i,2);
 	   	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
 	   	     }
 	   	     
@@ -143,19 +270,19 @@
              for (var j = 0, len = list.length || 0; j < len; j++) {
 		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
 		    	 var date = list[j].e_startDate.substring(8,10);
-		    	 
+		    	 date= leadingZeros(date,2);
 		    	 $('#day ul li .on'+date).attr('class','active')
 
 			 }
              var html = "";
-             if(list.length!=0){
-		   	 	 for(var i = 0, len = list.length || 0; i < len; i++){
+             if(list.length>=8){
+		   	 	 for(var i = 0, len = list.length || 0; i < 8; i++){
 		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
 		   	 		  html +='<div class="eventbox4">'
 		   			  html +=' <div class="eventbox_in1">'
 		   			  html +='	 <div class="eventbox_img">'
-		   			  html +='		<a href="#"><img src="../resources/images/'+list[i].e_fname+'" alt=""'
+		   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
 		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
 		   			  html +='	 </div>'
 		   			  html +='<div class="eventbox_context1">'
@@ -167,7 +294,23 @@
 		   			  html +='	 </div></div>'
 		   	 	 }
              }else{
-            	 html = "";
+            	 for(var i = 0, len = list.length || 0; i <= len; i++){
+		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+		   	 		  html +='<div class="eventbox4">'
+		   			  html +=' <div class="eventbox_in1">'
+		   			  html +='	 <div class="eventbox_img">'
+		   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+		   			  html +='	 </div>'
+		   			  html +='<div class="eventbox_context1">'
+		   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+		   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+		   			  html += '</div>'
+		   			  html +='<div class="eventbox_context3">'
+		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
+		   			  html +='	 </div></div>'
+		   	 	 }
              }
 	   	 	 $(".month_event_box_in").html(html);
              $('input[name=year]').val(year);
@@ -191,6 +334,7 @@
 	                     document.getElementById("day").innerHTML = html;
 	                     var html = '<ul>';
 		           	     for (var i = 1; i <= lastDate; i++) {
+		           	    	 i= leadingZeros(i,2);
 		           	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
 		           	     }
 		           	     
@@ -200,19 +344,19 @@
 	                     for (var j = 0, len = list.length || 0; j < len; j++) {
 	        		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
 	        		    	 var date = list[j].e_startDate.substring(8,10);
-	        		    	 
+	        		    	 date= leadingZeros(date,2);
 	        		    	 $('#day ul li .on'+date).attr('class','active')
 	
 	        	    	 }
 	                     var html = "";
-	                     if(list.length!=0){
-	        		   	 	 for(var i = 0, len = list.length || 0; i < len; i++){
+	                     if(list.length>=8){
+	        		   	 	 for(var i = 0, len = list.length || 0; i < 8; i++){
 	        		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 	        		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
 	        		   	 		  html +='<div class="eventbox4">'
 	        		   			  html +=' <div class="eventbox_in1">'
 	        		   			  html +='	 <div class="eventbox_img">'
-	        		   			  html +='		<a href="#"><img src="../resources/images/'+list[i].e_fname+'" alt=""'
+	        		   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
 	        		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
 	        		   			  html +='	 </div>'
 	        		   			  html +='<div class="eventbox_context1">'
@@ -224,7 +368,23 @@
 	        		   			  html +='	 </div></div>'
 	        		   	 	 }
 	                     }else{
-	                    	 html = "";
+	                    	 for(var i = 0, len = list.length || 0; i < len; i++){
+	        		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+	        		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+	        		   	 		  html +='<div class="eventbox4">'
+	        		   			  html +=' <div class="eventbox_in1">'
+	        		   			  html +='	 <div class="eventbox_img">'
+	        		   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+	        		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+	        		   			  html +='	 </div>'
+	        		   			  html +='<div class="eventbox_context1">'
+	        		   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+	        		   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+	        		   			  html += '</div>'
+	        		   			  html +='<div class="eventbox_context3">'
+	        		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
+	        		   			  html +='	 </div></div>'
+	        		   	 	 }
 	                     }
 	        	   	 	 $(".month_event_box_in").html(html);
 	                     $('input[name=year]').val(year);
@@ -234,57 +394,16 @@
    
       }
    })
-//    $(function(){
-// 	   //베스트 행사
-// 		var hidden = $("input[name=account_Interest]").val();
-// 		console.log("hidden :"+hidden);
-// 		eventService.besteventview(hidden,function(list){
-			
-// 		})
-//    })
+  var inputs = $('input[type="hidden"]');
+  $("#event-search").on('submit',function(){
+	  $($(inputs[3]).val(""));
+	  $($(inputs[7]).val(""));
+	  $($(inputs[13]).val(""));
+  })
   
-</script>
+  </script>
 
-<script>
-   $(function() {
-            $('.slider-div')
-                  .slick(
-                        {
-                           slide : 'div', //슬라이드 되어야 할 태그 ex) div, li 
-                           infinite : true, //무한 반복 옵션    
-                           slidesToShow : 4, // 한 화면에 보여질 컨텐츠 개수
-                           slidesToScroll : 1, //스크롤 한번에 움직일 컨텐츠 개수
-                           speed : 100, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
-                           arrows : true, // 옆으로 이동하는 화살표 표시 여부
-                           dots : true, // 스크롤바 아래 점으로 페이지네이션 여부
-                           autoplay : false, // 자동 스크롤 사용 여부
-                           autoplaySpeed : 10000, // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
-                           pauseOnHover : true, // 슬라이드 이동   시 마우스 호버하면 슬라이더 멈추게 설정
-                           vertical : false, // 세로 방향 슬라이드 옵션
 
-                           prevArrow : "<button type='button' class='slick-prev'>Previous</button>", // 이전 화살표 모양 설정
-                           nextArrow : "<button type='button' class='slick-next'>Next</button>", // 다음 화살표 모양 설정
-
-                           draggable : true, //드래그 가능 여부 
-
-                           responsive : [ // 반응형 웹 구현 옵션
-                           {
-                              breakpoint : 960, //화면 사이즈 960px
-                              settings : {
-                                 //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
-                                 slidesToShow : 3
-                              }
-                           }, {
-                              breakpoint : 768, //화면 사이즈 768px
-                              settings : {
-                                 //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
-                                 slidesToShow : 2
-                              }
-                           } ]
-
-                        });
-         })
-</script>
 <!-- slick end -->
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -310,9 +429,12 @@
 			<a class="navbar-brand" href="/Main"><img
 				src="../resources/images/logo.png"
 				style="width: 140px; height: 80p; background: black;"></a>
-			<form method="post" action="/search/searchform" class="event-search">
-				<i class="fas fa-search" id="search_img"></i> <input
-					class="eventus-input" id="einput" type="search" name="keyword">
+			<form method="post" action="/search/searchform" id="event-search">
+				    <input class="eventus-input" id="einput" type="search" name="keyword">
+					<input type="hidden" name="field" value="<c:out value='${search.field.replace(","," ")}' />">
+					<input type="hidden" name="type" value="${search.type }">
+					<input type="hidden" name="price" value="${search.price }">
+					<input type="hidden" name="keyword" value="${search.keyword }">
 			</form>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="nav-eventbar">
@@ -366,4 +488,3 @@ $(document).click(function(e) {
 })
 
 </script>
-</html>
