@@ -3,6 +3,7 @@ package org.mohang.controller;
 import java.util.ArrayList; 
 import java.util.List;
 
+import org.mohang.domain.EventVO;
 import org.mohang.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -168,11 +169,19 @@ public class AdminController {
 	}
 	
 	/*승인반려리스트에서 글 제목 눌렀을시 디테일 페이지로 이동하게끔*/
-	/*@GetMapping("listDetail")
-	public String listDetail(@RequestParam("ap_num") String ap_num, Model model){
+	@GetMapping("detailApprove")
+	public String detailApprove(@RequestParam("e_num") String e_num, Model model){
+		model.addAttribute("detailApprove", service.detailApprove(e_num));
+		EventVO event = service.detailApprove(e_num);
+		String eh_num = event.getEh_num();
 		
-	}*/
+		//행사장정보가 필요해서
+		model.addAttribute("eventhall", service.eventHallGet(eh_num));
+		
+		return "module/admin/adminApproveDetail";
+	}
 
+	
 	/* 행사반려승인리스트에서 반려 버튼 눌렀을시 삭제되어 삭제된거 제외후 다시 리스트에 뿌려주는 부분 */
 	@GetMapping("deleteApprove")
 	public String deleteApprove(@RequestParam("ap_num") String ap_num) {
@@ -296,8 +305,8 @@ public class AdminController {
 
 	/* 예를들어 회원관리 리스트에서 아이디를 눌렀을시 회원정보에 대한 디테일이 나오게끔 */
 	@GetMapping("accountDetail")
-	public String managementDetail() {
-
+	public String managementDetail(@RequestParam("account_num") String account_num, Model model) {
+		model.addAttribute("accountDetail", service.detailAccount(account_num));
 		return "module/admin/adminManagementDetail";
 	}
 	

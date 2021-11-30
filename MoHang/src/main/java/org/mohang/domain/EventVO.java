@@ -29,7 +29,7 @@ public class EventVO {
 	private String e_personName;
 	private String e_personPhoneNumber;
 	private String e_personEmail;
-	private int hitcount;
+	private int e_hitcount;
 	private int e_like;
 	private String e_dfname;
 	private Date e_applyDate;

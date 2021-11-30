@@ -8,7 +8,7 @@
 <mapper namespace="org.mohang.mapper.AdminMapper">
 	<!-- 승인반려리스트조회 -->
 	 <select id="listApprove" resultType="org.mohang.domain.ApproveDTO">
-	    select a.ap_num, e.e_name, a.admin_num, a.ap_date, a.ap_check
+	    select a.ap_num, e.e_name, a.admin_num, a.ap_date, a.ap_check, e.e_num
 	 	from approve a, event e, event_hall_reservation r
 	 	where r.ap_num = a.ap_num and  e.e_num = r.e_num
 	 </select>
@@ -31,6 +31,19 @@
 	 	where r.ap_num = a.ap_num and  e.e_num = r.e_num 	
 	 </select>	
 	 
+	 <!-- 승인반려리스트에서 글 제목 눌렀을시 디테일 페이지로 이동하게끔-->
+	 <select id ="detailApprove" resultType="org.mohang.domain.EventVO">
+	 	select *
+	 	from event
+	 	where e_num = #{e_num}
+	 </select> 
+	 
+
+	 
+	 <!-- 승인반려리스트에서 글제목 눌렀을때 디테일페이지로 이동하기 위해서 eventhall데이터도 필요하다 -->
+	 <select id="eventHallGet" resultType="org.mohang.domain.EventHallVO">
+		select * from event_hall where eh_num = #{eh_num}
+	</select>
 	 
 	 <!-- 회원관리 리스트 조회 -->
 	 <select id="listAccount" resultType="org.mohang.domain.AccountVO">
@@ -45,6 +58,12 @@
 	 	delete account where account_num = #{account_num}
 	 </delete>
 	 -->
+	 
+	 <!-- 회원관리 리스트에서 회원아이디 눌렀을때 디테일 페이지 나오게끔 -->
+	 <select id="detailAccount" resultType="org.mohang.domain.AccountVO">
+	 	select * from account
+	 	where account_num = #{account_num}
+	 </select>
 	 
 	 <!-- 티켓예약리스트 조회 -->
 	 <select id="listreservationTicket" resultType ="org.mohang.domain.TicketReservationDTO">

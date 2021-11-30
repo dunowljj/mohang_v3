@@ -58,7 +58,7 @@
 			<c:forEach items="${account}" var="account">
 			<tr>
 				<th scope="row"><font style="vertical-align: inherit;">${account.account_name}</font></th>
-				<td><a href="/admin/adminManagementDetail"><font
+				<td><a href="/admin/accountDetail?account_num=${account.account_num }"><font
 						style="vertical-align: inherit;">${account.account_id}</font></a></td>
 				<td><font style="vertical-align: inherit;">${account.account_phoneNumber}</font></td>
 				<td><font style="vertical-align: inherit;">${account.account_birth_date}</font></td>

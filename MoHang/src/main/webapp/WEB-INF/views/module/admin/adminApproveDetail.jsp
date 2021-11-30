@@ -40,53 +40,54 @@
 				<table class="tb">
 					<tr class="tr1">
 						<td class="tbname">행사명</td>
-						<td class="s_tbcontent ">${event.o_name }aaaa</td>
+						<td class="s_tbcontent ">${detailApprove.e_name }</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">행사기간</td>
 						<td class="s_tbcontent">
-							 ${event.o_name }aaaa ~ ${event.o_name }aaaa
+							${detailApprove.e_startRecruiteDate } ~ ${detailApprove.e_endRecruiteDate} 
 						</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">모집기간</td>
 						<td class="s_tbcontent">
-							${event.o_name }aaaa ~ ${event.o_name } aaaa
+							 ${detailApprove.e_startDate }~ ${detailApprove.e_endDate}
+							
 						</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">대관장소</td>
-						<td class="s_tbcontent">${event.o_name }aaaa</td>
+						<td class="s_tbcontent">${eventhall.eh_name }</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">모집인원</td>
-						<td class="s_tbcontent">${event.o_name }aaaa명</td>
+						<td class="s_tbcontent">${detailApprove.e_recruitePeople }명</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">행사유형</td>
-						<td class="s_tbcontent">${event.o_name }aaaa</td>
+						<td class="s_tbcontent">${detailApprove.e_type }</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">행사분야</td>
-						<td class="s_tbcontent">${event.o_name }aaaa</td>
+						<td class="s_tbcontent">${detailApprove.e_field }</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">가격</td>
-						<td class="s_tbcontent"> ${event.o_name }aaaa</td>
+						<td class="s_tbcontent"> ${detailApprove.e_price }</td>
 					</tr>
 					<tr class="tr1">
-						<td class="tbname">행사대표이미지</td>
+						<td class="tbname">행사대표이미지</td> 
 						<td class="s_tbcontent">
-							<img alt="image" src="">&nbsp&nbsp aaaa</td>
+							<img alt="image" src="../resourcese/eventImage/${detailApprove.e_fname}"> &nbsp&nbsp</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">행사상세이미지</td>
 							<td class="s_tbcontent">
-							<img alt="image" src="">&nbsp&nbsp aaaa</td>
+							<img alt="image" src="../resourcese/eventImage/${detailApprove.e_dfname} ">&nbsp&nbsp  </td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">행사상세내용</td>
-						<td class="s_tbcontent">aaaa</td>
+						<td class="s_tbcontent">${detailApprove.e_detail}</td>
 					</tr>
 				</table>
 				<br> <br>
@@ -97,15 +98,15 @@
 				<table class="tb">
 					<tr>
 						<td class="s_tbname">주최자 성함</td>
-						<td class="s_tbcontent">${event.o_name }aaaa</td>
+						<td class="s_tbcontent">${detailApprove.e_name }</td>
 					</tr>
 					<tr>
 						<td class="s_tbname">주최자 전화번호</td>
-						<td class="s_tbcontent">${event.o_name }aaaa</td>
+						<td class="s_tbcontent">${detailApprove.e_personPhoneNumber }</td>
 					</tr>
 					<tr>
 						<td class="s_tbname">주최자 이메일</td>
-						<td class="s_tbcontent tdLength">${event.o_name }aaaa</td>
+						<td class="s_tbcontent tdLength">${detailApprove.e_personEmail }</td>
 
 					</tr>
 

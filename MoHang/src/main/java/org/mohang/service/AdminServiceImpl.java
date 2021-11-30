@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.mohang.domain.AccountVO;
 import org.mohang.domain.ApproveDTO;
+import org.mohang.domain.EventHallVO;
+import org.mohang.domain.EventVO;
 import org.mohang.domain.NoticeVO;
 import org.mohang.domain.ReviewVO;
 import org.mohang.domain.TicketReservationDTO;
@@ -45,6 +47,18 @@ public class AdminServiceImpl implements AdminService {
 	public int deleteApprove(String ap_num){
 		return mapper.deleteApprove(ap_num);
 	}
+	
+	
+	public EventVO detailApprove(String e_num) {
+		// TODO Auto-generated method stub
+		return mapper.detailApprove(e_num);
+	}
+	
+	public EventHallVO eventHallGet(String eh_num) {
+		
+		return mapper.eventHallGet(eh_num);
+	}
+
 	
 	public int deleteEventHall(String ap_num){
 		return mapper.deleteEventHall(ap_num);
@@ -90,6 +104,17 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.deleteNotice(notice_num);
 	}
+
+	
+	public AccountVO detailAccount(String account_num) {
+		
+		return mapper.detailAccount(account_num);
+	}
+
+	
+	
+	
+
 
 	
 	
