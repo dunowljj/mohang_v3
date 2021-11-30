@@ -9,6 +9,9 @@
 		select  e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event order by e_hitcount desc
      ]]>
 	</select>
+	<select id ="listLikeEvent" resultType="org.mohang.domain.LikedVO">
+		select * from liked where account_num =#{account_num} and e_num = #{e_num}
+	</select>
 	<select id="listMonthEvent" resultType="org.mohang.domain.EventVO">
 	<![CDATA[
 		select  e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event where e_startdate like  '%'||#{search}||'%'
@@ -118,6 +121,9 @@
 	<select id="selectlike" resultType="org.mohang.domain.LikedVO" >
 		select account_num,e_num,like_status from liked where account_num =#{account_num} and e_num = #{e_num}
 	</select>
+	<insert id="firstinsertLikeEvent">
+		insert into liked (account_num,e_num,like_status) values(#{account_num},#{e_num},0)
+	</insert>
 	<insert id="insertlike">
 		insert into liked (account_num,e_num,like_status) values(#{account_num},#{e_num},1)
 	</insert>

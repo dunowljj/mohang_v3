@@ -3,6 +3,7 @@ package org.mohang.service;
 import java.util.List;
 
 import org.mohang.domain.EventHallVO;
+import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.domain.OrganizationVO;
@@ -10,7 +11,7 @@ import org.mohang.domain.Search;
 import org.mohang.domain.StatisticsDTO;
 
 public interface EventService {
-	public List<EventVO> listBestEvent();
+	public List<EventLikeDTO> listBestEvent();
 
 	public List<EventVO> listMonthEvent(String search);
 	

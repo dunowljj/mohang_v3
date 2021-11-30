@@ -34,6 +34,5 @@ public class EventVO {
 	private String e_dfname;
 	private Date e_applyDate;
 	
-	
 
 }

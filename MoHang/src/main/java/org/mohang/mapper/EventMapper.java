@@ -54,4 +54,9 @@ public interface EventMapper {
 	//예약
 	public List<StatisticsDetailDTO> reservationStatistics(String e_num);
 
+	//충돌 조심
+	public LikedVO listLikeEvent(@Param("account_num")String account_num, @Param("e_num")String e_num);
+	//충돌 조심
+	public void firstinsertLikeEvent(@Param("e_num")String e_num,@Param("account_num") String account_num);
+
 }
