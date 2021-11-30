@@ -7,6 +7,8 @@ import java.util.List;
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.Search;
+import org.mohang.domain.StatisticsDTO;
+import org.mohang.domain.StatisticsDetailDTO;
 import org.mohang.mapper.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +86,50 @@ public class EventServiceImpl implements EventService{
 	public int updateApply(EventVO eventVO){
 		return mapper.updateApply(eventVO);
 }
+
+	//<-지혜
+	@Override
+	public List<EventVO> listStatistics() {
+		return mapper.listStatistics();
+	}
+	
+	@Override
+	public StatisticsDTO getStatistics(String e_num){
+		EventVO eventVO = mapper.getApply(e_num);
+		StatisticsDTO statistics = new StatisticsDTO();
+		
+		//예약건수 부르기
+		List<StatisticsDetailDTO> reservationList= mapper.reservationStatistics(e_num);
+		int cancelTicket=0;
+		int realTicket=0;
+		
+		for(int i=0; i<reservationList.size(); i++){
+			if(reservationList.get(i).getTicket_reservation_status().equals("n")){
+				cancelTicket+=reservationList.get(i).getTicket_reservation_amount();
+			}else{
+				realTicket +=reservationList.get(i).getTicket_reservation_amount();
+			}
+		};
+		
+		int totalTicket=cancelTicket+realTicket;
+		System.out.println(reservationList.get(0).getTicket_reservation_amount());
+		System.out.println(reservationList.get(0).getTicket_reservation_amount());
+		log.info(cancelTicket);
+		log.info(realTicket);
+		log.info(totalTicket);
+		//예약건수
+		 statistics.setReservation(realTicket);
+		 //예약율: 실제예약/조회수
+		 double ratioReservation = (double)(realTicket/eventVO.getE_hitcount())*100;
+		statistics.setRatioReservation(ratioReservation);
+		//예약취소율: 
+		double rationReservationCancel = (double)(cancelTicket/totalTicket)*100;
+		statistics.setRationReservationCancel(rationReservationCancel);
+		
+		return statistics;
+	}
+	
+	
 
 }
 

@@ -21,7 +21,7 @@
 
 			<div class="statisticsPage">
 				<div class="subTitle">
-					<h3>'${event.e_name }' 결과 상세 분석</h3>
+					<h3>'${endEvent.e_name }' 결과 상세 분석</h3>
 				</div>
 				<div class="subsubTitle">
 					<br>
@@ -42,37 +42,37 @@
 						<div class="rowBox1">
 							<div class="row">
 								<div class="r_title">행사명</div>
-								<div class="r_content">${event.o_name }adsdsf</div>
+								<div class="r_content">${endEvent.e_name }</div>
 							</div>
 							<div class="row">
 								<div class="r_title">행사이미지</div>
 								<div class="r_content">
-									<img alt="" src="../resources/images/모행.png">이거 어케 연결시키지흠
+									<img alt="" src="../resources/images/${endEvent.e_fname }">
 								</div>
 							</div>
 							<div class="row">
 								<div class="r_title">행사상세내용</div>
-								<div class="r_content">${event.o_name }adsdsf</div>
+								<div class="r_content">${endEvent.e_detail }</div>
 							</div>
 							<div class="row">
 								<div class="r_title">행사기간</div>
-								<div class="r_content">${event.o_name }adsdsf</div>
+								<div class="r_content"> ${endEvent.e_startDate } ~ ${endEvent.e_endDate }</div>
 							</div>
 							<div class="row">
 								<div class="r_title">대관장소</div>
-								<div class="r_content">${event.o_name }adsdsf</div>
+								<div class="r_content">${eventHall.eh_name}대여장</div>
 							</div>
 							<div class="row">
 								<div class="r_title">행사유형</div>
-								<div class="r_content">${event.o_name }adsdsf</div>
+								<div class="r_content">${endEvent.e_type }</div>
 							</div>
 							<div class="row">
 								<div class="r_title">가격</div>
-								<div class="r_content">${event.o_name }adsdsf원</div>
+								<div class="r_content">${endEvent.e_price }원</div>
 							</div>
 							<div class="row">
 								<div class="r_title">대관장소</div>
-								<div class="r_content">${event.o_name }adsdsf실</div>
+								<div class="r_content">${endEvent.eh_num }실</div>
 							</div>
 						</div>
 
@@ -81,16 +81,16 @@
 
 							<div class="row">
 								<div class="r_title">주최자 성함</div>
-								<div class="r_content">${event.o_name }adsdsf</div>
+								<div class="r_content">${endEvent.e_personName }</div>
 							</div>
 
 							<div class="row" style="margin-top: 170px">
 								<div class="r_title">모집기간</div>
-								<div class="r_content">${event.o_name }adsdsf</div>
+								<div class="r_content">${endEvent.e_startRecruiteDate } ~ ${endEvent.e_endRecruiteDate}</div>
 							</div>
 							<div class="row" style="margin-top: 40px">
 								<div class="r_title">행사분야</div>
-								<div class="r_content">${event.o_name }adsdsf</div>
+								<div class="r_content">${endEvent.e_field }</div>
 							</div>
 						</div>
 					</div>
@@ -107,22 +107,20 @@
 					<div class="statisticsBox">
 						<div class="s_row">
 							<div class="s_title">
-								우리 행사에 <br>관심있는 고객
+								우리 행사에 관심있는 고객
 							</div>
 							<div class="s_content">
 								<div class="row">
-									<div class="col-sm">조회수 |</div>
-									<div class="col-sm">좋아요수 |</div>
-									<div class="col-sm">예약건수 |</div>
-								</div>
-								<div class="row">
-									<div class="col-sm">예약율 |</div>
-									<div class="col-sm">예약취소율 |</div>
+									<div class="col-sm">조회수 | ${endEvent.e_hitcount } 회</</div>
+									<div class="col-sm">좋아요수 |  ${endEvent.e_like } 개</div>
+									<div class="col-sm">예약건수 | ${statistics.reservation } 건</div>
+									<div class="col-sm">예약율 | ${statistics.ratioReservation} %</div>
+									<div class="col-sm">예약취소율 | ${statistics.rationReservationCancel} %</div>
 									<div class="col-sm"></div>
 								</div>
 							</div>
 						</div>
-
+						<br>
 						<div class="s_row">
 							<div class="s_title">고객 연령별 성비</div>
 							<div class="s_content" id="columnchart_material"
@@ -135,7 +133,7 @@
 						</div>
 						<div class="s_row">
 							<div class="s_title">고객의 주 관심사</div>
-							<div class="s_content">${event.o_name }adsdsf</div>
+							<div class="s_content">adsdsf</div>
 						</div>
 					</div>
 				</div>

@@ -75,12 +75,12 @@
 					<tr class="tr1">
 						<td class="tbname">행사대표이미지</td>
 						<td class="s_tbcontent">
-							<img alt="image" src="">이거 불러오는거까지가 주말 목표</td>
+							<img alt="image" src="../resources/eventImages/${event.e_fname }">이거 불러오는거까지가 주말 목표</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">행사상세이미지</td>
 							<td class="s_tbcontent">
-							<img alt="image" src="">이거 불러오는거까지가 주말 목표</td>
+							<img alt="image" src="../resources/eventImages/${event.e_dfname }">이거 불러오는거까지가 주말 목표</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">행사상세내용</td>

@@ -6,6 +6,7 @@ import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.OrganizationVO;
 import org.mohang.domain.Search;
+import org.mohang.domain.StatisticsDTO;
 
 public interface EventService {
 	public List<EventVO> listBestEvent();
@@ -34,6 +35,8 @@ public interface EventService {
 	 */
 	public EventHallVO eventHallGet(String e_num);
 
-
+	//<-지혜
+	public List<EventVO> listStatistics();
+	public StatisticsDTO getStatistics(String e_num);
 
 }
