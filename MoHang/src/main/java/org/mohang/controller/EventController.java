@@ -180,7 +180,7 @@ public class EventController  {
 			if(re==49){
 				eventService.updatedownlike(account_num,e_num);
 				eventService.downcountlike(account_num,e_num);
-			}else{
+			}else if(re==48){
 				eventService.updateuplike(account_num,e_num);
 				eventService.upcountlike(account_num,e_num);
 			}

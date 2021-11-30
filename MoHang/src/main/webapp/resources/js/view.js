@@ -88,24 +88,37 @@ $(document).ready(function () {
 	//1 누른상태 0 안누른거 
 	eventService.view(function(list){
 		for(var i=0, len = list.length||0;i<len;i++){
-			list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
-			list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+			console.log('test'+list[i].list)
+			list[i].list.e_startDate =moment(list[i].list.e_startDate).format("YYYY-MM-DD");
+			list[i].list.e_endDate =moment(list[i].list.e_endDate).format("YYYY-MM-DD");
 			str += '<div class="eventbox">'
 			str +=	'<div class="eventbox_in">'
 	        str +=	 '<div class="eventbox_img">'
-	        str +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\"'
+	        str +='		<a href=\"/event/eventDetail?e_num='+list[i].list.e_num+'\">'+'<img src=\"../resources/images/'+list[i].list.e_fname+'\"'
 	        str +=     ' alt="" style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
 	        str +=	    '</div>'
+	        //status 0
+	        if(list[i].likedVO.like_status==1){
 	        str +=       '<div class="heart">'
             str +=        '<img src="../resources/images/빈하트.png" alt="" style="width: 16px; height: 16px;">'
-            str += 		   '<input type="hidden" name="e_num" value=\"'+list[i].e_num +'\"/>'		
+            str += 		   '<input type="hidden" name="e_num" value=\"'+list[i].list.e_num +'\"/>'		
+            str += 		   '<input type="hidden" name="like_status" value=\"'+list[i].likedVO.like_status +'\"/>'		
             str +=			'</div>'
+	        }
+        	//status 1
+			if(list[i].likedVO.like_status==0){
+        	str +=       '<div class="heart">'
+            str +=        '<img src="../resources/images/찬하트.png" alt="" style="width: 16px; height: 16px;">'
+            str += 		   '<input type="hidden" name="e_num" value=\"'+list[i].e_num +'\"/>'		
+            str += 		   '<input type="hidden" name="like_status" value=\"'+list[i].likedVO.like_status +'\"/>'		
+            str +=			'</div>'	
+			}
             str +=           '<div class="eventbox_context">'
-            str +=            '<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
-            str +=			   '<p class="event_title">'+list[i].e_name+'</p>'
+            str +=            '<span>'+list[i].list.e_startDate+'~'+list[i].list.e_endDate+'</span>'
+            str +=			   '<p class="event_title">'+list[i].list.e_name+'</p>'
             str +=				'</div>'
             str +=				  '<div class="eventbox_context2">'
-            str +=    				'<span class="price">'+list[i].e_price+'원</span>'
+            str +=    				'<span class="price">'+list[i].list.e_price+'원</span>'
             str +=					 '<div class="none"></div>'
             str += 					  '<img class="view" src="../resources/images/눈.png"><span>0</span>'
            
@@ -120,7 +133,6 @@ $(document).ready(function () {
 	    //추천 행사
 		var hidden = $("input[name=account_Interest]").val();
 		eventService.recommend(hidden,function(list){
-			console.log("list :" +list);
 			for(var i=0, len = list.length||0;i<len;i++){
 				list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 				list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
@@ -152,12 +164,19 @@ $(document).ready(function () {
 	   $(document).on('click','.heart',function(){
 		    	var account_num =1;
 		    	var e_num =$(this).find("input").val();
+		    	var like_status =$(this).find("input").next().val();
+		    	console.log('test :'+like_status)
 				$.ajax({
 					type : 'post',
 					url : '/event/like',
 					data : {'account_num':account_num,'e_num':e_num },
 					success : function(result, status, xhr) {
-						console.log(result)
+						console.log('test:');
+						if(like_status==0){
+							$(this).next("img").attr("src","../resources/images/찬하트.png")
+						}else{
+							$(this).next("img").attr("src","../resources/images/빈하트.png")
+						}
 					},
 					error : function(xhr, status, er) {
 						

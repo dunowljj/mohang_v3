@@ -1,10 +1,13 @@
 package org.mohang.controller;
 
 import java.net.HttpCookie;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventVO;
+import org.mohang.domain.LikedVO;
 import org.mohang.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +33,14 @@ public class ViewController {
 	 * 베스트 행사 -> 조회수가 많은 행사 상위 5개 출력
 	 */
 	@GetMapping("/best")
-	public ResponseEntity<List<EventVO>> bestEvent(){
-		log.info(eventService.listBestEvent());
-		return new ResponseEntity<> (eventService.listBestEvent(),HttpStatus.OK);
+	public ResponseEntity<List<EventLikeDTO>> bestEvent(){
+		
+		
+		
+		
+		
+		
+		return new ResponseEntity<List<EventLikeDTO>> (eventService.listBestEvent(),HttpStatus.OK);
 	}
 	/*
 	 * 이달의 행사 -> 년 월로 조회수가 많은 행사 3개 출력

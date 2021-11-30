@@ -1,10 +1,12 @@
 package org.mohang.service;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.mohang.domain.EventHallVO;
+import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.domain.Search;
@@ -23,9 +25,21 @@ public class EventServiceImpl implements EventService{
 	@Autowired
 	private EventMapper mapper;
 	
+	
 	//베스트행사
-	public List<EventVO> listBestEvent(){
-		return  mapper.listBestEvent();
+	public List<EventLikeDTO> listBestEvent(){
+		List<EventLikeDTO> likelist = new ArrayList<>();
+		List<EventVO> list=mapper.listBestEvent();
+		for(int i=0;i<list.size();i++){
+			log.info("test :"+mapper.listLikeEvent("1",list.get(i).getE_num()));
+			if(mapper.listLikeEvent("1",list.get(i).getE_num())==null){
+				mapper.firstinsertLikeEvent(list.get(i).getE_num(), "1");
+			}
+		}
+		for(int i=0;i<list.size();i++){
+			likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent("1",list.get(i).getE_num())));
+		}
+		return likelist;
 	}
 	
 	@Override
@@ -141,6 +155,7 @@ public class EventServiceImpl implements EventService{
 	public void updateuplike(String account_num, String e_num) {
 		mapper.updateuplike(account_num,e_num);
 	}
+
 
 }
 

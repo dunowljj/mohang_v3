@@ -446,7 +446,7 @@
 					<div id="myPage1" style="display: none">
 						<ul>
 							<li>xxx님</li>
-							<li><a href="/MoHang/general/likeList.do">관심있는 행사</a></li>
+							<li><a href="/general/listLikes">관심있는 행사</a></li>
 							<li><a href="/MoHang/organization/applyForm.do">단체 정보 신청</a></li>
 							<li><a href="/MoHang/event/insertForm.do">행사 신청</a></li>
 							<li><a href="/MoHang/event/applyList.do">my 행사 리스트</a></li>
@@ -454,8 +454,7 @@
 							<li><a href="#">1:1 채팅</a></li>
 							<li><a href="/MoHang/general/reserveList.do">예약확인</a></li>
 							<li><a href="/MoHang/general/reviewList.do">리뷰 작성 및 확인</a></li>
-							<li><a href="/MoHang/general/informationUpdateForm.do">회원
-									정보 수정</a></li>
+							<li><a href="/general/updateInformation">회원 정보 수정</a></li>
 							<li><a href="#">로그 아웃</a></li>
 						</ul>
 					</div>
