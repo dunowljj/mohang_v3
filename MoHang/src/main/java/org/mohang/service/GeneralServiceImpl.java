@@ -76,6 +76,11 @@ public class GeneralServiceImpl implements GeneralService {
 		return mapper.listLikes(account_num);
 	}
 
+	@Override
+	public boolean cancelLikeDisplay(String account_num, String e_num) {
+		return mapper.updateLikeStatus(account_num, e_num) ==1;
+	}
+
 }
 
 

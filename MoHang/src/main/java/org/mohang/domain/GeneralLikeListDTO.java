@@ -10,11 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GeneralLikeListDTO {
+	private String account_num;
+	private String e_num;
 	private String eh_location;
 	private String e_name;
 	private int e_hitcount;
 	private Date e_startRecruiteDate;
-	private boolean like_status;
 	private String e_fname;
 	private int e_price;
+	private boolean like_status;
 }

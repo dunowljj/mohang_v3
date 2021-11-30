@@ -29,9 +29,16 @@ public class GeneralServiceTests {
 //		AccountVO vo = service.getInformation("A-2");
 //		log.info(vo);
 //	}
-	@Test
-	public void testlistLikes(){
-		service.listLikes("2").forEach(like -> log.info(like));
-		 
-	}
+//	@Test
+//	public void testlistLikes(){
+//		service.listLikes("2").forEach(like -> log.info(like));
+//		 
+//	}
+//	@Test
+//	public void testlistLikes(){
+//		if(service.cancelLikeDisplay("1", "9")){
+//			log.info("success!!@@@@@@@@@@@@@");
+//		}
+//		
+//	}
 }

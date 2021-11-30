@@ -23,5 +23,7 @@ public interface GeneralService  {
 	public boolean matchNewPassword(String pw1, String pw2);
 	
 	public List<GeneralLikeListDTO> listLikes(String account_num);
+	
+	public boolean cancelLikeDisplay(String account_num, String e_num);
 }
 

@@ -10,6 +10,8 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_like-script.js"></script>
+	
 	<div id="container-box1">
 		<div id="container">
 			<div class='like_container'>
@@ -22,8 +24,15 @@
 					<div class='likeList_table_wrap'>
 						<c:forEach var="like" items="${likeList}">
 							<div class='like_one_wrap'>
+<!-- 								<form> -->
+								<input type='hidden' id="hidden_e_num" value="<c:out value='${like.account_num}'/>">
+								<input type='hidden' id="hidden_account_num" value="<c:out value='${like.e_num}'/>">
+<!-- 								</form> -->
+								
 								<div class='like_event_image'>
-									<a href=''><img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''></a>
+<%-- 									<a href="${status.index}"> --%>
+									<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt='하트'>
+<!-- 									</a> -->
 									<img class='like_event_images' src="${pageContext.request.contextPath}/resources/images/${like.e_fname}" alt='like_event'>
 								</div> 
 								<div class="like_one_wrap_bottom">
@@ -184,6 +193,14 @@
 			</div>
 		</div>			
 	</div>
+	<script>
+
+	
+	
+	
+	
+	
+	</script>
 	<jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
 </body>
 </html>
