@@ -252,22 +252,23 @@
 						</div>
 					</div>
 				</div>
-			<c:forEach items="${list}" var ="event">	
+			<c:forEach items="${list}" var ="event" >	
 				<div class="eventbox_in">
 					<div class="eventimg">
-						<img src="../resources/images/행사5.jpg" style="height : 200px; width: 357px; border: 1px solid #e8e8e8;">
+						<img src="../resources/images/${event.list.e_fname }" style="height : 200px; width: 357px; border: 1px solid #e8e8e8;">
+						<input type="hidden" name="e_num" value="${event.list.e_num }">
 					</div>
 					<div class="eventinformation">
 						<div class="information_1">
 							<span><fmt:formatDate pattern="yyyy-MM-dd"
-									value="${event.e_startDate}" /> ~ 
+									value="${event.list.e_startDate}" /> ~ 
 									<fmt:formatDate pattern="yyyy-MM-dd"
-									value="${event.e_endDate}" /></span> 
+									value="${event.list.e_endDate}" /></span> 
 							<div style="    display: inline-block; width: 245px;"></div>
-							<span class="eventprice">${event.e_price }</span>
+							<span class="eventprice">${event.list.e_price }</span>
 						</div>
 						<div class="information_2">
-							<span class="eventtitle_in"><a href="#">${event.e_name }</a></span>
+							<span class="eventtitle_in"><a href="#">${event.list.e_name }</a></span>
 						</div>
 						<div class="information_3">
 							<span><img src="../resources/images/logo.png" alt="" style="width: 36px;height: 25xp;"></span>
@@ -275,10 +276,21 @@
 							<div style= "display: inline-block; width: 324px;">
 							</div>
 							<span><img src="../resources/images/눈.png"></span>
-							<span>${event.hitcount }</span>
+							<span>${event.list.e_hitcount }</span>
+							<c:if test="${48  eq event.likedVO.like_status }">
+							<div class="heart1">
 							<span><img src="../resources/images/빈하트.png" alt="" style="width: 16px; height: 16px;"></span>
+								<input type="hidden" name="e_num" value="${event.list.e_num }">
+							</div>
+							</c:if>
+							<c:if test="${49 eq event.likedVO.like_status  }">
+							<div class="heart1">
+							<span><img src="../resources/images/찬하트.png" alt="" style="width: 16px; height: 16px;"></span>
+								<input type="hidden" name="e_num" value="${event.list.e_num }">
+							</div>
+							</c:if>
 						</div>
-							<input type="hidden" name="e_num" value="${event.e_num }">
+							
 					</div>
 				 </div>
 			   </c:forEach>

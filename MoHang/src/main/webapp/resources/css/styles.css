@@ -12814,6 +12814,8 @@ span {
 
 .price {
 	color: red;
+	display: inline-block;
+    width: 60px;
 }
 
 .view {
@@ -12833,13 +12835,17 @@ span {
     margin-left: 10px;
     z-index: 10000;
 }
-
+.heart1{
+	z-index: 10000;
+	display: inline-block;
+}
 #month {
 	display: inline-block;
 	font-size: 25px;
 	color: orange;
 	margin-right: 8px;
 	padding-left: 4px;
+    width: 135px;
 }
 
 #day {
@@ -12863,7 +12869,8 @@ span {
 
 .day_box {
 	margin: 0 auto;
-    width: 210px;
+    width: 220px;
+}
 }
 
 .event_box {
@@ -13082,6 +13089,7 @@ span {
 
 .eventimg {
 	float: left;
+	cursor: pointer;
 }
 
 .eventbox_in {

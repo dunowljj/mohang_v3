@@ -26,8 +26,12 @@ public class EventServiceImpl implements EventService{
 	
 	@Autowired
 	private EventMapper mapper;
-	
-	
+	//충돌 조심
+	@Override
+	public LikedVO selectlikeone(String account_num, String e_num) {
+		
+		return mapper.selectlikeone(account_num,e_num);
+	}
 	//베스트행사
 	public List<EventLikeDTO> listBestEvent(){
 		List<EventLikeDTO> likelist = new ArrayList<>();
@@ -66,9 +70,19 @@ public class EventServiceImpl implements EventService{
 	}
 	//충돌조심!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	@Override
-	public List<EventVO> listRecommendEvent(String account_Interest) {
-		// TODO Auto-generated method stub
-		return mapper.listRecommendEvent(account_Interest);
+	public List<EventLikeDTO> listRecommendEvent(String account_Interest) {
+		List<EventLikeDTO> likelist = new ArrayList<>();
+		List<EventVO> list=mapper.listRecommendEvent(account_Interest);
+		for(int i=0;i<list.size();i++){
+			log.info("test :"+mapper.listLikeEvent("1",list.get(i).getE_num()));
+			if(mapper.listLikeEvent("1",list.get(i).getE_num())==null){
+				mapper.firstinsertLikeEvent(list.get(i).getE_num(), "1");
+			}
+		}
+		for(int i=0;i<list.size();i++){
+			likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent("1",list.get(i).getE_num())));
+		}
+		return likelist;
 	}
    
 	@Override
@@ -76,10 +90,20 @@ public class EventServiceImpl implements EventService{
 		return mapper.eventDetail(e_num);
 		
 	}
-
+	//충돌!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	@Override
-	public List<EventVO> listEvent(Search search) {
-		return mapper.listEvent(search);
+	public List<EventLikeDTO> listEvent(Search search) {
+		List<EventLikeDTO> likelist = new ArrayList<>();
+		List<EventVO> list=mapper.listEvent(search);
+		for(int i=0;i<list.size();i++){
+			if(mapper.listLikeEvent("1",list.get(i).getE_num())==null){
+				mapper.firstinsertLikeEvent(list.get(i).getE_num(), "1");
+			}
+		}
+		for(int i=0;i<list.size();i++){
+			likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent("1",list.get(i).getE_num())));
+		}
+		return likelist;
 	}
 
 	@Override
@@ -199,6 +223,8 @@ public class EventServiceImpl implements EventService{
 		
 		return statistics;
 	}
+
+	
 
 }
 

@@ -128,7 +128,7 @@
 	   eventService.dayview({date:date,month:month},function(list){
 		 
 		  var html = "";
-		  if(list.length>=8){
+		  if(list.length>8){
 		 	  for(var i = 0, len = list.length || 0; i < 8; i++){
 		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
@@ -198,7 +198,7 @@
 
 		  }
  		  var html = "";
- 		  if(list.length>=8){
+ 		  if(list.length>8){
 		 	  for(var i = 0, len = list.length || 0; i < 8; i++){
 		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
@@ -273,7 +273,7 @@
 
 			 }
              var html = "";
-             if(list.length>=8){
+             if(list.length>8){
 		   	 	 for(var i = 0, len = list.length || 0; i < 8; i++){
 		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
@@ -292,7 +292,7 @@
 		   			  html +='	 </div></div>'
 		   	 	 }
              }else{
-            	 for(var i = 0, len = list.length || 0; i <= len; i++){
+            	 for(var i = 0, len = list.length || 0; i < len; i++){
 		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
 		   	 		  html +='<div class="eventbox4">'
@@ -347,7 +347,7 @@
 	
 	        	    	 }
 	                     var html = "";
-	                     if(list.length>=8){
+	                     if(list.length>8){
 	        		   	 	 for(var i = 0, len = list.length || 0; i < 8; i++){
 	        		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 	        		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");

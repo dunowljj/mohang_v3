@@ -167,13 +167,26 @@ $(function() {
     	    $("#second_search").submit();
     });
 	// 페이지 이동
-    $('.eventbox_in').on('click',function(){
+    $('.eventimg').on('click',function(e){
     	var e_num =$(this).find('input').val();
     	location.href='/event/eventDetail?e_num='+e_num;
-
     })
     
-    
+    $('.heart1').on('click',function(){
+    	var account_num =1;
+    	var e_num =$(this).find("input").val();
+		$.ajax({
+			type : 'post',
+			url : '/event/like',
+			data : {'account_num':account_num,'e_num':e_num },
+			success : function(result, status, xhr) {
+					location.reload();
+			},
+			error : function(xhr, status, er) {
+				
+			}
+		})
+    })
     
     
 })

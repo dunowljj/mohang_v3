@@ -121,6 +121,9 @@
 	<select id="selectlike" resultType="org.mohang.domain.LikedVO" >
 		select account_num,e_num,like_status from liked where account_num =#{account_num} and e_num = #{e_num}
 	</select>
+	<select id="selectlikeone" resultType="org.mohang.domain.LikedVO" >
+		select account_num,e_num,like_status from liked where account_num =#{account_num} and e_num = #{e_num}
+	</select>
 	<insert id="firstinsertLikeEvent">
 		insert into liked (account_num,e_num,like_status) values(#{account_num},#{e_num},0)
 	</insert>

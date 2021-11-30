@@ -23,11 +23,11 @@ public interface EventService {
 	
 	public int updateApply(EventVO eventVO);
 
-	public List<EventVO> listRecommendEvent(String account_Interest);
+	public List<EventLikeDTO> listRecommendEvent(String account_Interest);
 
 	public EventVO eventDetail(String e_num);
 
-	public List<EventVO> listEvent(Search search);
+	public List<EventLikeDTO> listEvent(Search search);
 
 	public int getTotalCount(Search search);
 	
@@ -68,5 +68,7 @@ public interface EventService {
 	//<-지혜
 	public List<EventVO> listStatistics();
 	public StatisticsDTO getStatistics(String e_num);
+
+	public LikedVO selectlikeone(String string, String e_num);
 
 }

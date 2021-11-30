@@ -115,15 +115,15 @@ public class EventController  {
 	}
 	
 	//신청한 행사정보 수정페이지 
-		@PostMapping("/updateApply")
-		public String updateApply(EventVO eventVO){
-			log.info("----try event Update----");
-			eventVO.setO_num("4");
-			eventService.updateApply(eventVO);
-			log.info("----Update success----");
-			return "module/event/insertFormUpdate";
-		}
-	
+	@PostMapping("/updateApply")
+	public String updateApply(EventVO eventVO){
+		log.info("----try event Update----");
+		eventVO.setO_num("4");
+		eventService.updateApply(eventVO);
+		log.info("----Update success----");
+		return "module/event/insertFormUpdate";
+	}
+	//충돌~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//행사정보확인페이지
 	@GetMapping("/eventDetail")
 	public String eventDetail(@RequestParam("e_num") String e_num, Model model){
@@ -136,7 +136,9 @@ public class EventController  {
 		model.addAttribute("organization", organizationService.getOrganizationOnum(o_num));
 		//행사장 정보
 		model.addAttribute("eventhall", eventService.eventHallGet(eh_num));
-		log.info("eventhall :"+ eventService.eventHallGet(eh_num));
+		//좋아요 정보
+		//충돌 조심
+		model.addAttribute("liked", eventService.selectlikeone("1", e_num));
 		return "module/event/eventDetail";
 	}
 	
@@ -184,7 +186,7 @@ public class EventController  {
 		if(check==0){
 			eventService.insertlike(account_num,e_num);
 			eventService.upcountlike(account_num,e_num);
-			result ="insert";
+			result ="up";
 		//true update 행사 정보 좋아요 수 감소
 		}else if(check==1){
 			// status가 1이면 눌린거 0이면 안눌린거  
@@ -198,7 +200,7 @@ public class EventController  {
 				eventService.updateuplike(account_num,e_num);
 				eventService.upcountlike(account_num,e_num);
 			}
-			result ="update";
+			result ="down";
 		}
 		return result;
 	}

@@ -27,7 +27,7 @@
 			<li><a href="/search/searchform?field=문화/예술">문화/예술</a></li>
 			<li><a href="/search/searchform?field=취미/생활">취미/생활</a></li>
 			<li><a href="/search/searchform?field=건강/의료">건강/의료</a></li>
-			<li><a href="/review/list">리뷰게시판</a></li>
+			<li><a href="/review/review">리뷰게시판</a></li>
 		</ul>
 	</div>
 	<div class="carousel-inner">

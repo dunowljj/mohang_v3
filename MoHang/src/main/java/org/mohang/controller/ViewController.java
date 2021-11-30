@@ -34,12 +34,6 @@ public class ViewController {
 	 */
 	@GetMapping("/best")
 	public ResponseEntity<List<EventLikeDTO>> bestEvent(){
-		
-		
-		
-		
-		
-		
 		return new ResponseEntity<List<EventLikeDTO>> (eventService.listBestEvent(),HttpStatus.OK);
 	}
 	/*
@@ -49,8 +43,10 @@ public class ViewController {
 	public ResponseEntity<List<EventVO>> listMonthEvent(@PathVariable("year")String year, @PathVariable("month") String month){
 		
 		year = year.substring(2,4);
+		month = String.format("%02d", Integer.parseInt(month));
 		String search = year+"/"+month;
 		log.info("search :"+ search);
+		log.info("search :"+ eventService.listMonthEvent(search));
 		return new ResponseEntity<List<EventVO>>(eventService.listMonthEvent(search),HttpStatus.OK);
 	}
 	/*
@@ -67,11 +63,9 @@ public class ViewController {
 	 * 추천행사 -> 회원 관심 항목으로 검색 
 	 */
 	@PostMapping(value ="/recommend")
-	public ResponseEntity<List<EventVO>> bestEvent(String account_Interest){
+	public ResponseEntity<List<EventLikeDTO>> bestEvent(String account_Interest){
 		
-		log.info("account_Interest :"+account_Interest);
-		log.info("추천 행사 :"+eventService.listRecommendEvent(account_Interest));
-		return new ResponseEntity<List<EventVO>>(eventService.listRecommendEvent(account_Interest),HttpStatus.OK);
+		return new ResponseEntity<List<EventLikeDTO>>(eventService.listRecommendEvent(account_Interest),HttpStatus.OK);
 		
 	}
 }

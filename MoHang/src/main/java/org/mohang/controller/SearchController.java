@@ -2,6 +2,7 @@ package org.mohang.controller;
 
 import java.util.List;
 
+import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.PageDTO2;
 import org.mohang.domain.Search;
@@ -27,38 +28,32 @@ public class SearchController  {
     public String postSearchForm(@ModelAttribute("search")  Search search,Model model){
     	
     	search =search.replace(search);
-    	List<EventVO> list =eventService.listEvent(search);
-    	log.info("search :"+search);
+    	List<EventLikeDTO> list =eventService.listEvent(search);
     	int total = eventService.getTotalCount(search);
     	model.addAttribute("total", total);
     	model.addAttribute("list", eventService.listEvent(search));
-    	log.info("list :"+eventService.listEvent(search));
     	model.addAttribute("pageMaker", new PageDTO2 (search,total));
     	return "/module/search/searchform";
     }
     @GetMapping("searchform")
     public String getSearchForm(@ModelAttribute("search") Search search,Model model){
-    	log.info("get");
     	search =search.replace(search);
-    	List<EventVO> list =eventService.listEvent(search);
-    	log.info("search :"+search);
+    	List<EventLikeDTO> list =eventService.listEvent(search);
+    	
+    	log.info("list :"+list);
     	int total = eventService.getTotalCount(search);
     	model.addAttribute("total", total);
     	model.addAttribute("list", eventService.listEvent(search));
-    	log.info("list :"+eventService.listEvent(search));
     	model.addAttribute("pageMaker", new PageDTO2 (search,total));
     	return "/module/search/searchform";
     }
     @PostMapping("secondsearch")
     public String postSecondSearch(@ModelAttribute("search") Search search, Model model){
-    	log.info("second :"+search);
     	search =search.replace(search);
-    	List<EventVO> list =eventService.listEvent(search);
-    	log.info("search :"+search);
+    	List<EventLikeDTO> list =eventService.listEvent(search);
     	int total = eventService.getTotalCount(search);
     	model.addAttribute("total", total);
     	model.addAttribute("list", eventService.listEvent(search));
-    	log.info("list :"+eventService.listEvent(search));
     	model.addAttribute("pageMaker", new PageDTO2 (search,total));
     	return "/module/search/searchform";
     	
