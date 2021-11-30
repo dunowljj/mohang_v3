@@ -22,7 +22,9 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -62,7 +64,6 @@ public class GeneralController {
 	}
 	@PostMapping("/updatePassword")
 	public String updatePassword(GeneralPasswordVO pw, @RequestParam String account_num, RedirectAttributes rttr){
-		log.info("start pw@@@@@@@@@@@@@@@");
 		if(!service.matchPresentPassword(account_num, pw.getPassword())){
 			
 			rttr.addFlashAttribute("message", "현재 비밀번호가 일치하지 않습니다.");
@@ -115,8 +116,9 @@ public class GeneralController {
 	@GetMapping("/listLikes")
 	public String listMyLikes(Model model){
 		log.info("MyReview");
-		model.addAttribute("likeList",service.listLikes("2"));
-		log.info(service.listLikes("2").get(0).getE_startRecruiteDate());
+		model.addAttribute("likeList",service.listLikes("1"));
+		
+//		log.info(service.listLikes("1").get(0).getE_startRecruiteDate());
 		return "module/general/likeList";
 	}
 	@GetMapping("/listMyPartIn")
@@ -124,6 +126,35 @@ public class GeneralController {
 		log.info("MyReview");
 		return "module/general/reviewList";
 	}
+	@PostMapping("/cancelLike")
+	@ResponseBody
+	public String cancelLike(String account_num, String e_num){
+		log.info("start cancelLike");
+		log.info(account_num.getClass());
+		log.info(e_num.getClass());
+		
+		log.info(account_num);
+		log.info(e_num);
+		
+	service.cancelLikeDisplay(account_num, e_num);
+			log.info("success cancle heart");
+			log.info("end cancelLike");
+		
+		return "cancel success";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//프로필 사진 업로드
 //	@PostMapping("/uploadProfile")

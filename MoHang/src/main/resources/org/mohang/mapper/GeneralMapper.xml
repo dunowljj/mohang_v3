@@ -9,7 +9,7 @@
 	<select id="getInformation" resultType="org.mohang.domain.AccountVO" parameterType="String">
 <!-- 	<![CDATA[ -->
 		select
-			account_gender, account_birth_date, account_phonenumber, account_num,
+			account_gender, account_birth_date, account_phoneNumber, account_num,
 			account_interest, account_email, account_address, account_name, account_id
 		from
 			account
@@ -24,7 +24,7 @@
 		set
 			account_gender = #{account_gender},
 			account_birth_date = #{account_birth_date},
-			account_phonenumber = #{account_phonenumber},
+			account_phoneNumber = #{account_phoneNumber},
 			account_interest = #{account_interest},
 			account_email = #{account_email},
 			account_address = #{account_address}
@@ -54,17 +54,28 @@
 	<!-- 관심목록 -->
 	<select id="listLikes" resultType="org.mohang.domain.GeneralLikeListDTO">
 		select
-			eh.eh_location, e.e_name, e.e_hitcount,e.e_price,
-			e.e_startrecruitedate, e.e_fname, l.like_status
+			a.account_num, 
+			e.e_num, eh.eh_location, e.e_name, e.e_hitcount,
+			e.e_price, e.e_startRecruiteDate, e.e_fname,
+			l.like_status
 		from
-			account a, event e, liked l, event_hall eh
-		where
-			a.account_num = #{account_num} and l.like_status = '1'
+			account a 
+			JOIN liked l 
+				ON a.account_num = l.account_num
+		    JOIN event e
+		    	ON  l.e_num = e.e_num
+		    JOIN event_hall eh 
+		    	ON e.eh_num = eh.eh_num
+	    where 
+			l.LIKE_STATUS = '1' AND a.account_num = #{account_num}
 	</select>
 	<update id='updateLikeStatus'>
 		update
-			
-	
+			liked
+		set
+			like_status = '0'
+		where
+			account_num = #{account_num} AND e_num = #{e_num}
 	</update>
 
 </mapper> 

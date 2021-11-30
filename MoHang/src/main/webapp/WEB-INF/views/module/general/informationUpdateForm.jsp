@@ -77,7 +77,7 @@
 							  <label for="female">여</label>
 							</div>
 							출생년도 : <input type="date" name='account_birth_date' min="1910-01" max="2021-11" value="<c:out value="${account.account_birth_date}"/>"><br>
-							전화번호 : <input type="text" name="account_phonenumber" value="<c:out value="${account.account_phonenumber}"/>"><br>
+							전화번호 : <input type="text" name="account_phoneNumber" value="<c:out value="${account.account_phoneNumber}"/>"><br>
 							이메일 : <input type="text" name="account_email" value="<c:out value="${account.account_email}"/>"><br>
 							주소 : <input type="text" name="account_address" value="<c:out value="${account.account_address}"/>"><br>
 							
@@ -265,14 +265,6 @@
 			alert(message);
 		
 		}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
