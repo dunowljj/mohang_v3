@@ -2,8 +2,10 @@ package org.mohang.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventVO;
+import org.mohang.domain.LikedVO;
 import org.mohang.domain.Search;
 
 public interface EventMapper {
@@ -30,5 +32,18 @@ public interface EventMapper {
 	public EventHallVO eventHallGet(String e_num);
 
 	public int updateApply (EventVO eventVO);
-
+	//충돌 조심
+	public LikedVO selectlike(@Param("account_num")String account_num, @Param("e_num")String e_num);
+	//충돌 조심
+	public int insertlike(@Param("account_num")String account_num, @Param("e_num")String e_num);
+	//충돌 조심
+	public int updatedownlike(@Param("account_num")String account_num, @Param("e_num")String e_num);
+	//충돌 조심
+	public void upcountlike(@Param("account_num")String account_num, @Param("e_num")String e_num);
+	//충돌 조심
+	public void downcountlike(@Param("account_num")String account_num,@Param("e_num")String e_num);
+	//충돌 조심
+	public LikedVO statuslike(@Param("account_num")String account_num,@Param("e_num")String e_num);
+	//충돌 조심
+	public void updateuplike(@Param("account_num")String account_num, @Param("e_num")String e_num);
 }

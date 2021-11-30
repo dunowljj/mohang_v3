@@ -9,9 +9,9 @@ public class Search {
 	private String type;
 	private String keyword;
 	private String price;
-	private String e_price;
-	private String e_hitcount;
-	private String e_like;
+	private String s_price;
+	private String s_hitcount;
+	private String s_like;
 	private int pageNum;
 	private int amount;
 	private String startDate;

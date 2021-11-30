@@ -28,7 +28,7 @@ public class PageDTO2 {
 			this.endPage = realEnd;
 		}
 		this.prev =search.getPageNum() > 1;
-		this.next= search.getPageNum()!= realEnd;
+		this.next= search.getPageNum() < realEnd  ;
 	}
 	
 }

@@ -23,19 +23,16 @@
 		parameterType="org.mohang.domain.Search">
 		<![CDATA[
 			select 
-			    e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount ,e_field,e_type
+			    e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount ,e_field,e_type,e_like
 			from 
 			      (
 			      select /*+INDEX_DESC(event pk_event_num) */
-			        rownum rn, e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount,e_field,e_type
+			        rownum rn, e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount,e_field,e_type,e_like
 			      from 
 			        event
 			      where
-			      
 		]]>
-					
 					<if test="keyword !=null and !keyword.equals('') ">
-						
 						e_name like '%'||#{keyword}||'%' and
 					</if>
 					<if test="field !=null and !field.equals('')">
@@ -63,12 +60,22 @@
 						and e_enddate <=  #{endDate}) and
 						]]>
 					</if> 
+					
 		<![CDATA[
 		      rownum <= #{pageNum} * #{amount}
+		      
 		      )
 		  where rn > (#{pageNum} -1) * #{amount}   
 		]]>
-		
+					<if test="s_like != null and !s_like.equals('')">
+						order by e_like desc
+					</if>
+					<if test="s_price != null and !s_price.equals('')">
+						order by e_price desc
+					</if>
+					<if test="s_hitcount != null and !s_hitcount.equals('')">
+						order by e_hitcount desc
+					</if>
 					
 	</select>
 	<select id="getTotalCount" resultType="int" parameterType="org.mohang.domain.Search">
@@ -108,6 +115,28 @@
 		select * from event_hall where eh_num = #{eh_num}
 	</select>
 
+	<select id="selectlike" resultType="org.mohang.domain.LikedVO" >
+		select account_num,e_num,like_status from liked where account_num =#{account_num} and e_num = #{e_num}
+	</select>
+	<insert id="insertlike">
+		insert into liked (account_num,e_num,like_status) values(#{account_num},#{e_num},1)
+	</insert>
+	<select id="statuslike" resultType="org.mohang.domain.LikedVO">
+		select like_status from liked where account_num =#{account_num} and e_num = #{e_num}
+	</select>
+	<update id="updatedownlike">
+		update liked set like_status =0 where account_num =#{account_num} and e_num = #{e_num}
+	</update>
+	<update id="updateuplike">
+		update liked set like_status =1 where account_num =#{account_num} and e_num = #{e_num}
+	</update>
+	<update id="upcountlike">
+		update event set e_like = e_like+1 where e_num = #{e_num}
+	</update>
+	<update id="downcountlike">
+		update event set e_like = e_like-1 where e_num = #{e_num}
+	</update>
+
 	<!-- 용환!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
     <!-- 지혜!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
@@ -139,10 +168,8 @@
 	</select>
 	
 	<update id="updateApply">
-	update event set  o_num =  #{o_num}, e_name = #{e_name}, e_startDate=#{e_startDate}, e_endDate=#{e_endDate}, e_startRecruiteDate=#{e_startRecruiteDate}, e_endRecruiteDate= #{e_endRecruiteDate},
-	 e_type=#{e_type}, e_field= #{e_field}, e_price= #{e_price}, e_detail = #{e_detail}, 
-e_recruitePeople=#{e_recruitePeople},  e_fname= #{e_fname}, e_personName=#{e_personName},
- e_personPhoneNumber=#{e_personPhoneNumber},  e_personEmail= #{e_personEmail}, eh_num=#{eh_num}, e_dfname= #{e_dfname}
- where e_num = #{e_num}
+	 update event set  o_num =  #{o_num}, e_name = #{e_name}, e_startDate=#{e_startDate}, e_endDate=#{e_endDate}, e_startRecruiteDate=#{e_startRecruiteDate}, e_endRecruiteDate= #{e_endRecruiteDate},
+	 e_type=#{e_type}, e_field= #{e_field}, e_price= #{e_price}, e_detail = #{e_detail}, e_recruitePeople=#{e_recruitePeople},  e_fname= #{e_fname}, e_personName=#{e_personName},e_personPhoneNumber=#{e_personPhoneNumber},  e_personEmail= #{e_personEmail}, eh_num=#{eh_num}, e_dfname= #{e_dfname}
+     where e_num = #{e_num}
 	</update>
 </mapper>

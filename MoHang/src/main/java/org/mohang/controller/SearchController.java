@@ -51,6 +51,7 @@ public class SearchController  {
     }
     @PostMapping("secondsearch")
     public String postSecondSearch(@ModelAttribute("search") Search search, Model model){
+    	log.info("second :"+search);
     	search =search.replace(search);
     	List<EventVO> list =eventService.listEvent(search);
     	log.info("search :"+search);

@@ -69,7 +69,10 @@
 					<a href="#" id="year_next"><img
 						src="../resources/images/next.png"></a>
 				</div>
+				<!-- 			로그인 세션에 있는 값 -->
 				<input type="hidden" name="account_Interest" value="문화/예술" />
+				<!-- 			로그인 세션에 있는 값 -->
+				<input type="hidden" name="account_num" value="1" />
 				<div id="day"></div>
 				<div class="month_event_box_in"></div>
 			</form>

@@ -173,7 +173,7 @@
 				<div class="eventfieldtitle">${search.field }</div>
 				</c:when>
 				<c:otherwise>
-				<div class="eventfieldtitle">${search.field }</div>
+				<div class="eventfieldtitle">모든 분야</div>
 				</c:otherwise>
 			</c:choose>
 			
@@ -184,18 +184,25 @@
 		<div id="container">
 			<div id="eventtitlebox">
 				<span class="eventtitle">행사</span>
-				<div class="filter-box">
-					<input type="checkbox" name='like' value='like'>좋아요 순 
-					<input type="checkbox" name='like' value='like'>조회수 순
-					<input type="checkbox" name='like' value='like'>가격순
-				</div>
+				<form action="/search/secondsearch" method="post" id="second_search">
+					<div class="filter-box">
+						<input type="checkbox" name='s_like' value='s_like'>좋아요 순 
+						<input type="checkbox" name='s_hitcount' value='s_hitcount'>조회수 순
+						<input type="checkbox" name='s_price' value='s_price'>가격순
+						<input type='hidden' name='pageNum' value='${pageMaker.search.pageNum}'>
+						<input type='hidden' name='amount' value='${pageMaker.search.amount}'>
+						<input type="hidden" name="field" value="<c:out value='${search.field.replace(","," ")}' />">
+						<input type="hidden" name="type" value="${search.type }">
+						<input type="hidden" name="price" value="${search.price }">
+						<input type="hidden" name="keyword" value="${search.keyword }">
+					</div>
+				</form>	
 			</div>
 			<div id="eventbox">
 				<div class="keywordbox">
 					<div id="keywordbox_in">
 						<div id="keywordtitlebox">
 							<span class="eventkeywordtitle">인기 검색어</span>
-						
 							<div id="keywordscroll">
 								<ul>
 									<li class='rank01'>1<a href="#"> 외국인유학생 채용박람회</a></li>
@@ -316,7 +323,8 @@ $(".page-item a").on(
 			actionForm.find("input[name='pageNum']")
 					.val($(this).attr("href"));
 			actionForm.submit();
-		});
+});
+
 
 </script>	
 <jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>

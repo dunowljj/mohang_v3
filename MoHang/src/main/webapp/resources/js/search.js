@@ -162,7 +162,9 @@ $(function() {
 	}
 	// 체크박스 하나만
     $('input[type="checkbox"]').bind('click',function() {
-            $('input[type="checkbox"]').not(this).prop("checked", false);
+    	    $('input[type="checkbox"]').not(this).prop("checked", false);
+    	   
+    	    $("#second_search").submit();
     });
 	// 페이지 이동
     $('.eventbox_in').on('click',function(){
@@ -170,13 +172,7 @@ $(function() {
     	location.href='/event/eventDetail?e_num='+e_num;
 
     })
-    // 검색 페이지 미완성
-//    function search() {
-//    	var inputs = $('input[type="hidden"]');
-//        eventService.searchlist({"field" :$(inputs[0]).val(),"type":$(inputs[1]).val(),"price":$(inputs[2]).val(),"keyword":$(inputs[3]).val()},function(list){
-//        	
-//        })
-//	}
+    
     
     
     

@@ -26,7 +26,6 @@
 	  $(function() {
          $('.slider-div').slick(
                 {
-                   slide : 'div', //슬라이드 되어야 할 태그 ex) div, li 
                    infinite : true, //무한 반복 옵션    
                    slidesToShow : 4, // 한 화면에 보여질 컨텐츠 개수
                    slidesToScroll : 1, //스크롤 한번에 움직일 컨텐츠 개수
@@ -65,7 +64,6 @@
       $(function() {
          $('.month_event_box_in').slick(
                 {
-                   slide : 'div', //슬라이드 되어야 할 태그 ex) div, li 
                    infinite : true, //무한 반복 옵션    
                    slidesToShow : 4, // 한 화면에 보여질 컨텐츠 개수
                    slidesToScroll : 1, //스크롤 한번에 움직일 컨텐츠 개수
@@ -394,12 +392,7 @@
    
       }
    })
-  var inputs = $('input[type="hidden"]');
-  $("#event-search").on('submit',function(){
-	  $($(inputs[3]).val(""));
-	  $($(inputs[7]).val(""));
-	  $($(inputs[13]).val(""));
-  })
+ 
   
   </script>
 
@@ -486,5 +479,10 @@ $(document).click(function(e) {
       $("#myPage1").toggle();
    }
 })
-
+ var inputs = $('input[type="hidden"]');
+  $("#event-search").on('submit',function(){
+	  for( var i=0;i<inputs.length;i++){
+		  $($(inputs[i]).val(""));
+	  }
+  })
 </script>

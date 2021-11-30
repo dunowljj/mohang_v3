@@ -81,8 +81,9 @@
 
 </div>
 </div>
+
 <div style="margin-left: 320px; margin-top: 150px;"><img src="../resources/images/${event.e_dfname }" class="absolute" width="300px" height="300px">
-	
+<hr>	
 	<h1 style="font-size:30px; margin-top: 30px; margin-bottom: 13rem;">
 		<span style="color: #000000;">${event.e_detail }</span>
 	</h1>

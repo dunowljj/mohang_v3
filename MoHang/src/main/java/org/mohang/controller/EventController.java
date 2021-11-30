@@ -7,15 +7,19 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import org.mohang.domain.EventVO;
+import org.mohang.domain.LikedVO;
 import org.mohang.service.EventService;
 import org.mohang.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -143,5 +147,45 @@ public class EventController  {
 	@GetMapping("/statisticsListDetail")
 	public String statisticsListDetail(){
 		return "module/event/statisticsListDetail";
+	}
+	
+	
+	
+	
+	
+	/*
+	 * 충돌 조심 좋아요 이벤트 
+	 * 회원 번호와 글번호로 liked 조회시 
+	 * 없으면 liked insert -> 좋아요 1 false
+	 * 있으면 liked 0 true 
+	 */
+	@ResponseBody
+	@PostMapping(value="like")
+	public String eventLike(String account_num , String e_num){
+		String result="";
+		int check =eventService.selectlike(account_num,e_num);
+		log.info("check :"+check);
+		int re=-1;
+		//false insert 행사 정보 좋아요 수 증가
+		if(check==0){
+			eventService.insertlike(account_num,e_num);
+			eventService.upcountlike(account_num,e_num);
+			result ="insert";
+		//true update 행사 정보 좋아요 수 감소
+		}else if(check==1){
+			// status가 1이면 눌린거 0이면 안눌린거  
+			LikedVO likedVO =eventService.statuslike(account_num,e_num);
+			re = likedVO.getLike_status();
+			log.info("re :"+re);
+			if(re==49){
+				eventService.updatedownlike(account_num,e_num);
+				eventService.downcountlike(account_num,e_num);
+			}else{
+				eventService.updateuplike(account_num,e_num);
+				eventService.upcountlike(account_num,e_num);
+			}
+			result ="update";
+		}
+		return result;
 	}
 }

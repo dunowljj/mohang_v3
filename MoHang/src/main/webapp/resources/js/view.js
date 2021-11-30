@@ -68,28 +68,7 @@ var eventService = (function() {
 			}
 		})
 	}	
-	//검색 리스트 
-//	function searchlist(param,callback,error){
-//		var field = param.field;
-//		var type = param.type;
-//		var price = param.price;
-//		var keyword = param.keyword;
-//		$.ajax({
-//			type : 'post',
-//			url : '/search/searchform',
-//			data : {"field" :field,"type":type,"price":price,"keyword":keyword},
-//			success : function(result, status, xhr) {
-//				if (callback) {
-//					callback(result);
-//				}
-//			},
-//			error : function(xhr, status, er) {
-//				if (error) {
-//					error(er);
-//				}
-//			}
-//		})
-//	}	
+
 	
 
 	return {
@@ -105,6 +84,8 @@ $(document).ready(function () {
 	var slider_div = $('.slider-div');
 	var str ="";
 	//베스트 행사
+	//행사정보랑 좋아요 테이블랑 그 조인해서 status 상태를 보면 알수있짢아 
+	//1 누른상태 0 안누른거 
 	eventService.view(function(list){
 		for(var i=0, len = list.length||0;i<len;i++){
 			list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
@@ -117,6 +98,7 @@ $(document).ready(function () {
 	        str +=	    '</div>'
 	        str +=       '<div class="heart">'
             str +=        '<img src="../resources/images/빈하트.png" alt="" style="width: 16px; height: 16px;">'
+            str += 		   '<input type="hidden" name="e_num" value=\"'+list[i].e_num +'\"/>'		
             str +=			'</div>'
             str +=           '<div class="eventbox_context">'
             str +=            '<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
@@ -126,7 +108,8 @@ $(document).ready(function () {
             str +=    				'<span class="price">'+list[i].e_price+'원</span>'
             str +=					 '<div class="none"></div>'
             str += 					  '<img class="view" src="../resources/images/눈.png"><span>0</span>'
-			str +=				       '</div> </div></div>'
+           
+			str +=				        '</div> </div></div>'
 		}
 		$(slider_div[1]).slick('slickAdd',str);
 		
@@ -149,6 +132,7 @@ $(document).ready(function () {
 		        str +=	    '</div>'
 		        str +=       '<div class="heart">'
 	            str +=        '<img src="../resources/images/빈하트.png" alt="" style="width: 16px; height: 16px;">'
+	            str +=		   '<input type="hidden" name="e_num" value=\"'+list[i].e_num +'\"/>'
 	            str +=			'</div>'
 	            str +=           '<div class="eventbox_context">'
 	            str +=            '<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
@@ -158,9 +142,28 @@ $(document).ready(function () {
 	            str +=    				'<span class="price">'+list[i].e_price+'원</span>'
 	            str +=					 '<div class="none"></div>'
 	            str += 					  '<img class="view" src="../resources/images/눈.png"><span>0</span>'
-				str +=				       '</div> </div></div>'
-			}
+	            str +=				        '</div> </div></div>'
+				
+			}	
 			$(slider_div[0]).slick('slickAdd',str);
 		})
+   })
+   $(function(){
+	   $(document).on('click','.heart',function(){
+		    	var account_num =1;
+		    	var e_num =$(this).find("input").val();
+				$.ajax({
+					type : 'post',
+					url : '/event/like',
+					data : {'account_num':account_num,'e_num':e_num },
+					success : function(result, status, xhr) {
+						console.log(result)
+					},
+					error : function(xhr, status, er) {
+						
+					}
+				})
+			
+	   })
    })
 })

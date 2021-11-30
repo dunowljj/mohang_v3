@@ -12828,7 +12828,10 @@ span {
 .heart {
 	width: 30px;
     height: 30px;
-    float: right;
+    position: absolute;
+    top: 2px;
+    margin-left: 10px;
+    z-index: 10000;
 }
 
 #month {
@@ -13074,8 +13077,6 @@ span {
 }
 
 #eventbox {
-	height: 1000px;
-	max-height: 1600px;
 	width: 100%;
 }
 

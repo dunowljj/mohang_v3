@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventVO;
+import org.mohang.domain.LikedVO;
 import org.mohang.domain.Search;
 import org.mohang.mapper.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,12 +72,10 @@ public class EventServiceImpl implements EventService{
 	}
 
 	/*
-	 * 
 	 * 충돌 조심 !!
 	 */
 	@Override
 	public EventHallVO eventHallGet(String e_num) {
-		
 		return mapper.eventHallGet(e_num);
 	}
 	
@@ -84,6 +83,64 @@ public class EventServiceImpl implements EventService{
 	public int updateApply(EventVO eventVO){
 		return mapper.updateApply(eventVO);
 }
+	/*
+	 * 충돌 조심 !!
+	 */
+	@Override
+	public int selectlike(String account_num, String e_num) {
+		int re =-1;
+		if(mapper.selectlike(account_num,e_num)==null){
+				re=0;
+		}else{
+				re=1;
+		}
+		
+		return  re;
+	}
+	/*
+	 * 충돌조심
+	 */
+	@Override
+	public boolean insertlike(String account_num, String e_num) {
+		
+		return mapper.insertlike(account_num,e_num)==1;
+	}
+	/*
+	 * 충돌조심
+	 */
+	@Override
+	public boolean updatedownlike(String account_num, String e_num) {
+		return mapper.updatedownlike(account_num,e_num)==1;
+	}
+	/*
+	 * 충돌조심
+	 */
+	@Override
+	public void upcountlike(String account_num, String e_num) {	
+		mapper.upcountlike(account_num,e_num);
+	}
+	/*
+	 * 충돌조심
+	 */
+	@Override
+	public void downcountlike(String account_num, String e_num) {
+		mapper.downcountlike(account_num,e_num);
+		
+	}
+	/*
+	 * 충돌조심
+	 */
+	@Override
+	public LikedVO statuslike(String account_num, String e_num) {
+		return mapper.statuslike(account_num,e_num);
+	}
+	/*
+	 * 충돌조심
+	 */
+	@Override
+	public void updateuplike(String account_num, String e_num) {
+		mapper.updateuplike(account_num,e_num);
+	}
 
 }
 
