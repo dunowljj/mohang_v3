@@ -102,8 +102,9 @@ public class GeneralController {
 		return "module/general/reserveForm";
 	}
 	@GetMapping("/listMyReserve")
-	public String listMyReserve(){
-		log.info("reserve");
+	public String listMyReserve(Model model){
+		log.info("MyReserveList");
+		model.addAttribute(service.getListMyReservation("1"));
 		return "module/general/reserveList";
 	}
 	
@@ -116,14 +117,14 @@ public class GeneralController {
 	@GetMapping("/listLikes")
 	public String listMyLikes(Model model){
 		log.info("MyReview");
-		model.addAttribute("likeList",service.listLikes("1"));
+		model.addAttribute("likeList",service.getListLikes("1"));
 		
 //		log.info(service.listLikes("1").get(0).getE_startRecruiteDate());
 		return "module/general/likeList";
 	}
 	@GetMapping("/listMyPartIn")
 	public String listMyPartIn(){
-		log.info("MyReview");
+		log.info("MyLikeList");
 		return "module/general/reviewList";
 	}
 	@PostMapping("/cancelLike")

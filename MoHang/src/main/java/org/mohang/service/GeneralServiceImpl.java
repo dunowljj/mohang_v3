@@ -6,6 +6,7 @@ import org.mohang.domain.AccountVO;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralLikeListDTO;
+import org.mohang.domain.GeneralMyReservationDTO;
 import org.mohang.mapper.GeneralAttachMapper;
 import org.mohang.mapper.GeneralMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,16 +71,24 @@ public class GeneralServiceImpl implements GeneralService {
 	}
 	//----password check end----
 
+	//----Like start----
 	@Override
-	public List<GeneralLikeListDTO> listLikes(String account_num) {
-		
-		return mapper.listLikes(account_num);
+	public List<GeneralLikeListDTO> getListLikes(String account_num) {
+		return mapper.getListLikes(account_num);
 	}
 
 	@Override
 	public boolean cancelLikeDisplay(String account_num, String e_num) {
 		return mapper.updateLikeStatus(account_num, e_num) ==1;
 	}
+	//----Like end----
+
+	@Override
+	public List<GeneralMyReservationDTO> getListMyReservation(String account_num) {
+		return mapper.getlistMyReservation(account_num);
+	}
+	
+	
 
 }
 
