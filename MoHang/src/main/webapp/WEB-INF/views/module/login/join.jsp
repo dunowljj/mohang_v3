@@ -38,7 +38,7 @@
 			</div>
 
 			<div class="form-group"
-				style="line-height: 40px; text-align: center;">
+				style="line-height: 30px; text-align: center;">
 				<label class="form-label mt-4">회원가입을 하시오</label>
 
 			<div>
@@ -48,7 +48,7 @@
 					<div class="form-group">
 						<div class="id_name" style="color: red;">Id</div>
 						<div class="id_input_box">
-							<input class="form-control" id="id_input" name="accountId">
+							<input class="form-control" id="id_input" name="account_id">
 						</div>
 						<span class="id_input_re_1" style="display: none"> 사용 가능한 아이디입니다.</span> 
 						<span class="id_input_re_2" style="display: none"> 아이디가 이미 존재합니다.</span>
@@ -60,7 +60,7 @@
 						<div class="pw_name" style="color: red;">Password</div>
 						<div class="pw_input_box">
 							<input type="password" class="form-control" id="pw_input"
-								placeholder="Password" name="accountPassword">
+								placeholder="Password" name="account_password">
 						</div>
 						
 					</div>
@@ -69,7 +69,7 @@
 					<div class="form-group">
 						<div class="user_name" style="color: red;">Name</div>
 						<div class="user_input_box">
-							<input class="form-control" id="user_input" placeholder="홍길동" name="accountName">
+							<input class="form-control" id="user_input" placeholder="홍길동" name="account_name">
 						</div>
 						
 					</div>
@@ -78,7 +78,7 @@
 					<div class="form-group">
 						<div class="user_email" style="color: red;">Email</div>
 						<div class="mail_input_box" id="mail_check_input_box_false">
-							<input class="form-control" id="mail_input" placeholder="XXX@XXX.com" name="accountEmail">
+							<input class="form-control" id="mail_input" placeholder="XXX@XXX.com" name="account_email">
 						</div>
 						
 						<div class="mail_check_button">
@@ -101,20 +101,20 @@
 							<span>주소 찾기</span>
 						</div>
 						<div class="address_input_box">
-							<input class="account_Address" id="account_Address" name="accountAddress" readonly="readonly">
+							<input class="account_Address" id="account_Address" name="account_address" readonly="readonly">
 						</div>
 						
 						<div class="clearfix"></div>
 						
 						<div class="address_input_2_wrap">
 							<div class="address_input_2_box">
-								<input class="account_Address2" name="accountAddress2" readonly="readonly">
+								<input class="account_address2" name="account_address2" readonly="readonly">
 							</div>
 						</div>
 						
 						<div class="address_input_3_wrap">
 							<div class="address_input_3_box">
-								<input class="account_Address3" name="accountAddress3" readonly="readonly">
+								<input class="account_address3" name="account_address3" readonly="readonly">
 							</div>
 						</div>
 						
@@ -123,22 +123,21 @@
 					<div class="form-check">
 						<label for="exampleInputEmail1" class="form-label mt-4"
 							style="color: red;">성별</label> <label class="form-check-label">
-							<input type="radio" class="form-check-input" name="accountGender"
+							<input type="radio" class="form-check-input" name="account_gender"
 							id="optionsRadios1" value="남자" checked="" > 남자
 						</label> <label class="form-check-label"> <input type="radio"
-							class="form-check-input" name="accountGender" id="optionsRadios2"
+							class="form-check-input" name="account_gender" id="optionsRadios2"
 							value="여자"> 여자
 						</label>
 					</div>
  
 					<div class="form-group">
 						<div class="user_phonenumber" style="color: red;">PhoneNumber</div> 
-						<input class="form-control" id="account_PhoneNumber" name="accountPhonenumber"
+						<input class="form-control" id="account_phoneNumber" name="account_phoneNumber"
 							 placeholder="010-xxxx-xxxx">
-						
 					</div>
 					
-					<!-- <p>Date<input type="text" id="datepicker" name="accountBirthdate"></p> -->
+					<p style="color: red;">생년월일1<input type="date" id="datepicker" name="account_birth_date"></p>
 
 					<label for="exampleInputEmail1" class="form-label mt-4"
 						style="color: red;">관심사</label>
@@ -147,22 +146,22 @@
 							id="flexCheckDefault"> <label class="form-check-label"
 							for="flexCheckDefault"> 사업/창업 </label> <input
 							class="form-check-input" type="checkbox" value="IT/개발"
-							id="flexCheckChecked1" name="accountInterest"> <label class="form-check-label"
+							id="flexCheckChecked1" name="account_interest"> <label class="form-check-label"
 							for="flexCheckChecked1"> IT/개발 </label> <input
 							class="form-check-input" type="checkbox" value="마케팅/홍보"
-							id="flexCheckChecked2" name="accountInterest"> <label class="form-check-label"
+							id="flexCheckChecked2" name="account_interest"> <label class="form-check-label"
 							for="flexCheckChecked2"> 마케팅/홍보 </label> <input
 							class="form-check-input" type="checkbox" value="디자인/기획"
-							id="flexCheckChecked3" name="accountInterest"> <label class="form-check-label"
+							id="flexCheckChecked3" name="account_interest"> <label class="form-check-label"
 							for="flexCheckChecked3"> 디자인/기획 </label> <input
 							class="form-check-input" type="checkbox" value="문화/예술"
-							id="flexCheckChecked4" name="accountInterest"> <label class="form-check-label"
+							id="flexCheckChecked4" name="account_interest"> <label class="form-check-label"
 							for="flexCheckChecked4"> 문화/예술 </label> <input
 							class="form-check-input" type="checkbox" value="취미/생활"
-							id="flexCheckChecked5" name="accountInterest"> <label class="form-check-label"
+							id="flexCheckChecked5" name="account_interest"> <label class="form-check-label"
 							for="flexCheckChecked5"> 취미/생활 </label> <input
 							class="form-check-input" type="checkbox" value="건강/의료"
-							id="flexCheckChecked6" name="accountInterest"> <label class="form-check-label"
+							id="flexCheckChecked6" name="account_interest"> <label class="form-check-label"
 							for="flexCheckChecked6"> 건강/의료 </label>
 					</div>
 					
@@ -205,9 +204,9 @@
 				"propertychange change keyup paste input",
 				function() {
 
-					var accountId = $('#id_input').val();
+					var account_id = $('#id_input').val();
 					var data = {
-						accountId : accountId
+						account_id : account_id
 					}
 
 					$.ajax({
@@ -307,26 +306,25 @@
 								addr += ' ';
 							}
 
-							$("[name=accountAddress]").val(data.zonecode);
-							$("[name=accountAddress2]").val(addr);
+							$("[name=account_address]").val(data.zonecode);
+							$("[name=account_address2]").val(addr);
 
 							// 커서를 상세주소 필드로 이동한다.
-							$(".account_Address3").attr("readonly", false);
-							$(".account_Address3").focus();
+							$(".account_address3").attr("readonly", false);
+							$(".account_address3").focus();
 
 						}
 					}).open();
+			
 		}
 	</script>
-	
-	
 
-
-	<!-- <script>
+<!-- 	<script>
 		$(function() {
 			$("#datepicker").datepicker();
 		});
 	</script> -->
+
 </body>
 </html>
 

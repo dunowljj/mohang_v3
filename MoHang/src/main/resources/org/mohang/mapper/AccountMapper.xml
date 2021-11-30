@@ -5,15 +5,15 @@
 <mapper namespace="org.mohang.mapper.AccountMapper">
 	<insert id="memberJoin">
 		insert into ACCOUNT values(
-								   account_seq.nextval ,#{accountId}, #{accountPassword}, 
-								   #{accountName}, #{accountEmail}, #{accountAddress},
-								   sysdate, 0, #{accountInterest}, sysdate, 
-								   #{accountGender}, #{accountPhonenumber}, #{accountAddress2}, #{accountAddress3})
+								   account_seq.nextval ,#{account_id}, #{account_password}, 
+								   #{account_name}, #{account_email}, #{account_address},
+								   sysdate, 0, #{account_interest}, #{account_birth_date}, 
+								   #{account_gender}, #{account_phoneNumber}, #{account_address2}, #{account_address3})
 	</insert>
 
 	<select id="idCheck" resultType="int">
   	
-  		select count(*) from ACCOUNT where account_Id = #{account_Id}
+  		select count(*) from ACCOUNT where account_id = #{account_id}
   	
   	</select>
 

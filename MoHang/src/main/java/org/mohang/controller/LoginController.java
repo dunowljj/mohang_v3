@@ -48,9 +48,9 @@ public class LoginController{
 	//아이디 중복 검사
 	@PostMapping("/accountIdChk")
 	@ResponseBody
-	public String accountIdChkPOST(String accountId) throws Exception{
+	public String accountIdChkPOST(String account_id) throws Exception{
 		log.info("체크 진입");
-		int result = accountService.idCheck(accountId);
+		int result = accountService.idCheck(account_id);
 		log.info("결과" + result);
 		if (result != 0) {
 

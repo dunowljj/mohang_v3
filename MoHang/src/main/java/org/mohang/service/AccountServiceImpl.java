@@ -17,8 +17,8 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public int idCheck(String accountId) throws Exception {
-		return accountMapper.idCheck(accountId);
+	public int idCheck(String account_id) throws Exception {
+		return accountMapper.idCheck(account_id);
 	}
 
 	
