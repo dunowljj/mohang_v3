@@ -12,7 +12,7 @@ public class RoomVO {
 
 	private String room_num;
 	private String account_num;
+	private String opponent_num;
 	private String admin_num;
-	private String anotheraccount_num;
 
 }

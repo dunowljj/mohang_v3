@@ -1,9 +1,20 @@
 //chat event 
 $(document).ready(function(){
 
+	
+	//채팅창 스크롤바 이벤트
+	var history_div = $(".chat-history");
+	var height = history_div.height();
+	
+	history_div.height(height).css("overflow","auto");
+	
+	scrollBottom = history_div.scrollTop() + height;
+	
+	
+
 	//enter key event
 	$(".form-control").keydown(function(event){
-		if(event.keyCode == 13){
+		if(event.keyCode == 13 && $(this).val() != ""){
 			var date = new Date();
 			var message = "<div class=\"message my-message\">"+$(this).val()+"</div>";
 			var month = 10 -1;
@@ -19,15 +30,28 @@ $(document).ready(function(){
 			}else{
 				time = "<div class=\"message-data\"><span class=\"message-data-time\">" + date.getHours() +":"+date.getMinutes()+", " + (month - date.getMonth()) +"달 전 </span></div>";
 			}
-			var li = "<li class=\"clearfix\"></li>";
+			var li = "<li class=\"clearfix\">"+time + message+"</li>";
 			
-			// 채팅 내용을 자식노드로 추
+			// 채팅 내용 추가 
 			$("ul.m-b-0").append(li);
-			$("ul.m-b-0").last().append(time);
-			$("ul.m-b-0").last().append(message);
 			
+			
+			history_div.scrollTop(scrollBottom);
 			// 빈창 확
 			$(this).val("");
 		}
 	});	
+	
+	
+	// 대화 상대 클릭 이벤트
+	$(".list-unstyled chat-list mt-2 mb-0 < li").on("mousedown",function(){
+		console.log("clearfix click123");
+		$(".clearfix active").addClass("clearfix");
+		$(this).addClass("clearfix active");
+	});	
+});
+
+
+var chatService = (function (){
+	
 });
