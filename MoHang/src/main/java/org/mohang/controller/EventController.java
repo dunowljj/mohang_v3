@@ -107,7 +107,10 @@ public class EventController  {
 	//신청한 행사정보 수정페이지 
 	@GetMapping("/insertFormUpdate")
 		public String insertFormUpdate(@RequestParam("e_num") String e_num, Model model){
-			model.addAttribute("event", eventService.getApply(e_num));
+			EventVO event = eventService.getApply(e_num);
+			String eh_num = event.getEh_num();
+			model.addAttribute("event", event);
+			model.addAttribute("eventHall", eventService.eventHallGet(eh_num));
 		return "module/event/insertFormUpdate";
 	}
 	
@@ -137,15 +140,26 @@ public class EventController  {
 		return "module/event/eventDetail";
 	}
 	
-	//행사통계자료리스트확인페이지
-	@GetMapping("/statisticsList")
-	public String statisticsList(){
+	//@@@@@지혜@@@@@@@@@@@
+	//행사통계자료리스트확인페이지에서 자료 값 불러오기
+	@GetMapping("/listStatistics")
+	public String listStatistice(Model model){
+		log.info("---load statistics list---");
+		model.addAttribute("endEventList", eventService.listStatistics());
 		return "module/event/statisticsList";
 	}
 
 	//통계정보상세조회페이지
 	@GetMapping("/statisticsListDetail")
-	public String statisticsListDetail(){
+	public String statisticsListDetail(@RequestParam("e_num")String e_num,Model model){
+		//글번호 받아서 행사정보랑, 통계관련 값 넘겨주는 작업 실행
+		log.info("---load event"+e_num+" statistics---");
+		EventVO event = eventService.getApply(e_num);
+		String eh_num = event.getEh_num();
+	
+		model.addAttribute("endEvent", eventService.getApply(e_num));
+		model.addAttribute("eventHall", eventService.eventHallGet(eh_num));
+		model.addAttribute("statistics", eventService.getStatistics(e_num));
 		return "module/event/statisticsListDetail";
 	}
 	
@@ -188,4 +202,7 @@ public class EventController  {
 		}
 		return result;
 	}
+	//@@@@@여기까지@@@@@@@@@@@
+
+
 }

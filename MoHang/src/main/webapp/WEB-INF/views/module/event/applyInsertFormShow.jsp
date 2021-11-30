@@ -82,7 +82,7 @@
 					<tr class="tr1">
 						<td class="tbname">행사대표이미지</td>
 						<td class="s_tbcontent">
-							<img alt="image" src="../resources/eventImages/${event.e_dfname }"></td>
+							<img alt="image" src="../resources/eventImages/${event.e_fname }"></td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">행사상세이미지</td>

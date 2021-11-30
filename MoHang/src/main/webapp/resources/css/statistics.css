@@ -68,14 +68,14 @@
 	border-top: #808080 solid 2px;
 	}
 	.s_row{
-	display:flex;
+	
 	width: 100%;
 	}
 
 	.s_title{
 	flex:2.25;
 	text-align: center;
-	border-right: #808080 solid 2px;
+	border-bottom: #808080 solid 1px;
 	padding: 10px 0px;
 	vertical-align: middle;
 	}

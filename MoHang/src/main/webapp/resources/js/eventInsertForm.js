@@ -109,11 +109,11 @@ $(function() {
     	});
  
  
-//파일 ajax로 보내기 
+/*//파일 ajax로 보내기 
 $("#uploadBtn").on("click",function(e){
 	e.preventDefault();
 	
-	var form = $("#form")[0];
+	 var form = $("#form")[0];
 	 var formData = new FormData(form);
 	 
 	 var e_fname = $("input[name='e_file']");
@@ -139,7 +139,7 @@ $("#uploadBtn").on("click",function(e){
  			}
  		});
  	
- 	});
+ 	});*/
 
     });
     

@@ -7,6 +7,8 @@ import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.domain.Search;
+import org.mohang.domain.StatisticsDTO;
+import org.mohang.domain.StatisticsDetailDTO;
 
 public interface EventMapper {
 	
@@ -32,7 +34,7 @@ public interface EventMapper {
 	public EventHallVO eventHallGet(String e_num);
 
 	public int updateApply (EventVO eventVO);
-	//충돌 조심
+
 	public LikedVO selectlike(@Param("account_num")String account_num, @Param("e_num")String e_num);
 	//충돌 조심
 	public int insertlike(@Param("account_num")String account_num, @Param("e_num")String e_num);
@@ -46,4 +48,10 @@ public interface EventMapper {
 	public LikedVO statuslike(@Param("account_num")String account_num,@Param("e_num")String e_num);
 	//충돌 조심
 	public void updateuplike(@Param("account_num")String account_num, @Param("e_num")String e_num);
+
+	public List<EventVO> listStatistics();
+	public List<StatisticsDTO> getStatistics(String e_num);
+	//예약
+	public List<StatisticsDetailDTO> reservationStatistics(String e_num);
+
 }

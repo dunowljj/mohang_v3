@@ -140,17 +140,18 @@
 	<!-- 용환!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
     <!-- 지혜!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
 	<!-- 신청한 이벤트 정보 DB등록. 등록한 단체번호 o_num이 넘어와야할듯. -->
 	<insert id="insertApply">
 		insert into event(e_num, o_num, e_name, e_startDate,
 		e_endDate, e_startRecruiteDate, e_endRecruiteDate, e_type, e_field,
 		e_price, e_detail, e_recruitePeople, e_fname, e_personName,
-		e_personPhoneNumber, e_personEmail, eh_reservation_num, e_dfname)
+		e_personPhoneNumber, e_personEmail, eh_num, e_dfname)
 		values(event_seq.nextval, #{o_num}, #{e_name}, #{e_startDate},
 		#{e_endDate}, #{e_startRecruiteDate}, #{e_endRecruiteDate}, #{e_type},
 		#{e_field}, #{e_price}, #{e_detail}, #{e_recruitePeople}, #{e_fname},
 		#{e_personName}, #{e_personPhoneNumber}, #{e_personEmail},
-		#{eh_reservation_num}, #{e_dfname})
+		#{eh_num}, #{e_dfname})
 	</insert>
 
 	<select id="listApply" resultType="org.mohang.domain.EventVO">
@@ -172,4 +173,30 @@
 	 e_type=#{e_type}, e_field= #{e_field}, e_price= #{e_price}, e_detail = #{e_detail}, e_recruitePeople=#{e_recruitePeople},  e_fname= #{e_fname}, e_personName=#{e_personName},e_personPhoneNumber=#{e_personPhoneNumber},  e_personEmail= #{e_personEmail}, eh_num=#{eh_num}, e_dfname= #{e_dfname}
      where e_num = #{e_num}
 	</update>
+	
+	
+	
+	
+	<!-- 11/29 지혜 통계sql문  -->
+	<select id="listStatistics" resultType="org.mohang.domain.EventVO">
+		<![CDATA[ select * from event where sysdate >= e_endDate ]]>
+	</select>
+	
+ 	<select id ="getStatistics" resultType="org.mohang.domain.StatisticsDTO">
+		select a.account_num,a.account_interest,  a.account_birth_date, a.account_gender, tr.TICKET_RESERVATION_AMOUNT, tr.TICKET_RESERVATION_STATUS, e.e_num, e.e_hitcount, e.e_like
+		from account a join ticket_reservation tr
+			on a.account_num = tr.account_num
+		join event e
+			on tr.e_num = #{e.e_num};
+	</select>
+	
+	<select id="reservationStatistics" resultType="org.mohang.domain.StatisticsDetailDTO">
+	select sum(ticket_reservation_amount) as ticket_reservation_amount, ticket_reservation_status 
+	from statisticsView 
+	where e_num = #{e_num}
+	group by ticket_reservation_status 
+	</select> 
+	
+
+	<!-- 11/29 지혜 통계sql문 完 -->
 </mapper>

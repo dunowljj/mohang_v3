@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,14 +28,15 @@
 				
 				
 				<!-- 행사 1 -->
+			<c:forEach items="${endEventList}" var="endEvent" >
 				<div class='like_event_wrap'>
-				<a href="/MoHang/event/statisticsListDetail.do">
-					<img class='like_event' src='${pageContext.request.contextPath}/resources/images/stevej.jpg' alt='like_event'>
+				<a href="statisticsListDetail?e_num=${endEvent.e_num }">
+					<img class='like_event' src='${pageContext.request.contextPath}/resources/images/${endEvent.e_fname }' alt='endEventList'/>
 				
 					<div class='like_event_exp'>
 						<div class="like_event_top">
-							<span>kosta223기 인성교육</span><span>무료</span>
-							<span><br>10월 28일(목) 금천구</span><br>
+							<span>${endEvent.e_name }</span><span>${endEvent.e_price}원</span>
+							<span><br>행사기간: ${endEvent.e_startDate } ~ ${endEvent.e_endDate }</span><br>
 						</div>
 						<div class="like_event_bottom">
 							조회수xx <img src='' alt='heart'>
@@ -40,6 +44,7 @@
 					</div>
 					</a>
 				</div>
+			</c:forEach>
 				<!-- 행사 1 end -->
 			
 			
