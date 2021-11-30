@@ -40,31 +40,30 @@
 				<table class="tb">
 					<tr class="tr1">
 						<td class="tbname">이메일</td>
-						<td class="s_tbcontent ">${event.o_name }aaaa</td>
+						<td class="s_tbcontent ">${accountDetail.account_email }</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">이름</td>
 						<td class="s_tbcontent">
-							 ${event.o_name }aaaa ~ ${event.o_name }aaaa
-						</td>
+							 ${accountDetail.account_name } 
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">성별</td>
 						<td class="s_tbcontent">
-							${event.o_name }aaaa 
+							${accountDetail.account_gender } 
 						</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">출생년도</td>
-						<td class="s_tbcontent">${event.o_name }aaaa</td>
+						<td class="s_tbcontent">${accountDetail.account_birth_date}</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">전화번호</td>
-						<td class="s_tbcontent">${event.o_name }aaaa명</td>
+						<td class="s_tbcontent">${accountDetail.account_phoneNumber }</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">관심사별 항목</td>
-						<td class="s_tbcontent">${event.o_name }aaaa</td>
+						<td class="s_tbcontent">${accountDetail.account_interest}</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">회원프로필이미지</td>

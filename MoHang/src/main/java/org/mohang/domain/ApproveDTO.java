@@ -16,5 +16,6 @@ public class ApproveDTO {
 	private Date ap_date;
 	private String ap_check;
 	private String eh_reservation_num;
+	private String e_num;
 	
 }
