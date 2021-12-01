@@ -11,7 +11,7 @@ button{
     color: #6E6E6E;
     border-radius: 7px;
 }
-/* -------informationUpdateForm --------*/
+/* -------informationUpdateForm ---------*/
 .reserve_form{
 	font-size : 22px;
 	height: 414px;
@@ -62,12 +62,15 @@ button{
 .reserveList_table{
     height: 400px;
 	margin : 0 auto;	
+	width: 100%;
 }
 .reserveList_table tr:first-child{
-	background-color: #E0ECF8;
+/* 	background-color: #E0ECF8; */
 }
 .reserveList_table_head th{
 	text-align : center;
+	background-color: #E0ECF8;
+/* 	border-bottom: 1px solid gray; */
 }
 .reserveList_row1 td:not(:first-child){
 	height: 250px;
@@ -76,25 +79,19 @@ button{
 	border-bottom: 1px solid gray;
 }
 .reserveList_row2 td{
+	height : 150px;
 	border-bottom: 1px solid gray;
 	border-top: 1px solid gray;
 }
-.reserveList_h1{
-	width : 11.0%;
-/* }57.2 42.8 5.8 */
+.reserveList_h1, .reserveList_h5, .reserveList_h6, .reserveList_h7{
+	width : 11%;
 }
-.reserveList_h2{
-    width: 28.8%;
+.reserveList_h2, .reserveList_h3, .reserveList_h4{
+	width : 18%;
 }
-.reserveList_h3, .reserveList_h4, 
-.reserveList_h5, .reserveList_h7{
-	width : 12.8%;
-}
-.reserveList_h6{
-	width : 11.8%;
-}
+
 .reserveList_h6, .reserveList_h7, 
-.reserveList_d6, .reserveList_d7{
+.reserveList_d6, .reserveList_d7, .reserveList_h7{
 	text-align: center;
 }
 .reserveList_d1{
@@ -109,7 +106,7 @@ button{
 	height : 75px;
 }
 /* 관리  */
-.reserveList_d6 button{
+.reserveList_d7 button{
 	margin: 7px 0;
     border-radius: 5px;
     width: 86px;
@@ -405,23 +402,23 @@ tr.reserveList_table td:last-child{
         height: 64.78px;
 /* 	    background-color: rgba( 255, 255, 255, 0.5 ); */
     }
-.ticket_content::before{
-        content: "";
-        background-size: cover;
-        opacity: 0.5;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-		filter: brightness(98%);
-	    z-index: 1;
-	    background: url("../images/steve2_t.jpg");
-/* 	    background-color: rgba( 255, 255, 255, 0.5 ); */
-	    height: 261.39px;
-    	margin-top: 64.78px;
-    	background-image
-    }
+/* .ticket_content::before{ */
+/*         content: ""; */
+/*         background-size: cover; */
+/*         opacity: 0.5; */
+/*         position: absolute; */
+/*         top: 0px; */
+/*         left: 0px; */
+/*         right: 0px; */
+/*         bottom: 0px; */
+/* 		filter: brightness(98%); */
+/* 	    z-index: 1; */
+/* 	    background: url("../images/steve2_t.jpg"); */
+/* /* 	    background-color: rgba( 255, 255, 255, 0.5 ); */ */
+/* 	    height: 261.39px; */
+/*     	margin-top: 64.78px; */
+/*     	background-image */
+/*     } */
 .ticket_footer::before{
         content: "";
         background-size: cover;
@@ -476,6 +473,10 @@ tr.reserveList_table td:last-child{
 .ticket_nano_title{
 	color: #498172;
 	font-size: 23px;	
+}
+.ticket_footer #ticket_code{
+	float:right;
+	font-size: 23px
 }
 .cancel_form_modal{
     display:none;

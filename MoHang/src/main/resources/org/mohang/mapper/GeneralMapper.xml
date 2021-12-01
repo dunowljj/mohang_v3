@@ -52,7 +52,7 @@
 		<!-- 회원 정보  업데이트폼 end-->
 	
 	<!-- 관심목록 -->
-	<select id="getlistLikes" resultType="org.mohang.domain.GeneralLikeListDTO">
+	<select id="getListLikes" resultType="org.mohang.domain.GeneralLikeListDTO">
 		select
 			a.account_num, 
 			e.e_num, eh.eh_location, e.e_name, e.e_hitcount,
@@ -80,21 +80,21 @@
 	<!-- 관심목록 end-->
 	
 <!-- 예약목록 start -->
-	<select id='getListMyReservation'>
+	<select id='getListMyReservation' resultType='org.mohang.domain.GeneralMyReservationDTO'>
 	select 
-		 a.account_num, a.account_name, a.account_phonenumber, a.account_email,a.account_id,
-		 e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e.e_num,
+		 a.account_num, a.account_name, a.account_phoneNumber, a.account_email, a.account_id,
+		 e.e_num, e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e_fname,
 		 eh.eh_location,
-		 tp.ticket_payment_price, tp.ticket_payment_status,
-		 tr.ticket__reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, 
-		 tr.ticket_reservation_time, ticket_reservation_status
+		 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, 
+		 tr.ticket_reservation_time, ticket_reservation_status,
+		 tp.ticket_payment_price, tp.ticket_payment_status
 	from
 		 account a join ticket_reservation tr on a.account_num = tr.account_num
 		 join ticket_payment tp on tr.ticket_reservation_num = tp.ticket_reservation_num
 		 join event e on tr.e_num = e.e_num
 		 join event_hall eh on eh.eh_num = e.eh_num
 	where
-		account_num = #{account_num}
+		a.account_num = #{account_num}
 	</select>
 
 </mapper> 

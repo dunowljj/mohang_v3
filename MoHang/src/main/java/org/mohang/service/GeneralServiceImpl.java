@@ -85,7 +85,7 @@ public class GeneralServiceImpl implements GeneralService {
 
 	@Override
 	public List<GeneralMyReservationDTO> getListMyReservation(String account_num) {
-		return mapper.getlistMyReservation(account_num);
+		return mapper.getListMyReservation(account_num);
 	}
 	
 	

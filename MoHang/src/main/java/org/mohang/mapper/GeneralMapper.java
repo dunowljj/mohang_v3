@@ -20,5 +20,5 @@ public interface GeneralMapper {
 	
 	public int updateLikeStatus(@Param("account_num") String account_num, @Param("e_num") String e_num);
 	
-	public List<GeneralMyReservationDTO> getlistMyReservation(String account_num);
+	public List<GeneralMyReservationDTO> getListMyReservation(String account_num);
 }

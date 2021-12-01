@@ -46,7 +46,7 @@ public class GeneralController {
 	public String getInformation(Model model){
 		GeneralAttachFileDTO dto = service.getAttach("2");
 //		log.info("dfsafd" +dto.getAccount_path());
-//		log.info(dto.getAccount_path());
+//	log.info(dto.getAccount_path());
 		model.addAttribute("account", service.getInformation("2"));
 		if(dto != null){
 		model.addAttribute("attach",dto);
@@ -104,7 +104,7 @@ public class GeneralController {
 	@GetMapping("/listMyReserve")
 	public String listMyReserve(Model model){
 		log.info("MyReserveList");
-		model.addAttribute(service.getListMyReservation("1"));
+		model.addAttribute("reserveList", service.getListMyReservation("2"));
 		return "module/general/reserveList";
 	}
 	
