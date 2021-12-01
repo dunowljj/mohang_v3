@@ -39,7 +39,7 @@
 							<span><br>행사기간: ${endEvent.e_startDate } ~ ${endEvent.e_endDate }</span><br>
 						</div>
 						<div class="like_event_bottom">
-							조회수xx <img src='' alt='heart'>
+							조회수: ${endEvent.e_hitcount }
 						</div>	
 					</div>
 					</a>

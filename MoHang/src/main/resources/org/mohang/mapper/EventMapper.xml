@@ -186,26 +186,23 @@
 	
 	
 	
-	<!-- 11/29 지혜 통계sql문  -->
+
 	<select id="listStatistics" resultType="org.mohang.domain.EventVO">
 		<![CDATA[ select * from event where sysdate >= e_endDate ]]>
 	</select>
-	
- 	<select id ="getStatistics" resultType="org.mohang.domain.StatisticsDTO">
-		select a.account_num,a.account_interest,  a.account_birth_date, a.account_gender, tr.TICKET_RESERVATION_AMOUNT, tr.TICKET_RESERVATION_STATUS, e.e_num, e.e_hitcount, e.e_like
-		from account a join ticket_reservation tr
-			on a.account_num = tr.account_num
-		join event e
-			on tr.e_num = #{e.e_num};
+
+	<!--  11/30 통계문 추가 및 수정-->
+ 	<select id ="getStatistics" resultType="org.mohang.domain.StatisticsDetailDTO">
+		select *from statisticsview
 	</select>
 	
-	<select id="reservationStatistics" resultType="org.mohang.domain.StatisticsDetailDTO">
-	select sum(ticket_reservation_amount) as ticket_reservation_amount, ticket_reservation_status 
-	from statisticsView 
-	where e_num = #{e_num}
-	group by ticket_reservation_status 
-	</select> 
+	<update id="updateHitCount">
+	update event set e_hitcount = e_hitcount+1 where e_num=#{e_num}
+	</update>
 	
+	<!-- <select id="getStatistics_ageGender">
+	
+	select ACCOUNT_AGE, count(ACCOUNT_GENDER)from statisticsview GROUP BY ACCOUNT_AGE,ACCOUNT_GENDER  where e_num = #{e_num}
+	</select> -->
 
-	<!-- 11/29 지혜 통계sql문 完 -->
 </mapper>

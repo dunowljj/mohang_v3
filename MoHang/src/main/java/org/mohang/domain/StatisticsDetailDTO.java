@@ -8,9 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StatisticsDetailDTO {
-	//아니 잠깐만 여기 무슨내용이 와야하는거지..?
+	private String account_num;
+	private String account_interest;
+	private int account_Age;
+	private String account_gender;
 	private int ticket_reservation_amount;
 	private String ticket_reservation_status;
 	private String e_num;
-
+	private int e_hitCount;
+	private int e_like;
 }
