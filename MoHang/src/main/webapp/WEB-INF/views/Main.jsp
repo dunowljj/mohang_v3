@@ -84,7 +84,15 @@
 	</div>
 </div>
 
-
+<div id="Notice_container">
+		<div id="Notice">
+			<ul>
+				<li><a href="#">공지사항</a></li>
+				<li>|</li>
+				<li><a href="/notice/notice">${notice.notice_title}</a></li>
+			</ul>
+		</div>
+</div>
 <jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
 <!-- Bootstrap core JS-->
 <script

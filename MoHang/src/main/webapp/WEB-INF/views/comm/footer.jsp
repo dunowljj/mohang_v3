@@ -9,15 +9,7 @@
 </head>
 <body>
 <!-- Footer-->
-	<div id="Notice_container">
-		<div id="Notice">
-			<ul>
-				<li><a href="/MoHang/Notice/Notice.do">공지사항</a></li>
-				<li>|</li>
-				<li><a href="#">xxxxxxxxxxxxxxxxxxx</a></li>
-			</ul>
-		</div>
-	</div>
+
 	<footer class="footer">
 		<div class="footer_box">
 			<div class="footer_container">
