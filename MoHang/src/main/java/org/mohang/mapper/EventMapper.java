@@ -7,8 +7,8 @@ import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.domain.Search;
+import org.mohang.domain.StatisticsAgeDTO;
 import org.mohang.domain.StatisticsDTO;
-import org.mohang.domain.StatisticsDetailDTO;
 import org.mohang.domain.StatisticsDetailDTO;
 
 public interface EventMapper {
@@ -63,4 +63,6 @@ public interface EventMapper {
 	
 	//11/30지혜
 	public int updateHitCount(String e_num);
+	
+	public List<StatisticsAgeDTO> getStatistics_ageGender(String e_num);
 }

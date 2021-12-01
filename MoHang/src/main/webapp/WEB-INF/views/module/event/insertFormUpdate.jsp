@@ -36,7 +36,7 @@
 				</div>
 
 
-				<form action="/event/updateApply" method="post">
+				<form action="/event/updateApply" method="post" enctype="multipart/form-data" id="form">
 				
 					 <div class="applyForm">
 						<table class="tb">
@@ -173,6 +173,7 @@
 							</tr>
 
 						</table>
+							<input  type="hidden" name="e_num" value="${event.e_num }">
 					</div>
 				<!-- 	applyForm -->
 					<br> 

@@ -191,18 +191,30 @@
 		<![CDATA[ select * from event where sysdate >= e_endDate ]]>
 	</select>
 
+
 	<!--  11/30 통계문 추가 및 수정-->
  	<select id ="getStatistics" resultType="org.mohang.domain.StatisticsDetailDTO">
 		select *from statisticsview
 	</select>
 	
+	
 	<update id="updateHitCount">
-	update event set e_hitcount = e_hitcount+1 where e_num=#{e_num}
+	update event set e_hitcount = e_hitcount+0.5 where e_num=#{e_num}
 	</update>
 	
-	<!-- <select id="getStatistics_ageGender">
+	<!-- 나이/연령별 인원 -->
+	<select id="getStatistics_ageGender" resultType="org.mohang.domain.StatisticsAgeDTO">
+	select * from(select ACCOUNT_AGE as age, ACCOUNT_GENDER as gender, count(*)as count 
+	from statisticsview 
+	where E_NUM = #{e_num}group by ACCOUNT_AGE,ACCOUNT_GENDER) 
+	pivot( 
+		sum(count) for gender in('f' as f_count,'m' as m_count)
+	)
+	</select> 
 	
-	select ACCOUNT_AGE, count(ACCOUNT_GENDER)from statisticsview GROUP BY ACCOUNT_AGE,ACCOUNT_GENDER  where e_num = #{e_num}
-	</select> -->
+	<!-- 흥미순위-->
+	<select id="">	
+	  select account_interest, count(account_interest)as account_interest_count from statisticsview group by account_interest ;
+  </select>
 
 </mapper>

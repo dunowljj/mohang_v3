@@ -8,6 +8,7 @@ import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.domain.OrganizationVO;
 import org.mohang.domain.Search;
+import org.mohang.domain.StatisticsAgeDTO;
 import org.mohang.domain.StatisticsDTO;
 import org.mohang.domain.StatisticsDetailDTO;
 
@@ -72,5 +73,7 @@ public interface EventService {
 	public EventVO getApplyAndHitcount(String e_num); 
 
 	public LikedVO selectlikeone(String string, String e_num);
+	
+	public List<StatisticsAgeDTO> getStatistics_ageGender(String e_num);
 
 }

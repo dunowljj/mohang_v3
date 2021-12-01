@@ -9,6 +9,7 @@ import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.domain.Search;
+import org.mohang.domain.StatisticsAgeDTO;
 import org.mohang.domain.StatisticsDTO;
 import org.mohang.domain.StatisticsDetailDTO;
 import org.mohang.mapper.EventMapper;
@@ -246,5 +247,17 @@ public class EventServiceImpl implements EventService {
 		mapper.updateHitCount(e_num);
 		return mapper.getApply(e_num);
 	}
+	
+	@Override
+	public List<StatisticsAgeDTO> getStatistics_ageGender(String e_num) {
+		List<StatisticsAgeDTO> ageList =mapper.getStatistics_ageGender(e_num);
+		for(int i =0; i<ageList.size(); i++){
+			String age = String.valueOf(ageList.get(i).getAge());
+			ageList.get(i).setAge(age);
+		}
+		return mapper.getStatistics_ageGender(e_num);
+	}
+	
+	
 
 }

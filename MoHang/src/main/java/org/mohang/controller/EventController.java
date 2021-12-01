@@ -51,7 +51,7 @@ public class EventController  {
 		
 		//파일 저장
 		log.info("----Ready to file save----");
-		String uploadFolder = "C:\\Users\\HOME\\git\\mohang_v3\\MoHang\\src\\main\\webapp\\resources\\eventImages";
+		String uploadFolder = "C:\\Users\\HOME\\git\\mohang_v3\\MoHang\\src\\main\\webapp\\resources\\images";
 		//String uploadFolder = "../resources/eventImages";
 	
 		
@@ -116,9 +116,36 @@ public class EventController  {
 	
 	//신청한 행사정보 수정페이지 
 	@PostMapping("/updateApply")
-	public String updateApply(EventVO eventVO){
+	public String updateApply(EventVO eventVO, MultipartFile e_file, MultipartFile e_dfile){
 		log.info("----try event Update----");
-		eventVO.setO_num("4");
+		//파일 저장
+				log.info("----Ready to file save----");
+				String uploadFolder = "C:\\Users\\HOME\\git\\mohang_v3\\MoHang\\src\\main\\webapp\\resources\\images";
+				//String uploadFolder = "../resources/eventImages";
+			
+				
+				String e_fname = e_file.getOriginalFilename();
+				String e_dfname = e_dfile.getOriginalFilename();
+				
+				
+				eventVO.setE_fname(e_fname);
+				eventVO.setE_dfname(e_dfname);
+				eventVO.setO_num("4");
+				
+				e_fname = e_fname.substring(e_fname.lastIndexOf("\\")+1);
+				e_dfname = e_dfname.substring(e_dfname.lastIndexOf("\\")+1);
+				
+				File saveE_file=new File(uploadFolder, e_fname);
+				File saveE_dfile=new File(uploadFolder, e_dfname);
+				
+				try {
+					e_file.transferTo(saveE_file);
+					e_dfile.transferTo(saveE_dfile);
+				} catch (Exception e) {
+					log.error(e.getMessage());	
+				}
+				log.info("----file save success----");
+				
 		eventService.updateApply(eventVO);
 		log.info("----Update success----");
 		return "module/event/insertFormUpdate";
