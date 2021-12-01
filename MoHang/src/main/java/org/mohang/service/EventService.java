@@ -9,6 +9,7 @@ import org.mohang.domain.LikedVO;
 import org.mohang.domain.OrganizationVO;
 import org.mohang.domain.Search;
 import org.mohang.domain.StatisticsDTO;
+import org.mohang.domain.StatisticsDetailDTO;
 
 public interface EventService {
 	public List<EventLikeDTO> listBestEvent();
@@ -68,5 +69,6 @@ public interface EventService {
 	//<-지혜
 	public List<EventVO> listStatistics();
 	public StatisticsDTO getStatistics(String e_num);
+	public EventVO getApplyAndHitcount(String e_num); 
 
 }
