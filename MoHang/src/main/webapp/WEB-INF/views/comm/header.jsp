@@ -480,8 +480,9 @@ $(document).click(function(e) {
 })
  var inputs = $('input[type="hidden"]');
   $("#event-search").on('submit',function(){
-	  for( var i=0;i<inputs.length;i++){
-		  $($(inputs[i]).val(""));
-	  }
+		  $(inputs[3]).val("");
+		  $(inputs[9]).val("");
+		  $(inputs[18]).val("");
+	  
   })
 </script>

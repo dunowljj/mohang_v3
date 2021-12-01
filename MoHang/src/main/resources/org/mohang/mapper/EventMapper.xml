@@ -33,8 +33,9 @@
 			        rownum rn, e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount,e_field,e_type,e_like
 			      from 
 			        event
-			      where
+			     
 		]]>
+					<trim suffixOverrides="and" prefix="where">
 					<if test="keyword !=null and !keyword.equals('') ">
 						e_name like '%'||#{keyword}||'%' and
 					</if>
@@ -60,17 +61,11 @@
 					</if>
 					<if test="endDate != null and !endDate.equals('')">
 						<![CDATA[
-						and e_enddate <=  #{endDate}) and
+						and e_enddate <=  #{endDate}) and 
 						]]>
-					</if> 
-					
-		<![CDATA[
-		      rownum <= #{pageNum} * #{amount}
-		      
-		      )
-		  where rn > (#{pageNum} -1) * #{amount}   
-		]]>
-					<if test="s_like != null and !s_like.equals('')">
+					</if > 
+					</trim>
+		      		<if test="s_like != null and !s_like.equals('')">
 						order by e_like desc
 					</if>
 					<if test="s_price != null and !s_price.equals('')">
@@ -79,6 +74,12 @@
 					<if test="s_hitcount != null and !s_hitcount.equals('')">
 						order by e_hitcount desc
 					</if>
+		      		
+		      )
+				
+		<![CDATA[			
+		  where rn > (#{pageNum} -1) * #{amount}   and rownum <= #{pageNum} * #{amount}
+		]]>		
 					
 	</select>
 	<select id="getTotalCount" resultType="int" parameterType="org.mohang.domain.Search">

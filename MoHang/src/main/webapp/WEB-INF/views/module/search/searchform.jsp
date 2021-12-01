@@ -144,6 +144,7 @@
 					<input type="hidden" name="type" value="${search.type }">
 					<input type="hidden" name="price" value="${search.price }">
 					<input type="hidden" name="keyword" value="${search.keyword }">
+					
 				</div>
 			</div>
 			</form>
@@ -195,6 +196,9 @@
 						<input type="hidden" name="type" value="${search.type }">
 						<input type="hidden" name="price" value="${search.price }">
 						<input type="hidden" name="keyword" value="${search.keyword }">
+						<input type="hidden" name="s_like" value="${search.s_like }">
+						<input type="hidden" name="s_hitcount" value="${search.s_hitcount }">
+						<input type="hidden" name="s_price" value="${search.s_price }">
 					</div>
 				</form>	
 			</div>
@@ -317,6 +321,9 @@
 					<input type="hidden" name="type" value="${search.type }">
 					<input type="hidden" name="price" value="${search.price }">
 					<input type="hidden" name="keyword" value="${search.keyword }">
+					<input type="hidden" name="s_like" value="${search.s_like }">
+					<input type="hidden" name="s_hitcount" value="${search.s_hitcount }">
+					<input type="hidden" name="s_price" value="${search.s_price }">
 			    </form>
 			</div>
 		</div>

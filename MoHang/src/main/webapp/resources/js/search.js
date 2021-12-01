@@ -62,16 +62,70 @@ $(function() {
 			$(filterbtn.get(3)).css('display','');
 			$($(inputs[2]).val(""));
 			$($(inputs[6]).val(""));
+			$($(inputs[9]).val(""));
+			$($(inputs[10]).val(""));
+			$($(inputs[11]).val(""));
+			$($(inputs[12]).val(""));
+			$($(inputs[13]).val(""));
+			$($(inputs[14]).val(""));
+			$($(inputs[15]).val(""));
+			$($(inputs[16]).val(""));
+			$($(inputs[17]).val(""));
+			$($(inputs[18]).val(""));
+			$($(inputs[19]).val(""));
+			$($(inputs[20]).val(""));
+			$($(inputs[21]).val(""));
+			$($(inputs[22]).val(""));
+			$($(inputs[24]).val(""));
+			$($(inputs[25]).val(""));
+			$($(inputs[26]).val(""));
+			$($(inputs[27]).val(""));
 		}else if($(this).attr('name')=='type'){
 			$(filterbtn.get(1)).html(value+'<i class="far fa-times-circle cursor-pointer"></i>');
 			$(filterbtn.get(1)).css('display','');
 			$($(inputs[1]).val(""));
 			$($(inputs[5]).val(""));
+			$($(inputs[9]).val(""));
+			$($(inputs[10]).val(""));
+			$($(inputs[11]).val(""));
+			$($(inputs[12]).val(""));
+			$($(inputs[13]).val(""));
+			$($(inputs[14]).val(""));
+			$($(inputs[15]).val(""));
+			$($(inputs[16]).val(""));
+			$($(inputs[17]).val(""));
+			$($(inputs[18]).val(""));
+			$($(inputs[19]).val(""));
+			$($(inputs[20]).val(""));
+			$($(inputs[21]).val(""));
+			$($(inputs[22]).val(""));
+			$($(inputs[24]).val(""));
+			$($(inputs[25]).val(""));
+			$($(inputs[26]).val(""));
+			$($(inputs[27]).val(""));
 		}else if ($(this).attr('name')=='field'){
 			$(filterbtn.get(2)).html(value+'<i class="far fa-times-circle cursor-pointer"></i>');
 			$(filterbtn.get(2)).css('display','');
 			$($(inputs[0]).val(""));
 			$($(inputs[4]).val(""));
+			$($(inputs[9]).val(""));
+			$($(inputs[10]).val(""));
+			$($(inputs[11]).val(""));
+			$($(inputs[12]).val(""));
+			$($(inputs[13]).val(""));
+			$($(inputs[14]).val(""));
+			$($(inputs[15]).val(""));
+			$($(inputs[16]).val(""));
+			$($(inputs[17]).val(""));
+			$($(inputs[18]).val(""));
+			$($(inputs[19]).val(""));
+			$($(inputs[20]).val(""));
+			$($(inputs[21]).val(""));
+			$($(inputs[22]).val(""));
+			$($(inputs[24]).val(""));
+			$($(inputs[25]).val(""));
+			$($(inputs[26]).val(""));
+			$($(inputs[27]).val(""));
 			$('.eventfieldtitle').html("");
 			value = value.replace(',','');
 			$('.eventfieldtitle').html(value);
@@ -79,7 +133,24 @@ $(function() {
 		}else if ($(this).attr('name')=='keyword'){
 			$($(inputs[3]).val(""));
 			$($(inputs[7]).val(""));
+			$($(inputs[9]).val(""));
+			$($(inputs[10]).val(""));
+			$($(inputs[11]).val(""));
+			$($(inputs[12]).val(""));
 			$($(inputs[13]).val(""));
+			$($(inputs[14]).val(""));
+			$($(inputs[15]).val(""));
+			$($(inputs[16]).val(""));
+			$($(inputs[17]).val(""));
+			$($(inputs[18]).val(""));
+			$($(inputs[19]).val(""));
+			$($(inputs[20]).val(""));
+			$($(inputs[21]).val(""));
+			$($(inputs[22]).val(""));
+			$($(inputs[24]).val(""));
+			$($(inputs[25]).val(""));
+			$($(inputs[26]).val(""));
+			$($(inputs[27]).val(""));
 		}
 			$("#searchform_form").submit();
 			
@@ -163,9 +234,14 @@ $(function() {
 	// 체크박스 하나만
     $('input[type="checkbox"]').bind('click',function() {
     	    $('input[type="checkbox"]').not(this).prop("checked", false);
-    	   
     	    $("#second_search").submit();
+    	   
     });
+    $(function(){
+    	$('input[name="s_like"]').val("");
+    	$('input[name="s_hitcount"]').val("");
+    	$('input[name="s_price"]').val("");
+    })
 	// 페이지 이동
     $('.eventimg').on('click',function(e){
     	var e_num =$(this).find('input').val();
