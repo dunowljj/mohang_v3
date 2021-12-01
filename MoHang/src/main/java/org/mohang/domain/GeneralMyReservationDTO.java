@@ -17,15 +17,17 @@ public class GeneralMyReservationDTO {
 	private String account_id;
 	private String e_num;
 	private String e_name;
-	private Date e_applydate;
+	private Date e_applyDate;
 	private Date e_startDate;
-	private Date e_endate;
+	private Date e_endDate;
+	private String e_fname;
 	private String eh_location;
-	private String ticket_reservation_amount;
+	private int ticket_reservation_amount;
 	private String ticket_reservation_num;
 	private String ticket_reservation_status;
-	private String ticket__reservation_price;
+	private int ticket__reservation_price;
 	private Date ticket_reservation_time;
 	private String ticket_payment_status;
-	private String ticket_payment_price;
+	private int ticket_payment_price;
 }
+//

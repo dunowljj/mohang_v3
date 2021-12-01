@@ -25,15 +25,15 @@
 	<!-- 					<form action="" method="post" id='reserveForm' enctype="multipart/form-data"> -->
 				
 							<a><img src='${pageContext.request.contextPath}/resources/images/프로필.png' alt='user_image'></a>
-							<input type="file" name="fname"><br>
+<!-- 							<input type="file" name="fname"><br> -->
 							<br>
 							기본정보
 							<hr><br>
 							이메일(ID)	<br>
-							<c:out value="${account.account_email}"/>
+							<c:out value="${account.account_id}"/>@<c:out value="${account.account_email}"/>
 							<br><br>
 							이름/기업명<br>
-							<c:out value="${account.account_name}"/><c:out value="${organization.O_Name}"/>
+							<c:out value="${account.account_name}"/><c:out value="${organization.o_name}"/>
 							<br><br>
 							전화번호 <br>
 							<c:out value="${account.phoneNumber}"/>
