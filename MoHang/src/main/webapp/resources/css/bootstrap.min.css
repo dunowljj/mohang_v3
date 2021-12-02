@@ -11685,5 +11685,27 @@ thead th {
 .final_addr_ck{
     display: none;
 }
+
+/* 로그인 실패시 경고글 */
+.login_warn{
+    margin-top: 30px;
+    text-align: center;
+    color : red;
+}
+
+/* 로그인 성공 영역 */
+.login_success_area{
+    height: 62%;
+    width: 200%;
+    border: 2px solid #A9A9A9;
+    border-radius: 15px;
+    margin: 5% auto;
+    padding-top: 5%;
+}
+.login_success_area>span{
+    display : block;
+    text-align: left;
+    margin-left: 10%;
+}
  
  

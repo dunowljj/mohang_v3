@@ -21,5 +21,10 @@ public class AccountServiceImpl implements AccountService {
 		return accountMapper.idCheck(account_id);
 	}
 
+	@Override
+	public AccountVO accountLogin(AccountVO account) throws Exception {
+		return accountMapper.accountLogin(account);
+	}
+
 	
 }

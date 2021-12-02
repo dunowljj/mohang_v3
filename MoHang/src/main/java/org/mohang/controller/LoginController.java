@@ -3,6 +3,8 @@ package org.mohang.controller;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.mohang.domain.AccountVO;
 import org.mohang.service.AccountService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
 
@@ -113,5 +116,52 @@ public class LoginController{
 		return "module/login/login";
 	}
 	
+	//로그인
+	@PostMapping("/login")
+	public String loginPOST(HttpServletRequest request, AccountVO account, RedirectAttributes rttr) throws Exception{
+		System.out.println("로그인 진입");
+		System.out.println("데이터" + account);
+		
+		HttpSession session = request.getSession();
+		AccountVO lvo = accountService.accountLogin(account);
+		
+		if(lvo == null) { //일치하지 않는 아이디, 비밀번호 입력 경우
+			int result = 0;
+			rttr.addFlashAttribute("result", result);
+			return "redirect:/login/login";
+		}
+		
+		session.setAttribute("account", lvo);
+		
+		return "redirect:/Main";
+	}
+	
+	//로그아웃
+	@GetMapping("/logout")
+	public String logoutMainGET(HttpServletRequest request) throws Exception{
+		log.info("로그아웃");
+		HttpSession session = request.getSession();
+		session.invalidate();
+		
+		return "redirect:/Main";
+	}
+	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

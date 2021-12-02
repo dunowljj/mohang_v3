@@ -39,26 +39,26 @@
 
 			<div class="form-group"
 				style="line-height: 30px; text-align: center;">
-				<label class="form-label mt-4">회원가입을 하시오</label>
+				<span style="font-size: 22px;">회원가입을 하시오</span>
 
 			<div>
-				<form id="join_form" method="post" name="signUp">
 				
 					<!-- 아이디 -->
 					<div class="form-group">
-						<div class="id_name" style="color: red;">Id</div>
 						<div class="id_input_box">
+							<div class="id_name" style="color: red;">Id</div>
 							<input class="form-control" id="id_input" name="account_id">
 						</div>
-						<span class="id_input_re_1" style="display: none"> 사용 가능한 아이디입니다.</span> 
+						<span class="id_input_re_1" style="display: none" > 사용 가능한 아이디입니다.</span> 
 						<span class="id_input_re_2" style="display: none"> 아이디가 이미 존재합니다.</span>
 						
 					</div>
 
 					<!-- 비밀번호 -->
 					<div class="form-group">
-						<div class="pw_name" style="color: red;">Password</div>
+
 						<div class="pw_input_box">
+							<div class="pw_name" style="color: red;">Password</div>
 							<input type="password" class="form-control" id="pw_input"
 								placeholder="Password" name="account_password">
 						</div>
@@ -77,16 +77,17 @@
 					<!-- 이메일 -->
 					<div class="form-group">
 						<div class="user_email" style="color: red;">Email</div>
-						<div class="mail_input_box" id="mail_check_input_box_false">
+						<div class="mail_input_box" id="mail_check_input_box_false" style="position: relative; padding-left: 89px;">
 							<input class="form-control" id="mail_input" placeholder="XXX@XXX.com" name="account_email">
+							<div class="mail_check_button" style="display: inline;">
+ 								<span>인증번호 전송</span>
+							</div>
 						</div>
-						
-						<div class="mail_check_button">
-							<span>인증번호 전송</span>
-						</div>
+						<span class="mail_input_box_warn"></span>
 
 						<div class="mail_check_wrap">
 							<div class="mail_check_input_box" id="mail_check_input_box_false">
+								<div style="color: red;">인증번호</div>
 								<input class="mail_check_input" disabled="disabled">
 							</div>
 							<div class="clearfix"></div>
@@ -97,11 +98,11 @@
 					<!-- 주소 -->
 					<div class="form-group">
 						<div class="user_address" style="color: red;">Address</div> 
-						<div class="address_button" onclick="execution_daum_address()">
-							<span>주소 찾기</span>
-						</div>
-						<div class="address_input_box">
+						<div class="address_input_box" style="position: relative; padding-left: 65px;">
 							<input class="account_Address" id="account_Address" name="account_address" readonly="readonly">
+							<div class="address_button" onclick="execution_daum_address()" style="display: inline;">
+								<span>주소 찾기</span>
+							</div>
 						</div>
 						
 						<div class="clearfix"></div>
@@ -121,26 +122,26 @@
 					</div>
 
 					<div class="form-check">
-						<label for="exampleInputEmail1" class="form-label mt-4"
-							style="color: red;">성별</label> <label class="form-check-label">
-							<input type="radio" class="form-check-input" name="account_gender"
-							id="optionsRadios1" value="남자" checked="" > 남자
+						<div class="user_gender" style="color: red;">Gender</div> 
+						<label class="form-check-label"> <input type="radio"
+							class="form-check-input" name="account_gender"
+							id="optionsRadios1" value="남자" checked=""> 남자
 						</label> <label class="form-check-label"> <input type="radio"
-							class="form-check-input" name="account_gender" id="optionsRadios2"
-							value="여자"> 여자
+							class="form-check-input" name="account_gender"
+							id="optionsRadios2" value="여자"> 여자
 						</label>
 					</div>
- 
-					<div class="form-group">
+
+						<div class="form-group">
 						<div class="user_phonenumber" style="color: red;">PhoneNumber</div> 
 						<input class="form-control" id="account_phoneNumber" name="account_phoneNumber"
 							 placeholder="010-xxxx-xxxx">
 					</div>
 					
-					<p style="color: red;">생년월일1<input type="date" id="datepicker" name="account_birth_date"></p>
+					<div class="user_birth" style="color: red;">Birth</div>
+					<input type="date" id="datepicker" name="account_birth_date">
 
-					<label for="exampleInputEmail1" class="form-label mt-4"
-						style="color: red;">관심사</label>
+					<div class="user_interest" style="color: red;">Interest</div>
 					<div class="form-check">
 						<input class="form-check-input" type="checkbox" value="사업/창업"
 							id="flexCheckDefault"> <label class="form-check-label"
@@ -234,7 +235,19 @@
 		$(".mail_check_button").click(function() {
 			var email = $("#mail_input").val();
 			var cehckBox = $(".mail_check_input"); // 인증번호 입력란
-			var boxWrap = $(".mail_check_input_box"); // 인증번호 입력란 박스
+			var boxWrap = $("#mail_check_input_box"); // 인증번호 입력란 박스
+			var warnMsg = $(".mail_input_box_warn");
+			
+			/* 이메일 형식 유효성 검사 */
+		    if(mailFormCheck(email)){
+		        warnMsg.html("이메일이 전송 되었습니다. 이메일을 확인해주세요.");
+		        warnMsg.css("display", "inline-block");
+		    } else {
+		        warnMsg.html("올바르지 못한 이메일 형식입니다.");
+		        warnMsg.css("display", "inline-block");
+		        return false;
+		    }    
+			
 			$.ajax({
 
 				type : "GET",
@@ -317,13 +330,15 @@
 					}).open();
 			
 		}
+		
+		 //이메일 형식 유효성 검사 
+		function mailFormCheck(email) {
+			var form = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+			return form.test(email);
+		}
 	</script>
 
-<!-- 	<script>
-		$(function() {
-			$("#datepicker").datepicker();
-		});
-	</script> -->
+
 
 </body>
 </html>

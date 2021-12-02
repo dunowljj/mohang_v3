@@ -31,12 +31,42 @@ public class MemberTestes {
 		accountMapper.memberJoin(account);
 	}*/
 	
-	@Test
+	/*@Test
 	public void accountIdChk() throws Exception{
 		String id = "test";
 		String id2 = "test1";
 		
 		accountMapper.idCheck(id);
 		accountMapper.idCheck(id2);
+	}*/
+	
+	@Test
+	public void accountLogin() throws Exception{
+		AccountVO account = new AccountVO();
+		
+		account.setAccount_id("1234");
+		account.setAccount_password("1");
+		
+		//account.setAccount_id("12314");
+		//account.setAccount_password("11");
+		
+		accountMapper.accountLogin(account);
+		System.out.println("결과" + accountMapper.accountLogin(account));
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

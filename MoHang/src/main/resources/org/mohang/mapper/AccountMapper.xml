@@ -3,6 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.mohang.mapper.AccountMapper">
+	<!-- 회원가입 -->
 	<insert id="memberJoin">
 		insert into ACCOUNT values(
 								   account_seq.nextval ,#{account_id}, #{account_password}, 
@@ -11,10 +12,16 @@
 								   #{account_gender}, #{account_phoneNumber}, #{account_address2}, #{account_address3})
 	</insert>
 
+	<!-- 아이디 중복 검사 -->
 	<select id="idCheck" resultType="int">
   	
   		select count(*) from ACCOUNT where account_id = #{account_id}
   	
   	</select>
-
+  	
+  	<!-- 로그인 -->
+  	<select id="accountLogin" resultType="org.mohang.domain.AccountVO">
+  	select account_id, account_password, account_name, account_mileage, account_interest from ACCOUNT where account_id = #{account_id} AND account_password = #{account_password}
+	</select>
+	
 </mapper>
