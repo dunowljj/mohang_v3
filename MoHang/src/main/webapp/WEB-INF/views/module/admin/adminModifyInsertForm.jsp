@@ -29,18 +29,17 @@
 <jsp:include page="/WEB-INF/views/comm/adminheader.jsp"></jsp:include>
 	<div id="container-box">
 		<div id="container">
-				<form action="resisterNotice" method="post">
+				<form action="updateNotice" method="post">
 				<div id="event detail1">
 					<div id="event_detail1_1">
-						<span class="notice_title">공지사항 글쓰기</span>
+						<span class="notice_title">공지사항 수정</span>
 					</div>
 						<div id="event_detail2">
-							<input type="text" name="notice_title" value=" "
-								placeholder="제목을 입력해주세요">
+							<input type="text" name="notice_title" value=" ${detailNotice.notice_title}">
 						</div>
 						<div id="event_detail3">
 							<textarea rows="5" cols="70" name="notice_content"
-								placeholder="내용을 입력해주세요"></textarea>
+								>${detailNotice.notice_content }</textarea>
 						</div>
 				</div>
 				<div>
@@ -48,8 +47,8 @@
 				</div>
 				<div style="padding-top: 10px;">
 					<button type="button">취소</button>
-					<button type="submit">등록</button>
-	
+				<input type="hidden" name="notice_num" value="${detailNotice.notice_num}">
+					<button type="submit">수정</button>
 				</div>
 				</form>
 		</div>

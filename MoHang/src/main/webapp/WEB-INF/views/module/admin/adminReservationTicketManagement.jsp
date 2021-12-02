@@ -53,76 +53,17 @@
 		<tbody>
 		<c:forEach items="${ticket}" var="TicketReservationDTO">
 			<tr>
-				<th scope="row"><font style="vertical-align: inherit;">${TicketReservationDTO.account_name }</font></th>
-				<td><a href="/MoHang/Review/ReviewDetail.do"><font style="vertical-align: inherit;">
-						<fmt:formatDate value = "${TicketReservationDTO.ticket_reservation_time }" pattern="yyyy-MM-dd"/></font></a></td>
+				<th scope="row"><font style="vertical-align: inherit;">${TicketReservationDTO.account_name}</font></th>
+				<td><font style="vertical-align: inherit;">
+						<fmt:formatDate value = "${TicketReservationDTO.ticket_reservation_time}" pattern="yyyy-MM-dd"/></font></td>
 				<td><font style="vertical-align: inherit;">${TicketReservationDTO.ticket_reservation_price}</font></td>
-				<td><font style="vertical-align: inherit;">${TicketReservationDTO.ticket_reservation_status }</font></td>
+				<td><font style="vertical-align: inherit;">${TicketReservationDTO.ticket_reservation_status}</font></td>
 				<td><font style="vertical-align: inherit;"><a href="/admin/deleteTicket?ticket_reservation_num=${TicketReservationDTO.ticket_reservation_num}" ><button>예약취소</button></a></font></td>
 			</tr>
 			</c:forEach>
 			
 			
-			<!-- <tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이용환</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/18</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">유료</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">예약취소</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"></font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이상엽</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/18</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">유료</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">관람완료</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"></font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이정준</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/18</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">유료</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">예약완료</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>예약취소</button></font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">최지혜</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/18</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">무료</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">예약취소</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"></font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">김원형</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">12/18</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">유료</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">미관람</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"></font></font></td>
-			</tr> -->
+	
 			
 		</tbody>
 		</table>

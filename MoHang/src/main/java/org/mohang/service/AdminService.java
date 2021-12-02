@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mohang.domain.AccountVO;
 import org.mohang.domain.ApproveDTO;
+import org.mohang.domain.Criteria;
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.NoticeVO;
@@ -46,17 +47,45 @@ public interface AdminService {
 	public List<ReviewVO> listReview();
 	
 	/*공지사항리스트 조회*/
-	public List<NoticeVO> listNotice();
+	//public List<NoticeVO> listNotice();
 	
+	/*페이징 처리된 공지사항리스트 조회*/
+	public List<NoticeVO> listNotice(Criteria cri);
+	
+	/*공지사항 수정눌렀을때 수정전 폼 보여주게끔*/
+	public NoticeVO updateNoticeForm(String notice_num);
+	
+	/*공지사항리스트수정*/
+	public int updateNotice(NoticeVO notice);
+	
+
 	/*공지사항리스트 삭제 버튼 눌렀을시 삭제*/
 	public int deleteNotice(String notice_num);
   
 	/*공지사항리스트에서 글제목 눌렀을시 디테일페이지로 이동하는 부분*/
 	public NoticeVO detailNotice(String notice_num);
 	
+	/*공지사항 글쓰기에서 글 내용 작성하고 등록버튼 눌렀을시*/
+	public int resisterNotice(NoticeVO notice);
+	
+	
 	/*리뷰게시판 리스트 삭제*/
 	public int deleteReview(String review_num);
 	
+	/*리뷰게시판 리스트에서 제목 눌렀을시 디테일페이지로 이동하게끔*/
+	public ReviewVO detailReview(String review_num);
+	
 	/*티켓에약리스트 삭제*/
 	public int deleteTicketReservation(String ticket_reservation_num);
+	/*행사 반려 */
+	public void updatestatuswait(String ap_num, String string);
+	/*행사승인버튼 눌렀을시 승인완료된거*/
+	public void updateApprovebtn(String ap_num, String string);
+
+	
+	/*공지사항 페이징처리를 위한 메서드*/
+	public List<NoticeVO> getNoticePaging(Criteria cri);
+
+	/*공지사항 게시글 데이터 갯수를 갖고오는 메서드*/
+	public int getNoticeTotal();
 }

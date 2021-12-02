@@ -66,13 +66,22 @@
 				<td><font style="vertical-align: inherit;">
 				<fmt:formatDate value="${approveDTO.ap_date}" pattern="yyyy-MM-dd"/>
 						</font></td>
-				<td><font style="vertical-align: inherit;">
-						${approveDTO.ap_check}</font></td>
-				
-				<td><font style="vertical-align: inherit;">
-						<a href="/admin/deleteApprove?ap_num=${approveDTO.ap_num}" ><button class="btn1" >반려</button></a>
-						<a href="/admin/insertApprove" ><button class="btn1" >승인</button></a>
-						</font>
+				<td>
+						<c:set var ="check" value="${approveDTO.ap_check}"/>
+						
+						<c:if test="${check eq 'Y'}">승인완료</c:if>
+						<c:if test="${check eq 'W'}">승인대기</c:if>
+						<c:if test="${check eq 'N'}">승인반려</c:if>
+			
+				</td>
+				<td>
+			  
+					<c:if test="${check eq 'W'}">
+						<a href="/admin/deleteApprove?ap_num=${approveDTO.ap_num}" ><button >반려</button></a>
+						<a href="/admin/listApprovebtn?ap_num=${approveDTO.ap_num}" ><button class="btn1" >승인</button>
+						</a>
+				</c:if>		
+						
 <!-- 						onclick= "btn_hide()" -->
 				</td>
 			</tr>
