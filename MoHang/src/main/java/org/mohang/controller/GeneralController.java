@@ -106,12 +106,14 @@ public class GeneralController {
 	}
 	
 	@GetMapping("/reserve")
-	public String reserveForm(Model model){
+	public String reserveForm(Model model,@RequestParam String e_num){
 		log.info("reserveForm");
 		AccountVO accountVO = service.getInformation("2");//세션 회원번호 받기
 		OrganizationVO organizationVO = orgService.getOrganization(accountVO.getAccount_num());
-		EventVO eventVO = eventService.getApply("1");//행사번호를 넘겨받으면서 예약페이지로 넘어와야한다.
-		
+//		EventVO eventVO = eventService.getApply("1");
+		EventVO eventVO = eventService.getApply(e_num);	//행사번호를 넘겨받으면서 예약페이지로 넘어와야한다.
+		log.info(service.getRemainTicket("1"));
+		model.addAttribute("remainTicket", service.getRemainTicket("1"));
 		model.addAttribute("account", accountVO);
 		model.addAttribute("organization", organizationVO);
 		model.addAttribute("event", eventVO);

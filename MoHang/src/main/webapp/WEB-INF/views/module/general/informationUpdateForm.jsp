@@ -36,8 +36,10 @@
 						 enctype="multipart/form-data">
 							<input type="hidden" name="account_num" value="<c:out value='${account.account_num}'/>">
 							<div style="height:80px; width:80px;">
+							
 							<a><img id="uploadImg" src='${pageContext.request.contextPath}/resources/images/프로필2.png' 
 								alt='' style="border-radius:70%; width:100%; height:100%;"></a>
+							
 							</div>
 <!-- 							onclick='changeUploadImg()' -->
 							<br><input type="file" name="uploadFile">

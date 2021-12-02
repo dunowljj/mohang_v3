@@ -5,25 +5,35 @@ function count(type)  {
 	const ticketNumberElement = document.getElementById('ticketCount');
 	const ticketPriceElement = document.getElementById('ticketPrice');
 	const ticketTotalElement = document.getElementById('ticketTotal');
-	
 	const m_ticketNumberElement = document.getElementById('m_ticketCount');
 	const m_ticketTotalElement = document.getElementById('m_ticketTotal');
 
+	
   let ticketNumber = ticketNumberElement.innerText;
   let ticketPrice = ticketPriceElement.innerText;
   let ticketTotal = ticketPriceElement.innerText;
   
-  if(type === 'plus') {
+  console.log(remainTicket);
+  console.log(ticketNumber);
+  
+  
+  remainTicketI = parseInt(remainTicket);
+  console.log(remainTicketI);
+  
+ 
+   if(type === 'plus' && ticketNumber < remainTicketI) {
 	  ticketNumber = parseInt(ticketNumber) + 1;
   }
   else if(type === 'minus'&& ticketNumber != 1)  {
 	  ticketNumber = parseInt(ticketNumber) - 1;
   }
-  
-  ticketNumberElement.innerText = ticketNumber;
- 
+  else if(ticketNumber >= remainTicketI){
+	   alert("남은 티켓이 없습니다!");
+   }
+
   var totalPrice = parseInt(ticketPrice)*parseInt(ticketNumber);
-  console.log(totalPrice);
+//  console.log(totalPrice);
+  ticketNumberElement.innerText = ticketNumber;
   ticketTotalElement.innerText = totalPrice;
   
   
@@ -35,6 +45,10 @@ function count(type)  {
   document.getElementById("ticket_payment_price").value = parseInt(totalPrice);
   
 }
+var recruiteConstraint = "<c:out value='${event.e_recruitepeople}'/>"
+//잔여표계산해서 제약 걸기
+
+
 
 //티켓 총 가격 전달
 function pushTicketTotal(){
@@ -93,7 +107,7 @@ function getTime(seperator){
 setTimeout(function () { 
 	pushReserveTime();
 	pushTicketTotal();
-},1);
+},0);
 
 
 

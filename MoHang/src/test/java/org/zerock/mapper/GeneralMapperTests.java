@@ -2,10 +2,16 @@ package org.zerock.mapper;
 
 import static org.junit.Assert.*;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.TicketPaymentDTO;
+import org.mohang.domain.TicketReservationDTO;
 import org.mohang.mapper.GeneralMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,8 +25,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class GeneralMapperTests {
 
-	
-	
+
 //	@Test
 //	public void testExist(){
 //		
@@ -29,73 +34,43 @@ public class GeneralMapperTests {
 //	}
 	@Setter(onMethod_ = @Autowired)
 	private GeneralMapper mapper;
-	
+//	
+//	@Test
+//	public void test() {
+//		AccountVO vo;
+//		log.info(vo = mapper.getInformation("A-2"));
+//	}
+//	@Test
+//	public void testInsertReserve() {
+////		String start_dt = "2011-01-01";
+////
+////		DateFormat formatter = new SimpleDateFormat("YYYY-MM-DD"); 
+////		Date date = null;
+////		try {
+////			date = (Date)formatter.parse(start_dt);
+////		} catch (ParseException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		}
+//		
+//		
+//		TicketReservationDTO reservDTO = new TicketReservationDTO();
+////		#{ticket_reservation_num}, #{e_num}, #{account_num},
+////		#{ticket_reservation_price}, #{ticket_reservation_amount},
+////		'예약완료', #{ticket_reservation_time}
+//		reservDTO.setTicket_reservation_amount(2);
+////		reservDTO.setTicket_reservation_date("95-01-22");
+//		reservDTO.setTicket_reservation_num("1");
+//		reservDTO.setTicket_reservation_price(2000);
+//		reservDTO.setTicket_reservation_status("예약완료");
+//		reservDTO.setTicket_reservation_time("지금이순간");
+//		reservDTO.setE_num("1");
+//		reservDTO.setAccount_num("1");
+//		log.info(mapper.insertTicketReserv(reservDTO));
+//	}
 	@Test
-	public void test() {
-		AccountVO vo;
-		log.info(vo = mapper.getInformation("A-2"));
+	public void testInsertPay() {
+		TicketPaymentDTO payDTO = new TicketPaymentDTO("1", "1", "1", "2", "카드", "지금 결제했어", 20000, "결제완료", "미참여");
+		log.info(mapper.insertTicketPay(payDTO, "28"));
 	}
-//	@Tests
-//	public void testInsert(){
-//		
-//		BoardVO board = new BoardVO();
-//		board.setTitle("새로 작성하는 글");
-//		board.setContent("새로 작성하는 내용");
-//		board.setWriter("newbie");
-//		
-//		mapper.insert(board);
-//		
-//		log.info(board);
-//	}
-//		
-//	@Test
-//	public void testInsertSelectKey(){
-//		BoardVO board = new BoardVO();
-//		board.setTitle("새로 작성하는 글 select key");
-//		board.setContent("새로 작성하는 내용  select key");
-//		board.setWriter("newbie");
-//		
-//		mapper.insertSelectKey(board);
-//		
-//		log.info(board);
-//	}
-//	@Test
-//	public void testRead(){
-//		
-//		BoardVO board = mapper.read(22L);
-//		
-//		log.info(board);
-//	}
-//	@Test
-//	public void testDelete(){
-//		
-//		log.info("DELETE COUNT " + mapper.delete(24L));
-//	}
-	
-
-/*	@Test
-	public void testPaging(){
-		
-		Criteria cri = new Criteria();
-		//10개씩 3페이지
-		cri.setPageNum(3);
-		cri.setAmount(10);
-		
-		List<BoardVO> list = mapper.getListWithPaging(cri);
-		
-		list.forEach(board -> log.info(board.getBno()));
-				
-	}*/
-	
-//	@Test
-//	public void testSerach(){
-//		
-//		Criteria cri = new Criteria();
-//		cri.setKeyword("새로");
-//		cri.setType("TC");
-//		
-//		List<BoardVO> list = mapper.getListWithPaging(cri);
-//				
-//		list.forEach(board -> log.info(board));
-//	}
 }

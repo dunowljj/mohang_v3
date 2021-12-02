@@ -27,4 +27,9 @@ public interface GeneralMapper {
 	//예약,결제
 	public int insertTicketReserv(TicketReservationDTO reservDTO);
 	public int insertTicketPay(@Param("payDTO")TicketPaymentDTO payDTO,@Param("ticket_reservation_num")String ticket_reservation_num);
+	
+//	public int selectSumOfTicketReserv(String e_num);
+//	public int selectRecruitePeople(String e_num);
+	public int getRemainTicket(String e_num);
+	
 }
