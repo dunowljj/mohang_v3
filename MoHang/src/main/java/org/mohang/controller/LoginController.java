@@ -43,6 +43,7 @@ public class LoginController{
 	@PostMapping("/join")
 	public String joinPost(AccountVO account) throws Exception{
 		log.info("join진입");
+		
 		accountService.memberJoin(account);
 		log.info("서비스 성공");
 		return "redirect:/Main";
@@ -124,14 +125,25 @@ public class LoginController{
 		
 		HttpSession session = request.getSession();
 		AccountVO lvo = accountService.accountLogin(account);
-		
+		//회원 번호로 단체 테이블 조회
 		if(lvo == null) { //일치하지 않는 아이디, 비밀번호 입력 경우
 			int result = 0;
 			rttr.addFlashAttribute("result", result);
 			return "redirect:/login/login";
+		}else{
+
+			boolean check = accountService.o_numCheck(lvo.getAccount_num());
+			//있는거
+			if(check){
+				session.setAttribute("check", "true");
+				
+			}else{
+				session.setAttribute("check", "false");
+			}
+			session.setAttribute("account", lvo);
 		}
 		
-		session.setAttribute("account", lvo);
+		
 		
 		return "redirect:/Main";
 	}

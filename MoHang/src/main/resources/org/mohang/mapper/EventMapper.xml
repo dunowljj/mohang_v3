@@ -78,7 +78,7 @@
 		      )
 				
 		<![CDATA[			
-		  where rn > (#{pageNum} -1) * #{amount}   and rownum <= #{pageNum} * #{amount}
+		  where rn > (#{pageNum} -1) * #{amount}   and rn <= #{pageNum} * #{amount}
 		]]>		
 					
 	</select>

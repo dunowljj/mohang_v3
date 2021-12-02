@@ -69,6 +69,12 @@ button.btn-light {
 				})
 			})
 		})
+		
+		$('button [name="aa"]').on('click',function(){
+			var e_num = $("input[name='e_num']").val();
+			location.href='/general/reserve?e_num='+e_num;
+
+		})
 	</script>
 	<div id="header_nav">
 		<ul>
@@ -121,7 +127,7 @@ button.btn-light {
 				</div>
 				<button type="button" id="like" class="btn btn-primary">좋아요</button>
 				<input type="hidden" name="e_num" value="${event.e_num }">
-				<button type="button" class="btn btn-success">예약하기</button>
+				<button type="button" class="btn btn-success" name="aa">예약하기</button>
 				<button type="button" class="btn btn-light">1:1 채팅문의</button>
 			</div>
 		</div>
