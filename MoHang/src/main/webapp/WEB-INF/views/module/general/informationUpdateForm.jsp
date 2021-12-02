@@ -37,7 +37,7 @@
 							<input type="hidden" name="account_num" value="<c:out value='${account.account_num}'/>">
 							<div style="height:80px; width:80px;">
 							<a><img id="uploadImg" src='${pageContext.request.contextPath}/resources/images/프로필2.png' 
-								alt='' style="border-radius:35%; width:100%; height:100%;"></a>
+								alt='' style="border-radius:70%; width:100%; height:100%;"></a>
 							</div>
 <!-- 							onclick='changeUploadImg()' -->
 							<br><input type="file" name="uploadFile">
@@ -76,7 +76,7 @@
 							  <input type="radio" id="female" name="account_gender" value="여">
 							  <label for="female">여</label>
 							</div>
-							출생년도 : <input type="date" name='account_birth_date' min="1910-01" max="2021-11" value="<c:out value="${account.account_birth_date}"/>"><br>
+							출생년도 : <input type="date" name='account_birth_date' min="1910-01-01" max="2021-11" value="<c:out value="${account.account_birth_date}"/>"><br>
 							전화번호 : <input type="text" name="account_phoneNumber" value="<c:out value="${account.account_phoneNumber}"/>"><br>
 							이메일 : <input type="text" name="account_email" value="<c:out value="${account.account_email}"/>"><br>
 							주소 : <input type="text" name="account_address" value="<c:out value="${account.account_address}"/>"><br>

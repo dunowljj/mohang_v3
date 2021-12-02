@@ -40,7 +40,12 @@ button{
 	border: solid 2px #e4e4e4;
 }
 /* -------- ---------*/
+/* reserve */
 #btn_payment{
+	width: 100%;
+    height: 40px;
+}
+#btn_payment_pop{
 	width: 100%;
     height: 40px;
 }
@@ -56,6 +61,21 @@ button{
 	height: 414px;
 	line-height: 1.8;
 }
+#reserveThum{
+	width: 100%;
+	height : 100%;
+}
+#thum_wrap{
+	width: 94%;
+    height: 68%;
+}
+
+.form_right span{
+	font-size: 19px;
+}
+.form_right input[type='button']{
+    height: 37px;
+}
 .form_right a{
 	magin : 3px 0;
 }
@@ -64,13 +84,9 @@ button{
 	margin : 0 auto;	
 	width: 100%;
 }
-.reserveList_table tr:first-child{
-/* 	background-color: #E0ECF8; */
-}
 .reserveList_table_head th{
 	text-align : center;
 	background-color: #E0ECF8;
-/* 	border-bottom: 1px solid gray; */
 }
 .reserveList_row1 td:not(:first-child){
 	height: 250px;
@@ -89,7 +105,6 @@ button{
 .reserveList_h2, .reserveList_h3, .reserveList_h4{
 	width : 18%;
 }
-
 .reserveList_h6, .reserveList_h7, 
 .reserveList_d6, .reserveList_d7, .reserveList_h7{
 	text-align: center;
@@ -119,6 +134,9 @@ button{
 .reserveList_table th,td{
 	padding:5px 10px;
 }
+/* reserve */
+
+
 /* .like_event { */
 /* 	float : left; */
 /*     width: 180px; */
@@ -487,7 +505,6 @@ tr.reserveList_table td:last-child{
     border: 1px solid rgba( 255, 255, 255, 0.18 );
  	width: 730px;
     height: 908px;
-    
     top: 150px;
     padding: 10px;
     font-size:22px;
@@ -553,3 +570,21 @@ tr.reserveList_table td:last-child{
   justify-content: center;
   align-items: center;
 }
+
+
+/* pay modal */
+.pay_modal{
+	display:none;
+    position: absolute;
+	z-index: 10000; 
+ 	background: white;
+    box-shadow: 0 6px 10px 0 rgb(10 30 108 / 40%);
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+ 	width: 730px;
+    height: 460px;
+    top: 150px;
+    padding: 10px;
+    font-size:22px;
+}
+
+/* pay modal end */

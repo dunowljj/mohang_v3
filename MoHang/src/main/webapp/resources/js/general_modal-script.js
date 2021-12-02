@@ -99,10 +99,37 @@ $(function () {
 		ticket_wrapWindowByMask(idVal); 
 	});
 });
+
+/*pay modal*/ 
+$(function () { 
+	$('#btn_payment_pop').click(function(e) {
+		e.preventDefault();
+		pay_wrapWindowByMask(); 
+	});
+});
+function pay_wrapWindowByMask (){
+	var  pay_maskHeight = $(document).height(); 
+	var  pay_maskWidth = $(window).width(); 
+	$('#mask').css({'width': pay_maskWidth, 'height': pay_maskHeight});
+	$('#mask').fadeTo(10,0.8); 
+	$('.pay_modal').show(); 
+	$('.pay_modal').center();
+	$('#wrap').attr('overflow', 'hidden');
+}
+function pay_unwrapWindowByMask (){
+	$('#mask').fadeOut();
+	$('.pay_modal').hide(); 
+}
+//pay modal end
+
+
+
+//unwrap All modal
 function unwrapAllMask(){
 	pwUp_unwrapWindowByMask();
 	cancel_unwrapWindowByMask();
 	ticket_unwrapWindowByMask();
+	pay_unwrapWindowByMask();
 }
 $(function(){
 		$('#mask').click(function(e){
@@ -111,6 +138,13 @@ $(function(){
 	});
 	
 });
+//unwrap All modal end
+
+
+
+
+
+
 
 
 //upload module
