@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.service.EventService;
@@ -39,21 +41,22 @@ public class EventController  {
 	private OrganizationService organizationService;
 	//행사신청정보페이지
 	@GetMapping("/insertForm")
-	public String insertForm(){
+	public String insertForm(@RequestParam("o_num")String o_num, Model model){
 		log.info("----event insert form page----");
+		model.addAttribute("o_num",o_num);
 		return "module/event/insertForm";
 	}
 	
 	//행사정보신청 > DB등록
 	@PostMapping("/insertApply")
-	public String insertApply(EventVO eventVO, MultipartFile e_file, MultipartFile e_dfile) throws ParseException{
+	public String insertApply(HttpServletRequest request,  EventVO eventVO, MultipartFile e_file, MultipartFile e_dfile, @RequestParam("o_num")String o_num) throws ParseException{
 		log.info("----try event insert----");
 		
 		//파일 저장
 		log.info("----Ready to file save----");
-		String uploadFolder = "C:\\Users\\HOME\\git\\mohang_v3\\MoHang\\src\\main\\webapp\\resources\\images";
-		//String uploadFolder = "../resources/eventImages";
-	
+		//String uploadFolder = "C:\\Users\\HOME\\git\\mohang_v3\\MoHang\\src\\main\\webapp\\resources\\images";
+		String uploadFolder = request.getSession().getServletContext().getRealPath("/");
+		uploadFolder+="resources/images/";
 		
 		String e_fname = e_file.getOriginalFilename();
 		String e_dfname = e_dfile.getOriginalFilename();
@@ -61,7 +64,9 @@ public class EventController  {
 		
 		eventVO.setE_fname(e_fname);
 		eventVO.setE_dfname(e_dfname);
-		eventVO.setO_num("4");
+		
+		//근데 account_num을 못받아오면 이 번호를 어떻게 받아오지...???단체를 신청하면서 seq로 만들어서 넣어주고, 넣어줌과 동시에 여기로 넘겨야하나...?
+		eventVO.setO_num(o_num);
 		
 		e_fname = e_fname.substring(e_fname.lastIndexOf("\\")+1);
 		e_dfname = e_dfname.substring(e_dfname.lastIndexOf("\\")+1);
@@ -90,17 +95,15 @@ public class EventController  {
 		return "module/event/applyList";
 	}
 
-	
-	//신청한 행사정보확인페이지
-	@GetMapping("/applyInsertFormShow")
-	public String applyInsertFormShow(){
-		return "module/event/applyInsertFormShow";
-	}
+
 	
 	//리스트에서 이벤트 제목 클릭시 이벤트 글번호가 넘어가면서 DB불러옴
 	@GetMapping("/getApply")
 	public String getApply(@RequestParam("e_num") String e_num, Model model){
-		model.addAttribute("event", eventService.getApply(e_num));
+		EventVO event = eventService.getApply(e_num);
+		String eh_num = event.getEh_num();
+		model.addAttribute("event", event);
+		model.addAttribute("eventHall", eventService.eventHallGet(eh_num));
 		return "module/event/applyListDetail";
 	}
 	
@@ -116,7 +119,7 @@ public class EventController  {
 	
 	//신청한 행사정보 수정페이지 
 	@PostMapping("/updateApply")
-	public String updateApply(EventVO eventVO, MultipartFile e_file, MultipartFile e_dfile){
+	public String updateApply(EventVO eventVO, MultipartFile e_file, MultipartFile e_dfile, RedirectAttributes rttr){
 		log.info("----try event Update----");
 		//파일 저장
 				log.info("----Ready to file save----");
@@ -146,9 +149,9 @@ public class EventController  {
 				}
 				log.info("----file save success----");
 				
-		eventService.updateApply(eventVO);
+				eventService.updateApply(eventVO);
 		log.info("----Update success----");
-		return "module/event/insertFormUpdate";
+		return "redirect:";
 	}
 	//충돌~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//행사정보확인페이지

@@ -251,12 +251,6 @@ public class EventServiceImpl implements EventService {
 	
 	@Override
 	public List<StatisticsAgeDTO> getStatistics_ageGender(String e_num) {
-	List<StatisticsAgeDTO> ageList =mapper.getStatistics_ageGender(e_num);
-	/*	이거 sql에서 char처리해서 필요없는코드같은데 다 확인해보고 학.. 
-	 * for(int i =0; i<ageList.size(); i++){
-			String age = String.valueOf(ageList.get(i).getAge());
-			ageList.get(i).setAge(age);
-		}*/
 		return mapper.getStatistics_ageGender(e_num);
 	}
 	

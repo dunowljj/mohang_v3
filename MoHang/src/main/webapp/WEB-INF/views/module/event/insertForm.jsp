@@ -34,8 +34,8 @@
 				</div>
 
 
-				<form action="/event/insertApply" method="post" enctype="multipart/form-data" id="form">
-
+				<form action="/event/insertApply?o_num=${o_num }" method="post" enctype="multipart/form-data" id="form">
+					
 					<div class="applyForm">
 						<table class="tb">
 							<h6>

@@ -30,7 +30,7 @@ public class OrganizationController  {
 	
 //단체정보신청
 	@PostMapping("/insertOrganization")
-	public String insertOrganization(OrganizationVO organizationVO, RedirectAttributes rttr){
+	public String insertOrganization(OrganizationVO organizationVO, RedirectAttributes rttr ){
 		//잘못입력했을때기존값 가지고 넘어가는 방법
 		//로그인 된 회원의 번호를 가져오는 방식으로 변경해야함
 		//if(로그인 안되면 ){
@@ -40,7 +40,8 @@ public class OrganizationController  {
 			return "module/login/login.jsp";
 		};
 		log.info("insert Success");
-		return "module/event/insertForm";
+		rttr.addAttribute("o_num", organizationVO.getO_num()); 
+		return "redirect:/event/insertForm";
 	}
 	
 	//단체정보조회

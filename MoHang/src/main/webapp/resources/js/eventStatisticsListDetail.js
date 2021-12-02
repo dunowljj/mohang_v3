@@ -120,6 +120,7 @@ google.charts.load('current', {'packages':['bar']});
       //2. 나이별_별점 그래프
       
       
+      
       //3. 관심사 그래프(원형)
       
       google.charts.load('current', {'packages':['corechart']});
@@ -138,7 +139,9 @@ google.charts.load('current', {'packages':['bar']});
     		  var data = google.visualization.arrayToDataTable(interestArr);
 
     		  var options = {
-    				  title: '행사 참여 고객의 관심 분야'
+    				  title: '행사 참여 고객의 관심 분야',
+    				  width: 900, // 넓이 옵션
+  					height: 500, // 높이 옵션
     		  };
 
     		  var chart3 = new google.visualization.PieChart(document.getElementById('columnchart_material3'));

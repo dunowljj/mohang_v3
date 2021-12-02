@@ -54,7 +54,7 @@
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">대관장소</td>
-						<td class="s_tbcontent" id="eh_num">${event.eh_num}이거수정</td>
+						<td class="s_tbcontent" id="eh_num">${eventHall.eh_name}대여장 </td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">모집인원</td>
@@ -73,15 +73,21 @@
 						<td class="s_tbcontent"> ${event.e_price }</td>
 					</tr>
 					<tr class="tr1">
-						<td class="tbname">행사대표이미지</td>
-						<td class="s_tbcontent">
-							<img alt="image" src="../resources/eventImages/${event.e_fname }">이거 불러오는거까지가 주말 목표</td>
-					</tr>
-					<tr class="tr1">
-						<td class="tbname">행사상세이미지</td>
-							<td class="s_tbcontent">
-							<img alt="image" src="../resources/eventImages/${event.e_dfname }">이거 불러오는거까지가 주말 목표</td>
-					</tr>
+								<td class="tbname">행사대표이미지</td>
+								<td class="tbinput">
+									<div class="goLeft">
+										<img alt="image" src="../resources/images/${event.e_fname }" id="titleImage" width="30%" >&nbsp&nbsp
+									</div>
+								</td>
+							</tr>
+							<tr class="tr1">
+								<td class="tbname">행사상세이미지</td>
+								<td class="tbinput">
+									<div class="goLeft">
+										<img alt="image" src="../resources/images/${event.e_dfname }" id="contentImage" width="30%">&nbsp&nbsp
+									</div>
+								</td>
+							</tr>
 					<tr class="tr1">
 						<td class="tbname">행사상세내용</td>
 						<td class="s_tbcontent">${event.e_detail }</td>

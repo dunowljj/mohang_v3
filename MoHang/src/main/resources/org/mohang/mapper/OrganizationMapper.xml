@@ -7,10 +7,13 @@
 	
 	<!-- 폼에 작성한 이름을 DB에 저장 -->
 	<insert id="insertOrganization">
+		<selectKey  resultType="String" keyProperty="o_num" order="BEFORE">
+			select organization_seq.nextval FROM DUAL
+		</selectKey>
 		insert into organization(
 		o_num, account_num, o_name, o_homepage, o_phoneNumber) 
 		values(
-		organization_seq.nextval, #{account_num},#{o_name},#{o_homepage},#{o_phoneNumber}
+		#{o_num}, #{account_num},#{o_name},#{o_homepage},#{o_phoneNumber}
 		)
 	</insert>
 	

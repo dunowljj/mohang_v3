@@ -72,9 +72,10 @@
 							<tr class="tr1">
 								<td class="tbname">대관장소</td>
 								<td class="tbinput">
+									<input type="hidden" id="eh_num" value='<c:out value="${event.eh_num}"/>'>
 									<select class="form-select form-select-sm form-control" id="small"
-									aria-label=".form-select-sm example" name="eh_num"  value='<c:out value="${event.eh_num}"/>'>
-										<option selected>대관장소 택1</option>
+									aria-label=".form-select-sm example" name="eh_num">
+										<option>대관장소 택1</option>
 										<option value="1">A 대여장</option>
 										<option value="2">B 대여장</option>
 										<option value="3">C 대여장</option>
@@ -90,7 +91,8 @@
 							</tr>
 							<tr class="tr1">
 								<td class="tbname">행사유형</td>
-								<td class="tbinput"><select
+								<td class="tbinput">
+								<input type="hidden" id="e_type" value='<c:out value="${event.e_type}"/>'><select
 									class="form-select form-select-sm form-control"
 									aria-label=".form-select-sm example" id="small" name="e_type" >
 										<option selected>택1</option>
@@ -101,7 +103,9 @@
 							</tr>
 							<tr class="tr1">
 								<td class="tbname">행사분야</td>
-								<td class="tbinput"><select
+								<td class="tbinput">
+								<input type="hidden" id="e_field" value='<c:out value="${event.e_field}"/>'>
+								<select
 									class="form-select form-select-sm form-control"
 									aria-label=".form-select-sm example" id="small" name="e_field">
 										<option selected>택1</option>
@@ -121,15 +125,17 @@
 									<div class="checkBox">
 										<input type="checkbox" name="e_priceCheck" id="e_priceCheck"
 											onClick="checkDisable(this.form)"> 무료
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr class="tr1">
 								<td class="tbname">행사대표이미지</td>
 								<td class="tbinput">
 									<div class="goLeft">
-										<img alt="image" src="../resources/eventImages/${event.e_fname }" id="titleImage" width="30%" >&nbsp&nbsp
+										<img alt="image" src="../resources/images/${event.e_fname }" id="titleImage" width="30%" >&nbsp&nbsp
 										<input type="file" class="form-select-sm" accept='image/*'
 											onchange='openFile(event)' name="e_file">
+											<input type="hidden" name="e_file">
 									</div>
 								</td>
 							</tr>
@@ -137,7 +143,7 @@
 								<td class="tbname">행사상세이미지</td>
 								<td class="tbinput">
 									<div class="goLeft">
-										<img alt="image" src="../resources/eventImages/${event.e_dfname }" id="contentImage" width="30%">&nbsp&nbsp
+										<img alt="image" src="../resources/images/${event.e_dfname }" id="contentImage" width="30%">&nbsp&nbsp
 										<input type="file" class="form-select-sm" accept='image/*'
 											onchange='openFile2(event)' name="e_dfile">
 									</div>

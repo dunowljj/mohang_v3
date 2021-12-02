@@ -108,38 +108,14 @@ $(function() {
     		}
     	});
  
- 
-/*//파일 ajax로 보내기 
-$("#uploadBtn").on("click",function(e){
-	e.preventDefault();
-	
-	 var form = $("#form")[0];
-	 var formData = new FormData(form);
-	 
-	 var e_fname = $("input[name='e_file']");
-	 var e_dfname = $("input[name='e_dfile']");
-	 
-	 var e_file = e_fname.files;
-	 var e_dfile = e_dfname.files;
-	 
-	 
-	 
-	 formData.append("e_file", e_file);
-	 formData.append("e_dfile", e_dfile);
-	 
- 
- 		$.ajax({
- 			url: "insertApply",
- 			processData:false,
- 			contentType:false,
- 			data: formData,
- 			type:"POST",
- 			success: function(result){
- 				alert("신청되었습니다.");
- 			}
- 		});
- 	
- 	});*/
+ 		//셀렉트문 지정하기. 
+ 		var eh_num = $("input[id='eh_num']").val();
+ 		var e_type = $("input[id='e_type']").val();
+ 		var e_field = $("input[id='e_field']").val();
+ 		console.log(eh_num);
+ 		$('select[name="eh_num"]').val(eh_num).prop('selected',true);
+ 		$('select[name="e_type"]').val(e_type).prop('selected',true);
+ 		$('select[name="e_field"]').val(e_field).prop('selected',true);
 
     });
     
