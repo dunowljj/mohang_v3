@@ -29,6 +29,7 @@ public class SearchController  {
     	
     	search =search.replace(search);
     	List<EventLikeDTO> list =eventService.listEvent(search);
+    	log.info("search :"+search);
     	int total = eventService.getTotalCount(search);
     	model.addAttribute("total", total);
     	model.addAttribute("list", eventService.listEvent(search));

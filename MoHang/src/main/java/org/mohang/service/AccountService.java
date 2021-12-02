@@ -12,5 +12,7 @@ public interface AccountService {
 	
 	//로그인
 	public AccountVO accountLogin(AccountVO account) throws Exception;
+	//단체 정보 체크 
+	public boolean o_numCheck(String account_num);
 	
 }

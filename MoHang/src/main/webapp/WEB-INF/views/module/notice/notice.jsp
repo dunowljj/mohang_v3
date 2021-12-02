@@ -48,19 +48,19 @@
 	</p>
 
 	<div class="accordion" id="accordionExample">
-		<c:forEach var="notice" items="${notice }">
+		<c:forEach var="notice" items="${notice }" varStatus="i">
 		<div class="accordion-item">
-			<h2 class="accordion-header" id="headingOne">
+			<h2 class="accordion-header" id="headingOne${i.count}">
 				<button class="accordion-button" type="button"
-					data-bs-toggle="collapse" data-bs-target="#collapseOne"
-					aria-expanded="true" aria-controls="collapseOne">
+					data-bs-toggle="collapse" data-bs-target="#collapseOne${i.count}"
+					aria-expanded="true" aria-controls="collapseOne${i.count}">
 					<p style="font-size: 20px">
 						<strong style="color: #000000;">${notice.notice_title }</strong>
 					</p>
 				</button>
 			</h2>
-			<div id="collapseOne" class="accordion-collapse collapse show"
-				aria-labelledby="headingOne" data-bs-parent="#accordionExample"
+			<div id="collapseOne${i.count}" class="accordion-collapse collapse show"
+				aria-labelledby="headingOne${i.count}" data-bs-parent="#accordionExample${i.count}"
 				style="">
 				<div class="accordion-body" style="color: #87CEEB;">
 					${notice.notice_content }

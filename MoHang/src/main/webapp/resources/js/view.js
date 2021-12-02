@@ -174,6 +174,7 @@ $(document).ready(function () {
    })
    $(function(){
 	   $(document).on('click','.heart',function(){
+		   	
 		    	var account_num =1;
 		    	var e_num =$(this).find("input").val();
 		    	var like_status =$(this).find("input").next().val();

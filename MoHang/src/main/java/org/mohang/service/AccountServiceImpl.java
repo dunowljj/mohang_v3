@@ -26,5 +26,11 @@ public class AccountServiceImpl implements AccountService {
 		return accountMapper.accountLogin(account);
 	}
 
+	@Override
+	public boolean o_numCheck(String account_num) {
+		// TODO Auto-generated method stub
+		return accountMapper.o_numCheck(account_num)!=null;
+	}
+
 	
 }

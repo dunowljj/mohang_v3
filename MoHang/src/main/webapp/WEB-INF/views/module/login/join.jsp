@@ -42,6 +42,7 @@
 				<span style="font-size: 22px;">회원가입을 하시오</span>
 
 			<div>
+				<form id="join_form" method="post">
 				
 					<!-- 아이디 -->
 					<div class="form-group">
