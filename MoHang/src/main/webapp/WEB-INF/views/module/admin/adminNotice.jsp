@@ -75,94 +75,36 @@
 				<td><font style="vertical-align: inherit;">${NoticeVO.notice_writer}</font></td>
 				<td><font style="vertical-align: inherit;"><fmt:formatDate value ="${NoticeVO.notice_date}" pattern = "yyyy-MM-dd"/></font></td>
 				<td><font style="vertical-align: inherit;">${NoticeVO.notice_hitcount}</font></td>
-				<td><font style="vertical-align: inherit;"><a href="" ><button>수정</button></a>
+				<td><font style="vertical-align: inherit;"><a href="/admin/updateNoticeForm?notice_num=${NoticeVO.notice_num}" ><button>수정</button></a>
 																				<a href="/admin/deleteNotice?notice_num=${NoticeVO.notice_num}"><button>삭제</button></a>
 				</font></td>
 			</tr>
 		</c:forEach>
 			
-			<!-- 
-			<tr>
-			    <th scop="row"><input type="checkbox"></th>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이용환</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">용환123</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">2짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
-			</tr>
-			<tr>
-			    <th scop="row"><input type="checkbox"></th>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이상엽</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">상엽123</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">3짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
-			</tr>
-			<tr>
-			    <th scop="col"><input type="checkbox"></th>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이정준</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">정준123</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">4짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
-			</tr>
-			<tr>
-			    <th scop="col"><input type="checkbox"></th>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">최지혜</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">지혜123</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">5짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
-			</tr>
-			<tr>
-			    <th scop="col"><input type="checkbox"></th>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">김원형</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">원형123</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">5짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
-			</tr>
-			 -->
+			
 		</tbody>
 		</table>
 
 		<div class="page">
 			<ul class="pagination">
-				<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a>
-				</li>
-				<li class="page-item active"><a class="page-link" href="#">1</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				
+				<c:if test="${pageMaker.prev}">
+				<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+				</c:if>
+				
+				
+				<c:forEach  var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+				<li><a class="page-link" href="#">${num}</a></li>
+				</c:forEach>
+				<!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
 				<li class="page-item"><a class="page-link" href="#">3</a></li>
 				<li class="page-item"><a class="page-link" href="#">4</a></li>
-				<li class="page-item"><a class="page-link" href="#">5</a></li>
-				<li class="page-item"><a class="page-link" href="#">&raquo;</a>
-				</li>
+				<li class="page-item"><a class="page-link" href="#">5</a></li> -->
+				
+				<c:if test="${pageMaker.next}">
+				<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+				</c:if>
+				
 			</ul>
 		</div>
 		

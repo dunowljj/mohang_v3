@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,21 +15,22 @@
 
 <div id="container-box1">
 	<div id="container">
-공지사항게시판
+리뷰게시판
 <hr>
 <div class="star-ratings">
 	<div  class="star-ratings-fill-space-x-2-text-lg" style="{ width: ratingToPercent + '%' }">
 		<div class="div_none"></div><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 		날짜    
-		[조회수] : ${detailNotice.notice_hitcount}
+		[조회수] : ${detailReview.review_hitcount}
 	</div>
 </div>
 <div>
+	<img src="../resources/images/모행.png" alt="테스트입니다" width="800" height="100" />
 </div>
- 글 내용 : ${detailNotice.notice_content}
+ 글 내용 : ${detailReview.review_content}
 <hr>
 <div id = "ee">
-  작성자 :  ${detailNotice.notice_writer}  작성일자 : <fmt:formatDate value="${detailNotice.notice_date }" pattern="yyyy-MM-dd"/><br>
+  작성자 :  ${detailReview.review_writer}  작성일자 : ${detailReview.review_date }<br>
   댓글내용     
 </div>
 <hr>

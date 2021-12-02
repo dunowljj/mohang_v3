@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mohang.domain.AccountVO;
 import org.mohang.domain.ApproveDTO;
+import org.mohang.domain.Criteria;
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.NoticeVO;
@@ -77,10 +78,14 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.listReview();
 	}
 	
-	public List<NoticeVO> listNotice(){
+	
+	/*public List<NoticeVO> listNotice(){
 		return mapper.listNotice();
+	}*/
+	
+	public List<NoticeVO> listNotice(Criteria cri){
+		return mapper.getNoticePaging(cri);
 	}
-
 
 	public NoticeVO detailNotice(String notice_num) {
 		
@@ -110,6 +115,56 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.detailAccount(account_num);
 	}
+
+	
+	public ReviewVO detailReview(String review_num) {
+		
+		return mapper.detailReview(review_num);
+	}
+
+	@Override
+	public int resisterNotice(NoticeVO notice) {
+		
+		return mapper.resisterNotice(notice);
+		
+	}
+
+	@Override
+	public int updateNotice(NoticeVO notice) {
+		
+		return mapper.updateNotice(notice);
+	}
+
+	@Override
+	public NoticeVO updateNoticeForm(String notice_num) {
+		
+		return mapper.updateNoticeForm(notice_num);
+	}
+
+	@Override
+	public void updatestatuswait(String ap_num, String admin_num) {
+		mapper.updatestatuswait(ap_num,admin_num);
+		
+	}
+	@Override
+	public void updateApprovebtn(String ap_num, String admin_num) {
+		mapper.updateApprovebtn(ap_num,admin_num);
+		
+	}
+
+	@Override
+	public List<NoticeVO> getNoticePaging(Criteria cri) {
+		
+		return mapper.getNoticePaging(cri);
+	}
+
+	@Override
+	public int getNoticeTotal() {
+		
+		return mapper.getNoticeTotal();
+	}
+
+	
 
 	
 	
