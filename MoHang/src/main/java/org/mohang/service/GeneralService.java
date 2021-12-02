@@ -7,6 +7,8 @@ import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralLikeListDTO;
 import org.mohang.domain.GeneralMyReservationDTO;
+import org.mohang.domain.TicketPaymentDTO;
+import org.mohang.domain.TicketReservationDTO;
 
 
 public interface GeneralService  {
@@ -30,5 +32,11 @@ public interface GeneralService  {
 	//reserveList
 	public List<GeneralMyReservationDTO> getListMyReservation(String account_num);
 	
+	public boolean insertReservAndPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO);
+
+	//reserve,pay
+//	boolean insertPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO);
+//	boolean insertReserv(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO);
+
 }
 

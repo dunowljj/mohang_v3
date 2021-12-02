@@ -8,10 +8,16 @@ import java.util.Date;
 import java.util.UUID;
 
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.EventVO;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralPasswordVO;
+import org.mohang.domain.OrganizationVO;
+import org.mohang.domain.TicketPaymentDTO;
+import org.mohang.domain.TicketReservationDTO;
+import org.mohang.service.EventService;
 import org.mohang.service.GeneralService;
+import org.mohang.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,10 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,6 +44,12 @@ public class GeneralController {
 	
 	@Autowired
 	private GeneralService service;
+	
+	@Autowired
+	private OrganizationService orgService;
+	
+	@Autowired
+	private EventService eventService;
 	
 	@GetMapping("/updateInformation")
 	public String getInformation(Model model){
@@ -97,10 +106,34 @@ public class GeneralController {
 	}
 	
 	@GetMapping("/reserve")
-	public String reserve(){
-		log.info("reserve");
+	public String reserveForm(Model model){
+		log.info("reserveForm");
+		AccountVO accountVO = service.getInformation("2");//세션 회원번호 받기
+		OrganizationVO organizationVO = orgService.getOrganization(accountVO.getAccount_num());
+		EventVO eventVO = eventService.getApply("1");//행사번호를 넘겨받으면서 예약페이지로 넘어와야한다.
+		
+		model.addAttribute("account", accountVO);
+		model.addAttribute("organization", organizationVO);
+		model.addAttribute("event", eventVO);
+		
+		log.info("reserveForm end");
 		return "module/general/reserveForm";
 	}
+	@PostMapping("/reserve")
+	public String reserve(EventVO eventVO,TicketReservationDTO reservDTO, TicketPaymentDTO payDTO){
+		
+		log.info(eventVO);
+		log.info(reservDTO);
+		log.info(payDTO);
+		log.info("@@@@@@@@@@@@@@@@@@@@check commands3@@@@@@@@@@@@@@@@@");
+	
+		if(service.insertReservAndPay(reservDTO, payDTO)){
+			log.info("success reserve");
+		}
+		log.info("@@@@@@@@@@@@@@@@@@@@check commands35@@@@@@@@@@@@@@@@@");
+		return "redirect:/event/eventDetail?e_num="+eventVO.getE_num();
+	}
+	
 	@GetMapping("/listMyReserve")
 	public String listMyReserve(Model model){
 		log.info("MyReserveList");
@@ -140,7 +173,7 @@ public class GeneralController {
 	service.cancelLikeDisplay(account_num, e_num);
 			log.info("success cancle heart");
 			log.info("end cancelLike");
-		
+			log.info("end downcount");
 		return "cancel success";
 	}
 	

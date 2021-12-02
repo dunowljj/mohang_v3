@@ -96,5 +96,40 @@
 	where
 		a.account_num = #{account_num}
 	</select>
-
+<!-- 예약목록 start -->
+	<insert id='insertTicketReserv'>
+	
+		<selectKey keyProperty="ticket_reservation_num" 
+			order="BEFORE" resultType="String">
+			select ticket_reservation_seq.nextval from dual
+		</selectKey>
+		
+		insert into 
+			ticket_reservation
+		(
+			ticket_reservation_num,	e_num, account_num,
+			ticket_reservation_price, ticket_reservation_amount,
+			ticket_reservation_status, ticket_reservation_time
+		)
+		values(
+			#{ticket_reservation_num}, #{e_num}, #{account_num},
+			#{ticket_reservation_price}, #{ticket_reservation_amount},
+			'예약완료', #{ticket_reservation_time}
+		)
+	</insert>
+	
+	<insert id='insertTicketPay'>
+		insert into
+			ticket_reservation
+		(
+			ticket_payment_num,	ticket_reservation_num,	e_num,
+			account_num, ticket_payment_method,	ticket_payment_date,
+			ticket_payment_price, ticket_payment_status, ticket_attend
+		)
+		values(
+			ticket_payment_seq.nextval, #{ticket_reservation_num}, #{e_num},
+			#{account_num}, #{ticket_payment_method}, #{ticket_payment_date},
+			#{ticket_payment_price}, '결제완료', '미참여'
+		)
+	</insert>
 </mapper> 

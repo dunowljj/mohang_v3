@@ -7,10 +7,14 @@ import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralLikeListDTO;
 import org.mohang.domain.GeneralMyReservationDTO;
+import org.mohang.domain.TicketPaymentDTO;
+import org.mohang.domain.TicketReservationDTO;
+import org.mohang.mapper.EventMapper;
 import org.mohang.mapper.GeneralAttachMapper;
 import org.mohang.mapper.GeneralMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.log4j.Log4j;
 
@@ -23,6 +27,9 @@ public class GeneralServiceImpl implements GeneralService {
 	
 	@Autowired
 	private GeneralAttachMapper attachMapper;
+	
+	@Autowired
+	private EventMapper eventMapper;
 	
 	@Override
 	public AccountVO getInformation(String account_num) {
@@ -76,19 +83,35 @@ public class GeneralServiceImpl implements GeneralService {
 	public List<GeneralLikeListDTO> getListLikes(String account_num) {
 		return mapper.getListLikes(account_num);
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean cancelLikeDisplay(String account_num, String e_num) {
+		eventMapper.downcountlike(account_num, e_num);
 		return mapper.updateLikeStatus(account_num, e_num) ==1;
 	}
 	//----Like end----
-
+	
+	//-----ReserveList----
 	@Override
 	public List<GeneralMyReservationDTO> getListMyReservation(String account_num) {
 		return mapper.getListMyReservation(account_num);
 	}
+	//-----ReserveList----
+
+	//-----Reserve-----
+	@Override
+	public boolean insertReservAndPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO) {
+		if(mapper.insertTicketReserv(reservDTO) ==1){
+			
+			return mapper.insertTicketPay(payDTO, reservDTO.getTicket_reservation_num()) ==1;
+		}
+		
+		return false;
+	}
 	
 	
+	//-----Reserve-----
 
 }
 
