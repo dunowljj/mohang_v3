@@ -9,6 +9,7 @@
 <link href="../resources/css/statistics.css" rel="stylesheet">
 
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>
 <script
@@ -42,6 +43,7 @@
 						<div class="rowBox1">
 							<div class="row">
 								<div class="r_title">행사명</div>
+								<input type="hidden" name="e_num" value="${endEvent.e_num}">
 								<div class="r_content">${endEvent.e_name }</div>
 							</div>
 							<div class="row">
@@ -123,17 +125,17 @@
 						<br>
 						<div class="s_row">
 							<div class="s_title">고객 연령별 성비</div>
-							<div class="s_content" id="columnchart_material"
+							<div class="s_content" id="columnchart_material1"
 								style="width: 800px; height: 500px;"></div>
 						</div>
 						<div class="s_row">
 							<div class="s_title">고객 연령별 별점</div>
-							<div class="s_content" id="columnchart_material"
+							<div class="s_content" id="columnchart_material2"
 								style="width: 800px; height: 500px;"></div>
 						</div>
 						<div class="s_row">
 							<div class="s_title">고객의 주 관심사</div>
-							<div class="s_content">adsdsf</div>
+							<div class="s_content" id="columnchart_material3">adsdsf</div>
 						</div>
 					</div>
 				</div>
