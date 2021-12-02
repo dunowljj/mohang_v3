@@ -434,10 +434,8 @@
 					<li><a href="/MoHang/organization/applyForm.do">단체정보신청</a></li>
 					<li><a href="/MoHang/event/applyList.do">신청 리스트확인</a></li>
 				</ul>
-				<ul class="nav-loginbar">
-					<li><a href="/MoHang/Login/login.do">로그인</a></li>
-					<li><a href="/MoHang/Login/join.do">회원가입</a></li>
-				</ul>
+				
+				<c:if test="${account != null}">
 				<div id="pro_box">
 					<a href="#"><img src="../resources/images/프로필.png"></a>
 					<div class="button">
@@ -445,7 +443,6 @@
 					</div>
 					<div id="myPage1" style="display: none">
 						<ul>
-							<li>xxx님</li>
 							<li><a href="/general/listLikes">관심있는 행사</a></li>
 							<li><a href="/MoHang/organization/applyForm.do">단체 정보 신청</a></li>
 							<li><a href="/MoHang/event/insertForm.do">행사 신청</a></li>
@@ -455,11 +452,32 @@
 							<li><a href="/MoHang/general/reserveList.do">예약확인</a></li>
 							<li><a href="/MoHang/general/reviewList.do">리뷰 작성 및 확인</a></li>
 							<li><a href="/general/updateInformation">회원 정보 수정</a></li>
-							<li><a href="#">로그 아웃</a></li>
 						</ul>
 					</div>
-
 				</div>
+				</c:if>
+				
+				<ul class="nav-loginbar">
+				
+					<!-- 로그인 x -->
+					<c:if test="${account == null}">
+						<li><a href="/login/login">로그인</a></li>
+						<li><a href="/login/join">회원가입</a></li>
+					</c:if>
+					
+					<!-- 로그인o -->
+					<c:if test="${account != null}">
+						<div class="login_success_area">
+                        	<span>${account.account_name}님 반갑습니다</span>
+                        	<span>마일리지 : ${account.account_mileage}</span>
+                        	<span onclick="location.href='/login/logout'" style="color: #ff0000">로그아웃</span>	
+                        	<c:if test="${account.account_id == 'test'}">
+								<span><a href="/admin/mohang">관리자 페이지</a></span>
+							</c:if>
+                    	</div>	
+					</c:if>
+					
+				</ul>
 
 
 			</div>

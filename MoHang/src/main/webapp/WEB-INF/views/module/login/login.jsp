@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,33 +14,54 @@
 <!-- css적용 -->
 <!-- <link href="../resources/css/bootstrap.min.css" rel="stylesheet" />
 <link href="../resources/css/bootstrap.css" rel="stylesheet" /> -->
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous">
+</script>
 </head>
 <body>
 	<div id="container-box1">
-	<div id="container">
-	<div>
-		<a href="/Main">
-		<img src="../resources/images/로고.png" style="margin-left: 800px;"></a>
-	</div>
-	<div class="form-group" style="text-align:center; line-height: 50px;">
-		<label class="form-label mt-4">로그인을 하시오</label>
-		<div class="form-floating mb-3">
-			<input type="email" class="form-control" id="floatingInput"
-				placeholder="name@example.com" style="width: 300px; height: 30px;"> <label for="floatingInput"></label>
+		<div id="container">
+			<form id="login_form" method="post">
+				<div>
+					<a href="/Main"> <img src="../resources/images/로고.png"
+						style="margin-left: 800px;"></a>
+				</div>
+				<div class="form-group" style="text-align: center; line-height: 50px;">
+					<label class="form-label mt-4">로그인을 하시오</label>
+
+					<div class="form-floating mb-3">
+						<input type="email" class="form-control" id="id_input"
+							placeholder="name@example.com" style="width: 300px; height: 30px;" name="account_id"> 
+							<label for="floatingInput"></label>
+					</div>
+
+					<div class="form-floating">
+						<input type="password" class="form-control" id="pw_input"
+							placeholder="Password" style="width: 300px; height: 30px;" name="account_password">
+						<label for="floatingPassword"></label>
+					</div>
+
+					<c:if test="${result == 0 }">
+						<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
+					</c:if>
+
+					<button type="button" class="login_button" style="width: 150px;">로그인</button>
+					
+			</form>
+			
+			<div>
+				<button type="button" class="btn btn-warning"
+					onclick="location.href='javascript:kakaoLogin();'"
+					style="width: 150px; background-color: yellow;">카카오톡으로 로그인</button>
+			</div>
+			<a href="javascript:kakaoLogout();">로그아웃</a> <a
+				href="javascript:secession();">탈퇴</a>
 		</div>
-		<div class="form-floating">
-			<input type="password" class="form-control" id="floatingPassword"
-				placeholder="Password" style="width: 300px; height: 30px;"> <label for="floatingPassword"></label>
-		</div>
-			<button type="button" onclick="location.href='/Main'" class="btn btn-primary disabled" 
-			style="width: 150px;">로그인</button>
-			<div><button type="button" class="btn btn-warning" onclick="location.href='javascript:kakaoLogin();'" style="width: 150px; background-color: yellow;">카카오톡으로 로그인</button></div>
-			<a href="javascript:kakaoLogout();">로그아웃</a>
-			<a href="javascript:secession();">탈퇴</a>
 	</div>
 	</div>
-	</div>
-	
+
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
 	window.Kakao.init('992f2a7db7df2ab854e56a375167df17');
@@ -90,6 +112,17 @@
         	},
     	});
     };
+    
+    //로그인 버튼 클릭 메서드 
+    $(".login_button").click(function(){
+        
+        /* alert("로그인 버튼 작동"); */
+        
+        /* 로그인 메서드 서버 요청 */
+    	$("#login_form").attr("action", "/login/login");
+        $("#login_form").submit();
+           
+    });
     </script>
 </body>
 </html>
