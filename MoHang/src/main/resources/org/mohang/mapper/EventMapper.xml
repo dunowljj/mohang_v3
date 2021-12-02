@@ -204,17 +204,18 @@
 	
 	<!-- 나이/연령별 인원 -->
 	<select id="getStatistics_ageGender" resultType="org.mohang.domain.StatisticsAgeDTO">
-	select * from(select ACCOUNT_AGE as age, ACCOUNT_GENDER as gender, count(*)as count 
+select age, nvl(f_count,0)as f_count, nvl(m_count,0)as m_count from(select ACCOUNT_AGE as age, ACCOUNT_GENDER as gender, count(*)as count 
 	from statisticsview 
-	where E_NUM = #{e_num}group by ACCOUNT_AGE,ACCOUNT_GENDER) 
+	where E_NUM = #{E_NUM} group by ACCOUNT_AGE,ACCOUNT_GENDER) 
 	pivot( 
 		sum(count) for gender in('f' as f_count,'m' as m_count)
-	)
+	) order by age
+
 	</select> 
 	
 	<!-- 흥미순위-->
-	<select id="">	
-	  select account_interest, count(account_interest)as account_interest_count from statisticsview group by account_interest ;
+	<select id="getStatistics_interest"  resultType="org.mohang.domain.StatisticsInterestDTO">	
+	  select account_interest as interest, count(account_interest)as count from statisticsview group by account_interest
   </select>
 
 </mapper>

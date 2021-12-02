@@ -3,6 +3,7 @@ package org.mohang.controller;
 import java.util.List;
 
 import org.mohang.domain.StatisticsAgeDTO;
+import org.mohang.domain.StatisticsInterestDTO;
 import org.mohang.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,4 +32,9 @@ public class EventRestController {
 		log.info("----rest----");
 		return new ResponseEntity<>(eventService.getStatistics_ageGender(e_num), HttpStatus.OK);
 	}
+	
+	@GetMapping("/statisticsListDetail_interest/{e_num}") ///{e_num은 }.getJson으로 받기
+	public ResponseEntity<List<StatisticsInterestDTO>> getInterst(@PathVariable("e_num")String e_num){
+	return new ResponseEntity<>(eventService.getStatistics_interest(e_num),HttpStatus.OK);
+}
 }

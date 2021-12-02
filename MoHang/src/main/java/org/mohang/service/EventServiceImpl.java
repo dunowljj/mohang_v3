@@ -12,6 +12,7 @@ import org.mohang.domain.Search;
 import org.mohang.domain.StatisticsAgeDTO;
 import org.mohang.domain.StatisticsDTO;
 import org.mohang.domain.StatisticsDetailDTO;
+import org.mohang.domain.StatisticsInterestDTO;
 import org.mohang.mapper.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -250,12 +251,18 @@ public class EventServiceImpl implements EventService {
 	
 	@Override
 	public List<StatisticsAgeDTO> getStatistics_ageGender(String e_num) {
-		List<StatisticsAgeDTO> ageList =mapper.getStatistics_ageGender(e_num);
-		for(int i =0; i<ageList.size(); i++){
+	List<StatisticsAgeDTO> ageList =mapper.getStatistics_ageGender(e_num);
+	/*	이거 sql에서 char처리해서 필요없는코드같은데 다 확인해보고 학.. 
+	 * for(int i =0; i<ageList.size(); i++){
 			String age = String.valueOf(ageList.get(i).getAge());
 			ageList.get(i).setAge(age);
-		}
+		}*/
 		return mapper.getStatistics_ageGender(e_num);
+	}
+	
+	@Override
+	public List<StatisticsInterestDTO> getStatistics_interest(String e_num) {
+		return  mapper.getStatistics_interest(e_num);
 	}
 	
 	

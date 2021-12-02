@@ -11,6 +11,7 @@ import org.mohang.domain.Search;
 import org.mohang.domain.StatisticsAgeDTO;
 import org.mohang.domain.StatisticsDTO;
 import org.mohang.domain.StatisticsDetailDTO;
+import org.mohang.domain.StatisticsInterestDTO;
 
 public interface EventService {
 	public List<EventLikeDTO> listBestEvent();
@@ -75,5 +76,8 @@ public interface EventService {
 	public LikedVO selectlikeone(String string, String e_num);
 	
 	public List<StatisticsAgeDTO> getStatistics_ageGender(String e_num);
+	
+	public List<StatisticsInterestDTO> getStatistics_interest(String e_num);
+
 
 }
