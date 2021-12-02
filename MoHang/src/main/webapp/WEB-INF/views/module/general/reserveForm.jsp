@@ -54,7 +54,6 @@
 							<input type='button' onclick='count("minus")' value='-'/>
 							
 							
-							
 							<input type='hidden' name='e_num' value='<c:out value="${event.e_num}"/>'/>
 							<input type='hidden' name='e_price' value='<c:out value="${event.e_price}"/>'/>
 							<input type='hidden' id='ticket_reservation_amount' name='ticket_reservation_amount' value='1'/>
@@ -105,7 +104,8 @@
 	</div>
 	<div id="mask"></div>
 	<script>
-	
+	var remainTicket = '<c:out value="${remainTicket}"/>';
+
 	//프로필 보이기
 	var account_num = '<c:out value="${account.account_num}"/>';
 	

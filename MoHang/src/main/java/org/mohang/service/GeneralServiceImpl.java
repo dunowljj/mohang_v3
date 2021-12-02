@@ -100,14 +100,25 @@ public class GeneralServiceImpl implements GeneralService {
 	//-----ReserveList----
 
 	//-----Reserve-----
+	@Transactional
 	@Override
 	public boolean insertReservAndPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO) {
+		
+		if(reservDTO.getTicket_reservation_amount() > 
+				mapper.getRemainTicket(reservDTO.getE_num())){
+			return false;
+		}
 		if(mapper.insertTicketReserv(reservDTO) ==1){
-			
 			return mapper.insertTicketPay(payDTO, reservDTO.getTicket_reservation_num()) ==1;
 		}
 		
 		return false;
+	}
+
+	@Override
+	public int getRemainTicket(String e_num) {
+		
+		return mapper.getRemainTicket("1");
 	}
 	
 	

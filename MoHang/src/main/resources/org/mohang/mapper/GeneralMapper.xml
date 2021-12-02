@@ -117,19 +117,51 @@
 			'예약완료', #{ticket_reservation_time}
 		)
 	</insert>
-	
 	<insert id='insertTicketPay'>
 		insert into
-			ticket_reservation
+			ticket_payment
 		(
 			ticket_payment_num,	ticket_reservation_num,	e_num,
-			account_num, ticket_payment_method,	ticket_payment_date,
+			account_num, ticket_payment_method,	ticket_payment_time,
 			ticket_payment_price, ticket_payment_status, ticket_attend
 		)
 		values(
-			ticket_payment_seq.nextval, #{ticket_reservation_num}, #{e_num},
-			#{account_num}, #{ticket_payment_method}, #{ticket_payment_date},
-			#{ticket_payment_price}, '결제완료', '미참여'
+			ticket_payment_seq.nextval, #{ticket_reservation_num}, #{payDTO.e_num},
+			#{payDTO.account_num}, #{payDTO.ticket_payment_method}, #{payDTO.ticket_payment_time},
+			#{payDTO.ticket_payment_price}, '결제완료', '미참여'
 		)
 	</insert>
+<!-- 	예약목록 end -->
+<!-- 	예약 인원 제한start -->
+	<!-- <select id='selectSumOfTicketReserv' resultType='Int'>
+	select
+		sum(ticket_reservation_amount)
+  	FROM
+  		ticket_reservation
+  	WHERE
+  		e_num = #{e_num}
+	</select>
+	
+	<select id='selectRecruitePeople' resultType='Int'>
+	select
+		E_RecruitePeople
+  	FROM
+  		event
+    WHERE
+    	e_num = #{e_num};
+	</select> -->
+	<select id='getRemainTicket' resultType='Int'>
+<!-- 	<![CDATA[  -->
+	select
+		(e.E_RecruitePeople&#45;sum(tr.ticket_reservation_amount)) as ticket_remain
+	FROM
+		ticket_reservation tr JOIN event e ON e.e_num = tr.e_num
+    WHERE
+    	e.e_num = '1'
+    GROUP BY
+    	e.E_RecruitePeople
+<!-- 	]]> -->
+	</select>
+	
+	
 </mapper> 
