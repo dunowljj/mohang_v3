@@ -469,7 +469,7 @@
 					<c:if test="${account != null}">
 						<div class="login_success_area">
                         	<span>${account.account_name}님 반갑습니다</span>
-                        	<span>마일리지 : ${account.account_mileage}</span>
+                        	<span>마일리지 : ${account.account_mileage}원</span>
                         	<span onclick="location.href='/login/logout'" style="color: #ff0000">로그아웃</span>	
                         	<c:if test="${account.account_id == 'test'}">
 								<span><a href="/admin/mohang">관리자 페이지</a></span>
