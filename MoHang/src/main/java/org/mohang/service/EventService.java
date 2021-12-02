@@ -20,7 +20,7 @@ public interface EventService {
 	
 	public int insertApply(EventVO eventVO);
 	
-	public List<EventVO> listApply();
+	public List<EventVO> listApply(String account_num);
 	
 	public EventVO getApply(String e_num);
 	

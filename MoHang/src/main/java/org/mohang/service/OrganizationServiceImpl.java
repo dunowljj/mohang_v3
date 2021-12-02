@@ -19,24 +19,16 @@ public class OrganizationServiceImpl implements OrganizationService {
 	*/
 	@Override
 	public int insertOrganization(OrganizationVO organizationVO) {
-	
-		//organizationVO.setAccount_num(account.getAccount_num());
-
-		organizationVO.setAccount_num("223");
-		
 		return organizationMapper.insertOrganization(organizationVO);
 	}
 
 	@Override
 	public OrganizationVO getOrganization(String account_num) {
-		
 		return organizationMapper.getOrganization(account_num);
 	}
 
 	@Override
 	public int updateOrganization(OrganizationVO organizationVO) {
-		
-		
 		return organizationMapper.updateOrganization(organizationVO);
 	}
 	/*

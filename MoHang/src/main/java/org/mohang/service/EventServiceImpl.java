@@ -60,8 +60,8 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public List<EventVO> listApply() {
-		return mapper.listApply();
+	public List<EventVO> listApply(String account_num) {
+		return mapper.listApply(account_num);
 	}
 
 	@Override

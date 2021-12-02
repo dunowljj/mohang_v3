@@ -67,15 +67,15 @@
 		
 		<c:forEach items="${eventList}" var="event">
 			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"></font></th>
-				<td onclick="event.cancelBubble=true"><a href="/event/getApply?e_num=${event.e_num}" ><c:out value="${event.e_name}"/></font></a></td>
+				<th scope="row"><font style="vertical-align: inherit;"></font>${event.e_num}</th>
+				<td onclick="event.cancelBubble=true"><a href="/event/getApply?e_num=${event.e_num}"><font style="vertical-align: inherit;"><c:out value="${event.e_name}"/></font></a></td>
 				<td><font style="vertical-align: inherit;"><c:out value="${event.e_applyDate}"/></font></td>
 				<td><div class="state"><font style="vertical-align: inherit;">
-					<c:set var="status" value="승인대기"/>
+					<c:set var="eventStatus" value="승인대기"/>
 						<c:choose>
-							<c:when test="${eventStatus} eq 'w' }">승인대기</c:when>
-							<c:when test="${eventStatus} eq 'n' }">승인반려</c:when>
-							<c:when test="${eventStatus} eq 'y' }">승인완료</c:when>
+							<c:when test="${eventStatus eq 'w' }">승인대기</c:when>
+							<c:when test="${eventStatus eq 'n' }">승인반려</c:when>
+							<c:when test="${eventStatus eq 'y' }">승인완료</c:when>
 						
 						
 						</c:choose>

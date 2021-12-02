@@ -1,5 +1,8 @@
 package org.mohang.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.mohang.domain.OrganizationVO;
 import org.mohang.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +33,12 @@ public class OrganizationController  {
 	
 //단체정보신청
 	@PostMapping("/insertOrganization")
-	public String insertOrganization(OrganizationVO organizationVO, RedirectAttributes rttr ){
-		//잘못입력했을때기존값 가지고 넘어가는 방법
-		//로그인 된 회원의 번호를 가져오는 방식으로 변경해야함
-		//if(로그인 안되면 ){
-		// return -1;
-		//}
+	public String insertOrganization(HttpServletRequest request,OrganizationVO organizationVO, RedirectAttributes rttr ){
+		HttpSession session = request.getSession();
+		Object obj = session.getAttribute("account_num");
+		String account_num = (String)obj;
+		
+		organizationVO.setAccount_num(account_num);
 		if(service.insertOrganization(organizationVO)==-1){
 			return "module/login/login.jsp";
 		};
@@ -47,25 +50,28 @@ public class OrganizationController  {
 	//단체정보조회
 	/*회원의 번호로 단체를 조회해야할것같음.*/
 	@GetMapping("/getOrganization")
-	public String getOrganization(String account_num, Model model){
-		//OrganizationVO organizationVO = service.getOrganization(account_num);
-		OrganizationVO organizationVO = service.getOrganization("121");
+	public String getOrganization(HttpServletRequest request, Model model){
+		
+		HttpSession session = request.getSession();
+		Object obj = session.getAttribute("account_num");
+		String account_num = (String)obj;
+		
+		OrganizationVO organizationVO = service.getOrganization(account_num);
 		log.info("--get Organization--");
 		model.addAttribute("organization", organizationVO);
 		return "module/organization/informationUpdateForm";
 	}
 
-/*	//단체정보업데이트페이지
+	//단체정보업데이트페이지
 	@GetMapping("/informationUpdateForm")
 	public String informationUpdateForm(){
 		log.info("---Organization's information update form Page---");
 		return "module/organization/informationUpdateForm";
-	}*/
+	}
 	
 	//단체정보업데이트
 	@PostMapping("/updateOrganization")
 	public String updateOrganization(OrganizationVO organizationVO, RedirectAttributes rttr){
-		organizationVO.setO_num("121");
 		service.updateOrganization(organizationVO);
 		log.info("--update Success--");
 		return "redirect:/organization/getOrganization";

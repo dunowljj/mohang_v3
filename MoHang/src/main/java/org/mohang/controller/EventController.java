@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
@@ -90,8 +91,12 @@ public class EventController  {
 	
 	//행사신청리스트 확인페이지
 	@GetMapping("/listApply")
-	public String listApply(Model model){
-		model.addAttribute("eventList", eventService.listApply());
+	public String listApply(HttpServletRequest request,Model model){
+		HttpSession session = request.getSession();
+		Object obj = session.getAttribute("account_num");
+		String account_num = (String)obj;
+		
+		model.addAttribute("eventList", eventService.listApply(account_num));
 		return "module/event/applyList";
 	}
 
@@ -100,7 +105,9 @@ public class EventController  {
 	//리스트에서 이벤트 제목 클릭시 이벤트 글번호가 넘어가면서 DB불러옴
 	@GetMapping("/getApply")
 	public String getApply(@RequestParam("e_num") String e_num, Model model){
+		
 		EventVO event = eventService.getApply(e_num);
+		log.info(event);
 		String eh_num = event.getEh_num();
 		model.addAttribute("event", event);
 		model.addAttribute("eventHall", eventService.eventHallGet(eh_num));
@@ -119,8 +126,14 @@ public class EventController  {
 	
 	//신청한 행사정보 수정페이지 
 	@PostMapping("/updateApply")
-	public String updateApply(EventVO eventVO, MultipartFile e_file, MultipartFile e_dfile, RedirectAttributes rttr){
+	public String updateApply(HttpServletRequest request, EventVO eventVO, MultipartFile e_file, MultipartFile e_dfile, RedirectAttributes rttr){
 		log.info("----try event Update----");
+			
+			HttpSession session = request.getSession();
+			Object obj = session.getAttribute("account_num");
+			String account_num = (String)obj;
+					
+			eventVO.setO_num(account_num);
 		//파일 저장
 				log.info("----Ready to file save----");
 				String uploadFolder = "C:\\Users\\HOME\\git\\mohang_v3\\MoHang\\src\\main\\webapp\\resources\\images";
@@ -133,8 +146,7 @@ public class EventController  {
 				
 				eventVO.setE_fname(e_fname);
 				eventVO.setE_dfname(e_dfname);
-				eventVO.setO_num("4");
-				
+		
 				e_fname = e_fname.substring(e_fname.lastIndexOf("\\")+1);
 				e_dfname = e_dfname.substring(e_dfname.lastIndexOf("\\")+1);
 				
