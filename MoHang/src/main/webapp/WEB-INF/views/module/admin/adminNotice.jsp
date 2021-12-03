@@ -29,7 +29,7 @@
 <div class ="dd" style= "display : none">	
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 </div>
-	
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin.js"></script>	
 
 	<div id="container-box1" style = "clear:both; padding-top: 50px;">
 	<div id="container" style="padding-bottom: 60px;">
@@ -77,6 +77,7 @@
 				<td><font style="vertical-align: inherit;">${NoticeVO.notice_hitcount}</font></td>
 				<td><font style="vertical-align: inherit;"><a href="/admin/updateNoticeForm?notice_num=${NoticeVO.notice_num}" ><button>수정</button></a>
 																				<a href="/admin/deleteNotice?notice_num=${NoticeVO.notice_num}"><button>삭제</button></a>
+																					
 				</font></td>
 			</tr>
 		</c:forEach>
@@ -86,15 +87,21 @@
 		</table>
 
 		<div class="page">
-			<ul class="pagination">
+			<form id ="actionForm" action="/admin/listNotice" method="get">
+				<input type="hidden" name='pageNum' value="${pageMaker.cri.pageNum}">
+				<input type="hidden" name='amount' value="${pageMaker.cri.amount}">
 				
+			<ul class="pagination">
+		
 				<c:if test="${pageMaker.prev}">
-				<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+				<li class="page-item disabled"><a class="page-link" href="${pageMaker.startPage-1}">&laquo;</a></li>
 				</c:if>
 				
 				
 				<c:forEach  var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-				<li><a class="page-link" href="#">${num}</a></li>
+				 <li class="page-link  ${pageMaker.cri.pageNum == num ? "active":" "} " >
+				<a href="${num}">${num}</a>
+				</li>
 				</c:forEach>
 				<!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
 				<li class="page-item"><a class="page-link" href="#">3</a></li>
@@ -102,10 +109,11 @@
 				<li class="page-item"><a class="page-link" href="#">5</a></li> -->
 				
 				<c:if test="${pageMaker.next}">
-				<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+				<li class="page-item"><a class="page-link" href="${pageMaker.endPage+1}">&raquo;</a></li>
 				</c:if>
 				
 			</ul>
+			</form>
 		</div>
 		
 		<div class="choice_cancel">

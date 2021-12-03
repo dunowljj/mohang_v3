@@ -1,12 +1,15 @@
 
-//function btn_hide(e){
-//	e.preventDefault();
-//	document.getElementsByClassName("btn1").remove();
-//}
 
-$(function(){
+$(document).ready(function(){
 	
-	
-	
+var actionForm= $("#actionForm");
+
+$(".page-link a").on("click",function(e){
+	e.preventDefault();
+	console.log("@@@@@@@");
+	actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+	actionForm.submit();
 })
 
+
+})

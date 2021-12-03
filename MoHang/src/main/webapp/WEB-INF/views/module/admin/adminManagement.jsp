@@ -21,9 +21,7 @@
 
 <jsp:include page="/WEB-INF/views/comm/adminheader.jsp"></jsp:include>
 
-<div class ="dd" style= "display : none">	
-<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
-</div>
+
 	
 	<div id="container-box1" style = "clear:both";>
 	<div id="container">
@@ -43,6 +41,7 @@
 		 <col style="width:150px;">
 		 <col style="width:50px;">
 		 <col style="width:70px;">
+		 <col style="width:30px;">
 		 <col style="width:30px;">		 
 	</colgroup>
 		<thead>
@@ -51,6 +50,7 @@
 				<th scope="col"><font style="vertical-align: inherit;">아이디</font></th>
 				<th scope="col"><font style="vertical-align: inherit;">전화번호</font></th>
 				<th scope="col"><font style="vertical-align: inherit;">생년월일</font></th>
+				<th scope="col"><font style="vertical-align: inherit;">삭제여부</font></th>
 				<th scope="col"><font style="vertical-align: inherit;">비고</font></th>
 			</tr>
 		</thead>
@@ -62,69 +62,15 @@
 						style="vertical-align: inherit;">${account.account_id}</font></a></td>
 				<td><font style="vertical-align: inherit;">${account.account_phoneNumber}</font></td>
 				<td><font style="vertical-align: inherit;">${account.account_birth_date}</font></td>
-				<td><font style="vertical-align: inherit;"><a href="/admin/deleteAccount?account_num=${account.account_num}"><button>삭제</button></a></font></td>
+				<td><font style="vertical-align: inherit;">${account.account_delete}</font></td>
+				<td>
+					<c:if test="${account.account_delete eq 'Y'}">
+					<font style="vertical-align: inherit;"><a href="/admin/deleteAccount?account_num=${account.account_num}"><button>삭제</button></a></font>
+				    </c:if>
+				</td>
 			</tr>
 			</c:forEach>
-			<!-- <tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이용환</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">용환123</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">2짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이상엽</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">상엽123</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">3짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">이정준</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">정준123</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">4짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">최지혜</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">지혜123</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">5짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">김원형</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">원형123</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">010-0000-0000</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">5짱나이</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;"><button>삭제</button></font></font></td>
-			</tr> -->
+		
 			
 		</tbody>
 		</table>

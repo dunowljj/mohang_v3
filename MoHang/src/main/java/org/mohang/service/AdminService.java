@@ -20,8 +20,8 @@ public interface AdminService {
 	/*회원관리리스트 조회 서비스*/
 	public List<AccountVO> listAccount();
 	
-	/*회원관리리스트 삭제*/
-	//public int deleteAccount(String account_num);
+	/*회원관리리스트 삭제여부를 Y->N으로*/
+	public int deleteAccount(String account_num);
 	
 	/*회원관리 리스트에서 회원아이디 눌렀을때 디테일 페이지 나오게끔*/
 	public AccountVO detailAccount(String account_num);
@@ -88,4 +88,6 @@ public interface AdminService {
 
 	/*공지사항 게시글 데이터 갯수를 갖고오는 메서드*/
 	public int getNoticeTotal();
+
+	
 }

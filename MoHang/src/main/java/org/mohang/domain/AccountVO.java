@@ -24,6 +24,7 @@ public class AccountVO {
 	private int account_mileage;
 	private String account_interest;
 	private Date account_birth_date;
+	private String account_delete;
 	private String account_gender;
 	private String account_phoneNumber;	
 }

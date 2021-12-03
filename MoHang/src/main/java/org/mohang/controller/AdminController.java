@@ -3,6 +3,7 @@ package org.mohang.controller;
 import java.util.ArrayList; 
 import java.util.List;
 
+import org.mohang.domain.AccountVO;
 import org.mohang.domain.Criteria;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.NoticeVO;
@@ -116,6 +117,7 @@ public class AdminController {
 	@GetMapping("listNotice")
 	public String notice(Criteria cri, Model model) {
 		model.addAttribute("notice",service.listNotice(cri));
+		log.info(service.getNoticePaging(cri));
 		int total = service.getNoticeTotal();
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
@@ -212,17 +214,13 @@ public class AdminController {
 		return "module/admin/adminManagement";
 	}
 
-	/* 회원정보삭제 버튼 눌렀을시 다시 회원리스트로 삭제된거 제외한 후 리스트로 돌아간다.  아직 보류*/
-	/*
+	/* 회원정보삭제 버튼 눌렀을시 기존의 삭제 여부가 N-> Y로 바뀌게 하는 부분*/
 	@GetMapping("deleteAccount")
 	public String deletemanagement(@RequestParam("account_num") String account_num) {
-		log.info("회원리스트삭제완료");
-		if(service.deleteAccount(account_num)==1){
-			
-		}
+		service.deleteAccount(account_num);
 		return "redirect:listAccount";
 	}
-	*/
+	
 
 	/* 예를들어 회원관리 리스트에서 아이디를 눌렀을시 회원정보에 대한 디테일이 나오게끔 */
 	@GetMapping("accountDetail")

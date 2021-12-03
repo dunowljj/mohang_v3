@@ -58,16 +58,18 @@
 	 <!-- 회원관리 리스트 조회 -->
 	 <select id="listAccount" resultType="org.mohang.domain.AccountVO">
 	 	select account_id,account_name, account_birth_date,account_phonenumber,account_num
+	 	, account_delete 
 	 	from account
 	 </select>
 	 
 	 
-	 <!-- 회원관리 리스트 삭제 -->
-	  <!-- 
-	 <delete id="deleteAccount">
-	 	delete account where account_num = #{account_num}
-	 </delete>
-	 -->
+	 <!-- 회원관리 리스트 삭제여부를 Y -> N으로 -->
+	 <update id="deleteAccount">
+	 	update account 
+	 	set account_delete = 'N'
+	 	where account_num = #{account_num}
+	 </update>
+	 
 	 
 	 <!-- 회원관리 리스트에서 회원아이디 눌렀을때 디테일 페이지 나오게끔 -->
 	 <select id="detailAccount" resultType="org.mohang.domain.AccountVO">
@@ -93,8 +95,10 @@
 	<!-- 공지사항리스트 조회 -->
 	<select id="listNotice" resultType="org.mohang.domain.NoticeVO">
 		select notice_num, notice_title, notice_writer, notice_date, notice_hitcount
-		from notice
+		from notice 
 	</select>
+	
+	
 	
 	<!-- 공지사항에서 글 제목눌렀을시 디테일 페이지로 이동하는 부분 -->
 	<select id="detailNotice" resultType="org.mohang.domain.NoticeVO">
@@ -159,11 +163,11 @@
 	 
 	 <!-- 공지사항 게시판 페이징처리를 하기위한  select문-->
 	 <select id="getNoticePaging" resultType="org.mohang.domain.NoticeVO">
-	 	<![CDATA[
+	 	<![CDATA[ 
 	 		select *
 	 		from
 	 		(
-	 		select /*+INDEX_DESC(notice NOTICE_PK)*/
+	 		select /*+INDEX_DESC(notice NOTICE_PK) */
 	 			rownum rn, notice_num, notice_title, notice_writer, notice_date,
 	 			notice_hitcount
 	 		from
@@ -171,7 +175,7 @@
 	 		where rownum	 <= #{pageNum} * #{amount} 
 	 		)
 	 		where rn > (#{pageNum}-1) * #{amount}
-	 	]]>
+		]]> 
 	 </select>
 	 
 	 
