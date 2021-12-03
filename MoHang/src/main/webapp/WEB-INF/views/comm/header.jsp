@@ -506,7 +506,7 @@
                         	<span>${account.account_name}님 반갑습니다</span>
                         	<span>마일리지 : ${account.account_mileage}원</span>
                         	<span onclick="location.href='/login/logout'" style="color: #ff0000">로그아웃</span>	
-                        	<c:if test="${account.account_id == 'test'}">
+                        	<c:if test="${account.account_id == 'admin'}">
 								<span><a href="/admin/mohang">관리자 페이지</a></span>
 							</c:if>
                     	</div>	
