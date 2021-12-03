@@ -31,6 +31,7 @@ public class MainController {
 		List <NoticeVO> notice = service.getNotice();
 		log.info(notice.get(0));
 		model.addAttribute("notice", notice.get(0));
+
 		return "Main";
 	}
 }

@@ -4,13 +4,18 @@
 
 <mapper namespace="org.mohang.mapper.ChatMapper">
 	
-	<!-- 폼에 작성한 이름을 DB에 저장 -->
+<select id="listChat" resultType="org.mohang.domain.AccountVO">
+<![CDATA[
+select a.account_name from room r, account a where a.account_num = r.account_num 
+and room_num in(select room_num from room where account_num = #{account_num}) and r.account_num != #{account_num}
+]]>
 
+</select>
 
-<!-- 	<select id="oneChat" resultType="Chat"> -->
-<!-- 		select * from chat where chat_num ='2' -->
-<!-- 	</select> -->
-
-
+<select id="listMessage" resultType="org.mohang.domain.ChatVO">
+<![CDATA[
+select /*+INDEX(chat idx_chat)*/ account_num, admin_num, chat_history, chat_date from chat where room_num = #{room_num}
+]]>
+</select>
 
 </mapper>

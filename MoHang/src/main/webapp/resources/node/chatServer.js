@@ -1,39 +1,32 @@
-/**
- * 
- */
+const app = require('express')();
+const port = 1577;
+const path = require('path');
+const server = require('http').createServer(app);
 
-//express 모듈 참조
-const app = require("express")();
-
-const cors = require('cors');
-
-app.use(cors());
-
-const server = app.listen(1571);
-var io = require('socket.io')(server);
-
-// 경로관련 모듈 사용
-var path = require('path');
-
-
-//script 위치 지정
-app.get("/socket/socket.io.js", (req,res)=>{
-	res.sendFile(
-		path.resolve( __dirname + '/node_modules/socket.io/client-dist/socket.io.js'	)
-		);
+const serverSocket = require('socket.io')(server, {
+        path : '/socket.io',
+        cors : {
+                orgin : "*",
+                credentials : true
+        }
 });
 
-app.get('/socket/socket.io.js.map', (req, res) => {
-  res.sendFile(
-    path.resolve(
-      __dirname + '/node_modules/socket.io/client-dist/socket.io.js.map'
-    )
-  );
+server.listen(port);
+
+serverSocket.on('connection', (socket)=>{
+        console.log(socket.id, 'Connected11');
+
+
+        socket.emit('msg', '연결 되었습니다.');
+
+        socket.on('msg', function(data) {
+                console.log(socket.id, data);
+
+                socket.broadcast.emit('msg', data);
+                socket.emit('msg', 'Server : "${data}" 받았습니다.');
+        });
+
 });
 
 
-io.on('connection', (socket)=>{
-	socket.on('disconnection', () =>{
-		console.log('disconnected');
-	});
-});
+
