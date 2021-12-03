@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatVO {
-
-	private String chat_num;
+	private String chat_index;
 	private String room_num;
+	private String account_num;
+	private String admin_num;
 	private String chat_history;
-	private Date chat_time;
-
+	private Date chat_date;
 }

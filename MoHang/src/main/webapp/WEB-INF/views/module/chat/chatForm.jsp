@@ -4,15 +4,70 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="${pageContext.request.contextPath}/resources/css/chat.css?ver=<%System.currentTimeMillis();%>"
+<link
+	href="${pageContext.request.contextPath}/resources/css/chat.css?ver=<%System.currentTimeMillis();%>"
 	rel="stylesheet" type="text/css" />
+<script src="http://localhost:1577/socket.io/socket.io.js"></script>
 <script src="../resources/js/jquery.js"></script>
-<script
-	src="../resources/js/chat.js?ver=<%System.currentTimeMillis();%>"></script>
+<script type="text/javascript" src="../resources/js/chat.js"></script>
 <title>Insert title here</title>
 </head>
 <jsp:include page="/WEB-INF/views/comm/header.jsp" />
 <body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			// 서버와의 소켓연결 
+			var socket = io("http://localhost:1577");
+			
+			// 메세지 전송하는 메서드
+			chatService.input(socket);
+			
+			//대화 목록 불러오는 메서드
+			chatService.userlist(function(list){
+				socket.on('user', function(user){
+				if (list == null || list.length == 0) {
+					return;
+				}
+
+				for (var i = 0, len = list.length || 0; i < len; i++) {
+					
+					console.log(list[i].account_name);
+				
+						var img = '<img src="../resources/assets/img/portfolio/person.png" alt="avatar">';
+						var about = '<div class="about"><div class="name">' + list[i].account_name + '</div><div class="status"><i class="fa fa-circle online"></i>10분 전</div></div>'
+						var li = '<li class="clearfix active">' + img + about + '</li>';
+
+
+						$("ul.chat-list").append(li);
+						console.log(li);
+						console.log(user);
+						console.log('test154');
+					
+
+				}
+				});
+			});
+			
+		/*	chatService.chatlist(function(list){
+				socket.on('user', function(user){
+					if(list == null || list == 0){
+						return;
+					}
+					
+					for(var i = 0, len = list.length || 0; i < len ; i++){
+						
+						
+					}
+				});
+			})
+		*/
+			//메세지 불러오는 메서드
+			chatService.message(socket);
+			
+			
+		});
+	</script>
 	<div class="container" id="chat-container">
 		<div class="row clearfix">
 			<div class="col-lg-12">
@@ -25,61 +80,7 @@
 							<input type="text" class="form-seach" placeholder="Search...">
 						</div>
 						<ul class="list-unstyled chat-list mt-2 mb-0">
-							<li class="clearfix"><img
-								src="${pageContext.request.contextPath}/resources/assets/img/portfolio/person.png"
-								alt="avatar">
-								<div class="about">
-									<div class="name">이서준</div>
-									<div class="status">
-										<i class="fa fa-circle offline"></i> 7분 전
-									</div>
-								</div></li>
-							<li class="clearfix active"><img
-								src="${pageContext.request.contextPath}/resources/assets/img/portfolio/person.png"
-								alt="avatar">
-								<div class="about">
-									<div class="name">최지혜</div>
-									<div class="status">
-										<i class="fa fa-circle online"></i> 10분 전
-									</div>
-								</div></li>
-							<li class="clearfix"><img
-								src="${pageContext.request.contextPath}/resources/assets/img/portfolio/person.png"
-								alt="avatar">
-								<div class="about">
-									<div class="name">이상엽</div>
-									<div class="status">
-										<i class="fa fa-circle online"></i> 30분 전
-									</div>
-								</div></li>
-							<li class="clearfix"><img
-								src="${pageContext.request.contextPath}/resources/assets/img/portfolio/person.png"
-								alt="avatar">
-								<div class="about">
-									<div class="name">이정준</div>
-									<div class="status">
-										<i class="fa fa-circle offline"></i> 10시간 전
-									</div>
-								</div></li>
-							<li class="clearfix"><img
-								src="${pageContext.request.contextPath}/resources/assets/img/portfolio/person.png"
-								alt="avatar">
-								<div class="about">
-									<div class="name">김원형</div>
-									<div class="status">
-										<i class="fa fa-circle online"></i> 1주일 전
-									</div>
-								</div></li>
-							<li class="clearfix"><img
-								src="${pageContext.request.contextPath}/resources/assets/img/portfolio/person.png"
-								alt="avatar">
-								<div class="about">
-									<div class="name">강사님</div>
-									<div class="status">
-										<i class="fa fa-circle offline"></i> 1달 전
-									</div>
-								</div></li>
-						</ul>
+						</ul> <!-- end people-list -->
 					</div>
 					<div class="chat">
 						<div class="chat-header clearfix">
@@ -107,27 +108,7 @@
 						</div>
 						<div class="chat-history">
 							<ul class="m-b-0">
-								<li class="clearfix">
-									<div class="message-data text-right">
-										<span class="message-data-time">10:10 AM, Today</span> <img
-											src="${pageContext.request.contextPath}/resources/assets/img/portfolio/person.png"
-											alt="avatar">
-									</div>
-									<div class="message other-message float-right">우리 프로젝트 족망
-									</div>
-								</li>
-								<li class="clearfix">
-									<div class="message-data">
-										<span class="message-data-time">10:12 AM, Today</span>
-									</div>
-									<div class="message my-message">족망아님</div>
-								</li>
-								<li class="clearfix">
-									<div class="message-data">
-										<span class="message-data-time">10:15 AM, Today</span>
-									</div>
-									<div class="message my-message">ㄴㄴ 족망</div>
-								</li>
+								<!-- 메세지들 입력하는 곳 -->
 							</ul>
 						</div>
 						<div class="chat-message clearfix">

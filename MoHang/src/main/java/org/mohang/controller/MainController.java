@@ -19,9 +19,7 @@ public class MainController {
 	NoticeService service;
 	@GetMapping("/Main")
 	public String main(Model model){
-		List <NoticeVO> notice = service.getNotice();
-		log.info(notice.get(0));
-		model.addAttribute("notice", notice.get(0));
+
 		return "Main";
 	}
 }
