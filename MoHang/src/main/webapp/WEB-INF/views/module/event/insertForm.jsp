@@ -117,7 +117,7 @@
 							<tr class="tr1">
 								<td class="tbname">가격</td>
 								<td class="tbinput">
-									<span class="price"> <input type="text"
+									<span class="event_price"> <input type="text"
 										class="form-control" name="e_price" placeholder="ex) 5,000 "
 										id="e_priceSmall" />
 								</span> 

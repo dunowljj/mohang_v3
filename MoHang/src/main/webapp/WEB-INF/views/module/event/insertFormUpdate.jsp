@@ -120,12 +120,14 @@
 							</tr>
 							<tr class="tr1">
 								<td class="tbname">가격</td>
-								<td class="tbinput"><input type="text" class="form-control"
-									placeholder="5,000" name="e_price" id="e_priceSmall" value='<c:out value="${event.e_price}"/>'>
-									<div class="checkBox">
-										<input type="checkbox" name="e_priceCheck" id="e_priceCheck"
-											onClick="checkDisable(this.form)"> 무료
-									</div>
+								<td class="tbinput">
+										<span class="event_price"> <input type="text"
+										class="form-control" name="e_price" placeholder="ex) 5,000 "
+										id="e_priceSmall" value='<c:out value="${event.e_price}"/>'/>
+								</span> 
+								<span class="checkBox"> <input type="checkbox"
+										name="e_priceCheck" id="e_priceCheck" onClick="checkDisable(this.form)"> 무료 
+									
 								</td>
 							</tr>
 							<tr class="tr1">
@@ -199,4 +201,19 @@
 	<jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
 
 </body>
+<script type="text/javascript">
+$("document").ready(function(){
+	//셀렉트문 지정하기. 
+	var eh_num = $("input[id='eh_num']").val();
+	var e_type = $("input[id='e_type']").val();
+	var e_field = $("input[id='e_field']").val();
+	console.log(eh_num);
+	
+	$('select[name="eh_num"]').val(eh_num).prop('selected',true);
+	$('select[name="e_type"]').val(e_type).prop('selected',true);
+	$('select[name="e_field"]').val(e_field).prop('selected',true);
+})
+	
+	
+</script>
 </html>

@@ -14,5 +14,4 @@ public class Event_Hall_ReservationVO {
 	private Date eh_reservation_date;
 	private String e_num;
 	private String account_num;
-	private String ap_num;
 }

@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.mohang.domain.ApproveVO;
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventLikeDTO;
+import org.mohang.domain.EventListDTO;
 import org.mohang.domain.EventVO;
+import org.mohang.domain.Event_Hall_ReservationVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.domain.Search;
 import org.mohang.domain.StatisticsAgeDTO;
@@ -58,9 +61,16 @@ public class EventServiceImpl implements EventService {
 	public int insertApply(EventVO eventVO) {
 		return mapper.insertApply(eventVO);
 	}
+	
+	@Override
+	public int insertEventHallReservation(Event_Hall_ReservationVO eventHallReservationVO){
+		return mapper.insertEventHallReservation(eventHallReservationVO);
+	}
 
 	@Override
-	public List<EventVO> listApply(String account_num) {
+	public List<EventListDTO> listApply(String account_num) {
+		System.out.println(account_num);
+		log.info(mapper.listApply(account_num));
 		return mapper.listApply(account_num);
 	}
 
@@ -257,6 +267,11 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<StatisticsInterestDTO> getStatistics_interest(String e_num) {
 		return  mapper.getStatistics_interest(e_num);
+	}
+	@Override
+	public int insertApprove(ApproveVO approveVO) {
+		return mapper.insertApprove(approveVO);
+		
 	}
 	
 	

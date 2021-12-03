@@ -177,24 +177,22 @@
 		#{eh_num},
 		#{e_dfname})
 	</insert>
+	
+	<insert id="insertEventHallReservation">
+		insert into event_hall_reservation values(event_hall_reservation_seq.nextval,#{account_num}, sysdate, #{e_num})
+	</insert>
+	
+	<insert id="insertApprove">
+		insert into approve(ap_num, eh_reservation_num) values(approve_seq.nextval, #{eh_reservation_num})
+	</insert>
 
-	<select id="listApply" resultType="org.mohang.domain.EventVO">
-		select e.e_num, e.o_num, e.e_name, e.e_startdate, e.e_enddate, e.e_startrecruitedate, e.e_endrecruitedate,
-		e.e_type,	e.e_field,	e.e_price,	e.e_detail,	e.e_recruitepeople,	e.e_fname,	e.e_personname,
-		e.e_personphonenumber,
-		e.e_personemail,
-		e.e_hitcount,
-		e.e_like,
-		e.e_dfname,
-		e.e_applydate,
-		e.eh_num from event e join organization o
-		on
-		e.o_num = o.o_num
-		join account a
-		on o.account_num = a.account_num
-		where
-		a.account_num =#{account_num}
-		order by e_applydate desc
+	<select id="listApply" resultType="org.mohang.domain.EventListDTO">
+		select e.e_num, e.o_num, e.eh_num,eh.account_num, e.e_startdate,
+		e.e_enddate, e.e_applydate, a.ap_check
+		from event e, approve a, event_hall_reservation eh
+		where e.e_num = eh.e_num and eh.eh_reservation_num = a.eh_reservation_num
+		and eh.account_num = #{account_num}
+		order by e.e_applydate desc
 	</select>
 
 	<select id="getApply" resultType="org.mohang.domain.EventVO">
@@ -203,7 +201,8 @@
 	</select>
 
 	<select id="eventDetail" resultType="org.mohang.domain.EventVO">
-		select * from	event where e_num = #{e_num} 
+		select * from event where
+		e_num = #{e_num}
 		order by e_hitcount desc
 	</select>
 
@@ -247,11 +246,10 @@
 	<select id="getStatistics_ageGender" resultType="org.mohang.domain.StatisticsAgeDTO">
 		select age,
 		nvl(f_count,0)as f_count, nvl(m_count,0)as m_count from(select
-		ACCOUNT_AGE as age, ACCOUNT_GENDER as gender, count(*)as count
-		from
-		statisticsview
-		where E_NUM = #{E_NUM} group by
-		ACCOUNT_AGE,ACCOUNT_GENDER)
+		account_age as age, account_gender as gender, count(*)as count
+		from statisticsview
+		where e_num = #{e_num} group by
+		account_age,account_gender)
 		pivot(
 		sum(count) for gender in('f' as
 		f_count,'m' as m_count)
