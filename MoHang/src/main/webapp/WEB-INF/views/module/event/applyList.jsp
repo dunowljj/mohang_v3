@@ -67,23 +67,10 @@
 		
 		<c:forEach items="${eventList}" var="event">
 			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"></font></th>
-				<td onclick="event.cancelBubble=true"><a href="/event/getApply?e_num=${event.e_num}" ><c:out value="${event.e_name}"/></font></a></td>
+				<th scope="row"><font style="vertical-align: inherit;"></font>${event.e_num}</th>
+				<td onclick="event.cancelBubble=true"><a href="/event/getApply?e_num=${event.e_num}"><font style="vertical-align: inherit;"><c:out value="${event.e_name}"/></font></a></td>
 				<td><font style="vertical-align: inherit;"><c:out value="${event.e_applyDate}"/></font></td>
-				<td><div class="state"><font style="vertical-align: inherit;">
-					<c:set var="status" value="승인대기"/>
-						<c:choose>
-							<c:when test="${eventStatus} eq 'w' }">승인대기</c:when>
-							<c:when test="${eventStatus} eq 'n' }">승인반려</c:when>
-							<c:when test="${eventStatus} eq 'y' }">승인완료</c:when>
-						
-						
-						</c:choose>
-							<input type="hidden" value="${event.e_startDate}">
-							<input type="hidden" value="${event.e_endDate}">
-						
-
-
+				<td><div class="state"><font style="vertical-align: inherit;"><c:out value="${event.ap_check}"/>
 				</font></div></td>
 				
 				<td onclick="event.cancelBubble=true"><font style="vertical-align: inherit;"><a href="/event/insertFormUpdate?e_num=${event.e_num}"><button>수정</button><button style="display:none">결제</button></a></font></td>

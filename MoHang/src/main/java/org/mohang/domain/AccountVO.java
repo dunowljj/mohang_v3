@@ -27,4 +27,5 @@ public class AccountVO {
 	private String account_delete;
 	private String account_gender;
 	private String account_phoneNumber;	
+	private String account_Delete;	
 }

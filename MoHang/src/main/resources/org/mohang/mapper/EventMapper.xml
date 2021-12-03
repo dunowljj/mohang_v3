@@ -9,8 +9,9 @@
 		select  e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event order by e_like desc
      ]]>
 	</select>
-	<select id ="listLikeEvent" resultType="org.mohang.domain.LikedVO">
-		select * from liked where account_num =#{account_num} and e_num = #{e_num}
+	<select id="listLikeEvent" resultType="org.mohang.domain.LikedVO">
+		select * from liked where
+		account_num =#{account_num} and e_num = #{e_num}
 	</select>
 	<select id="listMonthEvent" resultType="org.mohang.domain.EventVO">
 	<![CDATA[
@@ -18,22 +19,26 @@
 	]]>
 	</select>
 	<!-- 충돌20211203 -->
-	<select id="listRecommendEvent" resultType="org.mohang.domain.EventVO" parameterType="java.util.List" >
+	<select id="listRecommendEvent" resultType="org.mohang.domain.EventVO"
+		parameterType="java.util.List">
 		select
-		e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from
-		event where 
-		<foreach item="account_interest"  collection="list" open="(" separator="or" close=")">
-				e_field = #{account_interest} 
- 		</foreach>
+		e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount
+		from
+		event where
+		<foreach item="account_interest" collection="list" open="("
+			separator="or" close=")">
+			e_field = #{account_interest}
+		</foreach>
 		order by e_hitcount desc
 	</select>
-	<select id="listHitcountEvent" resultType="org.mohang.domain.EventVO"  >
+	<select id="listHitcountEvent" resultType="org.mohang.domain.EventVO">
 		select
-		e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from
-		event 
+		e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount
+		from
+		event
 		order by e_hitcount desc
 	</select>
-	
+
 	<!-- 충돌끝 -->
 	<select id="listEvent" resultType="org.mohang.domain.EventVO"
 		parameterType="org.mohang.domain.Search">
@@ -42,119 +47,131 @@
       		  SELECT a.*, ROWNUM as rnum FROM (
                SELECT * FROM event
 		]]>
-					<trim suffixOverrides="and" prefix="where">
-					<if test="keyword !=null and !keyword.equals('') ">
-						e_name like '%'||#{keyword}||'%' and
-					</if>
-					<if test="field !=null and !field.equals('')">
-						 e_field =  #{field}  and
-					</if>
-					<if test="type !=null and !type.equals('')">
-						 e_type  =  #{type} and
-					</if>
-					<if test="price != null and !price.equals('') and price.equals('무료')">
-						 e_price =  0 and
-					</if>
-					<if test="price != null and !price.equals('') and price.equals('유료/무료')">
-						 e_price >= 0 and
-					</if>
-					<if test="price != null and !price.equals('') and price.equals('유료')">
-						 e_price >  0 and
-					</if>
- 					<if test="startDate != null and !startDate.equals('') ">
+		<trim suffixOverrides="and" prefix="where">
+			<if test="keyword !=null and !keyword.equals('') ">
+				e_name like '%'||#{keyword}||'%' and
+			</if>
+			<if test="field !=null and !field.equals('')">
+				e_field = #{field} and
+			</if>
+			<if test="type !=null and !type.equals('')">
+				e_type = #{type} and
+			</if>
+			<if test="price != null and !price.equals('') and price.equals('무료')">
+				e_price = 0 and
+			</if>
+			<if test="price != null and !price.equals('') and price.equals('유료/무료')">
+				e_price >= 0 and
+			</if>
+			<if test="price != null and !price.equals('') and price.equals('유료')">
+				e_price > 0 and
+			</if>
+			<if test="startDate != null and !startDate.equals('') ">
 						<![CDATA[
 						(e_startdate >=  #{startDate}
 						]]>
-					</if>
-					<if test="endDate != null and !endDate.equals('')">
+			</if>
+			<if test="endDate != null and !endDate.equals('')">
 						<![CDATA[
 						and e_enddate <=  #{endDate}) and 
 						]]>
-					</if > 
-					</trim>
-		      		<if test="s_like != null and !s_like.equals('')">
-						order by e_like desc
-					</if>
-					<if test="s_price != null and !s_price.equals('')">
-						order by e_price desc
-					</if>
-					<if test="s_hitcount != null and !s_hitcount.equals('')">
-						order by e_hitcount desc
-					</if>
+
+			</if>
+		</trim>
+		<if test="s_like != null and !s_like.equals('')">
+			order by e_like desc
+		</if>
+		<if test="s_price != null and !s_price.equals('')">
+			order by e_price desc
+		</if>
+		<if test="s_hitcount != null and !s_hitcount.equals('')">
+			order by e_hitcount desc
+		</if>
 					<![CDATA[	
 					         )
 			        a)  WHERE rnum > (#{pageNum} -1) * #{amount} and rnum <= (#{pageNum} * #{amount})
-					]]>		                              
-					
+					]]>
 	</select>
 	<select id="getTotalCount" resultType="int" parameterType="org.mohang.domain.Search">
-		select count(*) from event  
-			<trim prefix="where (" suffix=")" prefixOverrides="and">
-					<if test="keyword !=null and !keyword.equals('') ">
-						and e_name like '%'||#{keyword}||'%'
-					</if>
-					<if test="field !=null and !field.equals('') ">
-						and e_field = #{field}  
-					</if>
-					<if test="type !=null and !type.equals('')">
-						and e_type  = #{type} 
-					</if>
-					<if test="price != null and !price.equals('') and price.equals('무료')">
-						and e_price = 0
-					</if>
-					<if test="price != null and !price.equals('') and price.equals('유료/무료')">
-						and e_price >= 0
-					</if>
-					<if test="price != null and !price.equals('') and price.equals('유료')">
-						and e_price > 0
-					</if>
-	 				<if test="startDate != null and !startDate.equals('') "> 
+		select count(*) from event
+		<trim prefix="where (" suffix=")" prefixOverrides="and">
+			<if test="keyword !=null and !keyword.equals('') ">
+				and e_name like '%'||#{keyword}||'%'
+			</if>
+			<if test="field !=null and !field.equals('') ">
+				and e_field = #{field}
+			</if>
+			<if test="type !=null and !type.equals('')">
+				and e_type = #{type}
+			</if>
+			<if test="price != null and !price.equals('') and price.equals('무료')">
+				and e_price = 0
+			</if>
+			<if test="price != null and !price.equals('') and price.equals('유료/무료')">
+				and e_price >= 0
+			</if>
+			<if test="price != null and !price.equals('') and price.equals('유료')">
+				and e_price > 0
+			</if>
+			<if test="startDate != null and !startDate.equals('') "> 
 						<![CDATA[
 						and (e_startdate >=  #{startDate}
 						]]>
-					</if>
-					<if test="endDate != null and !endDate.equals('')">
+			</if>
+			<if test="endDate != null and !endDate.equals('')">
 						<![CDATA[
 						and e_enddate <=  #{endDate})
 						]]>
-					</if> 
-			</trim>
+			</if>
+		</trim>
 	</select>
 	<select id="eventHallGet" resultType="org.mohang.domain.EventHallVO">
-		select * from event_hall where eh_num = #{eh_num}
+		select * from event_hall
+		where eh_num = #{eh_num}
 	</select>
 
-	<select id="selectlike" resultType="org.mohang.domain.LikedVO" >
-		select account_num,e_num,like_status from liked where account_num =#{account_num} and e_num = #{e_num}
+	<select id="selectlike" resultType="org.mohang.domain.LikedVO">
+		select
+		account_num,e_num,like_status from liked where account_num
+		=#{account_num} and e_num = #{e_num}
 	</select>
-	<select id="selectlikeone" resultType="org.mohang.domain.LikedVO" >
-		select account_num,e_num,like_status from liked where account_num =#{account_num} and e_num = #{e_num}
+	<select id="selectlikeone" resultType="org.mohang.domain.LikedVO">
+		select
+		account_num,e_num,like_status from liked where account_num
+		=#{account_num} and e_num = #{e_num}
 	</select>
 	<insert id="firstinsertLikeEvent">
-		insert into liked (account_num,e_num,like_status) values(#{account_num},#{e_num},0)
+		insert into liked (account_num,e_num,like_status)
+		values(#{account_num},#{e_num},0)
 	</insert>
 	<insert id="insertlike">
-		insert into liked (account_num,e_num,like_status) values(#{account_num},#{e_num},1)
+		insert into liked (account_num,e_num,like_status)
+		values(#{account_num},#{e_num},1)
 	</insert>
 	<select id="statuslike" resultType="org.mohang.domain.LikedVO">
-		select like_status from liked where account_num =#{account_num} and e_num = #{e_num}
+		select like_status from liked
+		where account_num =#{account_num} and e_num = #{e_num}
 	</select>
 	<update id="updatedownlike">
-		update liked set like_status =0 where account_num =#{account_num} and e_num = #{e_num}
+		update liked set like_status =0 where account_num
+		=#{account_num} and e_num = #{e_num}
 	</update>
 	<update id="updateuplike">
-		update liked set like_status =1 where account_num =#{account_num} and e_num = #{e_num}
+		update liked set like_status =1 where account_num
+		=#{account_num} and e_num = #{e_num}
 	</update>
 	<update id="upcountlike">
-		update event set e_like = e_like+1 where e_num = #{e_num}
+		update event set e_like = e_like+1 where e_num =
+		#{e_num}
 	</update>
 	<update id="downcountlike">
-		update event set e_like = e_like-1 where e_num = #{e_num}
+		update event set e_like = e_like-1 where e_num =
+		#{e_num}
 	</update>
 
 	<!-- 용환!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
-    <!-- 지혜!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+	<!-- 지혜!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
 	<!-- 신청한 이벤트 정보 DB등록. 등록한 단체번호 o_num이 넘어와야할듯. -->
 	<insert id="insertApply">
@@ -166,62 +183,101 @@
 		#{e_endDate}, #{e_startRecruiteDate}, #{e_endRecruiteDate}, #{e_type},
 		#{e_field}, #{e_price}, #{e_detail}, #{e_recruitePeople}, #{e_fname},
 		#{e_personName}, #{e_personPhoneNumber}, #{e_personEmail},
-		#{eh_num}, #{e_dfname})
+		#{eh_num},
+		#{e_dfname})
 	</insert>
 
-	<select id="listApply" resultType="org.mohang.domain.EventVO">
-		select * from event order by e_applyDate desc
+	<insert id="insertEventHallReservation">
+		insert into event_hall_reservation
+		values(event_hall_reservation_seq.nextval,#{account_num}, sysdate,
+		#{e_num})
+	</insert>
+
+	<insert id="insertApprove">
+		insert into approve(ap_num, eh_reservation_num)
+		values(approve_seq.nextval, #{eh_reservation_num})
+	</insert>
+
+	<select id="listApply" resultType="org.mohang.domain.EventListDTO">
+		select e.e_num, e.o_num,
+		e.eh_num,eh.account_num, e.e_startdate,
+		e.e_enddate, e.e_applydate,
+		a.ap_check
+		from event e, approve a, event_hall_reservation eh
+		where
+		e.e_num = eh.e_num and eh.eh_reservation_num = a.eh_reservation_num
+		and eh.account_num = #{account_num}
+		order by e.e_applydate desc
 	</select>
 
 	<select id="getApply" resultType="org.mohang.domain.EventVO">
-		select * from event where e_num = #{e_num}
+		select * from event where e_num
+		= #{e_num}
 	</select>
-		
+
 	<select id="eventDetail" resultType="org.mohang.domain.EventVO">
-		select
-		* from
-		event where e_num = #{e_num} order by e_hitcount desc
+		select * from event where
+		e_num = #{e_num}
+		order by e_hitcount desc
 	</select>
-	
+
 	<update id="updateApply">
-	 update event set  o_num =  #{o_num}, e_name = #{e_name}, e_startDate=#{e_startDate}, e_endDate=#{e_endDate}, e_startRecruiteDate=#{e_startRecruiteDate}, e_endRecruiteDate= #{e_endRecruiteDate},
-	 e_type=#{e_type}, e_field= #{e_field}, e_price= #{e_price}, e_detail = #{e_detail}, e_recruitePeople=#{e_recruitePeople},  e_fname= #{e_fname}, e_personName=#{e_personName},e_personPhoneNumber=#{e_personPhoneNumber},  e_personEmail= #{e_personEmail}, eh_num=#{eh_num}, e_dfname= #{e_dfname}
-     where e_num = #{e_num}
+		update event set o_num = #{o_num}, e_name =
+		#{e_name},
+		e_startDate=#{e_startDate}, e_endDate=#{e_endDate},
+		e_startRecruiteDate=#{e_startRecruiteDate}, e_endRecruiteDate=
+		#{e_endRecruiteDate},
+		e_type=#{e_type}, e_field= #{e_field}, e_price=
+		#{e_price}, e_detail = #{e_detail},
+		e_recruitePeople=#{e_recruitePeople}, e_fname= #{e_fname},
+		e_personName=#{e_personName},e_personPhoneNumber=#{e_personPhoneNumber},
+		e_personEmail= #{e_personEmail}, eh_num=#{eh_num}, e_dfname=
+		#{e_dfname}
+		where e_num = #{e_num}
 	</update>
-	
-	
-	
-	
+
+
+
+
 
 	<select id="listStatistics" resultType="org.mohang.domain.EventVO">
 		<![CDATA[ select * from event where sysdate >= e_endDate ]]>
 	</select>
 
 
-	<!--  11/30 통계문 추가 및 수정-->
- 	<select id ="getStatistics" resultType="org.mohang.domain.StatisticsDetailDTO">
-		select *from statisticsview
+	<!-- 11/30 통계문 추가 및 수정 -->
+	<select id="getStatistics" resultType="org.mohang.domain.StatisticsDetailDTO">
+		select *from
+		statisticsview
 	</select>
-	
-	
+
+
 	<update id="updateHitCount">
-	update event set e_hitcount = e_hitcount+0.5 where e_num=#{e_num}
+		update event set e_hitcount = e_hitcount+0.5 where
+		e_num=#{e_num}
 	</update>
-	
+
 	<!-- 나이/연령별 인원 -->
 	<select id="getStatistics_ageGender" resultType="org.mohang.domain.StatisticsAgeDTO">
-select age, nvl(f_count,0)as f_count, nvl(m_count,0)as m_count from(select ACCOUNT_AGE as age, ACCOUNT_GENDER as gender, count(*)as count 
-	from statisticsview 
-	where E_NUM = #{E_NUM} group by ACCOUNT_AGE,ACCOUNT_GENDER) 
-	pivot( 
-		sum(count) for gender in('f' as f_count,'m' as m_count)
-	) order by age
+		select age,
+		nvl(f_count,0)as f_count, nvl(m_count,0)as m_count from(select
+		account_age as age, account_gender as gender, count(*)as count
+		from
+		statisticsview
+		where e_num = #{e_num} group by
+		account_age,account_gender)
+		pivot(
+		sum(count) for gender in('f' as
+		f_count,'m' as m_count)
+		) order by age
 
-	</select> 
-	
-	<!-- 흥미순위-->
-	<select id="getStatistics_interest"  resultType="org.mohang.domain.StatisticsInterestDTO">	
-	  select account_interest as interest, count(account_interest)as count from statisticsview group by account_interest
-  </select>
+	</select>
+
+	<!-- 흥미순위 -->
+	<select id="getStatistics_interest" resultType="org.mohang.domain.StatisticsInterestDTO">
+		select
+		account_interest as interest, count(account_interest)as count from
+		statisticsview group by account_interest
+	</select>
 
 </mapper>

@@ -108,14 +108,6 @@ $(function() {
     		}
     	});
  
- 		//셀렉트문 지정하기. 
- 		var eh_num = $("input[id='eh_num']").val();
- 		var e_type = $("input[id='e_type']").val();
- 		var e_field = $("input[id='e_field']").val();
- 		console.log(eh_num);
- 		$('select[name="eh_num"]').val(eh_num).prop('selected',true);
- 		$('select[name="e_type"]').val(e_type).prop('selected',true);
- 		$('select[name="e_field"]').val(e_field).prop('selected',true);
 
     });
     

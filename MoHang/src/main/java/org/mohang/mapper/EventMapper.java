@@ -3,9 +3,12 @@ package org.mohang.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.mohang.domain.ApproveVO;
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventLikeDTO;
+import org.mohang.domain.EventListDTO;
 import org.mohang.domain.EventVO;
+import org.mohang.domain.Event_Hall_ReservationVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.domain.Search;
 import org.mohang.domain.StatisticsAgeDTO;
@@ -21,7 +24,9 @@ public interface EventMapper {
 
 	public int insertApply (EventVO eventVO);
 	
-	public List<EventVO> listApply();
+	public int insertEventHallReservation(Event_Hall_ReservationVO eventHallReservationVO);
+	
+	public List<EventListDTO> listApply(String account_num);
 	
 	public EventVO getApply(String e_num);
 
@@ -71,8 +76,7 @@ public interface EventMapper {
 
 	public List<StatisticsInterestDTO> getStatistics_interest(String e_num);
 
+	public int insertApprove(ApproveVO approveVO);
 
-
-	
 
 }

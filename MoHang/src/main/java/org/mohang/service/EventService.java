@@ -4,15 +4,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mohang.domain.ApproveVO;
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventLikeDTO;
+import org.mohang.domain.EventListDTO;
 import org.mohang.domain.EventVO;
+import org.mohang.domain.Event_Hall_ReservationVO;
 import org.mohang.domain.LikedVO;
-import org.mohang.domain.OrganizationVO;
 import org.mohang.domain.Search;
 import org.mohang.domain.StatisticsAgeDTO;
 import org.mohang.domain.StatisticsDTO;
-import org.mohang.domain.StatisticsDetailDTO;
 import org.mohang.domain.StatisticsInterestDTO;
 
 public interface EventService {
@@ -22,7 +23,7 @@ public interface EventService {
 	
 	public int insertApply(EventVO eventVO);
 	
-	public List<EventVO> listApply();
+	public List<EventListDTO> listApply(String account_num);
 	
 	public EventVO getApply(String e_num);
 	
@@ -80,6 +81,10 @@ public interface EventService {
 	public List<StatisticsAgeDTO> getStatistics_ageGender(String e_num);
 	
 	public List<StatisticsInterestDTO> getStatistics_interest(String e_num);
+
+	int insertEventHallReservation(Event_Hall_ReservationVO eventHallReservationVO);
+
+	public int  insertApprove(ApproveVO approveVO);
 
 
 }
