@@ -60,6 +60,7 @@
 			l.like_status
 		from
 			account a 
+			
 			JOIN liked l 
 				ON a.account_num = l.account_num
 		    JOIN event e
@@ -133,7 +134,7 @@
 	</insert>
 <!-- 	예약목록 end -->
 <!-- 	예약 인원 제한start -->
-	<!-- <select id='selectSumOfTicketReserv' resultType='Int'>
+	<select id='getSumOfTicketReserv' resultType='Int'>
 	select
 		sum(ticket_reservation_amount)
   	FROM
@@ -142,26 +143,33 @@
   		e_num = #{e_num}
 	</select>
 	
-	<select id='selectRecruitePeople' resultType='Int'>
+	<select id='getRecruitePeople' resultType='Int'>
 	select
 		E_RecruitePeople
   	FROM
   		event
     WHERE
-    	e_num = #{e_num};
-	</select> -->
+    	e_num = #{e_num}
+	</select>
 	<select id='getRemainTicket' resultType='Int'>
-<!-- 	<![CDATA[  -->
 	select
 		(e.E_RecruitePeople&#45;sum(tr.ticket_reservation_amount)) as ticket_remain
 	FROM
 		ticket_reservation tr JOIN event e ON e.e_num = tr.e_num
     WHERE
-    	e.e_num = '1'
+    	e.e_num = #{e_num}
     GROUP BY
     	e.E_RecruitePeople
-<!-- 	]]> -->
 	</select>
 	
+	
+	
+	<select id="getEventPeriodVolume" resultType="int">
+	
+	select
+		e_enddate-e_startdate from event
+	where 
+		e_num = #{e_num}
+	</select>
 	
 </mapper> 

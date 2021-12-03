@@ -28,8 +28,10 @@ public interface GeneralMapper {
 	public int insertTicketReserv(TicketReservationDTO reservDTO);
 	public int insertTicketPay(@Param("payDTO")TicketPaymentDTO payDTO,@Param("ticket_reservation_num")String ticket_reservation_num);
 	
-//	public int selectSumOfTicketReserv(String e_num);
-//	public int selectRecruitePeople(String e_num);
+	public Integer getSumOfTicketReserv(String e_num);
+	public int getRecruitePeople(String e_num);
+	
 	public int getRemainTicket(String e_num);
 	
+	public int getEventPeriodVolume(String e_num);
 }

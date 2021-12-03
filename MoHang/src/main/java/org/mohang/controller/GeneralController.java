@@ -2,16 +2,22 @@ package org.mohang.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.mohang.domain.AccountVO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralPasswordVO;
+import org.mohang.domain.GeneralReservAndPayTimeDTO;
 import org.mohang.domain.OrganizationVO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
@@ -26,6 +32,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,6 +99,18 @@ public class GeneralController {
 			return "redirect:/general/updateInformation";
 //				+ "?account_num="+account_num;
 	}
+//	@ControllerAdvice
+//	public class ExceptionController {
+//		//custom예외처리
+//		@ExceptionHandler(NoTicketException.class)
+//		public String noTicket(NoTicketException nte) {
+//
+//			
+//			
+//			return ;
+//		}
+//	    
+//	}
 	
 	@GetMapping("/insertReserve")
 	public String insertReserve(){
@@ -106,14 +126,19 @@ public class GeneralController {
 	}
 	
 	@GetMapping("/reserve")
-	public String reserveForm(Model model,@RequestParam String e_num){
+	public String reserveForm(HttpServletRequest request, Model model,@RequestParam("e_num") String e_num){
 		log.info("reserveForm");
-		AccountVO accountVO = service.getInformation("2");//세션 회원번호 받기
-		OrganizationVO organizationVO = orgService.getOrganization(accountVO.getAccount_num());
-//		EventVO eventVO = eventService.getApply("1");
+		
+		HttpSession session = request.getSession();
+		AccountVO accountFVO = (AccountVO)session.getAttribute("account");
+//		session.setAttribute("account", account_num);
+//		log.info("a1:"+account_num);
+		String account_num = accountFVO.getAccount_num();
+		AccountVO accountVO = service.getInformation(account_num);//회원정보 받기
+		OrganizationVO organizationVO = orgService.getOrganization(accountFVO.getAccount_num());
 		EventVO eventVO = eventService.getApply(e_num);	//행사번호를 넘겨받으면서 예약페이지로 넘어와야한다.
-		log.info(service.getRemainTicket("1"));
-		model.addAttribute("remainTicket", service.getRemainTicket("1"));
+		model.addAttribute("remainTicket", service.getRemainTicket(e_num));
+//		model.addAttribute("remainTicket", service.getTotalticket(e_num));
 		model.addAttribute("account", accountVO);
 		model.addAttribute("organization", organizationVO);
 		model.addAttribute("event", eventVO);
@@ -121,22 +146,61 @@ public class GeneralController {
 		log.info("reserveForm end");
 		return "module/general/reserveForm";
 	}
+	
+	
 	@PostMapping("/reserve")
-	public String reserve(EventVO eventVO,TicketReservationDTO reservDTO, TicketPaymentDTO payDTO){
-		
-		log.info(eventVO);
+	public String reserve(EventVO eventVO,TicketReservationDTO reservDTO, TicketPaymentDTO payDTO,
+			GeneralReservAndPayTimeDTO RAP){
+		log.info("이거 찍히나?");
+		log.info("RAP"+RAP);
 		log.info(reservDTO);
 		log.info(payDTO);
 		log.info("@@@@@@@@@@@@@@@@@@@@check commands3@@@@@@@@@@@@@@@@@");
-	
+		 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        String payD = RAP.getS_ticket_payment_time();
+	        log.info("payD");
+	        String resD = RAP.getS_ticket_reservation_time();
+	        log.info("resD");
+	        
+	        Date sqlResDate = null;
+	        Date sqlPayDate = null;
+	        
+	        java.util.Date payDate = new java.util.Date();
+			try {
+				payDate = dateFormat.parse(payD);
+				sqlPayDate = new Date(payDate.getTime()); 
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			java.util.Date resDate = new java.util.Date();
+   			try {
+   				resDate = dateFormat.parse(resD);
+   				sqlResDate = new Date(resDate.getTime()); 
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+   			log.info(sqlResDate);
+   			log.info(sqlPayDate);
+   			
+	        
+
+		
+		
+		reservDTO.setTicket_reservation_time(sqlResDate);
+		payDTO.setTicket_payment_time(sqlPayDate);
+		
+		
 		if(service.insertReservAndPay(reservDTO, payDTO)){
 			log.info("success reserve");
+		} else {
+			log.info("fail");
 		}
 		log.info("@@@@@@@@@@@@@@@@@@@@check commands35@@@@@@@@@@@@@@@@@");
 		return "redirect:/event/eventDetail?e_num="+eventVO.getE_num();
 	}
 	
-	@GetMapping("/listMyReserve")
+	
+	@GetMapping("/reservationList")
 	public String listMyReserve(Model model){
 		log.info("MyReserveList");
 		model.addAttribute("reserveList", service.getListMyReservation("2"));
@@ -289,7 +353,7 @@ public class GeneralController {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
-		Date date = new Date();
+		java.util.Date date = new java.util.Date();
 		
 		String str = sdf.format(date);
 		

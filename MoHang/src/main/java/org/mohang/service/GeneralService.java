@@ -38,5 +38,6 @@ public interface GeneralService  {
 //	boolean insertPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO);
 //	boolean insertReserv(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO);
 	public int getRemainTicket(String e_num);
+	public int getTotalticket(String e_num);
 }
 

@@ -68,9 +68,14 @@ public class GeneralMapperTests {
 //		reservDTO.setAccount_num("1");
 //		log.info(mapper.insertTicketReserv(reservDTO));
 //	}
-	@Test
-	public void testInsertPay() {
-		TicketPaymentDTO payDTO = new TicketPaymentDTO("1", "1", "1", "2", "카드", "지금 결제했어", 20000, "결제완료", "미참여");
-		log.info(mapper.insertTicketPay(payDTO, "28"));
-	}
+//	@Test
+//	public void testInsertPay() {
+//		TicketPaymentDTO payDTO = new TicketPaymentDTO("1", "1", "1", "2", "카드", "지금 결제했어", 20000, "결제완료", "미참여");
+//		log.info(mapper.insertTicketPay(payDTO, "28"));
+//	}
+//	@Test
+//	public void testGetEventPeriod(){
+//		int hi = mapper.getEventPeriod("41");
+//		log.info(hi);
+//	}
 }
