@@ -164,6 +164,12 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.getNoticeTotal();
 	}
 
+	@Override
+	public int deleteAccount(String account_num) {
+	
+		return mapper.deleteAccount(account_num);
+	}
+
 	
 
 	

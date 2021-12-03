@@ -5,11 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class PageDTO {
-	private int startPage;
-	private int endPage;
+@NoArgsConstructor 
+@AllArgsConstructor 
+public class PageDTO { 
+	private int startPage; 
+	private int endPage; 
 	private boolean prev, next;
 	
 	private int total;
@@ -29,8 +29,7 @@ public class PageDTO {
 			this.endPage = realEnd;
 		}
 		
-		this.prev = this.startPage > 1;
-		
-		this.next = this.endPage < realEnd;
+		this.prev =cri.getPageNum() > 1;
+		this.next= cri.getPageNum() < realEnd  ;
 	}
 }
