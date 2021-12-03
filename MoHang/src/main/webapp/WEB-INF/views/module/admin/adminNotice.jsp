@@ -87,34 +87,29 @@
 		</table>
 
 		<div class="page">
-			<form id ="actionForm" action="/admin/listNotice" method="get">
-				<input type="hidden" name='pageNum' value="${pageMaker.cri.pageNum}">
-				<input type="hidden" name='amount' value="${pageMaker.cri.amount}">
-				
-			<ul class="pagination">
+		<ul class="pagination">
 		
-				<c:if test="${pageMaker.prev}">
-				<li class="page-item disabled"><a class="page-link" href="${pageMaker.startPage-1}">&laquo;</a></li>
-				</c:if>
+				<c:if test="${pageMaker.prev }">
+						<li class="page-item "><a class="page-link" href="${pageMaker.cri.pageNum -1}">&laquo;</a></li>
+				   </c:if>
 				
 				
 				<c:forEach  var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-				 <li class="page-link  ${pageMaker.cri.pageNum == num ? "active":" "} " >
-				<a href="${num}">${num}</a>
+				  <li class="page-item  ${pageMaker.cri.pageNum == num ? "active":""} " >
+					<a href="${num}">${num}</a>
 				</li>
 				</c:forEach>
-				<!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">4</a></li>
-				<li class="page-item"><a class="page-link" href="#">5</a></li> -->
 				
 				<c:if test="${pageMaker.next}">
-				<li class="page-item"><a class="page-link" href="${pageMaker.endPage+1}">&raquo;</a></li>
-				</c:if>
+					<li class="page-item"><a class="page-link" href="${pageMaker.cri.pageNum +1 }">&raquo;</a></li>
+					</c:if>
 				
 			</ul>
-			</form>
 		</div>
+		<form id ="actionForm" action="/admin/listNotice" method="get">
+				<input type="hidden" name='pageNum' value="${pageMaker.cri.pageNum}">
+				<input type="hidden" name='amount' value="${pageMaker.cri.amount}">		
+		</form>
 		
 		<div class="choice_cancel">
 			<button type="cancel" class="btn btn-secondary btn-sm" type="reset" style="margin-top: 32px;

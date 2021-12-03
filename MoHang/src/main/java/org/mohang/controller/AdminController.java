@@ -116,7 +116,7 @@ public class AdminController {
 	/*페이징처리를 위한 게시판공지사항 리스트*/
 	@GetMapping("listNotice")
 	public String notice(Criteria cri, Model model) {
-		model.addAttribute("notice",service.listNotice(cri));
+		model.addAttribute("notice",service.getNoticePaging(cri));
 		log.info(service.getNoticePaging(cri));
 		int total = service.getNoticeTotal();
 		model.addAttribute("pageMaker", new PageDTO(cri, total));

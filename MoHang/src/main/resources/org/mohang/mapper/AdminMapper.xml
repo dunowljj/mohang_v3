@@ -164,17 +164,12 @@
 	 <!-- 공지사항 게시판 페이징처리를 하기위한  select문-->
 	 <select id="getNoticePaging" resultType="org.mohang.domain.NoticeVO">
 	 	<![CDATA[ 
-	 		select *
-	 		from
-	 		(
-	 		select /*+INDEX_DESC(notice NOTICE_PK) */
-	 			rownum rn, notice_num, notice_title, notice_writer, notice_date,
-	 			notice_hitcount
-	 		from
-	 			notice
-	 		where rownum	 <= #{pageNum} * #{amount} 
-	 		)
-	 		where rn > (#{pageNum}-1) * #{amount}
+	 	SELECT * FROM (
+       		 SELECT a.*, ROWNUM as rnum FROM (
+               SELECT * FROM notice order by to_number(notice_num) desc
+               )
+        	a) 
+        where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
 		]]> 
 	 </select>
 	 
