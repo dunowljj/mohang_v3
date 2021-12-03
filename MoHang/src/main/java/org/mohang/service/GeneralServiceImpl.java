@@ -100,7 +100,7 @@ public class GeneralServiceImpl implements GeneralService {
 	//-----ReserveList----
 
 	//-----Reserve-----
-	@Transactional
+//	@Transactional
 	@Override
 	public boolean insertReservAndPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO) {
 		
@@ -118,7 +118,17 @@ public class GeneralServiceImpl implements GeneralService {
 	@Override
 	public int getRemainTicket(String e_num) {
 		
-		return mapper.getRemainTicket("1");
+		if(mapper.getSumOfTicketReserv(e_num) == null){
+			return mapper.getRecruitePeople(e_num);
+		}
+		return mapper.getRemainTicket(e_num);
+	}
+
+	@Override
+	public int getTotalticket(String e_num) {
+		int periodVolume = mapper.getEventPeriodVolume(e_num);
+		int remainTicket = mapper.getRemainTicket(e_num);
+		return periodVolume*remainTicket;
 	}
 	
 	

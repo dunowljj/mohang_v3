@@ -104,9 +104,14 @@ $(function () {
 $(function () { 
 	$('#btn_payment_pop').click(function(e) {
 		e.preventDefault();
+		pushReserveTime();
+		if(!checkDateInput()){
+			return false;
+		}
 		pay_wrapWindowByMask(); 
 	});
 });
+
 function pay_wrapWindowByMask (){
 	var  pay_maskHeight = $(document).height(); 
 	var  pay_maskWidth = $(window).width(); 
