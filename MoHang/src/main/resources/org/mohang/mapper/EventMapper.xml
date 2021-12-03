@@ -6,7 +6,7 @@
 
 	<select id="listBestEvent" resultType="org.mohang.domain.EventVO">
 	 <![CDATA[
-		select  e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event order by e_hitcount desc
+		select  e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event order by e_like desc
      ]]>
 	</select>
 	<select id ="listLikeEvent" resultType="org.mohang.domain.LikedVO">
@@ -17,23 +17,30 @@
 		select  e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event where e_startdate like  '%'||#{search}||'%'
 	]]>
 	</select>
-	<select id="listRecommendEvent" resultType="org.mohang.domain.EventVO">
+	<!-- 충돌20211203 -->
+	<select id="listRecommendEvent" resultType="org.mohang.domain.EventVO" parameterType="java.util.List" >
 		select
 		e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from
-		event where e_field = #{account_Interest} order by e_hitcount desc
+		event where 
+		<foreach item="account_interest"  collection="list" open="(" separator="or" close=")">
+				e_field = #{account_interest} 
+ 		</foreach>
+		order by e_hitcount desc
 	</select>
+	<select id="listHitcountEvent" resultType="org.mohang.domain.EventVO"  >
+		select
+		e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from
+		event 
+		order by e_hitcount desc
+	</select>
+	
+	<!-- 충돌끝 -->
 	<select id="listEvent" resultType="org.mohang.domain.EventVO"
 		parameterType="org.mohang.domain.Search">
 		<![CDATA[
-			select 
-			    e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount ,e_field,e_type,e_like
-			from 
-			      (
-			      select /*+INDEX_DESC(event pk_event_num) */
-			        rownum rn, e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount,e_field,e_type,e_like
-			      from 
-			        event
-			     
+			SELECT * FROM (
+      		  SELECT a.*, ROWNUM as rnum FROM (
+               SELECT * FROM event
 		]]>
 					<trim suffixOverrides="and" prefix="where">
 					<if test="keyword !=null and !keyword.equals('') ">
@@ -74,12 +81,10 @@
 					<if test="s_hitcount != null and !s_hitcount.equals('')">
 						order by e_hitcount desc
 					</if>
-		      		
-		      )
-				
-		<![CDATA[			
-		  where rn > (#{pageNum} -1) * #{amount}   and rn <= #{pageNum} * #{amount}
-		]]>		
+					<![CDATA[	
+					         )
+			        a)  WHERE rnum > (#{pageNum} -1) * #{amount} and rnum <= (#{pageNum} * #{amount})
+					]]>		                              
 					
 	</select>
 	<select id="getTotalCount" resultType="int" parameterType="org.mohang.domain.Search">

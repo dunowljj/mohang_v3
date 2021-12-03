@@ -14,6 +14,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ page import="org.mohang.domain.AccountVO" %>
+<%
+	AccountVO account = (AccountVO)session.getAttribute("account");
+%>
 <style>
 * {
 	font-family: 'Jua', sans-serif;
@@ -70,11 +75,10 @@ button.btn-light {
 			})
 		})
 		
-		$('button [name="aa"]').on('click',function(){
+		function reserve(){
 			var e_num = $("input[name='e_num']").val();
 			location.href='/general/reserve?e_num='+e_num;
-
-		})
+		}
 	</script>
 	<div id="header_nav">
 		<ul>
@@ -99,6 +103,7 @@ button.btn-light {
 					<div class="card-header">
 						전시회정보
 						<div style="display: inline-block; padding-left: 350px;">
+						<%if(account != null) {%>
 							<c:if test="${48 == liked.like_status }">
 								<img src="../resources/images/빈하트.png"
 									style="width: 20px; height: 20px;">
@@ -107,6 +112,16 @@ button.btn-light {
 								<img src="../resources/images/찬하트.png"
 									style="width: 20px; height: 20px;">
 							</c:if>
+						<%} else{%>
+							<c:if test="${48 == liked.like_status }">
+								<img src="../resources/images/빈하트.png"
+									style="width: 20px; height: 20px;">
+							</c:if>
+							<c:if test="${49 == liked.like_status }">
+								<img src="../resources/images/찬하트.png"
+									style="width: 20px; height: 20px;">
+							</c:if>
+						<%}%>
 						</div>
 					</div>
 					<div class="card-body" style="padding: 2rem 1rem;">
@@ -125,9 +140,11 @@ button.btn-light {
 						</p>
 					</div>
 				</div>
+				<%if(account != null) {%>
 				<button type="button" id="like" class="btn btn-primary">좋아요</button>
-				<input type="hidden" name="e_num" value="${event.e_num }">
-				<button type="button" class="btn btn-success" name="aa">예약하기</button>
+				<%} %>
+				<input type="hidden" name="e_num" value="${event.e_num}">
+				<button type="button" class="btn btn-success" onclick="reserve();">예약하기</button>
 				<button type="button" class="btn btn-light">1:1 채팅문의</button>
 			</div>
 		</div>

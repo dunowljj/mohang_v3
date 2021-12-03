@@ -129,18 +129,20 @@ public class LoginController{
 		if(lvo == null) { //일치하지 않는 아이디, 비밀번호 입력 경우
 			int result = 0;
 			rttr.addFlashAttribute("result", result);
+			session.setAttribute("account_num", "0");
 			return "redirect:/login/login";
 		}else{
-
+			//로그인
 			boolean check = accountService.o_numCheck(lvo.getAccount_num());
-			//있는거
+			//없는거
 			if(check){
-				session.setAttribute("check", "true");
-				
-			}else{
 				session.setAttribute("check", "false");
+			//있는거 
+			}else{
+				session.setAttribute("check", "true");
 			}
 			session.setAttribute("account", lvo);
+			session.setAttribute("account_num", lvo.getAccount_num());
 		}
 		
 		

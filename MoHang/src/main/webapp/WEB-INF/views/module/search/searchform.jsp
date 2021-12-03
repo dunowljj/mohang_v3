@@ -12,7 +12,10 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
-
+<%@ page import="org.mohang.domain.AccountVO" %>
+<%
+	AccountVO account = (AccountVO)session.getAttribute("account");
+%>
 <div id="mask"></div>
 	<div id="searchform">
 		<div id="searchform_in">
@@ -144,7 +147,6 @@
 					<input type="hidden" name="type" value="${search.type }">
 					<input type="hidden" name="price" value="${search.price }">
 					<input type="hidden" name="keyword" value="${search.keyword }">
-					
 				</div>
 			</div>
 			</form>
@@ -196,9 +198,6 @@
 						<input type="hidden" name="type" value="${search.type }">
 						<input type="hidden" name="price" value="${search.price }">
 						<input type="hidden" name="keyword" value="${search.keyword }">
-						<input type="hidden" name="s_like" value="${search.s_like }">
-						<input type="hidden" name="s_hitcount" value="${search.s_hitcount }">
-						<input type="hidden" name="s_price" value="${search.s_price }">
 					</div>
 				</form>	
 			</div>
@@ -282,10 +281,12 @@
 							<span><img src="../resources/images/눈.png"></span>
 							<span>${event.list.e_hitcount }</span>
 							<c:if test="${48  eq event.likedVO.like_status }">
+							<%if(account != null) {%>
 							<div class="heart1">
 							<span><img src="../resources/images/빈하트.png" alt="" style="width: 16px; height: 16px;"></span>
 								<input type="hidden" name="e_num" value="${event.list.e_num }">
 							</div>
+							<%} %>
 							</c:if>
 							<c:if test="${49 eq event.likedVO.like_status  }">
 							<div class="heart1">

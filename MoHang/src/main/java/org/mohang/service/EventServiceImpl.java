@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.mohang.domain.AccountVO;
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventVO;
@@ -13,8 +18,10 @@ import org.mohang.domain.StatisticsAgeDTO;
 import org.mohang.domain.StatisticsDTO;
 import org.mohang.domain.StatisticsDetailDTO;
 import org.mohang.domain.StatisticsInterestDTO;
+import org.mohang.mapper.AdminMapper;
 import org.mohang.mapper.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -27,6 +34,8 @@ public class EventServiceImpl implements EventService {
 
 	@Autowired
 	private EventMapper mapper;
+	@Autowired
+	private AdminMapper adminMapper;
 	//충돌 조심
 	@Override
 	public LikedVO selectlikeone(String account_num, String e_num) {
@@ -34,17 +43,22 @@ public class EventServiceImpl implements EventService {
 		return mapper.selectlikeone(account_num,e_num);
 	}
 	//베스트행사
-	public List<EventLikeDTO> listBestEvent(){
+	public List<EventLikeDTO> listBestEvent(HttpServletRequest request){
 		List<EventLikeDTO> likelist = new ArrayList<>();
 		List<EventVO> list = mapper.listBestEvent();
+
+
+		HttpSession session = request.getSession();
+		String account_num = String.valueOf(session.getAttribute("account_num"));
+	
 		for (int i = 0; i < list.size(); i++) {
-			log.info("test :" + mapper.listLikeEvent("1", list.get(i).getE_num()));
-			if (mapper.listLikeEvent("1", list.get(i).getE_num()) == null) {
-				mapper.firstinsertLikeEvent(list.get(i).getE_num(), "1");
+			log.info("test :" + mapper.listLikeEvent(account_num, list.get(i).getE_num()));
+			if (mapper.listLikeEvent(account_num, list.get(i).getE_num()) == null) {
+				mapper.firstinsertLikeEvent(list.get(i).getE_num(), account_num);
 			}
 		}
 		for (int i = 0; i < list.size(); i++) {
-			likelist.add(new EventLikeDTO(list.get(i), mapper.listLikeEvent("1", list.get(i).getE_num())));
+			likelist.add(new EventLikeDTO(list.get(i), mapper.listLikeEvent(account_num, list.get(i).getE_num())));
 		}
 		return likelist;
 	}
@@ -70,19 +84,40 @@ public class EventServiceImpl implements EventService {
 
 	}
 
-	// 충돌조심!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// 충돌조심!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!2021 12 03
 	@Override
-	public List<EventLikeDTO> listRecommendEvent(String account_Interest) {
+	public List<EventLikeDTO> listRecommendEvent(HttpServletRequest request) {
 		List<EventLikeDTO> likelist = new ArrayList<>();
-		List<EventVO> list=mapper.listRecommendEvent(account_Interest);
-		for(int i=0;i<list.size();i++){
-			log.info("test :"+mapper.listLikeEvent("1",list.get(i).getE_num()));
-			if(mapper.listLikeEvent("1",list.get(i).getE_num())==null){
-				mapper.firstinsertLikeEvent(list.get(i).getE_num(), "1");
-			}
-		}
-		for(int i=0;i<list.size();i++){
-			likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent("1",list.get(i).getE_num())));
+		List<String> account_interest = new ArrayList<>();
+		HttpSession session = request.getSession();
+		String account_num = String.valueOf(session.getAttribute("account_num"));
+		if(account_num!="0"){
+				AccountVO account = adminMapper.detailAccount(account_num);
+				String account_interest1[] = account.getAccount_interest().split(",");
+				for(int i=0;i<account_interest1.length;i++){
+					account_interest.add(account_interest1[i]);
+				}
+				List<EventVO> list=mapper.listRecommendEvent(account_interest);
+				for(int i=0;i<list.size();i++){
+					log.info("test :"+mapper.listLikeEvent(account_num,list.get(i).getE_num()));
+					if(mapper.listLikeEvent(account_num,list.get(i).getE_num())==null){
+						mapper.firstinsertLikeEvent(list.get(i).getE_num(), account_num);
+					}
+				}
+				for(int i=0;i<list.size();i++){
+					likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent(account_num,list.get(i).getE_num())));
+				}
+		}else{
+				
+				List<EventVO> list=mapper.listHitcountEvent();
+				for(int i=0;i<list.size();i++){
+					if(mapper.listLikeEvent("0",list.get(i).getE_num())==null){
+						mapper.firstinsertLikeEvent(list.get(i).getE_num(), "0");
+					}
+				}
+				for(int i=0;i<list.size();i++){
+					likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent("0",list.get(i).getE_num())));
+				}
 		}
 		return likelist;
 	}
@@ -95,16 +130,18 @@ public class EventServiceImpl implements EventService {
 	}
 	//충돌!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	@Override
-	public List<EventLikeDTO> listEvent(Search search) {
+	public List<EventLikeDTO> listEvent(Search search,HttpServletRequest request) {
 		List<EventLikeDTO> likelist = new ArrayList<>();
 		List<EventVO> list=mapper.listEvent(search);
+		HttpSession session = request.getSession();
+		String account_num = String.valueOf(session.getAttribute("account_num"));
 		for(int i=0;i<list.size();i++){
-			if(mapper.listLikeEvent("1",list.get(i).getE_num())==null){
-				mapper.firstinsertLikeEvent(list.get(i).getE_num(), "1");
+			if(mapper.listLikeEvent(account_num,list.get(i).getE_num())==null){
+				mapper.firstinsertLikeEvent(list.get(i).getE_num(), account_num);
 			}
 		}
 		for(int i=0;i<list.size();i++){
-			likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent("1",list.get(i).getE_num())));
+			likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent(account_num,list.get(i).getE_num())));
 		}
 		return likelist;
 	}

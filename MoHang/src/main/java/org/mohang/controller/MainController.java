@@ -2,6 +2,9 @@ package org.mohang.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.mohang.domain.NoticeVO;
 import org.mohang.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +21,13 @@ public class MainController {
 	@Autowired
 	NoticeService service;
 	@GetMapping("/Main")
-	public String main(Model model){
+	public String main(Model model, HttpServletRequest request)throws Exception{
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		log.info("account_num:"+account_num);
+		if(account_num=="null"||("null").equals(account_num)){
+			session.setAttribute("account_num", "0");
+		}
 		List <NoticeVO> notice = service.getNotice();
 		log.info(notice.get(0));
 		model.addAttribute("notice", notice.get(0));

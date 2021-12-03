@@ -9,13 +9,19 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+
 <title>MoHang?</title>
 
 <!-- <link href="../resources/css/bootstrap.min.css" rel="stylesheet" /> -->
 <!-- <link href="../resources/css/bootstrap.css" rel="stylesheet" /> -->
 </head>
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
+
 <script type="text/javascript" src="../resources/js/view.js"></script>
+<script type="text/javascript">
+
+
+</script>
 <div id="carouselExampleControls" class="carousel slide"
 	data-bs-ride="carousel">
 	<div id="header_nav">
@@ -93,6 +99,7 @@
 			</ul>
 		</div>
 </div>
+
 <jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
 <!-- Bootstrap core JS-->
 <script

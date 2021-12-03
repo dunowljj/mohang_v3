@@ -813,6 +813,9 @@ margin-right
 	margin-bottom: 1rem;
 	font-size: 0.875em;
 	color: #6c757d;
+	margin-top: 60px;
+    display: inline-block;
+    width: 100%;
 }
 
 .blockquote-footer::before {
@@ -12595,6 +12598,9 @@ html {
 	border-top: 1px solid #333;
 	background-color: #fdfdfd;
 	clear: both;
+	margin-top: 60px;
+    display: inline-block;
+    width: 100%;
 }
 
 .copyright {
@@ -12678,7 +12684,7 @@ html {
 
 #pro_box {
 	position: relative;
-	width: 130px;
+	width: 225px;
 	float: left;
 }
 
@@ -12902,7 +12908,7 @@ span {
 	text-overflow: ellipsis;
 	border-radius: 30px !important;
 	height: 2.7rem !important;
-	width: 350px;
+	width: 440px;
 }
 
 .event-search {
@@ -13227,7 +13233,8 @@ span {
 .nav-eventbar{
 	list-style-type: none;
     margin-top: 15px;
-    margin-left: 260px;
+    margin-left: 340px;
+    
 }
 .nav-eventbar li{
 	display: inline-block;

@@ -16,8 +16,9 @@ public class Search {
 	private int amount;
 	private String startDate;
 	private String endDate;
+	private String account_Interest;
 	public Search() {
-	    this(1, 5);
+	    this(1, 10);
 	}
 
 	public Search(int pageNum, int amount) {

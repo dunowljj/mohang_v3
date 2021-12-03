@@ -24,7 +24,7 @@
 <%
    AccountVO account = (AccountVO)session.getAttribute("account");
    String check = (String)session.getAttribute("check"); 
-
+	
 %>
 
 
@@ -429,7 +429,7 @@
 		<div class="container">
 			<a class="navbar-brand" href="/Main"><img
 				src="../resources/images/logo.png"
-				style="width: 140px; height: 80p; background: black;"></a>
+				style="width:  190px; height: 80p; background: black;"></a>
 			<form method="post" action="/search/searchform" id="event-search">
 				    <input class="eventus-input" id="einput" type="search" name="keyword">
 					<input type="hidden" name="field" value="<c:out value='${search.field.replace(","," ")}' />">
@@ -439,8 +439,15 @@
 			</form>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="nav-eventbar">
-					<li><a href="organization/applyForm">단체정보신청</a></li>
-					<li><a href="event/listApply">신청 리스트확인</a></li>
+					<c:if test="${account != null}">
+						<% if(check.equals("true")){ %>
+							<li><a href="organization/applyForm">단체정보신청</a></li>
+							<li><a href="event/listApply">신청 리스트확인</a></li>
+						<%}else{ %>
+							<li><a href="organization/applyForm">단체정보수정</a></li>
+							<li><a href="event/listApply">신청 리스트확인</a></li>
+						<%} %>
+					</c:if>
 				</ul>
 				
 				<c:if test="${account != null}">
@@ -455,9 +462,9 @@
 							<li><a href="/general/listLikes">관심있는 행사</a></li>
 							<li><a href="/event/insertForm">행사 신청</a></li>
 							<li><a href="/event/listApply">my 행사 리스트</a></li>
-							<li><a href="event/listStatistics">결과 분석 그래프</a></li>
+							<li><a href="/event/listStatistics">결과 분석 그래프</a></li>
 							<li><a href="#">1:1 채팅</a></li>
-							<li><a href="/MoHang/general/reserveList.do">예약확인</a></li>
+							<li><a href="/general/reservationList">예약확인</a></li>
 							<li><a href="/MoHang/general/reviewList.do">리뷰 작성 및 확인</a></li>
 							<li><a href="/general/updateInformation">회원 정보 수정</a></li>
 						</ul>
@@ -474,7 +481,7 @@
 							<li><a href="/general/listLikes">관심있는 행사</a></li>
 							<li><a href="organization/applyForm">단체 정보 신청</a></li>
 							<li><a href="#">1:1 채팅</a></li>
-							<li><a href="/MoHang/general/reserveList.do">예약확인</a></li>
+							<li><a href="/general/reservationList">예약확인</a></li>
 							<li><a href="/MoHang/general/reviewList.do">리뷰 작성 및 확인</a></li>
 							<li><a href="/general/updateInformation">회원 정보 수정</a></li>
 						</ul>

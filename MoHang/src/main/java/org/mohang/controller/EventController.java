@@ -3,10 +3,13 @@ package org.mohang.controller;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
@@ -153,10 +156,13 @@ public class EventController  {
 		log.info("----Update success----");
 		return "redirect:";
 	}
-	//충돌~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	//행사정보확인페이지
+	//충돌~~~~~~2021-12-03~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//행사정보확인페이지 
 	@GetMapping("/eventDetail")
-	public String eventDetail(@RequestParam("e_num") String e_num, Model model){
+	public String eventDetail(@RequestParam("e_num") String e_num, Model model,HttpServletRequest request){
+		List<String> account_interest = new ArrayList<>();
+		HttpSession session = request.getSession();
+		String account_num = String.valueOf(session.getAttribute("account_num"));
 		//행사 정보
 		model.addAttribute("event", eventService.eventDetail(e_num));
 		EventVO event = eventService.eventDetail(e_num);
@@ -168,7 +174,7 @@ public class EventController  {
 		model.addAttribute("eventhall", eventService.eventHallGet(eh_num));
 		//좋아요 정보
 		//충돌 조심
-		model.addAttribute("liked", eventService.selectlikeone("1", e_num));
+		model.addAttribute("liked", eventService.selectlikeone(account_num, e_num));
 		return "module/event/eventDetail";
 	}
 	
@@ -207,8 +213,10 @@ public class EventController  {
 	 */
 	@ResponseBody
 	@PostMapping(value="like")
-	public String eventLike(String account_num , String e_num){
+	public String eventLike(HttpServletRequest request,String e_num){
 		String result="";
+		HttpSession session = request.getSession();
+		String account_num = String.valueOf(session.getAttribute("account_num"));
 		int check =eventService.selectlike(account_num,e_num);
 		log.info("check :"+check);
 		int re=-1;

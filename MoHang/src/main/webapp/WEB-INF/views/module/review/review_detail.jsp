@@ -9,7 +9,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 
-<div id="header_nav">
+    <div id="header_nav">
 		<ul>
 			<li><a href="/search/searchform?field=사업/창업">사업/창업</a></li>
 			<li><a href="/search/searchform?field=IT/개발">IT/개발</a></li>

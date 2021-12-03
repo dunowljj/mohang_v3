@@ -5,9 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.mohang.domain.AccountVO;
 import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
+import org.mohang.domain.Search;
+import org.mohang.service.AdminService;
 import org.mohang.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,12 +35,15 @@ import lombok.extern.log4j.Log4j;
 public class ViewController {
 	@Autowired
 	private EventService eventService;
+	@Autowired
+	private AdminService adminService;
 	/*
 	 * 베스트 행사 -> 조회수가 많은 행사 상위 5개 출력
 	 */
 	@GetMapping("/best")
-	public ResponseEntity<List<EventLikeDTO>> bestEvent(){
-		return new ResponseEntity<List<EventLikeDTO>> (eventService.listBestEvent(),HttpStatus.OK);
+	public ResponseEntity<List<EventLikeDTO>> listBestEvent(HttpServletRequest request){
+		log.info("list :"+eventService.listBestEvent(request));
+		return new ResponseEntity<List<EventLikeDTO>> (eventService.listBestEvent(request),HttpStatus.OK);
 	}
 	/*
 	 * 이달의 행사 -> 년 월로 조회수가 많은 행사 3개 출력
@@ -63,9 +72,8 @@ public class ViewController {
 	 * 추천행사 -> 회원 관심 항목으로 검색 
 	 */
 	@PostMapping(value ="/recommend")
-	public ResponseEntity<List<EventLikeDTO>> bestEvent(String account_Interest){
-		
-		return new ResponseEntity<List<EventLikeDTO>>(eventService.listRecommendEvent(account_Interest),HttpStatus.OK);
-		
+	public ResponseEntity<List<EventLikeDTO>> bestEvent(HttpServletRequest request){
+		log.info("recommend :"+ eventService.listRecommendEvent(request));
+		return new ResponseEntity<List<EventLikeDTO>>(eventService.listRecommendEvent(request),HttpStatus.OK);
 	}
 }

@@ -237,11 +237,7 @@ $(function() {
     	    $("#second_search").submit();
     	   
     });
-    $(function(){
-    	$('input[name="s_like"]').val("");
-    	$('input[name="s_hitcount"]').val("");
-    	$('input[name="s_price"]').val("");
-    })
+ 
 	// 페이지 이동
     $('.eventimg').on('click',function(e){
     	var e_num =$(this).find('input').val();

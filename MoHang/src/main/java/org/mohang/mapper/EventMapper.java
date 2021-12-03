@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.mohang.domain.EventHallVO;
+import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.domain.Search;
@@ -25,7 +26,7 @@ public interface EventMapper {
 	public EventVO getApply(String e_num);
 
 
-	public List<EventVO> listRecommendEvent(String account_Interest);
+	public List<EventVO> listRecommendEvent(List<String> account_interest);
 
 	public EventVO eventDetail(String e_num);
 
@@ -53,20 +54,25 @@ public interface EventMapper {
 
 	public List<EventVO> listStatistics();
 	public List<StatisticsDetailDTO> getStatistics(String e_num);
-
+	//충돌 조심 용환 2021-12-03
+	public List<EventVO> listHitcountEvent();
 	//충돌 조심
 	public LikedVO listLikeEvent(@Param("account_num")String account_num, @Param("e_num")String e_num);
 	//충돌 조심
 	public void firstinsertLikeEvent(@Param("e_num")String e_num,@Param("account_num") String account_num);
 	//충돌 조심
 	public LikedVO selectlikeone(@Param("account_num")String account_num, @Param("e_num")String e_num);
-
-	
+	//층돌 조심
+	public List<EventLikeDTO> listSecondEvent(Search search);
 	//11/30지혜
 	public int updateHitCount(String e_num);
 	
 	public List<StatisticsAgeDTO> getStatistics_ageGender(String e_num);
 
 	public List<StatisticsInterestDTO> getStatistics_interest(String e_num);
+
+
+
+	
 
 }

@@ -88,7 +88,7 @@ $(document).ready(function () {
 	//1 누른상태 0 안누른거 
 	eventService.view(function(list){
 		for(var i=0, len = list.length||0;i<len;i++){
-			console.log('test'+list[i].list)
+			console.log('test'+list[i].likedVO.account_num+list[i].likedVO.like_status)
 			list[i].list.e_startDate =moment(list[i].list.e_startDate).format("YYYY-MM-DD");
 			list[i].list.e_endDate =moment(list[i].list.e_endDate).format("YYYY-MM-DD");
 			str += '<div class="eventbox">'
@@ -98,21 +98,24 @@ $(document).ready(function () {
 	        str +=     ' alt="" style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
 	        str +=	    '</div>'
 	        //status 0
-	        if(list[i].likedVO.like_status==0){
+        	if(list[i].likedVO.account_num!=0&&list[i].likedVO.like_status==0){
 	        str +=       '<div class="heart">'
             str +=        '<img src="../resources/images/빈하트.png" alt="" style="width: 16px; height: 16px;">'
             str += 		   '<input type="hidden" name="e_num" value=\"'+list[i].list.e_num +'\"/>'		
             str += 		   '<input type="hidden" name="like_status" value=\"'+list[i].likedVO.like_status +'\"/>'		
             str +=			'</div>'
-	        }
+        	}
+	        
         	//status 1
-			if(list[i].likedVO.like_status==1){
+			
+			if(list[i].likedVO.account_num!=0&&list[i].likedVO.like_status==1){
         	str +=       '<div class="heart">'
             str +=        '<img src="../resources/images/찬하트.png" alt="" style="width: 16px; height: 16px;">'
             str += 		   '<input type="hidden" name="e_num" value=\"'+list[i].list.e_num +'\"/>'		
             str += 		   '<input type="hidden" name="like_status" value=\"'+list[i].likedVO.like_status +'\"/>'		
             str +=			'</div>'	
 			}
+			
             str +=           '<div class="eventbox_context">'
             str +=            '<span>'+list[i].list.e_startDate+'~'+list[i].list.e_endDate+'</span>'
             str +=			   '<p class="event_title">'+list[i].list.e_name+'</p>'
@@ -144,21 +147,23 @@ $(document).ready(function () {
 		        str +=     ' alt="" style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
 		        str +=	    '</div>'
 		        //status 0
-		        if(list[i].likedVO.like_status==0){
+		        if(list[i].likedVO.account_num!=0&&list[i].likedVO.like_status==0){
 		        str +=       '<div class="heart">'
 	            str +=        '<img src="../resources/images/빈하트.png" alt="" style="width: 16px; height: 16px;">'
 	            str += 		   '<input type="hidden" name="e_num" value=\"'+list[i].list.e_num +'\"/>'		
 	            str += 		   '<input type="hidden" name="like_status" value=\"'+list[i].likedVO.like_status +'\"/>'		
 	            str +=			'</div>'
 		        }
+		        
 	        	//status 1
-				if(list[i].likedVO.like_status==1){
+				if(list[i].likedVO.account_num!=0&&list[i].likedVO.like_status==1){
 	        	str +=       '<div class="heart">'
 	            str +=        '<img src="../resources/images/찬하트.png" alt="" style="width: 16px; height: 16px;">'
 	            str += 		   '<input type="hidden" name="e_num" value=\"'+list[i].list.e_num +'\"/>'		
 	            str += 		   '<input type="hidden" name="like_status" value=\"'+list[i].likedVO.like_status +'\"/>'		
 	            str +=			'</div>'	
 				}
+				
 	            str +=           '<div class="eventbox_context">'
 	            str +=            '<span>'+list[i].list.e_startDate+'~'+list[i].list.e_endDate+'</span>'
 	            str +=			   '<p class="event_title">'+list[i].list.e_name+'</p>'
@@ -175,14 +180,13 @@ $(document).ready(function () {
    $(function(){
 	   $(document).on('click','.heart',function(){
 		   	
-		    	var account_num =1;
 		    	var e_num =$(this).find("input").val();
 		    	var like_status =$(this).find("input").next().val();
 		    	console.log('test :'+like_status)
 				$.ajax({
 					type : 'post',
 					url : '/event/like',
-					data : {'account_num':account_num,'e_num':e_num },
+					data : {'e_num':e_num },
 					success : function(result, status, xhr) {
 						location.reload();
 					},

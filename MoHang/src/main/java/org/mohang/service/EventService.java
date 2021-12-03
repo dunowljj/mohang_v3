@@ -2,6 +2,8 @@ package org.mohang.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventVO;
@@ -14,7 +16,7 @@ import org.mohang.domain.StatisticsDetailDTO;
 import org.mohang.domain.StatisticsInterestDTO;
 
 public interface EventService {
-	public List<EventLikeDTO> listBestEvent();
+	public List<EventLikeDTO> listBestEvent(HttpServletRequest request);
 
 	public List<EventVO> listMonthEvent(String search);
 	
@@ -26,11 +28,11 @@ public interface EventService {
 	
 	public int updateApply(EventVO eventVO);
 
-	public List<EventLikeDTO> listRecommendEvent(String account_Interest);
+	public List<EventLikeDTO> listRecommendEvent(HttpServletRequest request);
 
 	public EventVO eventDetail(String e_num);
 
-	public List<EventLikeDTO> listEvent(Search search);
+	public List<EventLikeDTO> listEvent(Search search,HttpServletRequest request);
 
 	public int getTotalCount(Search search);
 	
