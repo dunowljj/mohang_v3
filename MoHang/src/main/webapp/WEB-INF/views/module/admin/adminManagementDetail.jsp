@@ -77,7 +77,7 @@
 		</form>
 			<!-- button목록 부분 -->
 				<div class="management_detail_button">
-					<a href = "/MoHang/admin/AdminManagement.do">
+					<a href = "/admin/listApprove">
 					<button class="btn btn-secondary my-2 my-sm-0" type="submit">목록으로</button>
 					</a>			
 				</div>

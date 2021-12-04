@@ -7,12 +7,11 @@
 <!-- 폼에 작성한 데이터를 DB에 저장 -->
 <mapper namespace="org.mohang.mapper.AdminMapper">
 	<!-- 승인반려리스트조회 -->
-	 <select id="listApprove" resultType="org.mohang.domain.ApproveDTO">
-	    select a.ap_num, e.e_name, a.admin_num, a.ap_date, a.ap_check, e.e_num
-	 	from approve a, event e, event_hall_reservation r
-	 	where r.ap_num = a.ap_num and  e.e_num = r.e_num
-	 </select>
-	 
+ 	<select id="listApprove" resultType="org.mohang.domain.ApproveDTO">
+       select a.ap_num, e.e_name, a.admin_num, a.ap_date, a.ap_check, e.e_num
+       from approve a, event e, event_hall_reservation r
+       where r.eh_reservation_num = a.eh_reservation_num and  e.e_num = r.e_num
+    </select>
 	 
 	 <!-- 승인반려리스트삭제- 왜냐하면 조인했으니깐 이벤트홀 ap_num을 먼저 삭제 하는거다.-->
 	 <delete id="deleteEventHall" >
@@ -91,6 +90,19 @@
 	 	select review_num, review_title, review_writer, review_date, review_hitcount	
 	 	from review	
 	 </select>	
+	
+	<!-- 페이징처리가 된 리뷰 리스트 조회 -->
+	 <select id="getReviewPaging" resultType="org.mohang.domain.ReviewVO">
+	 	<![CDATA[ 
+	 	SELECT * FROM (
+       		 SELECT a.*, ROWNUM as rnum FROM (
+               SELECT * FROM review order by to_number(review_num) desc
+               )
+        	a) 
+        where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
+		]]> 
+	 </select>
+	
 	
 	<!-- 공지사항리스트 조회 -->
 	<select id="listNotice" resultType="org.mohang.domain.NoticeVO">
@@ -177,6 +189,12 @@
 	 <select id="getNoticeTotal" resultType="int">
 	 	select count(*) from notice
 	 </select>
+	 
+	 <select id="getReviewTotal" resultType="int">
+	 	select count(*) from review
+	 </select>
+	 
+	 
 	 
 	 
 </mapper>
