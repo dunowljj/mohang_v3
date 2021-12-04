@@ -74,11 +74,12 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.listreservationTicket();
 	}
 	
-	public List<ReviewVO> listReview(){
+	/*페이징 처리 되기전  원래 리스트 리뷰 조회*/
+/*	public List<ReviewVO> listReview(){
 		return mapper.listReview();
-	}
+	}*/
 	
-	
+	/*페이징 처리 되기전 원래 리스트 공지사항 조회*/
 	/*public List<NoticeVO> listNotice(){
 		return mapper.listNotice();
 	}*/
@@ -168,6 +169,18 @@ public class AdminServiceImpl implements AdminService {
 	public int deleteAccount(String account_num) {
 	
 		return mapper.deleteAccount(account_num);
+	}
+
+	@Override
+	public List<ReviewVO> getReviewPaging(Criteria cri) {
+		
+		return mapper.getReviewPaging(cri);
+	}
+
+	@Override
+	public int getReviewTotal() {
+		
+		return mapper.getReviewTotal();
 	}
 
 	

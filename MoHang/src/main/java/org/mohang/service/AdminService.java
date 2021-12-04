@@ -44,7 +44,10 @@ public interface AdminService {
 	public List<TicketReservationDTO> listreservationTicket();
 
 	/*리뷰리스트 조회*/
-	public List<ReviewVO> listReview();
+	//public List<ReviewVO> listReview();
+	
+	/*페이징 처리된 리뷰리스트 조회*/
+	public List<ReviewVO> getReviewPaging(Criteria cri);
 	
 	/*공지사항리스트 조회*/
 	//public List<NoticeVO> listNotice();
@@ -88,6 +91,12 @@ public interface AdminService {
 
 	/*공지사항 게시글 데이터 갯수를 갖고오는 메서드*/
 	public int getNoticeTotal();
+
+	/*리뷰게시판에서 데이터 갯수를 갖고오는 메서드*/
+	public int getReviewTotal();
+
+	
+	
 
 	
 }

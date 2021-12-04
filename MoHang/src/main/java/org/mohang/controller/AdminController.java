@@ -179,12 +179,21 @@ public class AdminController {
 	
 	
 	/* 등록된 리뷰게시판을 조회하는 부분이다. */
-	@GetMapping("listReview")
+	/*@GetMapping("listReview")
 	public String getReview(Model model) {
 		model.addAttribute("review", service.listReview());
 		return "/module/admin/adminReviewManagement";
-	}
+	}*/
 
+	/* 페이징 처리된 리뷰게시판을 조회하는 부분이다. */
+	@GetMapping("listReview")
+	public String getReview(Criteria cri, Model model){
+		model.addAttribute("review",service.getReviewPaging(cri));
+		log.info("review:"+service.getReviewPaging(cri));
+		int total = service.getReviewTotal();
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		return "/module/admin/adminReviewManagement";
+	}
 
 
 	/* 리뷰게시판 리스트에서 삭제 버튼 눌렀을시 삭제 된거 제외후 다시 리뷰게시판에 뿌려주는 부분 */
