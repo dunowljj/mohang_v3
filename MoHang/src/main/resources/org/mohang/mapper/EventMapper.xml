@@ -175,11 +175,14 @@
 
 	<!-- 신청한 이벤트 정보 DB등록. 등록한 단체번호 o_num이 넘어와야할듯. -->
 	<insert id="insertApply">
+		<selectKey  resultType="String" keyProperty="e_num" order="BEFORE">
+			select event_seq.nextval FROM DUAL
+		</selectKey>
 		insert into event(e_num, o_num, e_name, e_startDate,
 		e_endDate, e_startRecruiteDate, e_endRecruiteDate, e_type, e_field,
 		e_price, e_detail, e_recruitePeople, e_fname, e_personName,
 		e_personPhoneNumber, e_personEmail, eh_num, e_dfname)
-		values(event_seq.nextval, #{o_num}, #{e_name}, #{e_startDate},
+		values(#{e_num}, #{o_num}, #{e_name}, #{e_startDate},
 		#{e_endDate}, #{e_startRecruiteDate}, #{e_endRecruiteDate}, #{e_type},
 		#{e_field}, #{e_price}, #{e_detail}, #{e_recruitePeople}, #{e_fname},
 		#{e_personName}, #{e_personPhoneNumber}, #{e_personEmail},
@@ -188,8 +191,11 @@
 	</insert>
 
 	<insert id="insertEventHallReservation">
+		<selectKey  resultType="String" keyProperty="eh_reservation_num" order="BEFORE">
+			select event_hall_reservation_seq.nextval FROM DUAL
+		</selectKey>
 		insert into event_hall_reservation
-		values(event_hall_reservation_seq.nextval,#{account_num}, sysdate,
+		values(#{eh_reservation_num},#{account_num}, sysdate,
 		#{e_num})
 	</insert>
 
@@ -199,7 +205,7 @@
 	</insert>
 
 	<select id="listApply" resultType="org.mohang.domain.EventListDTO">
-		select e.e_num, e.o_num,
+		select e.e_num, e.o_num,e_name,
 		e.eh_num,eh.account_num, e.e_startdate,
 		e.e_enddate, e.e_applydate,
 		a.ap_check
@@ -267,8 +273,7 @@
 		where e_num = #{e_num} group by
 		account_age,account_gender)
 		pivot(
-		sum(count) for gender in('f' as
-		f_count,'m' as m_count)
+		sum(count) for gender in('f' as f_count,'m' as m_count)
 		) order by age
 
 	</select>

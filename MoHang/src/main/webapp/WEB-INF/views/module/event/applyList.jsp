@@ -49,10 +49,11 @@
 		 <col style="width:70px;">
 		 <col style="width:30px;">		 
 	</colgroup>
+	
 		<thead>
 			<tr class="table-active">
 				<th scope="col"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">번호</font></font></th>
+						style="vertical-align: inherit;">행사번호</font></font></th>
 				<th scope="col"><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;">행사제목</font></font></th>
 				<th scope="col"><font style="vertical-align: inherit;"><font
@@ -66,14 +67,32 @@
 		<tbody>
 		
 		<c:forEach items="${eventList}" var="event">
+		
+		<fmt:formatDate value="${now }" pattern="yyyy-MM-dd" var="today"/>
+		<fmt:formatDate value="${event.e_startDate }" pattern="yyyy-MM-dd" var="startDate"/>
+		<fmt:formatDate value="${event.e_endDate }" pattern="yyyy-MM-dd" var="endDate"/>
+		
 			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"></font>${event.e_num}</th>
-				<td onclick="event.cancelBubble=true"><a href="/event/getApply?e_num=${event.e_num}"><font style="vertical-align: inherit;"><c:out value="${event.e_name}"/></font></a></td>
+				<th scope="row"><font style="vertical-align: inherit;"><c:out value="${event.e_num}"/></font></th>
+				<td onclick="event.cancelBubble=true" ><a href="/event/getApply?e_num=${event.e_num}"><font style="vertical-align: inherit;"><c:out value="${event.e_name}"/></font></a></td>
 				<td><font style="vertical-align: inherit;"><c:out value="${event.e_applyDate}"/></font></td>
-				<td><div class="state"><font style="vertical-align: inherit;"><c:out value="${event.ap_check}"/>
+				<td><div class="state"><font style="vertical-align: inherit;">
+					<c:set var="check" value="${event.ap_check }"/>
+						<c:if test="${check eq 'W' }"> 승인대기 </c:if>
+						<c:if test="${check eq 'N' }"> 승인반려 </c:if>
+						<c:if test="${check eq 'Y' }"> 승인완료 </c:if>
+						
+						<input type="hidden" id="event_status" value="${event.ap_check }"/>
 				</font></div></td>
 				
-				<td onclick="event.cancelBubble=true"><font style="vertical-align: inherit;"><a href="/event/insertFormUpdate?e_num=${event.e_num}"><button>수정</button><button style="display:none">결제</button></a></font></td>
+				<td onclick="event.cancelBubble=true">
+					<c:if test="${check eq 'W' }">
+						<a href="/event/insertFormUpdate?e_num=${event.e_num}"><button>수정</button></a>
+					</c:if>
+					<c:if test="${check eq 'Y' }">
+						<a href="/event/pay?e_num=${event.e_num}"><button>결제</button></a>
+					</c:if>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="5" >
@@ -81,38 +100,80 @@
 					<!-- 이미지+글조합 -->
 						<div class="arccodianBox">
 							<figure >
-								<img src="../resources/images/승인1.png" alt="승인대기" class="imageSize" id="img1"/>
+								<c:if test="${check ne 'W' }">
+								<img src="../resources/images/승인1.png" alt="승인대기" class="imageSize" id="img1" style='opacity:0.3'/>
 								<figcaption>승인대기</figcaption>
+								</c:if>
+								<c:if test="${check eq 'W' }"> 
+								<img src="../resources/images/승인1.png" alt="승인대기" class="imageSize" id="img1" />
+								<figcaption>승인대기</figcaption>
+								</c:if>
 							</figure>
 				
 							<figure>
+							<c:if test="${check ne 'N' }"> 
+								<img src="../resources/images/승인3.png" alt="승인반려" class="imageSize" id="img3" style='opacity:0.3'/>
+								<figcaption>승인반려</figcaption>
+							</c:if>
+							<c:if test="${check eq 'N' }"> 
 								<img src="../resources/images/승인3.png" alt="승인반려" class="imageSize" id="img3"/>
 								<figcaption>승인반려</figcaption>
+							</c:if>
 							</figure>
 							
 							<figure>
+							<c:if test="${check ne 'Y' }"> 
+								<img src="../resources/images/승인4.png" alt="승인완료" class="imageSize" id="img4"  style='opacity:0.3'/>
+								<figcaption>승인완료</figcaption>
+							</c:if>
+							<c:if test="${check eq 'Y' }"> 
 								<img src="../resources/images/승인4.png" alt="승인완료" class="imageSize" id="img4"/>
 								<figcaption>승인완료</figcaption>
+							</c:if>
 							</figure>
 							
 						<figure>
+							<c:if test="${check ne 'Y' }"> 
+								<img src="../resources/images/승인5.png" alt="결제대기" class="imageSize" id="img5" style='opacity:0.3'/>
+								<figcaption>결제대기</figcaption>
+							</c:if>
+							<c:if test="${check eq 'Y' }"> 
 								<img src="../resources/images/승인5.png" alt="결제대기" class="imageSize" id="img5"/>
 								<figcaption>결제대기</figcaption>
+							</c:if>
 							</figure>
 						
 								<figure>
+								<c:if test="${check ne 'F'}"> 
+								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6" style='opacity:0.3'/>
+								<figcaption>행사대기</figcaption>
+								</c:if>
+								<c:if test="${check eq 'F' && today<startDate}"> 
 								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6"/>
 								<figcaption>행사대기</figcaption>
+								</c:if>
 							</figure>
 							
 							<figure>
+							<c:if test="${check ne 'F'}"> 
+								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7" style='opacity:0.3'/>
+								<figcaption>행사진행중</figcaption>
+								</c:if>
+							<c:if test="${check eq 'F' && today>startDate &&  today<endDate}"> 
 								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7"/>
 								<figcaption>행사진행중</figcaption>
+								</c:if>
 							</figure>
 							
 							<figure>
+							<c:if test="${check ne 'F'}"> 
+								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8" style='opacity:0.3'/>
+								<figcaption>행사완료</figcaption>
+								</c:if>
+							<c:if test="${check ne 'F' && today>endDate}"> 
 								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8"/>
 								<figcaption>행사완료</figcaption>
+								</c:if>
 							</figure> 
 						</div>
 					</div>

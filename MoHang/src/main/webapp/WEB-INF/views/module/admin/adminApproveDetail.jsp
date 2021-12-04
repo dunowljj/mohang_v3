@@ -78,12 +78,12 @@
 					<tr class="tr1">
 						<td class="tbname">행사대표이미지</td> 
 						<td class="s_tbcontent">
-							<img alt="image" src="../resourcese/eventImage/${detailApprove.e_fname}"> &nbsp&nbsp</td>
+							<img alt="image" src="../resourcese/images/${detailApprove.e_fname}"> &nbsp&nbsp</td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">행사상세이미지</td>
 							<td class="s_tbcontent">
-							<img alt="image" src="../resourcese/eventImage/${detailApprove.e_dfname} ">&nbsp&nbsp  </td>
+							<img alt="image" src="../resourcese/images/${detailApprove.e_dfname} ">&nbsp&nbsp  </td>
 					</tr>
 					<tr class="tr1">
 						<td class="tbname">행사상세내용</td>

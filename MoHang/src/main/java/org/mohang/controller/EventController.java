@@ -57,7 +57,7 @@ public class EventController  {
 	public String insertApply(HttpServletRequest request,  EventVO eventVO, MultipartFile e_file, MultipartFile e_dfile, @RequestParam("o_num")String o_num) throws ParseException{
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("account_num");
-		String account_num = (String)obj;
+		String account_num = String.valueOf(obj);
 		
 		Event_Hall_ReservationVO eventHallReservationVO = new Event_Hall_ReservationVO();
 		ApproveVO approveVO = new ApproveVO();
@@ -66,24 +66,32 @@ public class EventController  {
 		
 		//파일 저장
 		log.info("----Ready to file save----");
-		//String uploadFolder = "C:\\Users\\HOME\\git\\mohang_v3\\MoHang\\src\\main\\webapp\\resources\\images";
+		
 		String uploadFolder = request.getSession().getServletContext().getRealPath("/");
 		uploadFolder+="resources/images/";
+		File saveE_file = null;
+		File saveE_dfile = null;
 		
-		String e_fname = e_file.getOriginalFilename();
-		String e_dfname = e_dfile.getOriginalFilename();
+		//파일을 입력하지 않은 경우, 디폴트 이미지가 들어가도록 형성. 
+		if(e_file.isEmpty()){ //multipartfile객체는 isEmpty로 null확인
+			eventVO.setE_fname("default.jpg");
+		}else{
+			String e_fname = e_file.getOriginalFilename();
+			eventVO.setE_fname(e_fname);
+			e_fname = e_fname.substring(e_fname.lastIndexOf("\\")+1);
+			saveE_file=new File(uploadFolder, e_fname);	
+		}
 		
 		
-		eventVO.setE_fname(e_fname);
-		eventVO.setE_dfname(e_dfname);
-		eventVO.setO_num(o_num);
-		
-		e_fname = e_fname.substring(e_fname.lastIndexOf("\\")+1);
-		e_dfname = e_dfname.substring(e_dfname.lastIndexOf("\\")+1);
-		
-		File saveE_file=new File(uploadFolder, e_fname);
-		File saveE_dfile=new File(uploadFolder, e_dfname);
-		
+		if(e_dfile.isEmpty()){
+			eventVO.setE_dfname("default.jpg");
+		}else{
+			String e_dfname = e_dfile.getOriginalFilename();
+			eventVO.setE_dfname(e_dfname);
+			e_dfname = e_dfname.substring(e_dfname.lastIndexOf("\\")+1);
+			saveE_dfile=new File(uploadFolder, e_dfname);	
+		}
+
 		try {
 			e_file.transferTo(saveE_file);
 			e_dfile.transferTo(saveE_dfile);
@@ -92,15 +100,20 @@ public class EventController  {
 		}
 		log.info("----file save success----");
 		
+		//event테이블에 insert
+		eventVO.setO_num(o_num);
 		eventService.insertApply(eventVO);
 		
-		//행사장예약테이블 insert
-		eventHallReservationVO.setE_num(o_num);
+		//eventHallReservation테이블에 insert
+		eventHallReservationVO.setE_num(eventVO.getE_num());
 		eventHallReservationVO.setAccount_num(account_num);
+		
+		log.info("eventHallReservationVO: "+eventHallReservationVO);
 		eventService.insertEventHallReservation(eventHallReservationVO);
 		
-		//행사승인insert
+		//approve테이블에 insert
 		approveVO.setEh_reservation_num(eventHallReservationVO.getEh_reservation_num());
+		log.info("approveVO: "+approveVO);
 		eventService.insertApprove(approveVO);
 		
 		log.info("----insert success----");
@@ -151,14 +164,12 @@ public class EventController  {
 			
 			HttpSession session = request.getSession();
 			Object obj = session.getAttribute("account_num");
-			String account_num = (String)obj;
+			String account_num = String.valueOf(obj);
 					
 			eventVO.setO_num(account_num);
 		//파일 저장
 				log.info("----Ready to file save----");
-				String uploadFolder = "C:\\Users\\HOME\\git\\mohang_v3\\MoHang\\src\\main\\webapp\\resources\\images";
-				//String uploadFolder = "../resources/eventImages";
-			
+				String uploadFolder = request.getSession().getServletContext().getRealPath("/");
 				
 				String e_fname = e_file.getOriginalFilename();
 				String e_dfname = e_dfile.getOriginalFilename();
