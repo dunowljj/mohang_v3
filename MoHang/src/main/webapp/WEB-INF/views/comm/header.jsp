@@ -449,11 +449,11 @@
 				<ul class="nav-eventbar">
 					<c:if test="${account != null}">
 						<% if(check.equals("true")){ %>
-							<li><a href="organization/applyForm">단체정보신청</a></li>
-							<li><a href="event/listApply">신청 리스트확인</a></li>
+							<li><a href="/organization/applyForm">단체정보신청</a></li>
+							<li><a href="/event/listApply">신청 리스트확인</a></li>
 						<%}else{ %>
-							<li><a href="organization/applyForm">단체정보수정</a></li>
-							<li><a href="event/listApply">신청 리스트확인</a></li>
+							<li><a href="organization/getOrganization">단체정보수정</a></li>
+							<li><a href="/event/listApply">신청 리스트확인</a></li>
 						<%} %>
 					</c:if>
 				</ul>
@@ -468,12 +468,12 @@
 					<div id="myPage1" style="display: none">
 						<ul>
 							<li><a href="/general/listLikes">관심있는 행사</a></li>
-							<li><a href="/event/insertForm">행사 신청</a></li>
+							<li><a href="/event/toinsertForm">행사 신청</a></li>
 							<li><a href="/event/listApply">my 행사 리스트</a></li>
 							<li><a href="/event/listStatistics">결과 분석 그래프</a></li>
 							<li><a href="#">1:1 채팅</a></li>
 							<li><a href="/general/reservationList">예약확인</a></li>
-							<li><a href="/MoHang/general/reviewList.do">리뷰 작성 및 확인</a></li>
+							<li><a href="/general/listMyPartIn">리뷰 작성 및 확인</a></li>
 							<li><a href="/general/updateInformation">회원 정보 수정</a></li>
 						</ul>
 					</div>
@@ -487,7 +487,7 @@
 					<div id="myPage1" style="display: none">
 						<ul>
 							<li><a href="/general/listLikes">관심있는 행사</a></li>
-							<li><a href="organization/applyForm">단체 정보 신청</a></li>
+							<li><a href="/organization/applyForm">단체 정보 신청</a></li>
 							<li><a href="#">1:1 채팅</a></li>
 							<li><a href="/general/reservationList">예약확인</a></li>
 							<li><a href="/MoHang/general/reviewList.do">리뷰 작성 및 확인</a></li>
