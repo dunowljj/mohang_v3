@@ -117,7 +117,7 @@ public class EventServiceImpl implements EventService {
 				for(int i=0;i<list.size();i++){
 					likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent(account_num,list.get(i).getE_num())));
 				}
-		}else if(account_num=="0"){
+		}else if(account_num=="0"||account_num=="null"){
 				
 				List<EventVO> list=mapper.listHitcountEvent();
 				for(int i=0;i<list.size();i++){

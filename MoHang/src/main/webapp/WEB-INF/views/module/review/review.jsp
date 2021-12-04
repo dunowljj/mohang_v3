@@ -52,7 +52,13 @@
 			</tr>
 		</thead>
 		<tbody>
-		
+			<tr>
+			<td>1</td>
+			<td><a href="/review/review_detail">제목</a></td>
+			<td>xxx</td>
+			<td>2021-12-04</td>
+			<td>0</td>
+			</tr>
 		</tbody>
 		</table>
 
