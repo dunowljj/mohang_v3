@@ -2,11 +2,9 @@ package org.mohang.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.file.Files;
-import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +15,7 @@ import org.mohang.domain.EventVO;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralPasswordVO;
-import org.mohang.domain.GeneralReservAndPayTimeDTO;
+import org.mohang.domain.GeneralResPayTimeDTO;
 import org.mohang.domain.OrganizationVO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
@@ -32,8 +30,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,33 +48,50 @@ public class GeneralController {
 	
 	@Autowired
 	private GeneralService service;
-	
 	@Autowired
 	private OrganizationService orgService;
-	
 	@Autowired
 	private EventService eventService;
 	
+	
 	@GetMapping("/updateInformation")
-	public String getInformation(Model model){
-		GeneralAttachFileDTO dto = service.getAttach("2");
+	public String getInformation(HttpServletRequest request, Model model){
+		//logIn check
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+		//logIn checked
+		
+		GeneralAttachFileDTO dto = service.getAttach(account_num);
 //		log.info("dfsafd" +dto.getAccount_path());
 //	log.info(dto.getAccount_path());
-		model.addAttribute("account", service.getInformation("2"));
+		model.addAttribute("account", service.getInformation(account_num));
 		if(dto != null){
 		model.addAttribute("attach",dto);
 		}
 		return "module/general/informationUpdateForm";
 	}
+	
 	@PostMapping("/updateInformation")
-	public String updateInformation(AccountVO account, GeneralAttachFileVO attach, Model model){
-		log.info(account.toString());
-		log.info(attach.toString());
+	public String updateInformation(HttpServletRequest request, AccountVO account, GeneralAttachFileVO attach, Model model){
+		//logIn check
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+		//logIn checked
+		
 		if(service.updateInformation(account, attach)){
 			log.info("success");
 		}
 		return "redirect:/general/updateInformation";
 	}
+	
+	
+	
 	@PostMapping("/updatePassword")
 	public String updatePassword(GeneralPasswordVO pw, @RequestParam String account_num, RedirectAttributes rttr){
 		if(!service.matchPresentPassword(account_num, pw.getPassword())){
@@ -118,6 +131,8 @@ public class GeneralController {
 		
 		return "";
 	}
+	
+	
 	@GetMapping("/getReserve")
 	public String getReserve(){
 		log.info("getRe");
@@ -128,14 +143,16 @@ public class GeneralController {
 	@GetMapping("/reserve")
 	public String reserveForm(HttpServletRequest request, Model model,@RequestParam("e_num") String e_num){
 		log.info("reserveForm");
-		
+		//logIn check
 		HttpSession session = request.getSession();
-		AccountVO accountFVO = (AccountVO)session.getAttribute("account");
-//		session.setAttribute("account", account_num);
-//		log.info("a1:"+account_num);
-		String account_num = accountFVO.getAccount_num();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+		//logIn checked
+
 		AccountVO accountVO = service.getInformation(account_num);//회원정보 받기
-		OrganizationVO organizationVO = orgService.getOrganization(accountFVO.getAccount_num());
+		OrganizationVO organizationVO = orgService.getOrganization(account_num);
 		EventVO eventVO = eventService.getApply(e_num);	//행사번호를 넘겨받으면서 예약페이지로 넘어와야한다.
 		model.addAttribute("remainTicket", service.getRemainTicket(e_num));
 //		model.addAttribute("remainTicket", service.getTotalticket(e_num));
@@ -149,61 +166,52 @@ public class GeneralController {
 	
 	
 	@PostMapping("/reserve")
-	public String reserve(EventVO eventVO,TicketReservationDTO reservDTO, TicketPaymentDTO payDTO,
-			GeneralReservAndPayTimeDTO RAP){
-		log.info("이거 찍히나?");
+	public String reserve(HttpServletRequest request, EventVO eventVO,TicketReservationDTO reservDTO, TicketPaymentDTO payDTO,
+			GeneralResPayTimeDTO RAP, RedirectAttributes rttr){
+		//logIn check
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+		//logIn checked
+		
 		log.info("RAP"+RAP);
 		log.info(reservDTO);
 		log.info(payDTO);
-		log.info("@@@@@@@@@@@@@@@@@@@@check commands3@@@@@@@@@@@@@@@@@");
-		 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	        String payD = RAP.getS_ticket_payment_time();
-	        log.info("payD");
-	        String resD = RAP.getS_ticket_reservation_time();
-	        log.info("resD");
-	        
-	        Date sqlResDate = null;
-	        Date sqlPayDate = null;
-	        
-	        java.util.Date payDate = new java.util.Date();
-			try {
-				payDate = dateFormat.parse(payD);
-				sqlPayDate = new Date(payDate.getTime()); 
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
-			java.util.Date resDate = new java.util.Date();
-   			try {
-   				resDate = dateFormat.parse(resD);
-   				sqlResDate = new Date(resDate.getTime()); 
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-   			log.info(sqlResDate);
-   			log.info(sqlPayDate);
-   			
-	        
-
 		
-		
-		reservDTO.setTicket_reservation_time(sqlResDate);
-		payDTO.setTicket_payment_time(sqlPayDate);
-		
-		
-		if(service.insertReservAndPay(reservDTO, payDTO)){
+		if(service.insertReservAndPay(reservDTO, payDTO, RAP)){
 			log.info("success reserve");
 		} else {
-			log.info("fail");
+//			rttr.addAttribute("message","모두 매진되었습니다.");
+//			rttr.addAttribute("returnURL","redirect:/general/reserve?e_num="+eventVO.getE_num());
+//			return "redirect:/general/messagePop";
 		}
-		log.info("@@@@@@@@@@@@@@@@@@@@check commands35@@@@@@@@@@@@@@@@@");
 		return "redirect:/event/eventDetail?e_num="+eventVO.getE_num();
 	}
-	
+//	@GetMapping("/messagePop")
+//	public String messageSender(RedirectAttributes rttr, Model model){
+////		@RequestParam("message")String message,@RequestParam("returnURL") String returnURL
+//		model.addAttribute("message",rttr.getFlashAttributes());
+////		model.addAttribute("returnURL",rttr.getFlashAttributes("returnURL");
+//
+//		return "module/general/messagePop";
+//	}
+//	
 	
 	@GetMapping("/reservationList")
-	public String listMyReserve(Model model){
+	public String listMyReserve(HttpServletRequest request, Model model){
+
+		//logIn check
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+		//logIn checked
+		
 		log.info("MyReserveList");
-		model.addAttribute("reserveList", service.getListMyReservation("2"));
+		model.addAttribute("reserveList", service.getListMyReservation(account_num));
 		return "module/general/reserveList";
 	}
 	
@@ -214,46 +222,64 @@ public class GeneralController {
 	}
 	
 	@GetMapping("/listLikes")
-	public String listMyLikes(Model model){
-		log.info("MyReview");
-		model.addAttribute("likeList",service.getListLikes("1"));
-		
+	public String listMyLikes(HttpServletRequest request, Model model){
+		//logIn check
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+		//logIn checked
+		model.addAttribute("likeList",service.getListLikes(account_num));
+		log.info("listlist:"+service.getListLikes(account_num));
 //		log.info(service.listLikes("1").get(0).getE_startRecruiteDate());
 		return "module/general/likeList";
 	}
-	@GetMapping("/listMyPartIn")
-	public String listMyPartIn(){
-		log.info("MyLikeList");
-		return "module/general/reviewList";
-	}
+	
 	@PostMapping("/cancelLike")
 	@ResponseBody
-	public String cancelLike(String account_num, String e_num){
-		log.info("start cancelLike");
+	public String cancelLike(HttpServletRequest request, String e_num, Model model){
+		//logIn check
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+		//logIn checked
+		
+		
 		log.info(account_num.getClass());
 		log.info(e_num.getClass());
 		
 		log.info(account_num);
 		log.info(e_num);
 		
-	service.cancelLikeDisplay(account_num, e_num);
-			log.info("success cancle heart");
+	if
+//	(true){
+	(!service.cancelLikeDisplay(account_num, e_num)){
+		return "failed";
+	}
+			log.info("success cancel heart");
 			log.info("end cancelLike");
 			log.info("end downcount");
 		return "cancel success";
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@GetMapping("/listMyPartIn")
+	public String listMyPartIn(HttpServletRequest request){
+		//logIn check
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+		//logIn checked
+		
+		
+		log.info("MyLikeList");
+		return "module/general/reviewList";
+	}
 	
 	
 	//프로필 사진 업로드
@@ -273,18 +299,20 @@ public class GeneralController {
 //		try {
 //			uploadFile.transferTo(saveFile);
 //		} catch (Exception e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 //		
 //		
 //		return "";
 //	}
+	
+	
+	//-------------------------Profile upload----------------------
 	@PostMapping(value ="/uploadProfile",
 			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<GeneralAttachFileDTO>
-	uploadAjaxPost(MultipartFile uploadFile){
+	uploadProfileAjaxPost(MultipartFile uploadFile){
 		log.info("Start@@@@@@@@@@@@@@@@@@@@@@");
 		
 //		String uploadFolder = "C:\\Users\\jhwoo_nb\\git\\mohang_v3\\MoHang\\src\\main\\webapp\\resources\\images";

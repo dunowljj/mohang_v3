@@ -1,4 +1,4 @@
-package org.zerock.mapper;
+package org.mohang.mapper;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

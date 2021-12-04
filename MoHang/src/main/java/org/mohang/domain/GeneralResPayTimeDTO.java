@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class GeneralReservAndPayTimeDTO {
+public class GeneralResPayTimeDTO {
 	private String S_ticket_reservation_time;
 	private String S_ticket_payment_time;
 }

@@ -7,6 +7,7 @@ import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralLikeListDTO;
 import org.mohang.domain.GeneralMyReservationDTO;
+import org.mohang.domain.GeneralResPayTimeDTO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
 import org.mohang.mapper.EventMapper;
@@ -84,12 +85,29 @@ public class GeneralServiceImpl implements GeneralService {
 		return mapper.getListLikes(account_num);
 	}
 	
+	
 	@Transactional
 	@Override
 	public boolean cancelLikeDisplay(String account_num, String e_num) {
+		if(confirmIsLikeCancelAlready(account_num, e_num)){
+			return false;
+		}
 		eventMapper.downcountlike(account_num, e_num);
-		return mapper.updateLikeStatus(account_num, e_num) ==1;
+		return mapper.updateLikeStatusCancel(account_num, e_num) ==1;
 	}
+	
+	@Override
+	public boolean confirmIsLikeCancelAlready(String account_num, String e_num) {
+		if
+		(mapper.getLikeStatusOfOne(account_num, e_num)==null||
+				mapper.getLikeStatusOfOne(account_num, e_num).equals("0"))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	
 	//----Like end----
 	
 	//-----ReserveList----
@@ -102,14 +120,13 @@ public class GeneralServiceImpl implements GeneralService {
 	//-----Reserve-----
 //	@Transactional
 	@Override
-	public boolean insertReservAndPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO) {
-		
-		if(reservDTO.getTicket_reservation_amount() > 
-				mapper.getRemainTicket(reservDTO.getE_num())){
+	public boolean insertReservAndPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO, GeneralResPayTimeDTO RAP) {
+		if((reservDTO.getTicket_reservation_amount() >	this.getRemainTicket(reservDTO.getE_num()))){
 			return false;
 		}
-		if(mapper.insertTicketReserv(reservDTO) ==1){
-			return mapper.insertTicketPay(payDTO, reservDTO.getTicket_reservation_num()) ==1;
+		
+		if(mapper.insertTicketReserv(RAP, reservDTO) ==1){
+			return mapper.insertTicketPay(RAP, payDTO, reservDTO.getTicket_reservation_num()) ==1;
 		}
 		
 		return false;
@@ -130,6 +147,7 @@ public class GeneralServiceImpl implements GeneralService {
 		int remainTicket = mapper.getRemainTicket(e_num);
 		return periodVolume*remainTicket;
 	}
+
 	
 	
 	//-----Reserve-----

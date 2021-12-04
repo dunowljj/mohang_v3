@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,174 +22,53 @@
 				</div>
 					<!-- 행사 1 -->
 				<div class='like_row_container'>
+<!-- 					---------------noLike ---------------------------------->
+<%-- 							<c:if test="${empty like}"> --%>
+							<c:if test="${empty likeList}">
+								<div id='empty_likeList'>
+									<span>등록된 관심 행사가 없습니다.</span><br>
+									<button type="button" onclick="location.href='/Main'">행사 보러 가기</button>
+								</div>
+							</c:if>
+<!-- 					---------------noLike ---------------------------------->
 					<div class='likeList_table_wrap'>
 						<c:forEach var="like" items="${likeList}">
+							
+							
+							
 							<div class='like_one_wrap'>
-<!-- 								<form> -->
 								<input type='hidden' id="hidden_e_num" value="<c:out value='${like.account_num}'/>">
 								<input type='hidden' id="hidden_account_num" value="<c:out value='${like.e_num}'/>">
-<!-- 								</form> -->
-								
-								<div class='like_event_image'>
-<%-- 									<a href="${status.index}"> --%>
-									<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt='하트'>
-<!-- 									</a> -->
-									<img class='like_event_images' src="${pageContext.request.contextPath}/resources/images/${like.e_fname}" alt='like_event'>
+								<div class='like_event_images'>
+									<img class='like_full_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt='하트'>
+									<a href='/event/eventDetail?e_num=${like.e_num}'>
+										<span class='like_event_image_wrap'>
+											<img class='like_event_image' src="${pageContext.request.contextPath}/resources/images/${like.e_fname}" alt='like_event'>
+										</span>
+									</a>
 								</div> 
 								<div class="like_one_wrap_bottom">
 									<div class=''>
 										<c:out value="${like.e_startRecruiteDate}"/><c:out value="${like.eh_location}"/>
 									</div>
-									<div class="">
-										<span><c:out value="${like.e_name}"/></span>
+									<div >
+										<a href='/event/eventDetail?e_num=${like.e_num}'>
+											<span class="eventSpan"><c:out value="${like.e_name}"/></span>
+										</a>
 									</div>
 									<div class="like_event_bottom">
-										<div>무료</div>
-										<div>　</div>	
-										<div><span><i class="far fa-eye"></i></span><c:out value="조회수 ${like.e_hitcount}"/></div>
+										<div>
+										무료
+										</div>
+									<div></div>
+									<div>
+										<span><i class="far fa-eye"></i></span><c:out value="조회수 ${like.e_hitcount}"/>
+									</div>
 									</div>
 								</div>	
 							</div>
 						</c:forEach>
-						<div class='like_one_wrap'>
-							<div class='like_event_image'>
-								<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>
-								<img class='like_event_images' src='${pageContext.request.contextPath}/resources/images/행사1.jpg' alt='like_event'>
-							</div>
-							<div class=''>
-								10월 30일(토) 금천구
-							</div>
-							<div class="">
-								<span>kosta223기 인성교육</span>
-							</div>
-							<div class="like_event_bottom">
-								<span>무료</span>	
-								<span><span><i class="far fa-eye"></i></span>조회수xx</span>
-							</div>	
-						</div>
-						
-						<div class='like_one_wrap'>
-							<div class='like_event_image'>
-								<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>
-								<img class='like_event_images' src='${pageContext.request.contextPath}/resources/images/행사2.jpg' alt='like_event'>
-							</div>
-							<div class=''>
-								10월 30일(토) 금천구
-							</div>
-							<div class="">
-								<span>kosta223기 인성교육</span>
-							</div>
-							<div class="like_event_bottom">
-								<span>무료</span>	조회수xx
-							</div>	
-						</div>
-						
-						<div class='like_one_wrap'>
-							<div class='like_event_image'>
-								<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>
-								<img class='like_event_images' src='${pageContext.request.contextPath}/resources/images/행사3.jpg' alt='like_event'>
-							</div>
-							<div class=''>
-								10월 30일(토) 금천구
-							</div>
-							<div class="">
-								<span>kosta223기 인성교육</span>
-							</div>
-							<div class="like_event_bottom">
-								<span>무료</span>	
-								<span><span><i class="far fa-eye"></i></span>조회수xx</span>
-							</div>	
-						</div>
-						
-						<div class='like_one_wrap'>
-							<div class='like_event_image'>
-								<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>
-								<img class='like_event_images' src='${pageContext.request.contextPath}/resources/images/행사4.jpg' alt='like_event'>
-							</div>
-							<div class=''>
-								10월 30일(토) 금천구
-							</div>
-							<div class="">
-								<span>kosta223기 인성교육</span>
-							</div>
-							<div class="like_event_bottom">
-								<span>무료</span>	
-								<span><span><i class="far fa-eye"></i></span>조회수xx</span>
-							</div>	
-						</div>
-						
-						<div class='like_one_wrap'>
-							<div class='like_event_image'>
-								<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>
-								<img class='like_event_images' src='${pageContext.request.contextPath}/resources/images/행사5.jpg' alt='like_event'>
-							</div>
-							<div class=''>
-								10월 30일(토) 금천구
-							</div>
-							<div class="">
-								<span>kosta223기 인성교육</span>
-							</div>
-							<div class="like_event_bottom">
-								<span>무료</span>	
-								<span><span><i class="far fa-eye"></i></span>조회수xx</span>
-							</div>	
-						</div>
-						
-						<div class='like_one_wrap'>
-							<div class='like_event_image'>
-								<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>
-								<img class='like_event_images' src='${pageContext.request.contextPath}/resources/images/행사6.jpg' alt='like_event'>
-							</div>
-							<div class=''>
-								10월 30일(토) 금천구
-							</div>
-							<div class="">
-								<span>kosta223기 인성교육</span>
-							</div>
-							<div class="like_event_bottom">
-								<span>무료</span>	
-								<span><span><i class="far fa-eye"></i></span>조회수xx</span>
-							</div>	
-						</div>
-						
-						<div class='like_one_wrap'>
-							<div class='like_event_image'>
-								<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>
-								<img class='like_event_images' src='${pageContext.request.contextPath}/resources/images/행사7.jpg' alt='like_event'>
-							</div>
-							<div class=''>
-								10월 30일(토) 금천구
-							</div>
-							<div class="">
-								<span>kosta223기 인성교육</span>
-							</div>
-							<div class="like_event_bottom">
-								<span>무료</span>	
-								<span><span><i class="far fa-eye"></i></span>조회수xx</span>
-							</div>	
-						</div>
-						
-						<div class='like_one_wrap'>
-							<div class='like_event_image'>
-								<img class='like_empty_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt=''>
-								<img class='like_event_images' src='${pageContext.request.contextPath}/resources/images/행사8.jpg' alt='like_event'>
-							</div>
-							<div class=''>
-								10월 30일(토) 금천구
-							</div>
-							<div class="">
-								<span>kosta223기 인성교육</span>
-							</div>
-							<div class="like_event_bottom">
-								<span>무료</span>	
-								<span><span><i class="far fa-eye"></i></span>조회수xx</span>
-							</div>	
-						</div>
-						
-						
-					<!-- 행사 1 end -->
 					</div>
-					<!--  -->
 				</div>
 			</div>
 		</div>			

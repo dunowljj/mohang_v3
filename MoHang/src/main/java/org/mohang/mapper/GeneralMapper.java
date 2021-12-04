@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.mohang.domain.AccountVO;
 import org.mohang.domain.GeneralLikeListDTO;
 import org.mohang.domain.GeneralMyReservationDTO;
+import org.mohang.domain.GeneralResPayTimeDTO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
 
@@ -20,18 +21,21 @@ public interface GeneralMapper {
 //	public updateInformationAttach
 	public List<GeneralLikeListDTO> getListLikes(String account_num);
 	
-	public int updateLikeStatus(@Param("account_num") String account_num, @Param("e_num") String e_num);
+	
+	public String getLikeStatusOfOne(@Param("account_num")String account_num,@Param("e_num") String e_num);
+	public int updateLikeStatusCancel(@Param("account_num") String account_num, @Param("e_num") String e_num);
 	
 	public List<GeneralMyReservationDTO> getListMyReservation(String account_num);
 	
 	//예약,결제
-	public int insertTicketReserv(TicketReservationDTO reservDTO);
-	public int insertTicketPay(@Param("payDTO")TicketPaymentDTO payDTO,@Param("ticket_reservation_num")String ticket_reservation_num);
+	public int insertTicketReserv(@Param("RAP")GeneralResPayTimeDTO RAP,@Param("reservDTO")TicketReservationDTO reservDTO);
+	public int insertTicketPay(@Param("RAP")GeneralResPayTimeDTO RAP ,@Param("payDTO")TicketPaymentDTO payDTO,@Param("ticket_reservation_num")String ticket_reservation_num);
 	
 	public Integer getSumOfTicketReserv(String e_num);
 	public int getRecruitePeople(String e_num);
 	
-	public int getRemainTicket(String e_num);
+	public Integer getRemainTicket(String e_num);
 	
 	public int getEventPeriodVolume(String e_num);
+	
 }
