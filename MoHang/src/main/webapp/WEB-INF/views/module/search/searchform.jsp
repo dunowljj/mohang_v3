@@ -255,6 +255,9 @@
 						</div>
 					</div>
 				</div>
+			<c:if test ="${empty list }">
+				검색결과가 없습니다.
+			</c:if>
 			<c:forEach items="${list}" var ="event" >	
 				<div class="eventbox_in">
 					<div class="eventimg">

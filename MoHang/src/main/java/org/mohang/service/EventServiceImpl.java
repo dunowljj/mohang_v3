@@ -49,7 +49,7 @@ public class EventServiceImpl implements EventService {
 	public List<EventLikeDTO> listBestEvent(HttpServletRequest request){
 		List<EventLikeDTO> likelist = new ArrayList<>();
 		List<EventVO> list = mapper.listBestEvent();
-
+		
 
 		HttpSession session = request.getSession();
 		String account_num = String.valueOf(session.getAttribute("account_num"));
@@ -117,7 +117,7 @@ public class EventServiceImpl implements EventService {
 				for(int i=0;i<list.size();i++){
 					likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent(account_num,list.get(i).getE_num())));
 				}
-		}else{
+		}else if(account_num=="0"){
 				
 				List<EventVO> list=mapper.listHitcountEvent();
 				for(int i=0;i<list.size();i++){

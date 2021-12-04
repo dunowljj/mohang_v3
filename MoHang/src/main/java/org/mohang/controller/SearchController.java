@@ -32,6 +32,7 @@ public class SearchController  {
     	search =search.replace(search);
     	List<EventLikeDTO> list =eventService.listEvent(search,request);
     	log.info("search :"+search);
+    	log.info("list :"+eventService.listEvent(search,request));
     	int total = eventService.getTotalCount(search);
     	model.addAttribute("total", total);
     	model.addAttribute("list", eventService.listEvent(search,request));
@@ -55,6 +56,7 @@ public class SearchController  {
     public String postSecondSearch(@ModelAttribute("search") Search search, Model model,HttpServletRequest request){
     	search =search.replace(search);
     	log.info("search :" +search);
+    	log.info("list :"+eventService.listEvent(search,request));
     	int total = eventService.getTotalCount(search);
     	model.addAttribute("total", total);
     	model.addAttribute("list", eventService.listEvent(search,request));

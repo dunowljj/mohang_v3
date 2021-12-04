@@ -25,7 +25,7 @@ public class MainController {
 		HttpSession session = request.getSession();
 		String account_num =String.valueOf(session.getAttribute("account_num"));
 		log.info("account_num:"+account_num);
-		if(account_num=="null"||("null").equals(account_num)){
+		if(account_num=="null"||("null").equals(account_num)||("0").equals(account_num)||account_num=="0"){
 			session.setAttribute("account_num", "0");
 		}
 		List <NoticeVO> notice = service.getNotice();

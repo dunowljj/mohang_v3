@@ -15,11 +15,15 @@
 <!-- <link href="../resources/css/bootstrap.min.css" rel="stylesheet" /> -->
 <!-- <link href="../resources/css/bootstrap.css" rel="stylesheet" /> -->
 </head>
+
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 
 <script type="text/javascript" src="../resources/js/view.js"></script>
 <script type="text/javascript">
-
+$(function(){
+	$('.carousel-item').eq(0).addClass('active');
+	
+})
 
 </script>
 <div id="carouselExampleControls" class="carousel slide"
@@ -37,15 +41,14 @@
 		</ul>
 	</div>
 	<div class="carousel-inner">
-		<div class="carousel-item active">
+		<div class="carousel-item ">
 			<img src="../resources/images/main(1).jpg" class="d-block w-100"
 				alt="...">
 		</div>
-		<div class="carousel-item">
+		<div class="carousel-item ">
 			<img src="../resources/images/main(2).jpg" class="d-block w-100"
 				alt="...">
 		</div>
-
 	</div>
 	<button class="carousel-control-prev" type="button"
 		data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -75,10 +78,6 @@
 					<a href="#" id="year_next"><img
 						src="../resources/images/next.png"></a>
 				</div>
-				<!-- 			로그인 세션에 있는 값 -->
-				<input type="hidden" name="account_Interest" value="문화/예술" />
-				<!-- 			로그인 세션에 있는 값 -->
-				<input type="hidden" name="account_num" value="1" />
 				<div id="day"></div>
 				<div class="month_event_box_in"></div>
 			</form>
@@ -101,6 +100,7 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
+
 <!-- Bootstrap core JS-->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

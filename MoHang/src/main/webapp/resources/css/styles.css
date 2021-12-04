@@ -12598,7 +12598,6 @@ html {
 	border-top: 1px solid #333;
 	background-color: #fdfdfd;
 	clear: both;
-	margin-top: 60px;
     display: inline-block;
     width: 100%;
 }
@@ -12743,7 +12742,7 @@ html {
 
 #container-box {
 	margin-top: 15px;
-    max-height: 1750px;
+    min-height: 1750px;
 	margin-bottom: 50px;
 }
 
@@ -13233,8 +13232,8 @@ span {
 .nav-eventbar{
 	list-style-type: none;
     margin-top: 15px;
-    margin-left: 340px;
-    
+    margin-left: 360px;
+    width: 160px;
 }
 .nav-eventbar li{
 	display: inline-block;
@@ -13263,3 +13262,5 @@ span {
     text-decoration: revert;
     font-size: 20px;
 }
+
+
