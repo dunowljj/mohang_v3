@@ -15,6 +15,7 @@ import org.mohang.domain.ApproveVO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.Event_Hall_ReservationVO;
 import org.mohang.domain.LikedVO;
+import org.mohang.domain.OrganizationVO;
 import org.mohang.service.EventService;
 import org.mohang.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +45,23 @@ public class EventController  {
 	private EventService eventService;
 	@Autowired
 	private OrganizationService organizationService;
+	
 	//행사신청정보페이지
 	@GetMapping("/insertForm")
 	public String insertForm(@RequestParam("o_num")String o_num, Model model){
 		log.info("----event insert form page----");
 		model.addAttribute("o_num",o_num);
+		return "module/event/insertForm";
+	}
+	
+	//메인에서 바로 신청하기
+	@GetMapping("/toinsertForm")
+	public String insertForm(HttpServletRequest request, Model model){
+		HttpSession session = request.getSession();
+		Object obj = session.getAttribute("account_num");
+		String account_num = String.valueOf(obj);
+		log.info("----event insert form page----");
+		model.addAttribute("o_num",eventService.getOnum(account_num));
 		return "module/event/insertForm";
 	}
 	

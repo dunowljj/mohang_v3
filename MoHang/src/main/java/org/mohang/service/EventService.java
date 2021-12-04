@@ -85,6 +85,8 @@ public interface EventService {
 	int insertEventHallReservation(Event_Hall_ReservationVO eventHallReservationVO);
 
 	public int  insertApprove(ApproveVO approveVO);
+	
+	public String getOnum(String account_num);
 
 
 }

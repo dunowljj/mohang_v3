@@ -310,6 +310,12 @@ public class EventServiceImpl implements EventService {
 		return mapper.insertApprove(approveVO);
 		
 	}
+	@Override
+	public String getOnum(String account_num) {
+		return mapper.getOnum(account_num);
+	}
+	
+	
 	
 	
 

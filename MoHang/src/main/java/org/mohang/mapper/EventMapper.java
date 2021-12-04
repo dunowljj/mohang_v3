@@ -77,6 +77,7 @@ public interface EventMapper {
 	public List<StatisticsInterestDTO> getStatistics_interest(String e_num);
 
 	public int insertApprove(ApproveVO approveVO);
-
+	
+	public String getOnum(String account_num);
 
 }
