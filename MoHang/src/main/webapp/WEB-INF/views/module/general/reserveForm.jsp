@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html> 
 <html>
 <head>
@@ -16,7 +15,7 @@
 <body>
 <%-- <span>${account.account_name}님 반갑습니다</span> --%>
 	<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general-script.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_reserve-script.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_modal-script.js"></script>
 	<div id="container-box1">
 		<div id="container">
@@ -72,7 +71,8 @@
 							<input type='hidden' id='ticket_reservation_amount' name='ticket_reservation_amount' value='1'/>
 							<input type='hidden' id='ticket_payment_price' name='ticket_payment_price' value=''/>
 							<input type='hidden' id='S_ticket_reservation_time' name='S_ticket_reservation_time' value=''/>
-							<input type='hidden' id='S_ticket_payment_time' name='S_ticket_payment_time' value=''/>
+							<input type='hidden' id='S_ticket_payment_time' name=S_ticket_payment_time value=''/>
+
 <!-- 							<input type='hidden' id='ticket_reservation_time' name='ticket_reservation_time'> -->
 							<input type='hidden' name='account_num' value='<c:out value="${account.account_num}"/>'/>
 							<br>

@@ -1,7 +1,7 @@
 	$(document).ready(function(){
 		
 		
-		$(".like_empty_heart").click(function(e){
+		$(".like_full_heart").click(function(e){
 			var answer;
 			answer = confirm("취소하시겠습니까? 확인을 누르시면 관심목록에서 제외됩니다.");
 			if(answer == true){
@@ -25,6 +25,10 @@
 				type: 'POST',
 				success: function(result){
 					console.log(result);
+					if(result == "failed"){
+						alert("이미 관심 해제한 행사입니다.");
+						document.location.href = "redirect:general/listLikes"
+					}
 					wrap.remove();
 				}
 			});

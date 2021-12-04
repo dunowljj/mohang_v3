@@ -1,4 +1,4 @@
-package org.zerock.mapper;
+package org.mohang.mapper;
 
 import static org.junit.Assert.*;
 
@@ -78,4 +78,20 @@ public class GeneralMapperTests {
 //		int hi = mapper.getEventPeriod("41");
 //		log.info(hi);
 //	}
+	@Test
+	public void getlike1(){
+		log.info("1@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41").trim().equals("0"));
+	}
+	@Test
+	public void getlike2(){
+		log.info("2@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41").equals("0"));
+	}
+	@Test
+	public void getlike3(){
+		log.info("3@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41")=="0");
+	}
+	@Test
+	public void getlike4(){
+		log.info("4@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41").equals(48));
+	}
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <!DOCTYPE html>
 <html>
@@ -11,7 +12,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general-script.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_reserve-script.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_modal-script.js"></script>
 	<div id="container-box1">
 		<div id="container">
@@ -41,13 +42,19 @@
 							<div>진행중</div>
 						</td>
 						<td class='reserveList_d2'>
-							<b><c:out value="${reserve.e_name}"/></b>
-							<div class="img_reserveList"><img src='${pageContext.request.contextPath}/resources/images/${reserve.e_fname}' alt='reserveList_image'></div>
+							<a href='/event/eventDetail?e_num=${reserve.e_num}'>
+								<b><c:out value="${reserve.e_name}"/></b>
+							</a>	
+							<div class="img_reserveList">
+								<a href='/event/eventDetail?e_num=${reserve.e_num}'>
+									<img src='${pageContext.request.contextPath}/resources/images/${reserve.e_fname}' alt='reserveList_image'>
+								</a>
+							</div>
 						</td>
 						<td class='reserveList_d3'>
-							2021.10.28(목)<br>
-							09:00~16:00
-							<c:out value="${reserve.eh_location}"/>
+<%-- 						일시 : <fmt:formatDate value="${reserve.ticket_reservation_time}" pattern="yyyy-MM-dd HH:mm:ss"/><br> --%>
+						일시 : <c:out value="${reserve.ticket_reservation_time}"/><br>
+						행사 장소 : <c:out value="${reserve.eh_location}"/>
 						</td>
 						<td class='reserveList_d4'>
 							최종금액 <c:out value="${reserve.ticket_payment_price}"/> 원
@@ -76,8 +83,17 @@
 						</td>
 						<td class='reserveList_d5'>
 						</td>
-						<td class='reserveList_d6'></td>
-						<td class='reserveList_d7'></td>
+						<td class='reserveList_d6'>
+							<c:out value="${reserve.ticket_attend}"/>
+						</td>
+						<td class='reserveList_d7'>
+							<c:if test="${'미참여' eq reserve.ticket_attend}">
+								<button id='btn_attend ${reserve.ticket_reservation_num}' value="참여">참석하기</button>
+							</c:if>
+							<c:if test="${'참여' eq reserve.ticket_attend}">
+							
+							</c:if>
+						</td>
 					</tr>
 							
 					</c:forEach>

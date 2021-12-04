@@ -70,7 +70,7 @@
 	    where 
 			l.LIKE_STATUS = '1' AND a.account_num = #{account_num}
 	</select>
-	<update id='updateLikeStatus'>
+	<update id='updateLikeStatusCancel'>
 		update
 			liked
 		set
@@ -78,6 +78,14 @@
 		where
 			account_num = #{account_num} AND e_num = #{e_num}
 	</update>
+	<select id='getLikeStatusOfOne' resultType='String'>
+		select
+			like_status
+		from
+			liked
+		where
+			account_num = #{account_num} AND e_num = #{e_num}
+	</select>
 	<!-- 관심목록 end-->
 	
 <!-- 예약목록 start -->
@@ -86,8 +94,8 @@
 		 a.account_num, a.account_name, a.account_phoneNumber, a.account_email, a.account_id,
 		 e.e_num, e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e_fname,
 		 eh.eh_location,
-		 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, 
-		 tr.ticket_reservation_time, ticket_reservation_status,
+		 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, tp.ticket_attend,
+		 TO_CHAR(tr.ticket_reservation_time,'YYYY-MM-DD HH24:MI:SS') AS ticket_reservation_time, ticket_reservation_status,
 		 tp.ticket_payment_price, tp.ticket_payment_status
 	from
 		 account a join ticket_reservation tr on a.account_num = tr.account_num
@@ -100,7 +108,7 @@
 <!-- 예약목록 start -->
 	<insert id='insertTicketReserv'>
 	
-		<selectKey keyProperty="ticket_reservation_num" 
+		<selectKey keyProperty="reservDTO.ticket_reservation_num" 
 			order="BEFORE" resultType="String">
 			select ticket_reservation_seq.nextval from dual
 		</selectKey>
@@ -113,9 +121,9 @@
 			ticket_reservation_status, ticket_reservation_time
 		)
 		values(
-			#{ticket_reservation_num}, #{e_num}, #{account_num},
-			#{ticket_reservation_price}, #{ticket_reservation_amount},
-			'예약완료', #{ticket_reservation_time}
+			#{reservDTO.ticket_reservation_num}, #{reservDTO.e_num}, #{reservDTO.account_num},
+			#{reservDTO.ticket_reservation_price},#{reservDTO.ticket_reservation_amount},
+			'예약완료', TO_DATE(#{RAP.S_ticket_reservation_time},'YYYY-MM-DD HH24:MI:SS')
 		)
 	</insert>
 	<insert id='insertTicketPay'>
@@ -128,7 +136,7 @@
 		)
 		values(
 			ticket_payment_seq.nextval, #{ticket_reservation_num}, #{payDTO.e_num},
-			#{payDTO.account_num}, #{payDTO.ticket_payment_method}, #{payDTO.ticket_payment_time},
+			#{payDTO.account_num}, #{payDTO.ticket_payment_method}, TO_DATE(#{RAP.S_ticket_payment_time},'YYYY-MM-DD HH24:MI:SS'),
 			#{payDTO.ticket_payment_price}, '결제완료', '미참여'
 		)
 	</insert>

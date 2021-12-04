@@ -29,5 +29,6 @@ public class GeneralMyReservationDTO {
 	private String ticket_reservation_time;
 	private String ticket_payment_status;
 	private int ticket_payment_price;
+	private String ticket_attend;
 }
 //

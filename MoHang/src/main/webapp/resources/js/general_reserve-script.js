@@ -1,6 +1,5 @@
+//------------------------reserve start-------------------------------
 //수량 더하기 빼기
-
-
 function count(type)  {
 	//티켓 표현요소들 선택
 	const ticketNumberElement = document.getElementById('ticketCount');
@@ -86,24 +85,16 @@ function pushTicketTotal(){
 
 //submit 시간 전달
 function pushPayTime(){
-	document.getElementById("S_ticket_payment_time").value=getTodayAndTime('-', ':', true)
+	document.getElementById("S_ticket_payment_time").value=getDateTrim('-', ':', true)
 	console.log(document.getElementById("S_ticket_payment_time").value)
 }
 
 //reserve페이지 진입 시점 날짜와 시간 전달 
 function pushReserveTime(){
-	document.getElementById("S_ticket_reservation_time").value=getTodayAndTime('-', ':', true)
-//	console.log(new Date().now)
-//	console.log("getTodayVal:"+document.getElementById("ticket_reservation_time").value)
-//	YYYY-MM-DD hh:mm:ss
+	document.getElementById("S_ticket_reservation_time").value=getDateTrim('-', ':', true)
 	console.log(document.getElementById("S_ticket_reservation_time").value)
 }
-function getTodayAll(){
-	let today = new Date()
-	console.log(today);
-	console.log(typeof today);
-	return today;
-}
+
 //function pushFmt(){
 //	var fmtPas = document.getElementsByTagName("fmt")[0].getAttribute('value');
 //	console.log(fmtPas);
@@ -111,10 +102,10 @@ function getTodayAll(){
 //	console.log(fmtPas);
 //}
 //날짜에다가  시간 선택해서 받기
-function getTodayAndTime(seperator1, seperator2, isContainTime){
+function getDateTrim(seperator1, seperator2, isContainTime){
 	let today = new Date()
 	var year = today.getFullYear();
-	var month = today.getMonth(); 
+	var month = today.getMonth()+1; 
 	var date = today.getDate();
 	var hours = today.getHours(); 
 	var minutes = today.getMinutes();

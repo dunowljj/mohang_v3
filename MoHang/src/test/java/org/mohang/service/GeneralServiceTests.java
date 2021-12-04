@@ -1,4 +1,4 @@
-package org.zerock.service;
+package org.mohang.service;
 
 import static org.junit.Assert.*;
 
@@ -41,4 +41,10 @@ public class GeneralServiceTests {
 //		}
 //		
 //	}
+	@Test
+	public void testLikeCancelTs(){
+		boolean isExecute = service.cancelLikeDisplay("2", "41");
+		log.info("isExecute???@@@"+isExecute);
+		
+	}
 }
