@@ -54,7 +54,7 @@ public class OrganizationController  {
 		
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("account_num");
-		String account_num = (String)obj;
+		String account_num = String.valueOf(obj);
 		
 		OrganizationVO organizationVO = service.getOrganization(account_num);
 		log.info("--get Organization--");
@@ -62,13 +62,7 @@ public class OrganizationController  {
 		return "module/organization/informationUpdateForm";
 	}
 
-	//단체정보업데이트페이지
-	@GetMapping("/informationUpdateForm")
-	public String informationUpdateForm(){
-		log.info("---Organization's information update form Page---");
-		return "module/organization/informationUpdateForm";
-	}
-	
+
 	//단체정보업데이트
 	@PostMapping("/updateOrganization")
 	public String updateOrganization(OrganizationVO organizationVO, RedirectAttributes rttr){

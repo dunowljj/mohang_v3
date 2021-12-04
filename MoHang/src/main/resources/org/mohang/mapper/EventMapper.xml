@@ -187,6 +187,10 @@
 	<!-- 지혜!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
 	<!-- 신청한 이벤트 정보 DB등록. 등록한 단체번호 o_num이 넘어와야할듯. -->
+	<select id="getOnum" resultType="String">
+		select o_num from organization where account_num = #{account_num}
+	</select>
+	
 	<insert id="insertApply">
 		<selectKey  resultType="String" keyProperty="e_num" order="BEFORE">
 			select event_seq.nextval FROM DUAL
