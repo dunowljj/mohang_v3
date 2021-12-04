@@ -6,124 +6,137 @@
 
 	<select id="listBestEvent" resultType="org.mohang.domain.EventVO">
 	 <![CDATA[
-		select  e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event order by e_like desc
+		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
+          from event e, approve a,event_hall_reservation r
+          where r.eh_reservation_num = a.eh_reservation_num
+               and e.e_num = r.e_num and a.ap_check='Y'
+          order by e.e_like desc
      ]]>
 	</select>
 	<select id="listLikeEvent" resultType="org.mohang.domain.LikedVO">
-		select * from liked where
-		account_num =#{account_num} and e_num = #{e_num}
+		  select * from liked where
+		  account_num =#{account_num} and e_num = #{e_num}
 	</select>
 	<select id="listMonthEvent" resultType="org.mohang.domain.EventVO">
 	<![CDATA[
-		select  e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount from event where e_startdate like  '%'||#{search}||'%'
+		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
+          from event e, approve a,event_hall_reservation r
+          where r.eh_reservation_num = a.eh_reservation_num
+           		and e.e_num = r.e_num and a.ap_check='Y' and e.e_startdate like  '%'||#{search}||'%'
 	]]>
 	</select>
 	<!-- 충돌20211203 -->
 	<select id="listRecommendEvent" resultType="org.mohang.domain.EventVO"
 		parameterType="java.util.List">
-		select
-		e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount
-		from
-		event where
+		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
+          from event e, approve a,event_hall_reservation r
+          where r.eh_reservation_num = a.eh_reservation_num
+          		and e.e_num = r.e_num and a.ap_check='Y' and
 		<foreach item="account_interest" collection="list" open="("
 			separator="or" close=")">
-			e_field = #{account_interest}
+				e.e_field = #{account_interest}
 		</foreach>
-		order by e_hitcount desc
+		  order by e.e_hitcount desc
 	</select>
 	<select id="listHitcountEvent" resultType="org.mohang.domain.EventVO">
-		select
-		e_num,e_name,e_startdate,e_enddate,e_price,e_fname,e_hitcount
-		from
-		event
-		order by e_hitcount desc
+		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
+	          from event e, approve a,event_hall_reservation r
+	          where r.eh_reservation_num = a.eh_reservation_num
+	          		and e.e_num = r.e_num and a.ap_check='Y'
+	  		  order by e.e_hitcount desc
 	</select>
 
 	<!-- 충돌끝 -->
 	<select id="listEvent" resultType="org.mohang.domain.EventVO"
 		parameterType="org.mohang.domain.Search">
 		<![CDATA[
-			SELECT * FROM (
-      		  SELECT a.*, ROWNUM as rnum FROM (
-               SELECT * FROM event
+			select e_num as e_num,o_num as o_num,e_name as e_name,e_startdate as e_startDate,e_enddate as e_endDate,e_fname as e_fname,e_price as e_price,e_hitcount as e_hitcount
+			from (
+      		      select a.*, rownum as rnum 
+      		      from (
+	               	     select e.e_num as e_num,e.o_num as o_num,e.e_name as e_name,e.e_startdate as e_startDate,e.e_enddate as e_endDate,e.e_fname as e_fname,e.e_price as e_price,e.e_hitcount as e_hitcount
+	              	     from event e, approve a,event_hall_reservation r
+	                     where r.eh_reservation_num = a.eh_reservation_num
+	               	    	  and e.e_num = r.e_num and a.ap_check='Y'  and e_enddate > sysdate 
 		]]>
-		<trim suffixOverrides="and" prefix="where">
 			<if test="keyword !=null and !keyword.equals('') ">
-				e_name like '%'||#{keyword}||'%' and
+						and e.e_name like '%'||#{keyword}||'%' 
 			</if>
 			<if test="field !=null and !field.equals('')">
-				e_field = #{field} and
+						and e.e_field = #{field}
 			</if>
 			<if test="type !=null and !type.equals('')">
-				e_type = #{type} and
+						and e.e_type = #{type} 
 			</if>
 			<if test="price != null and !price.equals('') and price.equals('무료')">
-				e_price = 0 and
+						and e.e_price = 0 
 			</if>
 			<if test="price != null and !price.equals('') and price.equals('유료/무료')">
-				e_price >= 0 and
+						and e.e_price >= 0
 			</if>
 			<if test="price != null and !price.equals('') and price.equals('유료')">
-				e_price > 0 and
+						and e.e_price > 0 
 			</if>
 			<if test="startDate != null and !startDate.equals('') ">
 						<![CDATA[
-						(e_startdate >=  #{startDate}
+						and (e.e_startdate >=  #{startDate}
 						]]>
 			</if>
 			<if test="endDate != null and !endDate.equals('')">
 						<![CDATA[
-						and e_enddate <=  #{endDate}) and 
+						and e.e_enddate <=  #{endDate}) 
 						]]>
 
 			</if>
-		</trim>
-		<if test="s_like != null and !s_like.equals('')">
-			order by e_like desc
-		</if>
-		<if test="s_price != null and !s_price.equals('')">
-			order by e_price desc
-		</if>
-		<if test="s_hitcount != null and !s_hitcount.equals('')">
-			order by e_hitcount desc
-		</if>
-					<![CDATA[	
-					         )
-			        a)  WHERE rnum > (#{pageNum} -1) * #{amount} and rnum <= (#{pageNum} * #{amount})
-					]]>
+			<if test="s_like != null and !s_like.equals('')">
+						order by e.e_like desc
+			</if>
+			<if test="s_price != null and !s_price.equals('')">
+						order by e.e_price desc
+			</if>
+			<if test="s_hitcount != null and !s_hitcount.equals('')">
+						order by e.e_hitcount desc
+			</if>
+			<![CDATA[	
+						         )
+				        a)  WHERE rnum > (#{pageNum} -1) * #{amount} and rnum <= (#{pageNum} * #{amount})
+			]]>
 	</select>
 	<select id="getTotalCount" resultType="int" parameterType="org.mohang.domain.Search">
-		select count(*) from event
-		<trim prefix="where (" suffix=")" prefixOverrides="and">
+			<![CDATA[	
+			   select count(*)
+               from event e, approve a,event_hall_reservation r
+               where r.eh_reservation_num = a.eh_reservation_num
+             	    and e.e_num = r.e_num and a.ap_check='Y' and e_enddate > sysdate
+			]]>
 			<if test="keyword !=null and !keyword.equals('') ">
-				and e_name like '%'||#{keyword}||'%'
+						and e.e_name like '%'||#{keyword}||'%'
 			</if>
 			<if test="field !=null and !field.equals('') ">
-				and e_field = #{field}
+						and e.e_field = #{field}
 			</if>
 			<if test="type !=null and !type.equals('')">
-				and e_type = #{type}
+						and e.e_type = #{type}
 			</if>
 			<if test="price != null and !price.equals('') and price.equals('무료')">
-				and e_price = 0
+						and e.e_price = 0
 			</if>
 			<if test="price != null and !price.equals('') and price.equals('유료/무료')">
-				and e_price >= 0
+						and e.e_price >= 0
 			</if>
 			<if test="price != null and !price.equals('') and price.equals('유료')">
-				and e_price > 0
+						and e.e_price > 0
 			</if>
 			<if test="startDate != null and !startDate.equals('') "> 
 						<![CDATA[
-						and (e_startdate >=  #{startDate}
+						and (e.e_startdate >=  #{startDate}
 						]]>
 			</if>
 			<if test="endDate != null and !endDate.equals('')">
 						<![CDATA[
-						and e_enddate <=  #{endDate})
+						and e.e_enddate <=  #{endDate})
 						]]>
 			</if>
-		</trim>
 	</select>
 	<select id="eventHallGet" resultType="org.mohang.domain.EventHallVO">
 		select * from event_hall

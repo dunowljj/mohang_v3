@@ -115,6 +115,7 @@
 	var now = new Date(); // 현재 날짜 및 시간
 	var year = now.getFullYear(); // 연도
 	var month = now.getMonth() + 1; // 월
+	var date = now.getDate(); // 일
 	var lastDate = new Date(year, month, 0).getDate();
 	
 	//두자리인지 한자리인지
@@ -154,7 +155,7 @@
 				  html +='<span class="price">'+list[i].e_price+'원</span>'
 				  html +='	 </div></div>'
 		 	  }
-		  }else{
+		  }else if(list.length<=8){
 			  for(var i = 0, len = list.length || 0; i < len; i++){
 		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
@@ -172,6 +173,8 @@
 				  html +='<span class="price">'+list[i].e_price+'원</span>'
 				  html +='	 </div></div>'
 		 	  }
+		  }else{
+			  	  html += '<div>행사일정이 없습니다.</div>'
 		  }
 	 	  $(".month_event_box_in").html(html);
 	   })
@@ -224,9 +227,8 @@
 				  html +='<span class="price">'+list[i].e_price+'원</span>'
 				  html +='	 </div></div>'
 					 
-				  $('.month_event_box_in').slick('slickAdd',html);
 		 	  }
- 		  }else{
+ 		  }else if(list.length<=8){
  			 for(var i = 0, len = list.length || 0; i < len; i++){
 		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
@@ -244,7 +246,9 @@
 				  html +='<span class="price">'+list[i].e_price+'원</span>'
 				  html +='	 </div></div>'
 		 	  }
- 		  }  
+ 		  }else{
+			  	  html += '<div>행사일정이 없습니다.</div>'
+		  }
 	 	  $(".month_event_box_in").html(html);
       })
       $('input[name=year]').val(year);
@@ -299,7 +303,7 @@
 		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
 		   			  html +='	 </div></div>'
 		   	 	 }
-             }else{
+             }else if(list.length<=8){
             	 for(var i = 0, len = list.length || 0; i < len; i++){
 		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
@@ -317,7 +321,9 @@
 		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
 		   			  html +='	 </div></div>'
 		   	 	 }
-             }
+             }else{
+            	 	  html += '<div>행사일정이 없습니다.</div>'
+   		 	 }
 	   	 	 $(".month_event_box_in").html(html);
              $('input[name=year]').val(year);
              $('input[name=month]').val(month);
@@ -373,7 +379,7 @@
 	        		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
 	        		   			  html +='	 </div></div>'
 	        		   	 	 }
-	                     }else{
+	                     }else if(list.length<=8){
 	                    	 for(var i = 0, len = list.length || 0; i < len; i++){
 	        		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
 	        		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
@@ -391,7 +397,9 @@
 	        		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
 	        		   			  html +='	 </div></div>'
 	        		   	 	 }
-	                     }
+	                     }else{
+	                    		  html += '<div>행사일정이 없습니다.</div>'
+	           			  }
 	        	   	 	 $(".month_event_box_in").html(html);
 	                     $('input[name=year]').val(year);
 	                     $('input[name=month]').val(month);
@@ -451,7 +459,7 @@
 				</ul>
 				
 				<c:if test="${account != null}">
-				<% if(check.equals("true")){ %>
+				<% if(check.equals("false")){ %>
 				<div id="pro_box">
 					<a href="#"><img src="../resources/images/프로필.png"></a>
 					<div class="button">

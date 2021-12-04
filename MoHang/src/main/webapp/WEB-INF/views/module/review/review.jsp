@@ -53,108 +53,11 @@
 		</thead>
 		<tbody>
 			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></th>
-				<td><a href="/MoHang/Review/ReviewDetail.do"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">바보</font></font></a></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">김원형</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">2021.10.22</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">999999999999999</font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">2</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">멍청</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">김원형</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">2021.10.22</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">9</font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">3</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">4</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">5</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">6</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">7</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">8</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">9</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-			</tr>
-			<tr>
-				<th scope="row"><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">10</font></font></th>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
-				<td><font style="vertical-align: inherit;"><font
-						style="vertical-align: inherit;">1</font></font></td>
+			<td>1</td>
+			<td><a href="/review/review_detail">제목</a></td>
+			<td>xxx</td>
+			<td>2021-12-04</td>
+			<td>0</td>
 			</tr>
 		</tbody>
 		</table>

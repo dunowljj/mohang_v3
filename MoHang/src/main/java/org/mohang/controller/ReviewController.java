@@ -10,13 +10,13 @@ public class ReviewController{
 	@GetMapping("/review")
 	public String review(){
 	
-	return "/module/review/review";
+		return "/module/review/review";
 	}
 	
 	@GetMapping("/review_detail")
 	public String review_detail(){
 	
-	return "/module/review/review_detail";
+		return "/module/review/review_detail";
 	}
 	
 	
