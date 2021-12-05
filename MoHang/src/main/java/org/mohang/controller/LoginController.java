@@ -45,7 +45,7 @@ public class LoginController {
 	@PostMapping("/join")
 	public String joinPost(AccountVO account) throws Exception {
 		log.info("join진입");
-
+		account.setAccount_delete("Y");
 		accountService.memberJoin(account);
 		log.info("서비스 성공");
 		return "redirect:/Main";

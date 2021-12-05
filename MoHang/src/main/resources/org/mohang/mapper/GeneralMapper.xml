@@ -86,7 +86,7 @@
 		WHERE
 			account_num = #{account_num} AND e_num = #{e_num}
 	</select>
-	<select id='getListLikeAll' resultType='org.mohang.domain.LikedDTO'>
+	<select id='getListLikeAll' resultType='org.mohang.domain.LikedVO'>
 		SELECT
 			*
 		FROM

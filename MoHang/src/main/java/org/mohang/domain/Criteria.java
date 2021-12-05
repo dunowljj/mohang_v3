@@ -8,7 +8,6 @@ public class Criteria {
  	private int amount; //한페이지당 글 갯수  
  	private String keyword;//검색키워드
 	
- 	private String keyword;
 	public Criteria(){ 
 		this(1,5); 
 	 } 
