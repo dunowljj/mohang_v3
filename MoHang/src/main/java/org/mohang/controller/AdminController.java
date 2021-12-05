@@ -89,9 +89,19 @@ public class AdminController {
 
 	
 	/* 행사예약티켓 조회 예약한 티켓리스트들을 보여준다. */
-	@GetMapping("listReservationTicket")
+	/*@GetMapping("listReservationTicket")
 	public String listreservationTicket(Model model) {
 		model.addAttribute("ticket",service.listreservationTicket());
+		return "module/admin/adminReservationTicketManagement";
+	}
+	*/
+	
+	/* 행사예약티켓 페이징처리가 된 예약한 티켓리스트들을 보여준다. */
+	@GetMapping("listReservationTicket")
+	public String listreservationTicket(Criteria cri, Model model) {
+		model.addAttribute("ticket",service.getlistreservationTicketPaging(cri));
+		int total = service.getTicketReservationTotal();
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		return "module/admin/adminReservationTicketManagement";
 	}
 
@@ -118,7 +128,7 @@ public class AdminController {
 	public String notice(Criteria cri, Model model) {
 		model.addAttribute("notice",service.getNoticePaging(cri));
 		log.info(service.getNoticePaging(cri));
-		int total = service.getNoticeTotal();
+		int total = service.getNoticeTotal(cri);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
 		return "module/admin/adminNotice";
@@ -190,7 +200,7 @@ public class AdminController {
 	public String getReview(Criteria cri, Model model){
 		model.addAttribute("review",service.getReviewPaging(cri));
 		log.info("review:"+service.getReviewPaging(cri));
-		int total = service.getReviewTotal();
+		int total = service.getReviewTotal(cri);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		return "/module/admin/adminReviewManagement";
 	}
@@ -216,12 +226,23 @@ public class AdminController {
 	
 	
 	/* 등록된 회원에 대한 리스트들을 보여준다. */
-	@GetMapping("listAccount")
+	/*@GetMapping("listAccount")
 	public String management(Model model) {
 		model.addAttribute("account", service.listAccount());
 
 		return "module/admin/adminManagement";
 	}
+	*/
+	
+	/* 등록된 회원에 대한 페이징처리에 대한 리스트들을 보여준다. */
+	@GetMapping("listAccount")
+	public String management(Criteria cri, Model model) {
+		model.addAttribute("account",service.getAccountPaging(cri));
+		int total = service.getAccountTotal(cri);
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		return "module/admin/adminManagement";
+	}
+
 
 	/* 회원정보삭제 버튼 눌렀을시 기존의 삭제 여부가 N-> Y로 바뀌게 하는 부분*/
 	@GetMapping("deleteAccount")

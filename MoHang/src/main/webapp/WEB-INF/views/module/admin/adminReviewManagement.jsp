@@ -25,15 +25,17 @@
 <div class ="dd" style= "display : none">	
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 </div>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin.js"></script>	
+
 	
 	<div id="container-box1" style = "clear:both; padding-top: 70px;">
 	<div id="container" style="padding-bottom: 60px;">
 	
 	
-		<form class="d-flex" style=" float: left;">
-			<input class="form-control me-sm-2"type="text" placeholder="Search"    style=" width: auto;">
-			<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
+		<form class="d-flex" style=" float: left;" action="/admin/listReview" method="get" id="reviewSearchForm">
+			<input class="form-control me-sm-2"type="text" placeholder="Search" name = "keyword" style=" width: auto;">
+			<button class="btn btn-secondary my-2 my-sm-01" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
+		    <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/> 
+		     <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' />
 		</form>
 		<a id="btn btn-secondary my-2 my-sm-02" class="btn_1" href= "/admin/listNotice" style="text-decoration:none;">공지사항</a>&nbsp;&nbsp;&nbsp;
 		<a id="btn btn-secondary my-2 my-sm-03" class="btn_1" href="/MoHang/admin/AdminReview.do" style ="color:red; text-decoration:none;"> 리뷰</a>
@@ -112,7 +114,8 @@
 		</div>
 		<form id ="actionForm" action="/admin/listReview" method="get">
 				<input type="hidden" name='pageNum' value="${pageMaker.cri.pageNum}">
-				<input type="hidden" name='amount' value="${pageMaker.cri.amount}">		
+				<input type="hidden" name='amount' value="${pageMaker.cri.amount}">	
+				<input type="hidden" name='keyword' value="${pageMaker.cri.keyword}">		
 		</form>
 		
 		<div class="choice_cancel">
@@ -123,5 +126,6 @@
 		</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin.js"></script>	
 </body>
 </html>
