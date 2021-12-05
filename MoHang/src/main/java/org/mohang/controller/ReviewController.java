@@ -18,7 +18,4 @@ public class ReviewController{
 	
 		return "/module/review/review_detail";
 	}
-	
-	
-
 }
