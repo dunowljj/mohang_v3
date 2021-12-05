@@ -52,10 +52,16 @@
 			</form>
 			
 			<div>
-				<button type="button" class="btn btn-warning"
-					onclick="location.href='javascript:kakaoLogin();'"
-					style="width: 150px; background-color: yellow;">카카오톡으로 로그인</button>
+				<a href="javascript:kakaoLogin();"><img src="../resources/images/카카오.png"></a>
+				<a><img src="../resources/images/네이버.png"></a>
 			</div>
+			
+			<div>
+				<a><img src="../resources/images/구글.png"></a>
+				<a><img src="../resources/images/페이스북.png"></a>
+			</div>
+				
+			
 			<a href="javascript:kakaoLogout();">로그아웃</a> <a
 				href="javascript:secession();">탈퇴</a>
 		</div>
@@ -113,15 +119,16 @@
     	});
     };
     
-    <script>
+    </script>
+    
+<!-- 	페이스북 -->
+	<script>
+//    기존 로그인 상태를 가져오기 위해 Facebook에 대한 호출
+//    function statusChangeCallback(res){
+//    	statusChangeCallback(response);
+//    }
 
-    /* 페이스북 */
-//   //기존 로그인 상태를 가져오기 위해 Facebook에 대한 호출
-//   function statusChangeCallback(res){
-//   	statusChangeCallback(response);
-//   }
-
-//   function fnFbCustomLogin(){
+//    function fnFbCustomLogin(){
 //   	FB.login(function(response) {
 //   		if (response.status === 'connected') {
 //   			FB.api('/me', 'get', {fields: 'name,email'}, function(r) {
@@ -150,8 +157,9 @@
 
 	 </script>
 	 
-<!-- 	 <!-- 네이버 스크립트 --> -->
+<!-- 	 <!-- 네이버 스크립트 --> 
 <!-- <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script> -->
+
 
 <script>
 
@@ -201,7 +209,10 @@
 	
 	
 // }
-<!-- </script> -->
+</script>
+
+<!-- 구글 -->
+<script>
 	 
 <!-- 	 function init() { -->
 <!-- 	gapi.load('auth2', function() { -->
@@ -234,6 +245,8 @@
 <!-- 		console.log(e); -->
 <!-- 	}) -->
 <!-- } -->
+</script>
+
 	 
     <script>
     //로그인 버튼 클릭 메서드 
