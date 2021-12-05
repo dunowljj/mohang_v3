@@ -39,9 +39,9 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public EventVO eventGetName(String account_num) {
+	public EventVO eventGetName(String account_num,String ticket_reservation_num) {
 		// TODO Auto-generated method stub
-		return reviewMapper.eventGetName(account_num);
+		return reviewMapper.eventGetName(account_num, ticket_reservation_num);
 	}
 	
 }

@@ -40,5 +40,7 @@
 			where e.e_num= tr.e_num
 			and tr.ticket_reservation_num = tp.ticket_reservation_num
 			and tr.account_num = #{account_num}	
+			and tr.ticket_reservation_num = #{ticket_reservation_num}
+			and tp.ticket_attend='참여'
 	</select>
 </mapper> 

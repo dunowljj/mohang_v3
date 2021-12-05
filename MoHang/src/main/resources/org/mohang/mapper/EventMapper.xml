@@ -30,7 +30,7 @@
 		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
           from event e, approve a,event_hall_reservation r
           where r.eh_reservation_num = a.eh_reservation_num
-           		and e.e_num = r.e_num and a.ap_check='Y' and e.e_startdate <= #{search} and  e.e_endDate >= #{search} and e_enddate > sysdate 
+           		and e.e_num = r.e_num and a.ap_check='Y' and e.e_startdate <= #{search} and  e.e_endDate >= #{search} and e_enddate > sysdate order by e.e_startdate
 	]]>
 	</select>
 	<!-- 충돌20211203 -->

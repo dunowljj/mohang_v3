@@ -18,4 +18,8 @@ public class ReviewVO {
 	private Date review_date;
 	private int review_hitcount;
 	private String review_scope; //별점
+	private String ticket_reservation_num;
+	private String e_num;
+	
+
 }

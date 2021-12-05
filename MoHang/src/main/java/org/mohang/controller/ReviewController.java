@@ -36,8 +36,8 @@ public class ReviewController{
 	public String review_detail(@RequestParam("review_num")String review_num,@RequestParam("account_num")String account_num,@RequestParam("ticket_reservation_num")String ticket_reservation_num,Model model){
 		ReviewVO review = reviewService.reviewDetail(review_num);
 		model.addAttribute("Review", review);
-		//xml 수정 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		model.addAttribute("Event", reviewService.eventGetName(account_num,ticket_reservation_num));
+		
+		model.addAttribute("Event", reviewService.eventGetName(account_num,ticket_reservation_num));
 		return "/module/review/review_detail";
 	}
 	

@@ -13261,7 +13261,10 @@ span {
 .active{
 	color: red;
     text-decoration: revert;
-    font-size: 20px;
+    font-size: 18px;
+}
+.carousel-in{
+	
 }
 
 

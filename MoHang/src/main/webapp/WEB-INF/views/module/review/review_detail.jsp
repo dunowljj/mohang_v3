@@ -21,7 +21,7 @@
 			<li><a href="/search/searchform?field=문화/예술">문화/예술</a></li>
 			<li><a href="/search/searchform?field=취미/생활">취미/생활</a></li>
 			<li><a href="/search/searchform?field=건강/의료">건강/의료</a></li>
-			<li><a href="/review/list">리뷰게시판</a></li>
+			<li><a href="/review/review">리뷰게시판</a></li>
 		</ul>
 	</div>
 
@@ -29,9 +29,9 @@
 	<div id="container">
 리뷰게시판
 <hr>
-제목 :${Review.review_title }
+제목 : ${Review.review_title }
 <br> 
-참가한 행사 :${Event.e_name }
+참가한 행사 : ${Event.e_name }
 <div class="star-ratings">
 	<div  class="star-ratings-fill-space-x-2-text-lg" style="{ width: ratingToPercent + '%' }">
 		<div class="div_none"></div>
@@ -50,18 +50,32 @@
 		<c:if test="${Review.review_scope eq 1 }">
 			<span>★</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
 		</c:if>
+		<div style="width: 970px; display: inline-block;"></div>
 		작성일 : <fmt:formatDate value ="${Review.review_date }" pattern = "yyyy-MM-dd"/>
 		[조회수] ${Review.review_hitcount }
+		<hr>
 	</div>
 </div>
 <div>
 	
 </div>
+<div class="review_content">
 ${Review.review_content }
+</div>
 <hr>
-<div id = "ee">
-	작성자 날짜<br>
-	댓글내용
+<div id = "reply_box">
+	<hr>
+	작성자 :<div class=""></div><br>
+	날짜 :<div class=""></div><br>
+	댓글내용 :<div class=""></div>
+	<hr>
+</div>
+<div id = "reply_box">
+	<hr>
+	작성자 :<div class=""></div><br>
+	날짜 :<div class=""></div><br>
+	댓글내용 :<div class=""></div>
+	<hr>
 </div>
 <hr>
 <label for="exampleFormControlTextarea1" class="form-label">댓글쓰기</label>

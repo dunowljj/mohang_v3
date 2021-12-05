@@ -14,6 +14,6 @@ public interface ReviewService {
 
 	public ReviewVO reviewDetail(String review_num);
 
-	public EventVO eventGetName(String account_num);
+	public EventVO eventGetName(String account_num,String ticket_reservation_num);
 
 }
