@@ -8,57 +8,57 @@
 	<!-- 회원 정보  업데이트폼-->
 	<select id="getInformation" resultType="org.mohang.domain.AccountVO" parameterType="String">
 <!-- 	<![CDATA[ -->
-		select
+		SELECT
 			account_gender, account_birth_date, account_phoneNumber, account_num,
 			account_interest, account_email, account_address, account_name, account_id
-		from
+		FROM
 			account
-		where
+		WHERE
 			account_num = #{account_num}
 <!-- 	]]> -->
 	</select>
 	
 	<update id="updateInformation">
-		update 
+		UPDATE 
 			account 
-		set
+		SET
 			account_gender = #{account_gender},
 			account_birth_date = #{account_birth_date},
 			account_phoneNumber = #{account_phoneNumber},
 			account_interest = #{account_interest},
 			account_email = #{account_email},
 			account_address = #{account_address}
-		where
+		WHERE
 			account_num = #{account_num}
 	</update>
 	
 	<select id="getPassword" resultType="String">
-		select
+		SELECT
 			account_password
-		from
+		FROM
 			account
-		where 
+		WHERE 
 			account_num = #{account_num}
 	</select>
 	
 	<update id="updatePassword">
-		update 
+		UPDATE 
 			Account 
-		set 
+		SET 
 			account_password = #{account_password}
-		where
+		WHERE
 			account_num = #{account_num}
 	</update>
 		<!-- 회원 정보  업데이트폼 end-->
 	
 	<!-- 관심목록 -->
 	<select id="getListLikes" resultType="org.mohang.domain.GeneralLikeListDTO">
-		select
+		SELECT
 			a.account_num, 
 			e.e_num, eh.eh_location, e.e_name, e.e_hitcount,
 			e.e_price, e.e_startRecruiteDate, e.e_fname,
 			l.like_status
-		from
+		FROM
 			account a 
 			
 			JOIN liked l 
@@ -67,117 +67,175 @@
 		    	ON  l.e_num = e.e_num
 		    JOIN event_hall eh 
 		    	ON e.eh_num = eh.eh_num
-	    where 
+	    WHERE 
 			l.LIKE_STATUS = '1' AND a.account_num = #{account_num}
 	</select>
 	<update id='updateLikeStatusCancel'>
-		update
+		UPDATE
 			liked
-		set
+		SET
 			like_status = '0'
-		where
+		WHERE
 			account_num = #{account_num} AND e_num = #{e_num}
 	</update>
 	<select id='getLikeStatusOfOne' resultType='String'>
-		select
+		SELECT
 			like_status
-		from
+		FROM
 			liked
-		where
+		WHERE
+			account_num = #{account_num} AND e_num = #{e_num}
+	</select>
+	<select id='getListLikeAll' resultType='org.mohang.domain.LikedDTO'>
+		SELECT
+			*
+		FROM
+			liked
+		WHERE
 			account_num = #{account_num} AND e_num = #{e_num}
 	</select>
 	<!-- 관심목록 end-->
 	
 <!-- 예약목록 start -->
 	<select id='getListMyReservation' resultType='org.mohang.domain.GeneralMyReservationDTO'>
-	select 
-		 a.account_num, a.account_name, a.account_phoneNumber, a.account_email, a.account_id,
-		 e.e_num, e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e_fname,
-		 eh.eh_location,
-		 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, tp.ticket_attend,
-		 TO_CHAR(tr.ticket_reservation_time,'YYYY-MM-DD HH24:MI:SS') AS ticket_reservation_time, ticket_reservation_status,
-		 tp.ticket_payment_price, tp.ticket_payment_status
-	from
-		 account a join ticket_reservation tr on a.account_num = tr.account_num
-		 join ticket_payment tp on tr.ticket_reservation_num = tp.ticket_reservation_num
-		 join event e on tr.e_num = e.e_num
-		 join event_hall eh on eh.eh_num = e.eh_num
-	where
-		a.account_num = #{account_num}
+		SELECT 
+			 a.account_num, a.account_name, a.account_phoneNumber, a.account_email, a.account_id,
+			 e.e_num, e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e_fname,
+			 eh.eh_location,
+			 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, tp.ticket_attend,
+			 TO_CHAR(tr.ticket_reservation_time,'YYYY-MM-DD HH24:MI:SS') AS ticket_reservation_time, ticket_reservation_status,
+			 tp.ticket_payment_price, tp.ticket_payment_status
+		FROM
+			 account a join ticket_reservation tr on a.account_num = tr.account_num
+			 join ticket_payment tp on tr.ticket_reservation_num = tp.ticket_reservation_num
+			 join event e on tr.e_num = e.e_num
+			 join event_hall eh on eh.eh_num = e.eh_num
+		WHERE
+			a.account_num = #{account_num}
 	</select>
 <!-- 예약목록 start -->
-	<insert id='insertTicketReserv'>
+	<insert id='insertTicketReservation'>
 	
 		<selectKey keyProperty="reservDTO.ticket_reservation_num" 
 			order="BEFORE" resultType="String">
-			select ticket_reservation_seq.nextval from dual
+			SELECT ticket_reservation_seq.nextval from dual
 		</selectKey>
 		
-		insert into 
+		INSERT INTO 
 			ticket_reservation
 		(
 			ticket_reservation_num,	e_num, account_num,
 			ticket_reservation_price, ticket_reservation_amount,
 			ticket_reservation_status, ticket_reservation_time
 		)
-		values(
+		VALUES(
 			#{reservDTO.ticket_reservation_num}, #{reservDTO.e_num}, #{reservDTO.account_num},
 			#{reservDTO.ticket_reservation_price},#{reservDTO.ticket_reservation_amount},
 			'예약완료', TO_DATE(#{RAP.S_ticket_reservation_time},'YYYY-MM-DD HH24:MI:SS')
 		)
 	</insert>
 	<insert id='insertTicketPay'>
-		insert into
+		INSERT INTO
 			ticket_payment
 		(
 			ticket_payment_num,	ticket_reservation_num,	e_num,
 			account_num, ticket_payment_method,	ticket_payment_time,
 			ticket_payment_price, ticket_payment_status, ticket_attend
 		)
-		values(
+		VALUES(
 			ticket_payment_seq.nextval, #{ticket_reservation_num}, #{payDTO.e_num},
 			#{payDTO.account_num}, #{payDTO.ticket_payment_method}, TO_DATE(#{RAP.S_ticket_payment_time},'YYYY-MM-DD HH24:MI:SS'),
 			#{payDTO.ticket_payment_price}, '결제완료', '미참여'
 		)
 	</insert>
+	
+	<update id='updateAttendStatus'>
+		UPDATE
+			ticket_payment
+		SET
+			ticket_attend = '참여'
+		WHERE
+			ticket_reservation_num = #{ticket_reservation_num}
+	</update>
+	
+	<update id='updateReservationCancel'>
+		UPDATE
+			ticket_reservation
+		SET
+			ticket_reservation_status = '예약취소'
+		WHERE
+			ticket_reservation_num = #{ticket_reservation_num}
+	</update>
+	
+	<update id='updatePayCancel'>
+		UPDATE
+			ticket_payment
+		SET
+			ticket_payment_status = '환불완료'
+		WHERE
+			ticket_reservation_num = #{ticket_reservation_num}
+	</update>
+	
 <!-- 	예약목록 end -->
 <!-- 	예약 인원 제한start -->
-	<select id='getSumOfTicketReserv' resultType='Int'>
-	select
-		sum(ticket_reservation_amount)
-  	FROM
-  		ticket_reservation
-  	WHERE
-  		e_num = #{e_num}
+	<select id='getSumOfTicketReservation' resultType='int'>
+		SELECT
+			sum(ticket_reservation_amount)
+	  	FROM
+	  		ticket_reservation tr 
+	  			JOIN ticket_payment tp 
+	  				ON tr.ticket_reservation_num = tp.ticket_reservation_num
+	  	WHERE
+	  		tr.e_num = #{e_num}
+	  	AND
+	  		NOT ticket_reservation_status = '예약취소'
+      	AND
+        	NOT ticket_payment_status = '환불완료'	
 	</select>
 	
 	<select id='getRecruitePeople' resultType='Int'>
-	select
-		E_RecruitePeople
-  	FROM
-  		event
-    WHERE
-    	e_num = #{e_num}
+		select
+			E_RecruitePeople
+	  	FROM
+	  		event
+	    WHERE
+	    	e_num = #{e_num}
 	</select>
-	<select id='getRemainTicket' resultType='Int'>
-	select
-		(e.E_RecruitePeople&#45;sum(tr.ticket_reservation_amount)) as ticket_remain
-	FROM
-		ticket_reservation tr JOIN event e ON e.e_num = tr.e_num
-    WHERE
-    	e.e_num = #{e_num}
-    GROUP BY
+	
+	<select id='getRemainTicket' resultType='int'>
+		SELECT
+			(e.E_RecruitePeople&#45;sum(tr.ticket_reservation_amount)) as ticket_remain
+		FROM
+			ticket_reservation tr 
+				JOIN event e 
+					ON e.e_num = tr.e_num
+				JOIN ticket_payment tp 
+					ON tp.ticket_reservation_num = tr.ticket_reservation_num
+	    WHERE
+	    	e.e_num = #{e_num}
+	    	AND
+		  		NOT ticket_reservation_status = '예약취소'
+	      	AND
+	            NOT TICKET_PAYMENT_STATUS = '환불완료'
+	    GROUP BY
     	e.E_RecruitePeople
 	</select>
 	
-	
-	
 	<select id="getEventPeriodVolume" resultType="int">
+		SELECT
+			e_enddate-e_startdate from event
+		WHERE 
+			e_num = #{e_num}
+	<!-- 	예약 인원 제한end -->
 	
-	select
-		e_enddate-e_startdate from event
-	where 
-		e_num = #{e_num}
+	<!-- 참여한 행사 start-->
+	
 	</select>
-	
+	<select id='getListApplyEvents' resultType='org.mohang.domain.EventVO'>
+		SELECT
+			e_fname, e_name, e_startDate, e_endDate, e_price
+		FROM
+			event
+		WHERE account_num = #{account_num}
+	</select>
 </mapper> 

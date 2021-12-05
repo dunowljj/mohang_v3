@@ -2,7 +2,10 @@ package org.mohang.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralLikeListDTO;
@@ -34,13 +37,17 @@ public interface GeneralService  {
 	//reserveList
 	public List<GeneralMyReservationDTO> getListMyReservation(String account_num);
 	
-	public boolean insertReservAndPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO, GeneralResPayTimeDTO RAP);
+	//attend
+	public boolean attendEvent(String ticket_reservation_num);
+	public boolean cancelReservationAndPay(String ticket_reservation_num);
 
 	//reserve,pay
+	public boolean insertReservationAndPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO, GeneralResPayTimeDTO RAP);
 //	boolean insertPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO);
 //	boolean insertReserv(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO);
 	public int getRemainTicket(String e_num);
 	public int getTotalticket(String e_num);
 	
+	public List<EventLikeDTO> listMyPartInReseravtion(String account_num,String e_num);
 }
 

@@ -1,8 +1,14 @@
 package org.mohang.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.EventLikeDTO;
+import org.mohang.domain.EventVO;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralLikeListDTO;
@@ -120,12 +126,12 @@ public class GeneralServiceImpl implements GeneralService {
 	//-----Reserve-----
 //	@Transactional
 	@Override
-	public boolean insertReservAndPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO, GeneralResPayTimeDTO RAP) {
+	public boolean insertReservationAndPay(TicketReservationDTO reservDTO, TicketPaymentDTO payDTO, GeneralResPayTimeDTO RAP) {
 		if((reservDTO.getTicket_reservation_amount() >	this.getRemainTicket(reservDTO.getE_num()))){
 			return false;
 		}
 		
-		if(mapper.insertTicketReserv(RAP, reservDTO) ==1){
+		if(mapper.insertTicketReservation(RAP, reservDTO) ==1){
 			return mapper.insertTicketPay(RAP, payDTO, reservDTO.getTicket_reservation_num()) ==1;
 		}
 		
@@ -135,18 +141,48 @@ public class GeneralServiceImpl implements GeneralService {
 	@Override
 	public int getRemainTicket(String e_num) {
 		
-		if(mapper.getSumOfTicketReserv(e_num) == null){
+		if(mapper.getSumOfTicketReservation(e_num) == null){
 			return mapper.getRecruitePeople(e_num);
 		}
 		return mapper.getRemainTicket(e_num);
 	}
-
+	@Transactional
 	@Override
 	public int getTotalticket(String e_num) {
 		int periodVolume = mapper.getEventPeriodVolume(e_num);
 		int remainTicket = mapper.getRemainTicket(e_num);
 		return periodVolume*remainTicket;
 	}
+
+	@Override
+	public boolean attendEvent(String ticket_reservation_num) {
+		return mapper.updateAttendStatus(ticket_reservation_num)==1;
+	}
+
+	@Transactional
+	@Override
+	public boolean cancelReservationAndPay(String ticket_reservation_num) {
+		mapper.updateReservationCancel(ticket_reservation_num);
+		return mapper.updatePayCancel(ticket_reservation_num)==1;
+	}
+
+	@Override
+	public List<EventLikeDTO> listMyPartInReseravtion(String account_num, String e_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public List<EventLikeDTO> listMyPartInReseravtion(String account_num) {
+//		List<EventLikeDTO> likeList = new ArrayList<EventLikeDTO>();
+//	
+//		for(int i=0; i<likeList.size(); i++){
+//			likeList.add(new EventLikeDTO(mapper.getListApplyEvents(account_num),
+//					mapper.getListLikeAll)
+//		}
+//		
+//		return  likeList;
+//	}
 
 	
 	

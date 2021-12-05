@@ -48,8 +48,10 @@ public class GeneralController {
 	
 	@Autowired
 	private GeneralService service;
+	
 	@Autowired
 	private OrganizationService orgService;
+	
 	@Autowired
 	private EventService eventService;
 	
@@ -131,15 +133,7 @@ public class GeneralController {
 		
 		return "";
 	}
-	
-	
-	@GetMapping("/getReserve")
-	public String getReserve(){
-		log.info("getRe");
-		
-		return "";
-	}
-	
+
 	@GetMapping("/reserve")
 	public String reserveForm(HttpServletRequest request, Model model,@RequestParam("e_num") String e_num){
 		log.info("reserveForm");
@@ -164,7 +158,6 @@ public class GeneralController {
 		return "module/general/reserveForm";
 	}
 	
-	
 	@PostMapping("/reserve")
 	public String reserve(HttpServletRequest request, EventVO eventVO,TicketReservationDTO reservDTO, TicketPaymentDTO payDTO,
 			GeneralResPayTimeDTO RAP, RedirectAttributes rttr){
@@ -180,7 +173,7 @@ public class GeneralController {
 		log.info(reservDTO);
 		log.info(payDTO);
 		
-		if(service.insertReservAndPay(reservDTO, payDTO, RAP)){
+		if(service.insertReservationAndPay(reservDTO, payDTO, RAP)){
 			log.info("success reserve");
 		} else {
 //			rttr.addAttribute("message","모두 매진되었습니다.");
@@ -199,6 +192,32 @@ public class GeneralController {
 //	}
 //	
 	
+	@PostMapping("/attendEvent")
+	public String attendEvent(@RequestParam("ticket_reservation_num")String ticket_reservation_num, Model model){
+		log.info(ticket_reservation_num);
+		
+		if(service.attendEvent(ticket_reservation_num)){
+			log.info("success attend");
+		}else{
+			log.info("fail attend");
+		}
+		return "redirect:/general/reservationList";
+	}
+	@PostMapping("/cancelReservation")
+	public String cancelReserve(@RequestParam("ticket_reservation_num")String ticket_reservation_num, Model model){
+		log.info(ticket_reservation_num);
+		
+		if(service.cancelReservationAndPay(ticket_reservation_num)){
+			log.info("success cancelRP");
+		}else{
+			log.info("fali cancelRP");
+			
+		}
+		return "redirect:/general/reservationList";
+	}
+	
+	
+	
 	@GetMapping("/reservationList")
 	public String listMyReserve(HttpServletRequest request, Model model){
 
@@ -209,6 +228,8 @@ public class GeneralController {
 			return "redirect:/login/login";
 		}
 		//logIn checked
+		
+		
 		
 		log.info("MyReserveList");
 		model.addAttribute("reserveList", service.getListMyReservation(account_num));
@@ -267,7 +288,7 @@ public class GeneralController {
 	
 	
 	@GetMapping("/listMyPartIn")
-	public String listMyPartIn(HttpServletRequest request){
+	public String listMyPartIn(HttpServletRequest request, @RequestParam("e_num")String e_num){
 		//logIn check
 		HttpSession session = request.getSession();
 		String account_num =String.valueOf(session.getAttribute("account_num"));
@@ -276,6 +297,7 @@ public class GeneralController {
 		}
 		//logIn checked
 		
+		eventService.getApply(e_num);
 		
 		log.info("MyLikeList");
 		return "module/general/reviewList";
