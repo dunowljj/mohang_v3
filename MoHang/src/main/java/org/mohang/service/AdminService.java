@@ -18,7 +18,10 @@ public interface AdminService {
 	public  List<ApproveDTO> listApprove();
 	
 	/*회원관리리스트 조회 서비스*/
-	public List<AccountVO> listAccount();
+	//public List<AccountVO> listAccount();
+	
+	/*회원관리게시판 조회에서 페이징처리까지 해서 조회하게끔*/
+	public List<AccountVO> getAccountPaging(Criteria cri);
 	
 	/*회원관리리스트 삭제여부를 Y->N으로*/
 	public int deleteAccount(String account_num);
@@ -41,7 +44,10 @@ public interface AdminService {
 	public EventHallVO eventHallGet(String eh_num);
 	
 	/*티켓예약리스트 조회*/
-	public List<TicketReservationDTO> listreservationTicket();
+	//public List<TicketReservationDTO> listreservationTicket();
+	
+	/*페이징처리된 티켓예약리스트 조회*/
+	public  List<TicketReservationDTO> getlistreservationTicketPaging(Criteria cri);
 
 	/*리뷰리스트 조회*/
 	//public List<ReviewVO> listReview();
@@ -78,7 +84,7 @@ public interface AdminService {
 	/*리뷰게시판 리스트에서 제목 눌렀을시 디테일페이지로 이동하게끔*/
 	public ReviewVO detailReview(String review_num);
 	
-	/*티켓에약리스트 삭제*/
+	/*티켓예약리스트 삭제*/
 	public int deleteTicketReservation(String ticket_reservation_num);
 	/*행사 반려 */
 	public void updatestatuswait(String ap_num, String string);
@@ -90,10 +96,21 @@ public interface AdminService {
 	public List<NoticeVO> getNoticePaging(Criteria cri);
 
 	/*공지사항 게시글 데이터 갯수를 갖고오는 메서드*/
-	public int getNoticeTotal();
+	public int getNoticeTotal(Criteria cri);
 
 	/*리뷰게시판에서 데이터 갯수를 갖고오는 메서드*/
-	public int getReviewTotal();
+	public int getReviewTotal(Criteria cri);
+
+	/*티켓예약게시판에서 데이터 갯수를 갖고오는 메서드*/
+	public int getTicketReservationTotal();
+
+	/*회원관리게시판에서 데이터 갯수를 갖고오는 메서드*/
+	public int getAccountTotal(Criteria cri);
+
+	
+
+	
+
 
 	
 	

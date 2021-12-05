@@ -61,6 +61,18 @@
 	 	from account
 	 </select>
 	 
+	 <!-- 페이징처리된 회원관리 리스트 조회 -->
+	  <select id="getAccountPaging" resultType="org.mohang.domain.AccountVO">
+	 	 <![CDATA[ 
+	 	SELECT * FROM (
+       		 SELECT a.*, ROWNUM as rnum FROM (
+               SELECT * FROM account order by to_number(account_num) desc
+               )
+        	a) 
+        where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
+		]]> 
+	 </select>
+	 
 	 
 	 <!-- 회원관리 리스트 삭제여부를 Y -> N으로 -->
 	 <update id="deleteAccount">
@@ -84,6 +96,20 @@
 		where t.account_num = a.account_num
 	 </select>
 	
+	<!-- 페이징처리가된 티켓예약리스트 조회 -->
+	 <select id="getlistreservationTicketPaging" resultType ="org.mohang.domain.TicketReservationDTO">
+	 <![CDATA[ 
+	 	SELECT * FROM (
+       		 SELECT a.*, ROWNUM as rnum FROM (
+            select a.account_name, t.ticket_reservation_time, t.ticket_reservation_price,
+			t.ticket_reservation_status, t.ticket_reservation_num
+			from account a , ticket_reservation t
+			where t.account_num = a.account_num   order by to_number(ticket_reservation_num) desc
+               )
+        	a) 
+        where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
+		]]> 
+	 </select>
 	 
 	 <!-- 리뷰리스트 조회 -->
 	 <select id="listReview" resultType ="org.mohang.domain.ReviewVO">
@@ -173,28 +199,64 @@
 	 </delete>
 	 
 	 
-	 <!-- 공지사항 게시판 페이징처리를 하기위한  select문-->
+	 <!-- 공지사항 게시판 페이징처리랑 제목기준으로 검색하기위한  select문-->
 	 <select id="getNoticePaging" resultType="org.mohang.domain.NoticeVO">
-	 	<![CDATA[ 
+	 	
 	 	SELECT * FROM (
        		 SELECT a.*, ROWNUM as rnum FROM (
-               SELECT * FROM notice order by to_number(notice_num) desc
+               
+              SELECT * FROM notice 	<if test="keyword !=null  and !keyword.equals('')">
+															 where notice_title like '%'||#{keyword}||'%' 
+													</if> order by to_number(notice_num) desc
+               
                )
         	a) 
-        where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
-		]]> 
+          
+          <![CDATA[
+          		where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
+	 	  ]]>
+	 
+		
 	 </select>
 	 
+	 <!-- 공지사항 게시판에서 검색처리를 위한 select문 -->
+	<!--  <select id="searchNotice" resultType="org.mohang.domain.NoticeVO">
+	 	<![CDATA[
+	 	SELECT * FROM (
+       		 SELECT a.*, ROWNUM as rnum FROM (
+               SELECT * FROM notice where notice_title like '%'||#{keyword}||'%'  order by to_number(notice_num) desc
+               )
+        	a) 
+          where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
+	 	]]>
+	 	<if test="keyword !=null  and(keyword eq 'test'.toString())">
+				notice_title like '%'||#{keyword}||'%' 
+		</if>
+	 </select> -->
 	 
 	 <select id="getNoticeTotal" resultType="int">
 	 	select count(*) from notice
+	 	<if test="keyword !=null  and !keyword.equals('')">
+				where notice_title like '%'||#{keyword}||'%' 
+		</if>
 	 </select>
 	 
 	 <select id="getReviewTotal" resultType="int">
 	 	select count(*) from review
+	 	<if test="keyword !=null  and !keyword.equals('')">
+				where review_title like '%'||#{keyword}||'%' 
+		</if>
 	 </select>
 	 
+	 <select id="getTicketReservationTotal" resultType="int">
+	 	select count(*) from Ticket_Reservation
+	 </select>
 	 
-	 
+	  <select id="getAccountTotal" resultType="int">
+	 	select count(*) from account
+	 	<if test="keyword !=null  and !keyword.equals('')">
+				where account_id like '%'||#{keyword}||'%' 
+		</if>
+	 </select>
 	 
 </mapper>

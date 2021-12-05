@@ -29,15 +29,17 @@
 <div class ="dd" style= "display : none">	
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 </div>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin.js"></script>	
+	
 
 	<div id="container-box1" style = "clear:both; padding-top: 50px;">
 	<div id="container" style="padding-bottom: 60px;">
 	
 	
-		<form class="d-flex" style=" float: left;">
-			<input class="form-control me-sm-2"type="text" placeholder="Search"    style=" width: auto;">
+		<form class="d-flex" style=" float: left;" action="/admin/listNotice" method="get" id="searchForm">
+			<input class="form-control me-sm-2"type="text" placeholder="Search" name = "keyword" style=" width: auto;">
 			<button class="btn btn-secondary my-2 my-sm-01" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
+		    <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/> 
+		     <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' />
 		</form>
 		<a id="btn btn-secondary my-2 my-sm-02" class="btn_1" style="color:red; text-decoration:none;">공지사항</a>&nbsp;&nbsp;&nbsp;
 		<a id="btn btn-secondary my-2 my-sm-03" class="btn_1" href="/admin/listReview" style="text-decoration:none;"> 리뷰</a>
@@ -91,35 +93,42 @@
 		
 				<c:if test="${pageMaker.prev }">
 						<li class="page-item "><a class="page-link" href="${pageMaker.cri.pageNum -1}">&laquo;</a></li>
-				   </c:if>
-				
-				
+				 </c:if>
 				<c:forEach  var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 				  <li class="page-item  ${pageMaker.cri.pageNum == num ? "active":""} " >
 					<a class="page-link" href="${num}">${num}</a>
-			 	</li>
+			 	 </li>
 				</c:forEach>
 				
 				<c:if test="${pageMaker.next}">
 					<li class="page-item"><a class="page-link" href="${pageMaker.cri.pageNum +1 }">&raquo;</a></li>
-					</c:if>
-				
+				</c:if>	
 			</ul>
 		</div>
 		<form id ="actionForm" action="/admin/listNotice" method="get">
 				<input type="hidden" name='pageNum' value="${pageMaker.cri.pageNum}">
-				<input type="hidden" name='amount' value="${pageMaker.cri.amount}">		
+				<input type="hidden" name='amount' value="${pageMaker.cri.amount}">	
+				<input type="hidden" name='keyword' value="${pageMaker.cri.keyword}">	
 		</form>
+	
 		
 		<div class="choice_cancel">
 			<button type="cancel" class="btn btn-secondary btn-sm" type="reset" style="margin-top: 32px;
              	float: right;">선택삭제</button>
 			<button type="button" class="btn btn-secondary btn-sm" style="margin-top: 32px;
-             	float: right; margin-right: 20px;"><a href="/admin/noticeInsertForm" style=" text-decoration:none;">글쓰기</a></button>
+             	float: right; margin-right: 20px;"><a href="/admin/noticeInsertForm" style="text-decoration:none;">글쓰기</a></button>
 		</div>
 		
 	</div>
 </div>
+
+<script type="text/javascript">
+
+
+
+</script>
 		<jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
 </body>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin.js"></script>
 </html>

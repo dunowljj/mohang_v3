@@ -33,10 +33,10 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.listApprove();
 	}
 	
-	public List<AccountVO> listAccount(){
+	/*public List<AccountVO> listAccount(){
 		return mapper.listAccount();
 	}
-	
+	*/
 	
 	/*
     public int deleteAccount(String account_num) {
@@ -69,10 +69,11 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.listApprove();
 	}
 	
-	
+	/*페이징 처리 되기전 원래 티켓예약 리스트 조회
 	public List<TicketReservationDTO> listreservationTicket(){
 		return mapper.listreservationTicket();
 	}
+	*/
 	
 	/*페이징 처리 되기전  원래 리스트 리뷰 조회*/
 /*	public List<ReviewVO> listReview(){
@@ -160,10 +161,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int getNoticeTotal() {
+	public int getNoticeTotal(Criteria cri) {
 		
-		return mapper.getNoticeTotal();
+		return mapper.getNoticeTotal(cri);
 	}
+
 
 	@Override
 	public int deleteAccount(String account_num) {
@@ -178,11 +180,36 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int getReviewTotal() {
+	public int getReviewTotal(Criteria cri) {
 		
-		return mapper.getReviewTotal();
+		return mapper.getReviewTotal(cri);
 	}
 
+	@Override
+	public List<TicketReservationDTO> getlistreservationTicketPaging(Criteria cri) {
+		
+		return mapper.getlistreservationTicketPaging(cri);
+	}
+
+	@Override
+	public int getTicketReservationTotal() {
+		
+		return mapper.getTicketReservationTotal();
+	}
+
+	@Override
+	public List<AccountVO> getAccountPaging(Criteria cri) {
+		
+		return mapper.getAccountPaging(cri);
+	}
+
+	@Override
+	public int getAccountTotal(Criteria cri) {
+		
+		return mapper.getAccountTotal(cri);
+	}
+
+	
 	
 
 	

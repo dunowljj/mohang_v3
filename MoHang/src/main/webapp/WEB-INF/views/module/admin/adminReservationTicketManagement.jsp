@@ -69,23 +69,45 @@
 		</table>
 
 		<div class="page">
-			<ul class="pagination">
-				<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a>
-				</li>
-				<li class="page-item active"><a class="page-link" href="#">1</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">4</a></li>
-				<li class="page-item"><a class="page-link" href="#">5</a></li>
-				<li class="page-item"><a class="page-link" href="#">&raquo;</a>
-				</li>
+		<ul class="pagination">
+		
+				<c:if test="${pageMaker.prev }">
+						<li class="page-item "><a class="page-link" href="${pageMaker.cri.pageNum -1}">&laquo;</a></li>
+				 </c:if>
+				<c:forEach  var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+				  <li class="page-item  ${pageMaker.cri.pageNum == num ? "active":""} " >
+					<a class="page-link" href="${num}">${num}</a>
+			 	 </li>
+				</c:forEach>
+				
+				<c:if test="${pageMaker.next}">
+					<li class="page-item"><a class="page-link" href="${pageMaker.cri.pageNum +1 }">&raquo;</a></li>
+				</c:if>	
 			</ul>
 		</div>
+		<form id ="actionForm" action="/admin/listReservationTicket" method="get">
+				<input type="hidden" name='pageNum' value="${pageMaker.cri.pageNum}">
+				<input type="hidden" name='amount' value="${pageMaker.cri.amount}">	
+				
+		</form>
+	
 		
 		
+		 </div>
 		</div>
-		</div>
+<script type="text/javascript">	
+		var actionForm= $("#actionForm");
+
+			$(".page-item a").on("click",function(e){
+				e.preventDefault();
+				console.log("@@@@@@@");
+				actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+				actionForm.submit();
+})
+</script>
+		
+		
 		<jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
+		
 </body>
 </html>
