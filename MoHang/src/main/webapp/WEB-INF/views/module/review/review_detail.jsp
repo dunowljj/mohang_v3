@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -26,17 +29,35 @@
 	<div id="container">
 리뷰게시판
 <hr>
+제목 :${Review.review_title }
+<br> 
+참가한 행사 :${Event.e_name }
 <div class="star-ratings">
 	<div  class="star-ratings-fill-space-x-2-text-lg" style="{ width: ratingToPercent + '%' }">
-		<div class="div_none"></div><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-		날짜    
-		[조회수]
+		<div class="div_none"></div>
+		<c:if test="${Review.review_scope eq 5 }">
+			<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+		</c:if>
+		<c:if test="${Review.review_scope eq 4 }">
+			<span>★</span><span>★</span><span>★</span><span>★</span><span>☆</span>
+		</c:if>
+		<c:if test="${Review.review_scope eq 3 }">
+			<span>★</span><span>★</span><span>★</span><span>☆</span><span>☆</span>
+		</c:if>
+		<c:if test="${Review.review_scope eq 2 }">
+			<span>★</span><span>★</span><span>☆</span><span>☆</span><span>☆</span>
+		</c:if>
+		<c:if test="${Review.review_scope eq 1 }">
+			<span>★</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+		</c:if>
+		작성일 : <fmt:formatDate value ="${Review.review_date }" pattern = "yyyy-MM-dd"/>
+		[조회수] ${Review.review_hitcount }
 	</div>
 </div>
 <div>
-	<img src="../resources/images/모행.png" alt="테스트입니다" width="800" height="100" />
+	
 </div>
-리뷰내용
+${Review.review_content }
 <hr>
 <div id = "ee">
 	작성자 날짜<br>

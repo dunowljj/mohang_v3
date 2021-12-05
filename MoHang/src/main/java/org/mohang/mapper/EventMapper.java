@@ -80,4 +80,6 @@ public interface EventMapper {
 	
 	public String getOnum(String account_num);
 
+	public List<EventVO> listDayEvent(String search);
+
 }

@@ -3,7 +3,9 @@ package org.mohang.controller;
 import java.net.HttpCookie;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -56,17 +58,22 @@ public class ViewController {
 		String search = year+"/"+month;
 		log.info("search :"+ search);
 		log.info("search :"+ eventService.listMonthEvent(search));
-		return new ResponseEntity<List<EventVO>>(eventService.listMonthEvent(search),HttpStatus.OK);
+		// List를 Set으로 변경
+		List<EventVO> list =eventService.listMonthEvent(search);
+		Set<EventVO> set = new HashSet<EventVO>(list);
+		// Set을 List로 변경
+		List<EventVO> newList =new ArrayList<EventVO>(set);
+		return new ResponseEntity<List<EventVO>>(newList,HttpStatus.OK);
 	}
 	/*
 	 *	 월 ,일로 검색
-	 */
-	@GetMapping("/day/{month}/{date}")
-	public ResponseEntity<List<EventVO>> listdayEvent(@PathVariable("month")String month, @PathVariable("date")String date){
+	 */ 
+	@GetMapping("/day/{month}/{date}/{year}")
+	public ResponseEntity<List<EventVO>> listdayEvent(@PathVariable("month")String month, @PathVariable("date")String date,@PathVariable("year")String year){
 		log.info("month :"+month+"date :"+ date);
-		String search = month+"/"+date;
-		log.info("service :"+eventService.listMonthEvent(search));
-		return new ResponseEntity<List<EventVO>>(eventService.listMonthEvent(search),HttpStatus.OK);
+		String search = year+"/"+month+"/"+date;
+		log.info("service :"+eventService.listDayEvent(search));
+		return new ResponseEntity<List<EventVO>>(eventService.listDayEvent(search),HttpStatus.OK);
 	}
 	/*
 	 * 추천행사 -> 회원 관심 항목으로 검색 

@@ -108,15 +108,28 @@ public class EventServiceImpl implements EventService {
 					account_interest.add(account_interest1[i]);
 				}
 				List<EventVO> list=mapper.listRecommendEvent(account_interest);
-				for(int i=0;i<list.size();i++){
-					log.info("test :"+mapper.listLikeEvent(account_num,list.get(i).getE_num()));
-					if(mapper.listLikeEvent(account_num,list.get(i).getE_num())==null){
-						mapper.firstinsertLikeEvent(list.get(i).getE_num(), account_num);
+				if(list.isEmpty()){
+						list=mapper.listHitcountEvent();
+					for(int i=0;i<list.size();i++){
+						if(mapper.listLikeEvent("0",list.get(i).getE_num())==null){
+							mapper.firstinsertLikeEvent(list.get(i).getE_num(), "0");
+						}
+					}
+					for(int i=0;i<list.size();i++){
+						likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent("0",list.get(i).getE_num())));
+					}
+				}else{
+					for(int i=0;i<list.size();i++){
+						log.info("test :"+mapper.listLikeEvent(account_num,list.get(i).getE_num()));
+						if(mapper.listLikeEvent(account_num,list.get(i).getE_num())==null){
+							mapper.firstinsertLikeEvent(list.get(i).getE_num(), account_num);
+						}
+					}
+					for(int i=0;i<list.size();i++){
+						likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent(account_num,list.get(i).getE_num())));
 					}
 				}
-				for(int i=0;i<list.size();i++){
-					likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent(account_num,list.get(i).getE_num())));
-				}
+			
 		}else if(account_num=="0"||account_num=="null"){
 				
 				List<EventVO> list=mapper.listHitcountEvent();
@@ -313,6 +326,10 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public String getOnum(String account_num) {
 		return mapper.getOnum(account_num);
+	}
+	@Override
+	public List<EventVO> listDayEvent(String search) {
+		return mapper.listDayEvent(search);
 	}
 	
 	

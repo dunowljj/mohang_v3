@@ -134,7 +134,9 @@
 	   var param =i.split(",");
 	   var date =leadingZeros(param[0],2);
 	   var month =leadingZeros(param[1],2);
-	   eventService.dayview({date:date,month:month},function(list){
+	   var year = param[2];
+	   console.log('year'+year);
+	   eventService.dayview({date:date,month:month,year:year},function(list){
 		 
 		  var html = "";
 		  if(list.length>8){
@@ -194,7 +196,7 @@
 	      var html = '<ul>';
 	      for (var i = 1; i <= lastDate; i++) {
 	    	 i= leadingZeros(i,2);
-	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
+	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+","+year+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
 	      }
 	     
 	      html += '</ul>';
@@ -203,9 +205,24 @@
 	      
 	      for (var j = 0, len = list.length || 0; j < len; j++) {
 		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
-		    	 var date= list[j].e_startDate.substring(8,10);
-		    	 date= leadingZeros(date,2);
-		    	 $('#day ul li .on'+date).attr('class','active')
+		    	 list[j].e_endDate =moment(list[j].e_endDate).format("YYYY-MM-DD");
+		    	 var startMonth =list[j].e_startDate.substring(5,7);
+		    	 var endMonth = list[j].e_endDate.substring(5,7);
+		    	 console.log('startMonth:'+startMonth);
+		    	 console.log('endMonth:'+endMonth);
+		    	 var startdate= list[j].e_startDate.substring(8,10);
+		    	 var enddate = list[j].e_endDate.substring(8,10);
+		    	 if(startMonth<month ){
+		    		 startdate= 0;
+		    	 }
+		    	 if(month<endMonth){
+		    		 enddate= lastDate;
+		    	 }
+
+		    	 for(var i=startdate;i<=enddate;i++){
+		    		 i = leadingZeros(i,2);
+		    		 $('#day ul li .on'+i).attr('class','active')
+		    	 }
 
 		  }
  		  var html = "";
@@ -269,21 +286,36 @@
              lastDate = new Date(year, month, 0).getDate();
              document.getElementById("day").innerHTML = html;
              var html = '<ul>';
-	   	     for (var i = 1; i <= lastDate; i++) {
-	   	    	 i= leadingZeros(i,2);
-	   	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
-	   	     }
+             for (var i = 1; i <= lastDate; i++) {
+    	    	 i= leadingZeros(i,2);
+    	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+","+year+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
+    	      }
 	   	     
 	   	     html += '</ul>';
 	   	     document.getElementById("day").innerHTML = html;
              html = '';
              for (var j = 0, len = list.length || 0; j < len; j++) {
 		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
-		    	 var date = list[j].e_startDate.substring(8,10);
-		    	 date= leadingZeros(date,2);
-		    	 $('#day ul li .on'+date).attr('class','active')
+		    	 list[j].e_endDate =moment(list[j].e_endDate).format("YYYY-MM-DD");
+		    	 var startMonth =list[j].e_startDate.substring(5,7);
+		    	 var endMonth = list[j].e_endDate.substring(5,7);
+		    	 console.log('startMonth:'+startMonth);
+		    	 console.log('endMonth:'+endMonth);
+		    	 var startdate= list[j].e_startDate.substring(8,10);
+		    	 var enddate = list[j].e_endDate.substring(8,10);
+		    	 if(startMonth<month ){
+		    		 startdate= 0;
+		    	 }
+		    	 if(month<endMonth){
+		    		 enddate= lastDate;
+		    	 }
 
-			 }
+		    	 for(var i=startdate;i<=enddate;i++){
+		    		 i = leadingZeros(i,2);
+		    		 $('#day ul li .on'+i).attr('class','active')
+		    	 }
+
+		  }
              var html = "";
              if(list.length>8){
 		   	 	 for(var i = 0, len = list.length || 0; i < 8; i++){
@@ -345,21 +377,35 @@
 	                     lastDate = new Date(year, month, 0).getDate();
 	                     document.getElementById("day").innerHTML = html;
 	                     var html = '<ul>';
-		           	     for (var i = 1; i <= lastDate; i++) {
-		           	    	 i= leadingZeros(i,2);
-		           	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
-		           	     }
+	                     for (var i = 1; i <= lastDate; i++) {
+	            	    	 i= leadingZeros(i,2);
+	            	         html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+","+year+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
+	            	     }
 		           	     
 		           	     html += '</ul>';
 		           	     document.getElementById("day").innerHTML = html;
 	                     html = '';
 	                     for (var j = 0, len = list.length || 0; j < len; j++) {
-	        		    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
-	        		    	 var date = list[j].e_startDate.substring(8,10);
-	        		    	 date= leadingZeros(date,2);
-	        		    	 $('#day ul li .on'+date).attr('class','active')
-	
-	        	    	 }
+	                    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
+	        		    	 list[j].e_endDate =moment(list[j].e_endDate).format("YYYY-MM-DD");
+	        		    	 var startMonth =list[j].e_startDate.substring(5,7);
+	        		    	 var endMonth = list[j].e_endDate.substring(5,7);
+	        		    	 console.log('startMonth:'+startMonth);
+	        		    	 console.log('endMonth:'+endMonth);
+	        		    	 var startdate= list[j].e_startDate.substring(8,10);
+	        		    	 var enddate = list[j].e_endDate.substring(8,10);
+	        		    	 if(startMonth<month ){
+	        		    		 startdate= 0;
+	        		    	 }
+	        		    	 if(month<endMonth){
+	        		    		 enddate= lastDate;
+	        		    	 }
+	        		    	 for(var i=startdate;i<=enddate;i++){
+	        		    		 i = leadingZeros(i,2);
+	        		    		 $('#day ul li .on'+i).attr('class','active')
+	        		    	 }
+
+	        			 }
 	                     var html = "";
 	                     if(list.length>8){
 	        		   	 	 for(var i = 0, len = list.length || 0; i < 8; i++){

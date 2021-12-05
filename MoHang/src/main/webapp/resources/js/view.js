@@ -38,7 +38,8 @@ var eventService = (function() {
 	function dayview(param,callback,error){
 		var month = param.month;
 		var date = param.date;
-		$.getJSON("/view/day/"+month+"/"+date+".json",
+		var year = param.year;
+		$.getJSON("/view/day/"+month+"/"+date+"/"+year+".json",
 				function (data) {
 					if (callback) {
 						callback(data);
@@ -50,11 +51,10 @@ var eventService = (function() {
 		});
 	}
 	//추천 행사
-	function recommend(param,callback,error){
+	function recommend(callback,error){
 		$.ajax({
 			type : 'post',
 			url : '/view/recommend',
-			data : {'account_Interest':param },
 			dataType : 'json',
 			success : function(result, status, xhr) {
 				if (callback) {
@@ -153,8 +153,7 @@ $(document).ready(function () {
 	    var slider_div = $('.slider-div');
 		var str ="";
 	    //추천 행사
-		var hidden = $("input[name=account_Interest]").val();
-		eventService.recommend(hidden,function(list){
+		eventService.recommend(function(list){
 			for(var i=0, len = list.length||0;i<len;i++){
 				list[i].list.e_startDate =moment(list[i].list.e_startDate).format("YYYY-MM-DD");
 				list[i].list.e_endDate =moment(list[i].list.e_endDate).format("YYYY-MM-DD");

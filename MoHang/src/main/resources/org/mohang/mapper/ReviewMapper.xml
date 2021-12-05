@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.mohang.mapper.ReviewMapper">
+	
+	
+	<select id="listReview" resultType="org.mohang.domain.ReviewVO">
+		select * from (
+      		  select a.*, rownum as rnum from (
+               select * from review  
+               				<if test="keyword !=null and !keyword.equals('')">
+               				where review_title like '%'||#{keyword}||'%'
+               				</if>
+               				order by to_number(review_num) desc
+                        )
+                        
+                        <![CDATA[
+				        a)  where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
+				        ]]>
+	</select>
+
+	<select id="totalReview" resultType="int">
+		select count(*) from review
+		<if test="keyword !=null and !keyword.equals('')">
+               where review_title like '%'||#{keyword}||'%'
+   		</if>
+	</select>
+	
+	<select id="reviewDetail" resultType="org.mohang.domain.ReviewVO">
+		select * from review
+		where review_num = #{review_num}
+	</select>
+	
+	<select id="eventGetName" resultType="org.mohang.domain.EventVO">
+		select e.e_name
+		from  event e , ticket_reservation tr , ticket_payment tp
+			where e.e_num= tr.e_num
+			and tr.ticket_reservation_num = tp.ticket_reservation_num
+			and tr.account_num = #{account_num}	
+	</select>
+</mapper> 
