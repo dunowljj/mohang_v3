@@ -12,9 +12,9 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_reserve-script.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_reserveList-script.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_modal-script.js"></script>
-	<div id="container-box1">
+	<div id="container-box1" style='min-height:3000px'>
 		<div id="container">
 			<div class="general_wrapper">
 				<div class="general_subhead">
@@ -65,7 +65,9 @@
 						<c:out value="${reserve.ticket_payment_status}"/>
 						</td>
 						<td class='reserveList_d7'>
-							<button id='${status.index}' class='cancel_openMask' value="예약취소">예약취소</button><br>
+							<c:if test="${'미참여' eq reserve.ticket_attend and '예약완료' eq reserve.ticket_reservation_status}">
+								<button id='${status.index}' class='cancel_openMask' value="예약취소">예약취소</button><br>
+							</c:if>
 							<button id='${status.index}' class='ticket_openMask' value="상세보기">상세보기</button>
 						</td>
 					</tr>
@@ -87,11 +89,11 @@
 							<c:out value="${reserve.ticket_attend}"/>
 						</td>
 						<td class='reserveList_d7'>
-							<c:if test="${'미참여' eq reserve.ticket_attend}">
-								<button id='btn_attend ${reserve.ticket_reservation_num}' value="참여">참석하기</button>
-							</c:if>
-							<c:if test="${'참여' eq reserve.ticket_attend}">
-							
+							<c:if test="${'미참여' eq reserve.ticket_attend && '결제완료' eq reserve.ticket_payment_status}">
+								<button class='' onclick='attendEvent(${reserve.ticket_reservation_num})' value="참여">참석하기</button>
+									<form id="${reserve.ticket_reservation_num}" action='attendEvent' method='POST'>
+										<input type='hidden' name='ticket_reservation_num' value="${reserve.ticket_reservation_num}">
+									</form>
 							</c:if>
 						</td>
 					</tr>
@@ -106,7 +108,7 @@
 					그 값을 받아서 자식요소 선택 후 부모에서 속성변경!
 					$("cancel_form_image_wrap 3") 
 					 -->
-<form action='' class='cancel_form_modal ${status.index}'>
+<form action='cancelReservation' class='cancel_form_modal ${status.index}' method='POST' onsubmit='cancelConfirm()'>
 	<div class='cancel_form_image_wrap'>
 		<img src='${pageContext.request.contextPath}/resources/images/${reserve.e_fname}'>
 	</div>
@@ -125,6 +127,7 @@
 			수량 : <c:out value="${reserve.ticket_reservation_amount}"/>매<br>
 			금액 :  <c:out value="${reserve.ticket_reservation_amount}"/>원<br>
 			결제금액 :  <c:out value="${reserve.ticket_payment_price}"/>원
+		<input type='hidden' name='ticket_reservation_num' value='${reserve.ticket_reservation_num}'>
 		</div>
 	</div>
 	<div class='cancel_form_btns'>
