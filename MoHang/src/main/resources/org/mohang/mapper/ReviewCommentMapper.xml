@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.mohang.mapper.ReviewCommentMapper">
+
+	<insert id="insertReviewComment">
+		insert into review_comment(
+		review_comment_num,
+		review_num,
+		review_comment_content,
+		review_comment_date,
+		account_num
+		)values(
+		review_comment_seq.nextval,
+		#{review_num},#{review_comment_content},sysdate,#{account_num}
+		)
+	</insert>
+	
+	<select id="getReviewComment" resultType="org.mohang.domain.ReviewCommentVO">
+		select * from review_comment where review_num =#{review_num}
+	</select>
+	
+	<select id="getMyReviewComment" resultType="org.mohang.domain.ReviewCommentVO">
+		select * from review_comment where review_comment_num =#{review_comment_num}
+	
+	</select>
+	
+	<update id="updateReviewComment">
+		update review_comment set review_comment_content =#{review_comment_content}
+		where review_comment_num =#{review_comment_num}
+	</update>
+	
+	<delete id="deleteReviewComment">
+		delete from review_comment where review_comment_num =#{review_comment_num}
+	</delete>
+	
+
+</mapper>

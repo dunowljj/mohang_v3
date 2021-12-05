@@ -40,7 +40,4 @@ public class ReviewController{
 		model.addAttribute("Event", reviewService.eventGetName(account_num,ticket_reservation_num));
 		return "/module/review/review_detail";
 	}
-	
-	
-
 }
