@@ -270,7 +270,7 @@
 									value="${event.list.e_startDate}" /> ~ 
 									<fmt:formatDate pattern="yyyy-MM-dd"
 									value="${event.list.e_endDate}" /></span> 
-							<div style="    display: inline-block; width: 245px;"></div>
+							<div style="    display: inline-block; width: 250px;"></div>
 							<span class="eventprice">${event.list.e_price }</span>
 						</div>
 						<div class="information_2">

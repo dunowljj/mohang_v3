@@ -139,42 +139,44 @@
 	   eventService.dayview({date:date,month:month,year:year},function(list){
 		 
 		  var html = "";
-		  if(list.length>8){
-		 	  for(var i = 0, len = list.length || 0; i < 8; i++){
-		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
-				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-		 		  html +='<div class="eventbox4">'
-				  html +=' <div class="eventbox_in1">'
-				  html +='	 <div class="eventbox_img">'
-					  html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
-				  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
-				  html +='	 </div>'
-				  html +='<div class="eventbox_context1">'
-				  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
-				  html +='<p class="event_title">'+list[i].e_name+'</p>'		
-				  html += '</div>'
-				  html +='<div class="eventbox_context3">'
-				  html +='<span class="price">'+list[i].e_price+'원</span>'
-				  html +='	 </div></div>'
-		 	  }
-		  }else if(list.length<=8){
-			  for(var i = 0, len = list.length || 0; i < len; i++){
-		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
-				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-		 		  html +='<div class="eventbox4">'
-				  html +=' <div class="eventbox_in1">'
-				  html +='	 <div class="eventbox_img">'
-			      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
-				  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
-				  html +='	 </div>'
-				  html +='<div class="eventbox_context1">'
-				  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
-				  html +='<p class="event_title">'+list[i].e_name+'</p>'		
-				  html += '</div>'
-				  html +='<div class="eventbox_context3">'
-				  html +='<span class="price">'+list[i].e_price+'원</span>'
-				  html +='	 </div></div>'
-		 	  }
+		  if(list.length!=0){
+			  if(list.length>8){
+			 	  for(var i = 0, len = list.length || 0; i < 8; i++){
+			 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+					  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+			 		  html +='<div class="eventbox4">'
+					  html +=' <div class="eventbox_in1">'
+					  html +='	 <div class="eventbox_img">'
+						  html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+					  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+					  html +='	 </div>'
+					  html +='<div class="eventbox_context1">'
+					  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+					  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+					  html += '</div>'
+					  html +='<div class="eventbox_context3">'
+					  html +='<span class="price">'+list[i].e_price+'원</span>'
+					  html +='	 </div></div>'
+			 	  }
+			  }else if(list.length<=8){
+				  for(var i = 0, len = list.length || 0; i < len; i++){
+			 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+					  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+			 		  html +='<div class="eventbox4">'
+					  html +=' <div class="eventbox_in1">'
+					  html +='	 <div class="eventbox_img">'
+				      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+					  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+					  html +='	 </div>'
+					  html +='<div class="eventbox_context1">'
+					  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+					  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+					  html += '</div>'
+					  html +='<div class="eventbox_context3">'
+					  html +='<span class="price">'+list[i].e_price+'원</span>'
+					  html +='	 </div></div>'
+			 	  }
+			  }
 		  }else{
 			  	  html += '<div>행사일정이 없습니다.</div>'
 		  }
@@ -215,10 +217,13 @@
 		    	 if(startMonth<month ){
 		    		 startdate= 0;
 		    	 }
+		    	 if(endMonth==01){
+		    		 endMonth=13;
+		    	 }
 		    	 if(month<endMonth){
 		    		 enddate= lastDate;
 		    	 }
-
+				 console.log('endMonth2:'+endMonth)
 		    	 for(var i=startdate;i<=enddate;i++){
 		    		 i = leadingZeros(i,2);
 		    		 $('#day ul li .on'+i).attr('class','active')
@@ -226,45 +231,48 @@
 
 		  }
  		  var html = "";
- 		  if(list.length>8){
-		 	  for(var i = 0, len = list.length || 0; i < 8; i++){
-		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
-				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-		 		  html +='<div class="eventbox4">'
-				  html +=' <div class="eventbox_in1">'
-				  html +='	 <div class="eventbox_img">'
-				  html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
-				  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
-				  html +='	 </div>'
-				  html +='<div class="eventbox_context1">'
-				  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
-				  html +='<p class="event_title">'+list[i].e_name+'</p>'		
-				  html += '</div>'
-				  html +='<div class="eventbox_context3">'
-				  html +='<span class="price">'+list[i].e_price+'원</span>'
-				  html +='	 </div></div>'
-					 
-		 	  }
- 		  }else if(list.length<=8){
- 			 for(var i = 0, len = list.length || 0; i < len; i++){
-		 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
-				  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-		 		  html +='<div class="eventbox4">'
-				  html +=' <div class="eventbox_in1">'
-				  html +='	 <div class="eventbox_img">'
-				  html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
-				  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
-				  html +='	 </div>'
-				  html +='<div class="eventbox_context1">'
-				  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
-				  html +='<p class="event_title">'+list[i].e_name+'</p>'		
-				  html += '</div>'
-				  html +='<div class="eventbox_context3">'
-				  html +='<span class="price">'+list[i].e_price+'원</span>'
-				  html +='	 </div></div>'
-		 	  }
+ 		  if(list.length!=0){
+	 		  if(list.length>8){
+			 	  for(var i = 0, len = list.length || 0; i < 8; i++){
+			 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+					  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+			 		  html +='<div class="eventbox4">'
+					  html +=' <div class="eventbox_in1">'
+					  html +='	 <div class="eventbox_img">'
+					  html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+					  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+					  html +='	 </div>'
+					  html +='<div class="eventbox_context1">'
+					  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+					  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+					  html += '</div>'
+					  html +='<div class="eventbox_context3">'
+					  html +='<span class="price">'+list[i].e_price+'원</span>'
+					  html +='	 </div></div>'
+						 
+			 	  }
+	 		  }else if(list.length<=8){
+	 			 for(var i = 0, len = list.length || 0; i < len; i++){
+			 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+					  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+			 		  html +='<div class="eventbox4">'
+					  html +=' <div class="eventbox_in1">'
+					  html +='	 <div class="eventbox_img">'
+					  html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+					  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+					  html +='	 </div>'
+					  html +='<div class="eventbox_context1">'
+					  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+					  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+					  html += '</div>'
+					  html +='<div class="eventbox_context3">'
+					  html +='<span class="price">'+list[i].e_price+'원</span>'
+					  html +='	 </div></div>'
+			 	  }
+	 		  }
  		  }else{
-			  	  html += '<div>행사일정이 없습니다.</div>'
+			  	  	  html += '<div>행사일정이 없습니다.</div>'
+			  	  	  console.log('1312312312312321321')
 		  }
 	 	  $(".month_event_box_in").html(html);
       })
@@ -306,6 +314,9 @@
 		    	 if(startMonth<month ){
 		    		 startdate= 0;
 		    	 }
+		    	 if(endMonth==01){
+		    		 endMonth=13;
+		    	 }
 		    	 if(month<endMonth){
 		    		 enddate= lastDate;
 		    	 }
@@ -317,42 +328,44 @@
 
 		  }
              var html = "";
-             if(list.length>8){
-		   	 	 for(var i = 0, len = list.length || 0; i < 8; i++){
-		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
-		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-		   	 		  html +='<div class="eventbox4">'
-		   			  html +=' <div class="eventbox_in1">'
-		   			  html +='	 <div class="eventbox_img">'
-		   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
-		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
-		   			  html +='	 </div>'
-		   			  html +='<div class="eventbox_context1">'
-		   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
-		   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
-		   			  html += '</div>'
-		   			  html +='<div class="eventbox_context3">'
-		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
-		   			  html +='	 </div></div>'
-		   	 	 }
-             }else if(list.length<=8){
-            	 for(var i = 0, len = list.length || 0; i < len; i++){
-		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
-		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-		   	 		  html +='<div class="eventbox4">'
-		   			  html +=' <div class="eventbox_in1">'
-		   			  html +='	 <div class="eventbox_img">'
-		   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
-		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
-		   			  html +='	 </div>'
-		   			  html +='<div class="eventbox_context1">'
-		   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
-		   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
-		   			  html += '</div>'
-		   			  html +='<div class="eventbox_context3">'
-		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
-		   			  html +='	 </div></div>'
-		   	 	 }
+             if(list.length!=0){
+	             if(list.length>8){
+			   	 	 for(var i = 0, len = list.length || 0; i < 8; i++){
+			   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+			   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+			   	 		  html +='<div class="eventbox4">'
+			   			  html +=' <div class="eventbox_in1">'
+			   			  html +='	 <div class="eventbox_img">'
+			   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+			   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+			   			  html +='	 </div>'
+			   			  html +='<div class="eventbox_context1">'
+			   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+			   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+			   			  html += '</div>'
+			   			  html +='<div class="eventbox_context3">'
+			   			  html +='<span class="price">'+list[i].e_price+'원</span>'
+			   			  html +='	 </div></div>'
+			   	 	 }
+	             }else if(list.length<=8){
+	            	 for(var i = 0, len = list.length || 0; i < len; i++){
+			   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+			   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+			   	 		  html +='<div class="eventbox4">'
+			   			  html +=' <div class="eventbox_in1">'
+			   			  html +='	 <div class="eventbox_img">'
+			   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+			   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+			   			  html +='	 </div>'
+			   			  html +='<div class="eventbox_context1">'
+			   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+			   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+			   			  html += '</div>'
+			   			  html +='<div class="eventbox_context3">'
+			   			  html +='<span class="price">'+list[i].e_price+'원</span>'
+			   			  html +='	 </div></div>'
+			   	 	 }
+	             }
              }else{
             	 	  html += '<div>행사일정이 없습니다.</div>'
    		 	 }
@@ -367,9 +380,11 @@
                   function() {
                      if (month == 12) {
                         month = 0;
-                        year = year + 1;
+                        year = parseInt(year) + 1;
+                       
                      }
-                     month = month + 1;
+                     year = year +'';
+                     month = parseInt(month) + 1;
                      eventService.monthview({year:year,month:month},function(list){
 	                     document.getElementById("month").innerHTML = '<em>'
 	                           + year + '년</em>' + '<em>' + month
@@ -386,66 +401,77 @@
 		           	     document.getElementById("day").innerHTML = html;
 	                     html = '';
 	                     for (var j = 0, len = list.length || 0; j < len; j++) {
+	                    	 var testyear=0;
 	                    	 list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
 	        		    	 list[j].e_endDate =moment(list[j].e_endDate).format("YYYY-MM-DD");
-	        		    	 var startMonth =list[j].e_startDate.substring(5,7);
-	        		    	 var endMonth = list[j].e_endDate.substring(5,7);
-	        		    	 console.log('startMonth:'+startMonth);
-	        		    	 console.log('endMonth:'+endMonth);
+	        		    	 var startMonth =list[j].e_startDate.substring(2,7);
+	        		    	 var endMonth = list[j].e_endDate.substring(2,7);
+	        		    	 startMonth = startMonth+"";
+	        		    	 endMonth = endMonth+"";
+	        		    	 startMonth = startMonth.replace("-","");
+	        		    	 endMonth = endMonth.replace("-","");
+	        		    	 testyear = year.substring(2,4);
+	        		    	 month = leadingZeros(month,2);
+	        		    	 testyear = testyear+month
 	        		    	 var startdate= list[j].e_startDate.substring(8,10);
 	        		    	 var enddate = list[j].e_endDate.substring(8,10);
-	        		    	 if(startMonth<month ){
+	        		    	 //시작 월 끝나는 월 
+	        		    	 //
+	        		    	 if(startMonth<testyear ){
 	        		    		 startdate= 0;
 	        		    	 }
-	        		    	 if(month<endMonth){
+	        		    	
+	        		    
+	        		    	 if(testyear<endMonth){
 	        		    		 enddate= lastDate;
 	        		    	 }
 	        		    	 for(var i=startdate;i<=enddate;i++){
 	        		    		 i = leadingZeros(i,2);
 	        		    		 $('#day ul li .on'+i).attr('class','active')
 	        		    	 }
-
 	        			 }
 	                     var html = "";
-	                     if(list.length>8){
-	        		   	 	 for(var i = 0, len = list.length || 0; i < 8; i++){
-	        		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
-	        		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-	        		   	 		  html +='<div class="eventbox4">'
-	        		   			  html +=' <div class="eventbox_in1">'
-	        		   			  html +='	 <div class="eventbox_img">'
-	        		   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
-	        		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
-	        		   			  html +='	 </div>'
-	        		   			  html +='<div class="eventbox_context1">'
-	        		   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
-	        		   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
-	        		   			  html += '</div>'
-	        		   			  html +='<div class="eventbox_context3">'
-	        		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
-	        		   			  html +='	 </div></div>'
-	        		   	 	 }
-	                     }else if(list.length<=8){
-	                    	 for(var i = 0, len = list.length || 0; i < len; i++){
-	        		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
-	        		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-	        		   	 		  html +='<div class="eventbox4">'
-	        		   			  html +=' <div class="eventbox_in1">'
-	        		   			  html +='	 <div class="eventbox_img">'
-	        		   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
-	        		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
-	        		   			  html +='	 </div>'
-	        		   			  html +='<div class="eventbox_context1">'
-	        		   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
-	        		   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
-	        		   			  html += '</div>'
-	        		   			  html +='<div class="eventbox_context3">'
-	        		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
-	        		   			  html +='	 </div></div>'
-	        		   	 	 }
+	                     if(list.length!=0){
+		                     if(list.length>8){
+		        		   	 	 for(var i = 0, len = list.length || 0; i < 8; i++){
+		        		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+		        		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+		        		   	 		  html +='<div class="eventbox4">'
+		        		   			  html +=' <div class="eventbox_in1">'
+		        		   			  html +='	 <div class="eventbox_img">'
+		        		   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+		        		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+		        		   			  html +='	 </div>'
+		        		   			  html +='<div class="eventbox_context1">'
+		        		   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+		        		   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+		        		   			  html += '</div>'
+		        		   			  html +='<div class="eventbox_context3">'
+		        		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
+		        		   			  html +='	 </div></div>'
+		        		   	 	 }
+		                     }else if(list.length<=8){
+		                    	 for(var i = 0, len = list.length || 0; i < len; i++){
+		        		   	 		  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+		        		   			  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
+		        		   	 		  html +='<div class="eventbox4">'
+		        		   			  html +=' <div class="eventbox_in1">'
+		        		   			  html +='	 <div class="eventbox_img">'
+		        		   		      html +='		<a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+		        		   			  html +='			style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+		        		   			  html +='	 </div>'
+		        		   			  html +='<div class="eventbox_context1">'
+		        		   			  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
+		        		   			  html +='<p class="event_title">'+list[i].e_name+'</p>'		
+		        		   			  html += '</div>'
+		        		   			  html +='<div class="eventbox_context3">'
+		        		   			  html +='<span class="price">'+list[i].e_price+'원</span>'
+		        		   			  html +='	 </div></div>'
+		        		   	 	 }
+		                     }
 	                     }else{
-	                    		  html += '<div>행사일정이 없습니다.</div>'
-	           			  }
+	               	 	  			  html += '<div>행사일정이 없습니다.</div>'
+	           		 	 }
 	        	   	 	 $(".month_event_box_in").html(html);
 	                     $('input[name=year]').val(year);
 	                     $('input[name=month]').val(month);
