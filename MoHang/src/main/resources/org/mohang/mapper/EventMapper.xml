@@ -233,7 +233,7 @@
 		select e.e_num, e.o_num,e_name,
 		e.eh_num,eh.account_num, e.e_startdate,
 		e.e_enddate, e.e_applydate,
-		a.ap_check
+		a.ap_check, a.ap_num
 		from event e, approve a, event_hall_reservation eh
 		where
 		e.e_num = eh.e_num and eh.eh_reservation_num = a.eh_reservation_num
@@ -272,7 +272,7 @@
 
 
 	<select id="listStatistics" resultType="org.mohang.domain.EventVO">
-		<![CDATA[ select * from event where sysdate >= e_endDate ]]>
+		<![CDATA[ select * from event where sysdate >= e_endDate ]]> and o_num = #{o_num}
 	</select>
 
 
@@ -309,5 +309,11 @@
 		account_interest as interest, count(account_interest)as count from
 		statisticsview group by account_interest
 	</select>
+	
+	<update id="pay">
+		update approve set ap_check ='P' where ap_num = #{ap_num}
+	</update>
+	
+
 
 </mapper>

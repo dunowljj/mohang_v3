@@ -66,12 +66,16 @@
 		</thead>
 		<tbody>
 		
+		
+		<jsp:useBean id="now" class="java.util.Date" />
+		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+		
+
 		<c:forEach items="${eventList}" var="event">
 		
-		<fmt:formatDate value="${now }" pattern="yyyy-MM-dd" var="today"/>
-		<fmt:formatDate value="${event.e_startDate }" pattern="yyyy-MM-dd" var="startDate"/>
-		<fmt:formatDate value="${event.e_endDate }" pattern="yyyy-MM-dd" var="endDate"/>
-		
+		<%-- <fmt:formatDate value="${event.e_startDate}" pattern="yyyyMMdd" var="startDate"/>
+		<fmt:formatDate value="${event.e_endDate}" pattern="yyyyMMdd" var="endDate"/>
+		 --%>
 			<tr>
 				<th scope="row"><font style="vertical-align: inherit;"><c:out value="${event.e_num}"/></font></th>
 				<td onclick="event.cancelBubble=true" ><a href="/event/getApply?e_num=${event.e_num}"><font style="vertical-align: inherit;"><c:out value="${event.e_name}"/></font></a></td>
@@ -80,7 +84,10 @@
 					<c:set var="check" value="${event.ap_check }"/>
 						<c:if test="${check eq 'W' }"> 승인대기 </c:if>
 						<c:if test="${check eq 'N' }"> 승인반려 </c:if>
-						<c:if test="${check eq 'Y' }"> 승인완료 </c:if>
+						<c:if test="${check eq 'Y' }"> 승인완료/결제대기 </c:if>
+						<c:if test="${check eq 'P' && today<event.e_startDate}">  행사대기 </c:if>
+						<c:if test="${check eq 'P' && today>event.e_startDate &&  today<event.e_endDate}"> 행사진행중 </c:if>
+						<c:if test="${check eq 'P' && today>event.e_endDate}"> 행사완료 </c:if>
 						
 						<input type="hidden" id="event_status" value="${event.ap_check }"/>
 				</font></div></td>
@@ -90,7 +97,7 @@
 						<a href="/event/insertFormUpdate?e_num=${event.e_num}"><button>수정</button></a>
 					</c:if>
 					<c:if test="${check eq 'Y' }">
-						<a href="/event/pay?e_num=${event.e_num}"><button>결제</button></a>
+						<a href="/event/pay?ap_num=${event.ap_num}"><button>결제</button></a>
 					</c:if>
 				</td>
 			</tr>
@@ -143,37 +150,44 @@
 							</c:if>
 							</figure>
 						
-								<figure>
-								<c:if test="${check ne 'F'}"> 
-								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6" style='opacity:0.3'/>
-								<figcaption>행사대기</figcaption>
-								</c:if>
-								<c:if test="${check eq 'F' && today<startDate}"> 
+							<figure>
+							<c:choose >
+							<c:when test="${check eq 'P' && today<event.e_startDate}"> 
 								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6"/>
 								<figcaption>행사대기</figcaption>
-								</c:if>
+								</c:when>
+								
+								<c:when test="${ 'P' eq check}"> 
+								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6" style='opacity:0.3'/>
+								<figcaption>행사대기</figcaption>
+								</c:when>
+							</c:choose>
 							</figure>
 							
 							<figure>
-							<c:if test="${check ne 'F'}"> 
-								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7" style='opacity:0.3'/>
-								<figcaption>행사진행중</figcaption>
-								</c:if>
-							<c:if test="${check eq 'F' && today>startDate &&  today<endDate}"> 
+								<c:choose >
+							<c:when test="${check eq 'P' && today>event.e_startDate &&  today<event.e_endDate}"> 
 								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7"/>
 								<figcaption>행사진행중</figcaption>
-								</c:if>
+								</c:when>
+							<c:when test="${ 'P' eq check}"> 
+								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7" style='opacity:0.3'/>
+								<figcaption>행사진행중</figcaption>
+								</c:when>
+							</c:choose>
 							</figure>
 							
 							<figure>
-							<c:if test="${check ne 'F'}"> 
-								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8" style='opacity:0.3'/>
-								<figcaption>행사완료</figcaption>
-								</c:if>
-							<c:if test="${check ne 'F' && today>endDate}"> 
+								<c:choose >
+							<c:when test="${check eq 'P' && today>event.e_endDate}"> 
 								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8"/>
 								<figcaption>행사완료</figcaption>
-								</c:if>
+								</c:when>
+							<c:when test="${ 'P' eq check}"> 
+								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8" style='opacity:0.3'/>
+								<figcaption>행사완료</figcaption>
+								</c:when>
+							</c:choose>
 							</figure> 
 						</div>
 					</div>

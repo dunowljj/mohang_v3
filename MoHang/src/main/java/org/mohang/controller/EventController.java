@@ -170,6 +170,15 @@ public class EventController  {
 		return "module/event/insertFormUpdate";
 	}
 	
+	
+	@GetMapping("/pay")
+	public String pay(@RequestParam("ap_num") String ap_num){
+			//결제시 ap_check바꿔주는거. 
+		eventService.pay(ap_num);
+		return "redirect:listApply";
+}
+	
+	
 	//신청한 행사정보 수정페이지 insert
 	@PostMapping("/updateApply")
 	public String updateApply(HttpServletRequest request, EventVO eventVO, MultipartFile e_file, MultipartFile e_dfile, RedirectAttributes rttr){
@@ -234,9 +243,16 @@ public class EventController  {
 	//@@@@@지혜@@@@@@@@@@@
 	//행사통계자료리스트확인페이지에서 자료 값 불러오기
 	@GetMapping("/listStatistics")
-	public String listStatistice(Model model){
+	public String listStatistice(Model model, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Object obj = session.getAttribute("account_num");
+		String account_num = String.valueOf(obj);
+	
+		String o_num = eventService.getOnum(account_num);
+
 		log.info("---load statistics list---");
-		model.addAttribute("endEventList", eventService.listStatistics());
+		model.addAttribute("endEventList", eventService.listStatistics(o_num));
+	
 		return "module/event/statisticsList";
 	}
 
@@ -296,6 +312,9 @@ public class EventController  {
 		return result;
 	}
 	//@@@@@여기까지@@@@@@@@@@@
+	
+	
+
 
 
 }

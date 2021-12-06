@@ -33,6 +33,7 @@ public class EventRestController {
 		return new ResponseEntity<>(eventService.getStatistics_ageGender(e_num), HttpStatus.OK);
 	}
 	
+	
 	@GetMapping("/statisticsListDetail_interest/{e_num}") ///{e_num은 }.getJson으로 받기
 	public ResponseEntity<List<StatisticsInterestDTO>> getInterst(@PathVariable("e_num")String e_num){
 	return new ResponseEntity<>(eventService.getStatistics_interest(e_num),HttpStatus.OK);

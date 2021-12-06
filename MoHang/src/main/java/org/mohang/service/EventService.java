@@ -72,7 +72,7 @@ public interface EventService {
 	public void updateuplike(String account_num, String e_num);
 
 	//<-지혜
-	public List<EventVO> listStatistics();
+	public List<EventVO> listStatistics(String o_num);
 	public StatisticsDTO getStatistics(String e_num);
 	public EventVO getApplyAndHitcount(String e_num); 
 
@@ -89,6 +89,8 @@ public interface EventService {
 	public String getOnum(String account_num);
 
 	public List<EventVO> listDayEvent(String search);
+
+	public int pay(String ap_num);
 
 
 }

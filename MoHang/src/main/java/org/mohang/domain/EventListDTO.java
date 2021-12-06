@@ -22,4 +22,5 @@ public class EventListDTO {
 	private Date e_endDate;
 	private Date e_applyDate;
 	private String ap_check;
+	private String ap_num;
 }

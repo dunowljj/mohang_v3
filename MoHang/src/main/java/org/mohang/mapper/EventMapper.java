@@ -10,6 +10,7 @@ import org.mohang.domain.EventListDTO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.Event_Hall_ReservationVO;
 import org.mohang.domain.LikedVO;
+import org.mohang.domain.OrganizationVO;
 import org.mohang.domain.Search;
 import org.mohang.domain.StatisticsAgeDTO;
 import org.mohang.domain.StatisticsDTO;
@@ -57,7 +58,7 @@ public interface EventMapper {
 	//충돌 조심
 	public void updateuplike(@Param("account_num")String account_num, @Param("e_num")String e_num);
 
-	public List<EventVO> listStatistics();
+	public List<EventVO> listStatistics(String o_num);
 	public List<StatisticsDetailDTO> getStatistics(String e_num);
 	//충돌 조심 용환 2021-12-03
 	public List<EventVO> listHitcountEvent();
@@ -81,5 +82,8 @@ public interface EventMapper {
 	public String getOnum(String account_num);
 
 	public List<EventVO> listDayEvent(String search);
+	
+	
+	public int pay(String ap_num);
 
 }

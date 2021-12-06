@@ -2,6 +2,9 @@ package org.mohang.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.mohang.domain.Criteria;
 import org.mohang.domain.PageDTO;
 import org.mohang.domain.ReviewVO;
@@ -33,7 +36,14 @@ public class ReviewController{
 	}
 
 	@GetMapping("/review_detail")
-	public String review_detail(@RequestParam("review_num")String review_num,@RequestParam("account_num")String account_num,@RequestParam("ticket_reservation_num")String ticket_reservation_num,Model model){
+	public String review_detail(@RequestParam("review_num")String review_num,@RequestParam("account_num")String account_num,@RequestParam("ticket_reservation_num")String ticket_reservation_num,Model model, HttpServletRequest request){
+		//로그인한 회원account_num **충돌주의**
+		HttpSession session = request.getSession();
+		Object obj = session.getAttribute("account_num");
+		String loginAccountNum = String.valueOf(obj);
+		model.addAttribute("loginAccountNum", loginAccountNum);
+		//**충돌주의**
+		
 		ReviewVO review = reviewService.reviewDetail(review_num);
 		reviewService.updateHitCountReview(review.getReview_num());
 		model.addAttribute("Review", review);
@@ -41,4 +51,5 @@ public class ReviewController{
 		model.addAttribute("Event", reviewService.eventGetName(account_num,ticket_reservation_num));
 		return "/module/review/review_detail";
 	}
+	
 }

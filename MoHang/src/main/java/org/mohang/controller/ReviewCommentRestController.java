@@ -10,6 +10,7 @@ import org.mohang.service.ReviewCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,7 +60,8 @@ public class ReviewCommentRestController {
 	
 	//리뷰번호에 대한 게시글 출력
 	@GetMapping("/getReviewComment/{review_num}")
-	public ResponseEntity<List<ReviewCommentVO>> getReviewComment(@PathVariable("review_num") String review_num){
+	public ResponseEntity<List<ReviewCommentVO>> getReviewComment(@PathVariable("review_num") String review_num, HttpServletRequest request){
+		
 		log.info("--"+review_num+"번째 리뷰의 댓글 수신중--");
 		List<ReviewCommentVO> commentList =rcservice.getReviewComment(review_num);
 		return new ResponseEntity<>(commentList, HttpStatus.OK);
@@ -77,5 +79,17 @@ public class ReviewCommentRestController {
 		return (result ==1) ? new ResponseEntity<>( "delete success",HttpStatus.OK) : new ResponseEntity<>( "error", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	/*//수정
+	@PostMapping("/updateReviewComment/{review_comment_num}")
+	public ResponseEntity<String> updateReviewComment(@RequestBody ReviewCommentVO reviewCommentVO, @PathVariable("review_comment_num") String review_comment_num, HttpStatus status){
+		reviewCommentVO.setAccount_num(review_comment_num);
+		int result = rcservice.updateReviewComment(reviewCommentVO);
+		return (result ==1)? new ResponseEntity<>("update success", status.OK):  new ResponseEntity<>("update fail", status.OK);
+	}
 	
+	@GetMapping("/getMyReviewComment/{review_comment_num}")
+	public ResponseEntity<ReviewCommentVO> getMyReviewComment(@PathVariable("review_comment_num") String review_comment_num, HttpStatus status){
+		ReviewCommentVO myComment = rcservice.getMyReviewComment(review_comment_num);
+		return new ResponseEntity<>(myComment,status.OK);
+	}*/
 }

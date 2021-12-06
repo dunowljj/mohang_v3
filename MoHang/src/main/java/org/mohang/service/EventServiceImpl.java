@@ -254,8 +254,8 @@ public class EventServiceImpl implements EventService {
 
 	// <-지혜
 	@Override
-	public List<EventVO> listStatistics() {
-		return mapper.listStatistics();
+	public List<EventVO> listStatistics(String o_num) {
+		return mapper.listStatistics(o_num);
 	}
 
 	@Override
@@ -268,6 +268,7 @@ public class EventServiceImpl implements EventService {
 		int cancelTicket = 0;
 		int realTicket = 0;
 
+		//한글로 수정..?
 		for (int i = 0; i < statisticsList.size(); i++) {
 			if (statisticsList.get(i).getTicket_reservation_status().equals("n")) {
 				cancelTicket += statisticsList.get(i).getTicket_reservation_amount();
@@ -330,6 +331,11 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<EventVO> listDayEvent(String search) {
 		return mapper.listDayEvent(search);
+	}
+	
+	@Override
+	public int pay(String ap_num){
+		return mapper.pay(ap_num);
 	}
 	
 	

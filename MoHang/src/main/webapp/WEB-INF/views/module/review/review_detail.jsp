@@ -14,6 +14,9 @@
 <script
 		src="${pageContext.request.contextPath}/resources/js/reviewComment.js"
 		type="text/javascript"></script>
+		
+<%@ page import="org.mohang.domain.AccountVO" %>	
+<%   String account_num = (String)session.getAttribute("account_num");  %>
 
     <div id="header_nav">
 		<ul>
@@ -37,7 +40,7 @@
 <br> 
 참가한 행사 : ${Event.e_name }
 <div class="star-ratings">
-	<div  class="star-ratings-fill-space-x-2-text-lg" style="{ width: ratingToPercent + '%' }">
+	<div  class="star-ratings-fill-space-x-2-text-lg" style="{width: ratingToPercent + '%' }">
 		<div class="div_none"></div>
 		<c:if test="${Review.review_scope eq 5 }">
 			<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -73,6 +76,7 @@ ${Review.review_content }
 
 <hr>
 <label for="exampleFormControlTextarea1" class="form-label">댓글쓰기</label>
+<input  type ="hidden" name="loginAccountNum" value="${loginAccountNum }">
 	<div class="textarea1">
   <textarea class="form-control" id="exampleFormControlTextarea1" name="review_comment_content" rows="5" cols="100"></textarea>
 </div>
