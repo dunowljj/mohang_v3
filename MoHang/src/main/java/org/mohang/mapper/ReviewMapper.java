@@ -20,4 +20,5 @@ public interface ReviewMapper {
 
 	public void updateHitCountReview(String review_num);
 	
+	public int insertReview(ReviewVO reviewVO);
 }

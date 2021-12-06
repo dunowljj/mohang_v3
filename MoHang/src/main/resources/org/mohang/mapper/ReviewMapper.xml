@@ -50,4 +50,20 @@
 		set review_hitcount = review_hitcount+1
 		where review_num = #{review_num}
 	</update>
+	
+	<!-- 	예약 확인 -->
+	<insert id='insertReview'>
+		insert into
+			review
+			(
+			review_num, review_title, review_writer, review_hitcount, review_content, 
+			review_date, review_scope, account_num, e_num, ticket_reservation_num
+			)
+		values 
+			(
+			review_seq.nextval, #{review_title}, #{review_writer}, '0',	#{review_content},
+			sysdate, #{review_scope}, #{account_num},#{e_num}, #{ticket_reservation_num}
+			)
+	</insert>
+	
 </mapper> 

@@ -100,11 +100,11 @@
 	<select id='getListMyReservation' resultType='org.mohang.domain.GeneralMyReservationDTO'>
 		SELECT 
 			 a.account_num, a.account_name, a.account_phoneNumber, a.account_email, a.account_id,
-			 e.e_num, e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e_fname,
+			 e.e_num, e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e.e_fname, e.e_hitcount,
 			 eh.eh_location,
-			 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, tp.ticket_attend,
+			 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, 
 			 TO_CHAR(tr.ticket_reservation_time,'YYYY-MM-DD HH24:MI:SS') AS ticket_reservation_time, ticket_reservation_status,
-			 tp.ticket_payment_price, tp.ticket_payment_status
+			 tp.ticket_attend, tp.ticket_payment_price, tp.ticket_payment_status
 		FROM
 			 account a join ticket_reservation tr on a.account_num = tr.account_num
 			 join ticket_payment tp on tr.ticket_reservation_num = tp.ticket_reservation_num
@@ -231,11 +231,24 @@
 	<!-- 참여한 행사 start-->
 	
 	</select>
+	
 	<select id='getListApplyEvents' resultType='org.mohang.domain.EventVO'>
 		SELECT
 			e_fname, e_name, e_startDate, e_endDate, e_price
 		FROM
 			event
-		WHERE account_num = #{account_num}
+		WHERE 
+			e_num = #{e_num}
 	</select>
+	
+	<update id='updateTicketReviewStatusTrue'>
+		UPDATE
+			ticket_payment
+		SET
+			ticket_review_status = '1'
+		WHERE
+			ticket_reservation_num = #{ticket_reservation_num}
+	</update>
+	
+	
 </mapper> 

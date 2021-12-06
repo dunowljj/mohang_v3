@@ -3,22 +3,21 @@ package org.mohang.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.mohang.domain.AccountVO;
-import org.mohang.domain.EventLikeDTO;
-import org.mohang.domain.EventVO;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralLikeListDTO;
 import org.mohang.domain.GeneralMyReservationDTO;
 import org.mohang.domain.GeneralResPayTimeDTO;
+import org.mohang.domain.ReservationLikeDTO;
+import org.mohang.domain.ReviewVO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
 import org.mohang.mapper.EventMapper;
 import org.mohang.mapper.GeneralAttachMapper;
 import org.mohang.mapper.GeneralMapper;
+import org.mohang.mapper.ReviewMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +36,9 @@ public class GeneralServiceImpl implements GeneralService {
 	
 	@Autowired
 	private EventMapper eventMapper;
+
+	@Autowired
+	private ReviewMapper reviewMapper;
 	
 	@Override
 	public AccountVO getInformation(String account_num) {
@@ -165,29 +167,57 @@ public class GeneralServiceImpl implements GeneralService {
 		mapper.updateReservationCancel(ticket_reservation_num);
 		return mapper.updatePayCancel(ticket_reservation_num)==1;
 	}
-
-	@Override
-	public List<EventLikeDTO> listMyPartInReseravtion(String account_num, String e_num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+//
 //	@Override
-//	public List<EventLikeDTO> listMyPartInReseravtion(String account_num) {
-//		List<EventLikeDTO> likeList = new ArrayList<EventLikeDTO>();
-//	
-//		for(int i=0; i<likeList.size(); i++){
-//			likeList.add(new EventLikeDTO(mapper.getListApplyEvents(account_num),
-//					mapper.getListLikeAll)
-//		}
+//	public List<EventLikeDTO> listMyPartInReseravtion(String account_num, String e_num) {
+//		List<EventLikeDTO> likeEventList = new ArrayList<EventLikeDTO>();
+//		List<EventVO> eventList = mapper.getListApplyEvents(e_num);
+//		List<LikedVO> likeList = mapper.getListLikeAll(account_num, e_num);
+////			mapper.getListLikeAll(account_num, eventList.get(0).getE_num());
+//			
+//		for(int i=0; i<likeEventList.size(); i++){
+//			likeEventList.add(new EventLikeDTO(eventList.get(i),)
+//		}		
+//					
 //		
-//		return  likeList;
+//		return  likeEventList;
 //	}
 
+	@Override
+	public String getLikeStatusOfOne(String account_num, String e_num) {
+		return mapper.getLikeStatusOfOne(account_num, e_num);
+	}
+
+	@Override
+	public List<ReservationLikeDTO> listMyPartInEvent(String account_num) {
+		
+//		List<GeneralMyReservationDTO> myResList = new ArrayList<GeneralMyReservationDTO>();
+//				myResList = mapper.getListMyReservation(account_num);
+		List<ReservationLikeDTO> resLikeList = new ArrayList<>();
+		List<GeneralMyReservationDTO> gmrList =mapper.getListMyReservation(account_num);
+		;
+		for(int i=0; i<mapper.getListMyReservation(account_num).size(); i++){
+			resLikeList.add(new ReservationLikeDTO(gmrList.get(i),
+					eventMapper.listLikeEvent(account_num, mapper.getListMyReservation(account_num).get(i).getE_num())
+					)
+					//			mapper.getLikeStatusOfOne(account_num, myResList.get(i).getE_num())
+			);
+		}
+		return resLikeList;
+	}
+//	@Override
+//	public List<ReservationLikeDTO> listMyPartInEvent(String account_num) {
+//	return resLikeList;
+//}
+//	
+
+	@Override
+	public boolean insertReview(ReviewVO reviewVO) {
+		return reviewMapper.insertReview(reviewVO)==1;
+	}
 	
 	
 	//-----Reserve-----
-
 }
 
 
