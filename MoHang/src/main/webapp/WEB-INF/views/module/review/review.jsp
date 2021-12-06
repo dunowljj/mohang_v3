@@ -7,7 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<%@ page import="org.mohang.domain.AccountVO" %>
+<%
+   String account_num = (String) session.getAttribute("account_num");
+   
+%>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
@@ -37,6 +41,7 @@
 		 <col style="width:50px;">
 		 <col style="width:70px;">
 		 <col style="width:30px;">		 
+		 <col style="width:30px;">		 
 	</colgroup>
 		<thead>
 			<tr class="table-active">
@@ -50,6 +55,8 @@
 						style="vertical-align: inherit;">작성 날짜</font></font></th>
 				<th scope="col"><font style="vertical-align: inherit;"><font
 						style="vertical-align: inherit;">조회수</font></font></th>
+				<th scope="col"><font style="vertical-align: inherit;"><font
+						style="vertical-align: inherit;">비고</font></font></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -67,6 +74,10 @@
 				<td>${review.review_writer }</td>
 				<td><fmt:formatDate value ="${review.review_date }" pattern = "yyyy-MM-dd"/></td>
 				<td>${review.review_hitcount }</td>
+				<c:if test="${review.account_num.equals(account_num)}">
+				<td><button type="button" id="updateReview" onclick="updateReview('${review.review_num}')">수정</button>
+				</td>		
+				</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -109,14 +120,14 @@ var actionForm =$("#actionForm");
 
 $(".page-item a").on(
 		"click",
-		function(e) {
+	function(e) {
 
-			e.preventDefault();
-
-			actionForm.find("input[name='pageNum']")
-					.val($(this).attr("href"));
-			var inputs = $("input[type='hidden']");
-			actionForm.submit();
+		e.preventDefault();
+	
+		actionForm.find("input[name='pageNum']")
+				.val($(this).attr("href"));
+		var inputs = $("input[type='hidden']");
+		actionForm.submit();
 });
 var searchForm = $("#searchForm");
 $("#searchForm button").on(
@@ -139,6 +150,11 @@ $("#searchForm button").on(
 		searchForm.submit();
 
 });
+function updateReview(review_review_num){
+		location.href="/general/updateReview?review_num="+review_review_num;
+}
+
+
 
 </script>
 
