@@ -11,6 +11,9 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
+<script
+		src="${pageContext.request.contextPath}/resources/js/reviewComment.js"
+		type="text/javascript"></script>
 
     <div id="header_nav">
 		<ul>
@@ -30,6 +33,7 @@
 리뷰게시판
 <hr>
 제목 : ${Review.review_title }
+<input type="hidden" name="review_num" value="<c:out value='${Review.review_num}'/>"/>
 <br> 
 참가한 행사 : ${Event.e_name }
 <div class="star-ratings">
@@ -63,24 +67,14 @@
 ${Review.review_content }
 </div>
 <hr>
-<div id = "reply_box">
-	<hr>
-	작성자 :<div class=""></div><br>
-	날짜 :<div class=""></div><br>
-	댓글내용 :<div class=""></div>
-	<hr>
+<div class="review_comment_box">
+
 </div>
-<div id = "reply_box">
-	<hr>
-	작성자 :<div class=""></div><br>
-	날짜 :<div class=""></div><br>
-	댓글내용 :<div class=""></div>
-	<hr>
-</div>
+
 <hr>
 <label for="exampleFormControlTextarea1" class="form-label">댓글쓰기</label>
 	<div class="textarea1">
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" cols="100"></textarea>
+  <textarea class="form-control" id="exampleFormControlTextarea1" name="review_comment_content" rows="5" cols="100"></textarea>
 </div>
 <div id ="btn">
 	<button type="button" id="dark">등록</button>
