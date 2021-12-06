@@ -2,7 +2,7 @@ package org.mohang.service;
 
 import java.util.List;
 
-
+import org.apache.ibatis.annotations.Param;
 import org.mohang.domain.AccountVO;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
@@ -10,6 +10,7 @@ import org.mohang.domain.GeneralLikeListDTO;
 import org.mohang.domain.GeneralMyReservationDTO;
 import org.mohang.domain.GeneralResPayTimeDTO;
 import org.mohang.domain.ReservationLikeDTO;
+import org.mohang.domain.ReviewVO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
 
@@ -49,5 +50,7 @@ public interface GeneralService  {
 	public int getTotalticket(String e_num);
 	
 	public List<ReservationLikeDTO> listMyPartInEvent(String account_num);
+	
+	public boolean insertReview(ReviewVO reviewVO);
 }
 

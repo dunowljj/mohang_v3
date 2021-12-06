@@ -18,4 +18,5 @@ public interface ReviewMapper {
 
 	public EventVO eventGetName(@Param("account_num")String account_num,@Param("ticket_reservation_num") String ticket_reservation_num);
 	
+	public int insertReview(ReviewVO reviewVO);
 }

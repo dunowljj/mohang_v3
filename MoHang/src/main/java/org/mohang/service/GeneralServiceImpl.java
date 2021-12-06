@@ -11,11 +11,13 @@ import org.mohang.domain.GeneralLikeListDTO;
 import org.mohang.domain.GeneralMyReservationDTO;
 import org.mohang.domain.GeneralResPayTimeDTO;
 import org.mohang.domain.ReservationLikeDTO;
+import org.mohang.domain.ReviewVO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
 import org.mohang.mapper.EventMapper;
 import org.mohang.mapper.GeneralAttachMapper;
 import org.mohang.mapper.GeneralMapper;
+import org.mohang.mapper.ReviewMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +36,9 @@ public class GeneralServiceImpl implements GeneralService {
 	
 	@Autowired
 	private EventMapper eventMapper;
+
+	@Autowired
+	private ReviewMapper reviewMapper;
 	
 	@Override
 	public AccountVO getInformation(String account_num) {
@@ -185,15 +190,13 @@ public class GeneralServiceImpl implements GeneralService {
 
 	@Override
 	public List<ReservationLikeDTO> listMyPartInEvent(String account_num) {
-//	@Override
-//	public List<ReservationLikeDTO> listMyPartInEvent(String account_num) {
 		
 //		List<GeneralMyReservationDTO> myResList = new ArrayList<GeneralMyReservationDTO>();
 //				myResList = mapper.getListMyReservation(account_num);
 		List<ReservationLikeDTO> resLikeList = new ArrayList<>();
 		List<GeneralMyReservationDTO> gmrList =mapper.getListMyReservation(account_num);
 		;
-		for(int i=0; i<resLikeList.size(); i++){
+		for(int i=0; i<mapper.getListMyReservation(account_num).size(); i++){
 			resLikeList.add(new ReservationLikeDTO(gmrList.get(i),
 					eventMapper.listLikeEvent(account_num, mapper.getListMyReservation(account_num).get(i).getE_num())
 					)
@@ -202,9 +205,17 @@ public class GeneralServiceImpl implements GeneralService {
 		}
 		return resLikeList;
 	}
+//	@Override
+//	public List<ReservationLikeDTO> listMyPartInEvent(String account_num) {
 //	return resLikeList;
 //}
 //	
+
+	@Override
+	public boolean insertReview(ReviewVO reviewVO) {
+		return reviewMapper.insertReview(reviewVO)==1;
+	}
+	
 	
 	//-----Reserve-----
 }

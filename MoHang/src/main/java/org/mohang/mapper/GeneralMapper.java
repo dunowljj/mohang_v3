@@ -50,4 +50,6 @@ public interface GeneralMapper {
 	
 	public List<LikedVO> getListLikeAll(@Param("account_num")String account_num, @Param("e_num")String e_num);
 	public List<EventVO> getListApplyEvents(String e_num);
+	
+	public int updateTicketReviewStatusTrue(String ticket_reservation_num);
 }

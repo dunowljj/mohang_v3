@@ -321,20 +321,27 @@ button{
 }
 .review_event_bottom {
 	height : 33%;
-	text-align: right;
-	padding-top: 17px;
+/* 	text-align: right; */
+    padding-top: 33px;
+	justify-content:space-between;
+}
+	display:flex;
+.review_event_bottom2 {
+	display:flex;
+	justify-content:flex-end;
 }
 .review_event_wrap{
-	height : 120px;
+	height : 180px;
 	margin: 15px 0px;
 	float: left;
     width: 100%;
 }
 #review_event_right{
-	margin-top: 48px
+    margin-top: 17px;
 }
 
 #review_event_right button{
+	margin-top: 48px;
    	margin-left: 70px;
     width: 100px;
     height: 40px;

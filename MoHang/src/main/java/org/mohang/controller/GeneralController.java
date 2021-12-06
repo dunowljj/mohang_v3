@@ -15,10 +15,12 @@ import org.mohang.domain.AccountVO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
+import org.mohang.domain.GeneralMyReservationDTO;
 import org.mohang.domain.GeneralPasswordVO;
 import org.mohang.domain.GeneralResPayTimeDTO;
 import org.mohang.domain.OrganizationVO;
 import org.mohang.domain.ReservationLikeDTO;
+import org.mohang.domain.ReviewVO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
 import org.mohang.mapper.GeneralMapper;
@@ -34,6 +36,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -302,20 +305,51 @@ public class GeneralController {
 			return "redirect:/login/login";
 		}
 		//logIn checked
-		log.info("mapper:"+mapper.getListMyReservation("41"));
 		
-		List<ReservationLikeDTO> myPartInList = new ArrayList<ReservationLikeDTO>();
-		myPartInList = service.listMyPartInEvent(account_num);
-		log.info("@@@@@@@@@@@@@@@@mypi"+ service.listMyPartInEvent(account_num));
-		log.info("@@@@@@@@@@@@@@@@myp22"+ myPartInList);
-		log.info("2222@@@@@@@@@@@@@@@@"+service.listMyPartInEvent("41").get(0).getMyReservationDTO());
-		log.info("2222@@@@@@@@@@@@@@@@"+service.listMyPartInEvent(account_num));
+		
+		List<ReservationLikeDTO> myPartInList =  service.listMyPartInEvent(account_num);
 		model.addAttribute("myPartInList",myPartInList);
 		
 		return "module/general/reviewList";
 	}
 	
+	@GetMapping("/review")
+	public String reveiwForm(HttpServletRequest request,
+			GeneralMyReservationDTO myReservationDTO, Model model){
+		//logIn check
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+		//logIn checked
+		AccountVO accountVO = (AccountVO)session.getAttribute("account");
+		log.info(accountVO.getAccount_name());
+		model.addAttribute("account", accountVO);
+		model.addAttribute("reserveDTO", myReservationDTO);
+		return "module/review/reviewForm";
+	}
 	
+	@PostMapping("/review")
+	public String insertReveiw(HttpServletRequest request, ReviewVO reviewVO){
+//			,@RequestParam("ticket_reservation_num") String ticket_reservation_num){
+		//logIn check
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+		//logIn checked
+		
+		if(service.insertReview(reviewVO)){
+			log.info("Success insertReview");
+		}else{
+			log.info("failed insertReview");
+		};
+		
+		
+		return "redirect:/review/review";
+	}
 	//프로필 사진 업로드
 //	@PostMapping("/uploadProfile")
 //	public String uploadProfile(MultipartFile uploadFile){

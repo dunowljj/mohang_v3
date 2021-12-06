@@ -40,7 +40,7 @@
 								<input type='hidden' id="hidden_e_num" value="<c:out value='${like.account_num}'/>">
 								<input type='hidden' id="hidden_account_num" value="<c:out value='${like.e_num}'/>">
 								<div class='like_event_images'>
-									<img class='like_full_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt='하트'>
+									<img class='like_full_heart'src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt='좋아요'>
 									<a href='/event/eventDetail?e_num=${like.e_num}'>
 										<span class='like_event_image_wrap'>
 											<img class='like_event_image' src="${pageContext.request.contextPath}/resources/images/${like.e_fname}" alt='like_event'>
