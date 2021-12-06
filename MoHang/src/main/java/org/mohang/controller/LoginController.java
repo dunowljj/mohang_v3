@@ -154,28 +154,6 @@ public class LoginController {
 		return "redirect:/Main";
 	}
 
-	// 카카오톡 로그인
-	@PostMapping("/kakaologin")
-	public String kakaoPOST(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-		return null;
-	}
 
-	// 페이스북 로그인
-	@PostMapping("/facelogin")
-	public String facePOST(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-		return null;
-	}
-
-	// 구글 로그인
-	@PostMapping("/googlelogin")
-	public String googlePOST(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-		return null;
-	}
-
-	// 네이버 로그인
-	@PostMapping("/naverlogin")
-	public String naverPOST(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-		return null;
-	}
 
 }
