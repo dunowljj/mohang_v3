@@ -39,13 +39,23 @@ public class AdminController {
 	}
 
 	/* 행사반려승인리스트에서 승인리스트만 받아와서 조회해준다. */
-	@GetMapping("listApprove")
+	/*@GetMapping("listApprove")
 	public String listapprove(Model model) {
 		List list = new ArrayList<>();
 		list = service.listApprove();
 		System.out.println("List : " + list);
 		model.addAttribute("approve", service.listApprove());
 		return "module/admin/adminApprove";
+	}*/
+	
+	/* 페이징처리된 행사반려승인리스트  조회해준다. */
+	@GetMapping("listApprove")
+	public String listapprove(Criteria cri, Model model) {
+		model.addAttribute("approve", service.getlistApprovePaging(cri));
+		int total = service.getApproveTotal(cri);
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		return "module/admin/adminApprove";
+		
 	}
 	
 	/*승인반려리스트에서 글 제목 눌렀을시 디테일 페이지로 이동하게끔*/

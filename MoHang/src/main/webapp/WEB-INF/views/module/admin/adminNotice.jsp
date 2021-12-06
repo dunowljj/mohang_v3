@@ -36,7 +36,7 @@
 	
 	
 		<form class="d-flex" style=" float: left;" action="/admin/listNotice" method="get" id="searchForm">
-			<input class="form-control me-sm-2"type="text" placeholder="Search" name = "keyword" style=" width: auto;">
+			<input class="form-control me-sm-2"type="text" placeholder="제목을 입력하세요" name = "keyword" style=" width: auto;">
 			<button class="btn btn-secondary my-2 my-sm-01" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
 		    <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/> 
 		     <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' />
@@ -59,7 +59,7 @@
 	</colgroup>
 		<thead>
 			<tr class="table-active">
-				<th scope="col"><input type="checkbox"></th>
+				<th scope="col"><input type="checkbox" name="check" value="checkAll" id="checkAll" ></th>
 				<th scope="col"><font style="vertical-align: inherit;">번호</font></th>
 				<th scope="col"><font style="vertical-align: inherit;">제목</font></th>
 				<th scope="col"><font style="vertical-align: inherit;">작성자</font></th>
@@ -69,9 +69,9 @@
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach items= "${notice}" var ="NoticeVO">
+		<c:forEach items= "${notice}" var ="NoticeVO" varStatus ="status">
 			<tr>
-			    <th scope="row"><input type="checkbox"></th>
+			    <th scope="row"><input type="checkbox" name="check" value="${Notice.notice_num }"></th>
 				<th scope="row"><font style="vertical-align: inherit;">${NoticeVO.notice_num}</font></th>
 				<td><a href="/admin/noticeDetail?notice_num=${NoticeVO.notice_num}"><font style="vertical-align: inherit;">${NoticeVO.notice_title}</font></a></td>
 				<td><font style="vertical-align: inherit;">${NoticeVO.notice_writer}</font></td>

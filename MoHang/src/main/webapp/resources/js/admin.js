@@ -30,6 +30,23 @@ $("#searchForm button").on(
 		});
 
 
+$(function(){
+	$("#checkAll").on('click',function(){
+			console.log('test');
+			if($("#checkAll").is(":checked")) $("input[name=check]").prop("checked", true);
+			else $("input[name=check]").prop("checked", false);
+
+	})
+})
 
 
+//선택버튼 다중으로 선택할 수 있게
+/*$("input[name=check]:checked").each(function(){
+	var chk = $(this).val();
+})
 
+var chk_arr = [];
+$("input[name=check]:cheked").each(function(){
+	var chk = $(this).val();
+	chk_arr.push(chk);
+})*/

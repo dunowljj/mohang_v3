@@ -29,9 +29,16 @@ public class AdminServiceImpl implements AdminService {
 	private AdminMapper mapper;
 	
 	
-	public List<ApproveDTO> listApprove(){
+	/*public List<ApproveDTO> listApprove(){
 		return mapper.listApprove();
+	}*/
+	
+	/*페이징처리가 된 행사반려승인리스트 조회*/
+	public List<ApproveDTO> getlistApprovePaging(Criteria cri) {
+		
+		return mapper.getlistApprovePaging(cri);
 	}
+
 	
 	/*public List<AccountVO> listAccount(){
 		return mapper.listAccount();
@@ -65,8 +72,9 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.deleteEventHall(ap_num);
 	}
 	
-	public List<ApproveDTO> listApprovebtn(){
-		return mapper.listApprove();
+	
+	public List<ApproveDTO> listApprovebtn(Criteria cri){
+		return mapper.getlistApprovePaging(cri);
 	}
 	
 	/*페이징 처리 되기전 원래 티켓예약 리스트 조회
@@ -210,10 +218,18 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	
-	
 
-	
-	
+	@Override
+	public int getApproveTotal(Criteria cri) {
+		
+		return mapper.getApproveTotal(cri);
+	}
+
+
+
+
+
+
 	
 
 
