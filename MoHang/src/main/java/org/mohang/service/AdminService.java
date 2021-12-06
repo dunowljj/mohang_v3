@@ -15,7 +15,10 @@ import org.springframework.stereotype.Service;
 @Service
 public interface AdminService {
 	/*반려승인리스트 조회 서비스*/
-	public  List<ApproveDTO> listApprove();
+	//public  List<ApproveDTO> listApprove();
+	
+	/*검색기능과 페이징처리된 반려승인리스트 조회 서비스*/
+	public List<ApproveDTO> getlistApprovePaging(Criteria cri);
 	
 	/*회원관리리스트 조회 서비스*/
 	//public List<AccountVO> listAccount();
@@ -34,7 +37,7 @@ public interface AdminService {
 	public int deleteEventHall(String ap_num);
 	
 	/*승인버튼눌렀을시 비고란 버튼만 없어지고 다시 리스트 나오게*/
-	public List<ApproveDTO> listApprovebtn();
+	public List<ApproveDTO> listApprovebtn(Criteria cri);
 	
 	/*승인반려리스트에서 글 제목 눌렀을시 디테일 페이지로 이동하게끔*/
 	public EventVO detailApprove(String e_num);
@@ -106,6 +109,10 @@ public interface AdminService {
 
 	/*회원관리게시판에서 데이터 갯수를 갖고오는 메서드*/
 	public int getAccountTotal(Criteria cri);
+
+	/*반려승인리스트에서 테이터 갯수를 갖고오는 메서드*/
+	public int getApproveTotal(Criteria cri);
+	
 
 	
 

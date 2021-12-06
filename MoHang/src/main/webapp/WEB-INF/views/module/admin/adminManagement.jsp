@@ -29,7 +29,7 @@
 	
 		<div class = "Search" style="color: #000000;font-size: 20px; padding-top:50px;">회원정보
 		<form class="d-flex" style=" float: left;" action="/admin/listAccount" method="get" id="searchForm">
-			<input class="form-control me-sm-2"type="text" placeholder="Search" name = "keyword" style=" width: auto;">
+			<input class="form-control me-sm-2"type="text" placeholder="아이디를 입력하세요" name = "keyword" style=" width: auto;">
 			<button class="btn btn-secondary my-2 my-sm-01" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
 		    <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/> 
 		     <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' />

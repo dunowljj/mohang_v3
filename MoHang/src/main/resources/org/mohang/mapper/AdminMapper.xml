@@ -12,6 +12,24 @@
        from approve a, event e, event_hall_reservation r
        where r.eh_reservation_num = a.eh_reservation_num and  e.e_num = r.e_num
     </select>
+    
+    <!-- 페이징처리된 승인반려리스트 조회 -->
+     <select id="getlistApprovePaging" resultType ="org.mohang.domain.ApproveDTO">
+	 
+	 	SELECT * FROM (
+       		 SELECT a.*, ROWNUM as rnum FROM (
+             select a.ap_num, e.e_name, a.admin_num, a.ap_date, a.ap_check, e.e_num
+      		 from approve a, event e, event_hall_reservation r
+      			 where r.eh_reservation_num = a.eh_reservation_num and  e.e_num = r.e_num
+				 									<if test="keyword !=null  and !keyword.equals('')">
+															  and e.e_name like '%'||#{keyword}||'%' 
+													</if> order by to_number(admin_num) desc
+               )
+        	a) 
+       <![CDATA[ 
+        where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
+		]]> 
+	 </select>
 	 
 	 <!-- 승인반려리스트삭제- 왜냐하면 조인했으니깐 이벤트홀 ap_num을 먼저 삭제 하는거다.-->
 	 <delete id="deleteEventHall" >
@@ -63,12 +81,16 @@
 	 
 	 <!-- 페이징처리된 회원관리 리스트 조회 -->
 	  <select id="getAccountPaging" resultType="org.mohang.domain.AccountVO">
-	 	 <![CDATA[ 
+	
 	 	SELECT * FROM (
        		 SELECT a.*, ROWNUM as rnum FROM (
-               SELECT * FROM account order by to_number(account_num) desc
+               SELECT * FROM account <if test="keyword !=null  and !keyword.equals('')">
+															 where account_id like '%'||#{keyword}||'%' 
+													</if> order by to_number(account_num) desc
                )
         	a) 
+        
+         <![CDATA[ 
         where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
 		]]> 
 	 </select>
@@ -119,12 +141,18 @@
 	
 	<!-- 페이징처리가 된 리뷰 리스트 조회 -->
 	 <select id="getReviewPaging" resultType="org.mohang.domain.ReviewVO">
-	 	<![CDATA[ 
+	 
 	 	SELECT * FROM (
        		 SELECT a.*, ROWNUM as rnum FROM (
-               SELECT * FROM review order by to_number(review_num) desc
+               SELECT * FROM review 
+               										<if test="keyword !=null  and !keyword.equals('')">
+															 where review_title like '%'||#{keyword}||'%' 
+													</if> order by to_number(review_num) desc
+               
                )
         	a) 
+        
+        <![CDATA[ 
         where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
 		]]> 
 	 </select>
@@ -256,6 +284,13 @@
 	 	select count(*) from account
 	 	<if test="keyword !=null  and !keyword.equals('')">
 				where account_id like '%'||#{keyword}||'%' 
+		</if>
+	 </select>
+	 
+	  <select id="getApproveTotal" resultType="int">
+	 	select count(*) from approve
+	 	<if test="keyword !=null  and !keyword.equals('')">
+				where ap_num like '%'||#{keyword}||'%' 
 		</if>
 	 </select>
 	 
