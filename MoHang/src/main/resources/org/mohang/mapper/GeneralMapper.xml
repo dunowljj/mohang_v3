@@ -236,6 +236,7 @@
 			e_fname, e_name, e_startDate, e_endDate, e_price
 		FROM
 			event
-		WHERE account_num = #{account_num}
+		WHERE 
+			e_num = #{e_num}
 	</select>
 </mapper> 

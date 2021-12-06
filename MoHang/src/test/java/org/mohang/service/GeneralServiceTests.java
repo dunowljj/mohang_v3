@@ -41,10 +41,14 @@ public class GeneralServiceTests {
 //		}
 //		
 //	}
+//	@Test
+//	public void testLikeCancelTs(){
+//		boolean isExecute = service.cancelLikeDisplay("2", "41");
+//		log.info("isExecute???@@@"+isExecute);
+//		
+//	}
 	@Test
-	public void testLikeCancelTs(){
-		boolean isExecute = service.cancelLikeDisplay("2", "41");
-		log.info("isExecute???@@@"+isExecute);
-		
+	public void testMyReservationList(){
+		service.listMyPartInEvent("41");
 	}
 }

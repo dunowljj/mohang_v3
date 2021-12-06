@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +18,10 @@ import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralPasswordVO;
 import org.mohang.domain.GeneralResPayTimeDTO;
 import org.mohang.domain.OrganizationVO;
+import org.mohang.domain.ReservationLikeDTO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
+import org.mohang.mapper.GeneralMapper;
 import org.mohang.service.EventService;
 import org.mohang.service.GeneralService;
 import org.mohang.service.OrganizationService;
@@ -55,6 +58,9 @@ public class GeneralController {
 	@Autowired
 	private EventService eventService;
 	
+	
+	@Autowired
+	private GeneralMapper mapper;
 	
 	@GetMapping("/updateInformation")
 	public String getInformation(HttpServletRequest request, Model model){
@@ -288,7 +294,7 @@ public class GeneralController {
 	
 	
 	@GetMapping("/listMyPartIn")
-	public String listMyPartIn(HttpServletRequest request, @RequestParam("e_num")String e_num){
+	public String listMyPartIn(HttpServletRequest request,Model model){
 		//logIn check
 		HttpSession session = request.getSession();
 		String account_num =String.valueOf(session.getAttribute("account_num"));
@@ -296,10 +302,16 @@ public class GeneralController {
 			return "redirect:/login/login";
 		}
 		//logIn checked
+		log.info("mapper:"+mapper.getListMyReservation("41"));
 		
-		eventService.getApply(e_num);
+		List<ReservationLikeDTO> myPartInList = new ArrayList<ReservationLikeDTO>();
+		myPartInList = service.listMyPartInEvent(account_num);
+		log.info("@@@@@@@@@@@@@@@@mypi"+ service.listMyPartInEvent(account_num));
+		log.info("@@@@@@@@@@@@@@@@myp22"+ myPartInList);
+		log.info("2222@@@@@@@@@@@@@@@@"+service.listMyPartInEvent("41").get(0).getMyReservationDTO());
+		log.info("2222@@@@@@@@@@@@@@@@"+service.listMyPartInEvent(account_num));
+		model.addAttribute("myPartInList",myPartInList);
 		
-		log.info("MyLikeList");
 		return "module/general/reviewList";
 	}
 	

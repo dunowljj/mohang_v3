@@ -8,6 +8,7 @@ import org.mohang.domain.EventVO;
 import org.mohang.domain.GeneralLikeListDTO;
 import org.mohang.domain.GeneralMyReservationDTO;
 import org.mohang.domain.GeneralResPayTimeDTO;
+import org.mohang.domain.LikedVO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
 
@@ -47,6 +48,6 @@ public interface GeneralMapper {
 	
 	public int getEventPeriodVolume(String e_num);
 	
-//	public List<LikedDTO> getListLikeAll(@Param("account_num")String account_num, @Param("e_num")String e_num);
-	public List<EventVO>getListApplyEvents(String account_num);
+	public List<LikedVO> getListLikeAll(@Param("account_num")String account_num, @Param("e_num")String e_num);
+	public List<EventVO> getListApplyEvents(String e_num);
 }

@@ -6,10 +6,13 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.ReservationLikeDTO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
 import org.mohang.mapper.GeneralMapper;
@@ -78,20 +81,25 @@ public class GeneralMapperTests {
 //		int hi = mapper.getEventPeriod("41");
 //		log.info(hi);
 //	}
+//	@Test
+//	public void getlike1(){
+//		log.info("1@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41").trim().equals("0"));
+//	}
+//	@Test
+//	public void getlike2(){
+//		log.info("2@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41").equals("0"));
+//	}
+//	@Test
+//	public void getlike3(){
+//		log.info("3@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41")=="0");
+//	}
+//	@Test
+//	public void getlike4(){
+//		log.info("4@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41").equals(48));
+//	}
 	@Test
-	public void getlike1(){
-		log.info("1@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41").trim().equals("0"));
-	}
-	@Test
-	public void getlike2(){
-		log.info("2@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41").equals("0"));
-	}
-	@Test
-	public void getlike3(){
-		log.info("3@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41")=="0");
-	}
-	@Test
-	public void getlike4(){
-		log.info("4@@@@@@@@@@@@@@@@@@@@@@@@:"+mapper.getLikeStatusOfOne("2", "41").equals(48));
+	public void getlistMyReserve(){
+		
+		mapper.getListMyReservation("41");
 	}
 }

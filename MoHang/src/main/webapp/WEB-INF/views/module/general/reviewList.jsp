@@ -20,14 +20,15 @@
 				<!-- 행사 1 -->
 				
 				<div class="entire_review_event">
-					<c:forEach items='${myPratInList}' var='myEvent'>
+					<c:forEach items='${myPartInList}' var='myEvent'>
+					<c:set var="myReserve" value="${myEvent.myReservationDTO}"/>
 						<div class='review_event_wrap'>
 							<a href=''>
 								<img class='review_event' src='${pageContext.request.contextPath}/resources/images/stevej.jpg' alt='like_event'>
 							</a>
 							<div class='review_event_exp'>
 								<div class="review_event_top">
-									<span><c:out value='${myPratInList.e_name}'/></span><span>무료</span>
+									<span><c:out value='${myReserve.e_name}'/></span><span>무료</span>
 									<span><br>10월 28일(목) 금천구</span><br>
 								</div>
 								<div class="review_event_bottom">
@@ -43,40 +44,6 @@
 					<div class='review_event_wrap'>
 						<a href=''>
 						<img class='review_event' src='${pageContext.request.contextPath}/resources/images/steve2.jpg' alt='like_event'>
-						</a>
-						<div class='review_event_exp'>
-							<div class="review_event_top">
-								<span>기간지역</span><span>무료</span>
-								<span><br>행사이름</span><br>
-							</div>
-							<div class="review_event_bottom">
-								조회수xx    <a href=''><img src='' alt='heart'></a>
-							</div>	
-						</div>
-						<div id='review_event_right'>
-							<a href=''><button>리뷰작성</button></a>
-						</div>
-					</div>
-					<div class='review_event_wrap'>
-						<a href=''>
-						<img class='review_event' src='${pageContext.request.contextPath}/resources/images/steve3.jpg' alt='like_event'>
-						</a>
-						<div class='review_event_exp'>
-							<div class="review_event_top">
-								<span>기간지역</span><span>무료</span>
-								<span><br>행사이름</span><br>
-							</div>
-							<div class="review_event_bottom">
-								조회수xx    <a href=''><img src='' alt='heart'></a>
-							</div>	
-						</div>
-						<div id='review_event_right'>
-							<a href=''><button>리뷰작성</button></a>
-						</div>
-					</div>
-					<div class='review_event_wrap'>
-						<a href=''>
-						<img class='review_event' src='${pageContext.request.contextPath}/resources/images/steve4.jpg' alt='like_event'>
 						</a>
 						<div class='review_event_exp'>
 							<div class="review_event_top">

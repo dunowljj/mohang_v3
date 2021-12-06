@@ -2,15 +2,14 @@ package org.mohang.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.mohang.domain.AccountVO;
-import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralLikeListDTO;
 import org.mohang.domain.GeneralMyReservationDTO;
 import org.mohang.domain.GeneralResPayTimeDTO;
+import org.mohang.domain.ReservationLikeDTO;
 import org.mohang.domain.TicketPaymentDTO;
 import org.mohang.domain.TicketReservationDTO;
 
@@ -33,6 +32,7 @@ public interface GeneralService  {
 	public List<GeneralLikeListDTO> getListLikes(String account_num);
 	public boolean cancelLikeDisplay(String account_num, String e_num);
 	public boolean confirmIsLikeCancelAlready(String account_num, String e_num);
+	public String getLikeStatusOfOne(String account_num, String e_num);
 	
 	//reserveList
 	public List<GeneralMyReservationDTO> getListMyReservation(String account_num);
@@ -48,6 +48,6 @@ public interface GeneralService  {
 	public int getRemainTicket(String e_num);
 	public int getTotalticket(String e_num);
 	
-	public List<EventLikeDTO> listMyPartInReseravtion(String account_num,String e_num);
+	public List<ReservationLikeDTO> listMyPartInEvent(String account_num);
 }
 
