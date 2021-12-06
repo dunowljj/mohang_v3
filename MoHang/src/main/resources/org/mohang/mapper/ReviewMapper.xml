@@ -43,4 +43,11 @@
 			and tr.ticket_reservation_num = #{ticket_reservation_num}
 			and tp.ticket_attend='참여'
 	</select>
+	
+	<update id="updateHitCountReview">
+		update 
+		review
+		set review_hitcount = review_hitcount+1
+		where review_num = #{review_num}
+	</update>
 </mapper> 

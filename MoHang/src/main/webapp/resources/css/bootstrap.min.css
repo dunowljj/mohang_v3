@@ -11696,7 +11696,7 @@ thead th {
 /* 로그인 성공 영역 */
 .login_success_area{
     height: 62%;
-    width: 240%;
+    width: 140%;
     border: 2px solid #A9A9A9;
     border-radius: 15px;
     margin: 5% auto;

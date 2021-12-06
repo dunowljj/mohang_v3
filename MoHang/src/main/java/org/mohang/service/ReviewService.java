@@ -16,4 +16,6 @@ public interface ReviewService {
 
 	public EventVO eventGetName(String account_num,String ticket_reservation_num);
 
+	public void updateHitCountReview(String review_num);
+
 }

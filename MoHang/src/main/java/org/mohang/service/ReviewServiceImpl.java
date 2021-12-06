@@ -43,5 +43,12 @@ public class ReviewServiceImpl implements ReviewService{
 		// TODO Auto-generated method stub
 		return reviewMapper.eventGetName(account_num, ticket_reservation_num);
 	}
+
+	@Override
+	public void updateHitCountReview(String review_num) {
+		
+		 reviewMapper.updateHitCountReview(review_num);
+		
+	}
 	
 }

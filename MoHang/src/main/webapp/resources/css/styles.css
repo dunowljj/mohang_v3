@@ -12610,6 +12610,7 @@ html {
 .nav-loginbar {
 	list-style-type: none;
 	margin-top: 18px;
+    width: 161px;
 }
 
 .nav-loginbar li {
@@ -12652,7 +12653,7 @@ html {
 }
 
 #Notice {
-	height: 60px;
+    height: 55px;
 	width: 1000px;
 	margin-left: 305px;
 }
@@ -12684,7 +12685,7 @@ html {
 
 #pro_box {
 	position: relative;
-	width: 225px;
+	width: 145px;
 	float: left;
 }
 

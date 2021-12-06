@@ -18,7 +18,7 @@
 						<li><a href="#">회사소개</a></li>
 						<li><a href="#">웨비나소개</a></li>
 						<li><a href="#">서비스소개</a></li>
-						<li><a href="/MoHang/Notice/Notice.do">공지사항</a></li>
+						<li><a href="/notice/notice">공지사항</a></li>
 						<li><a href="#">채용</a></li>
 					</ul>
 				</div>
