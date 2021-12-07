@@ -12,10 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.mohang.domain.ApproveVO;
+import org.mohang.domain.Criteria;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.Event_Hall_ReservationVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.domain.OrganizationVO;
+import org.mohang.domain.PageDTO;
+import org.mohang.domain.PageDTO2;
 import org.mohang.service.EventService;
 import org.mohang.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,13 +139,15 @@ public class EventController  {
 	
 	//행사신청리스트 확인페이지
 	@GetMapping("/listApply")
-	public String listApply(HttpServletRequest request,Model model){
+	public String listApply(HttpServletRequest request,Model model,Criteria cri){
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("account_num");
 		String account_num = String.valueOf(obj);
 		log.info(account_num);
-		model.addAttribute("eventList", eventService.listApply(account_num));
-		log.info(eventService.listApply(account_num));
+		model.addAttribute("eventList", eventService.listApply(account_num,cri));
+		int total = eventService.CountlistApply(account_num,cri);
+		//pageMaker
+    	model.addAttribute("pageMaker", new PageDTO (cri,total));
 		return "module/event/applyList";
 	}
 
@@ -243,7 +248,7 @@ public class EventController  {
 	//@@@@@지혜@@@@@@@@@@@
 	//행사통계자료리스트확인페이지에서 자료 값 불러오기
 	@GetMapping("/listStatistics")
-	public String listStatistice(Model model, HttpServletRequest request){
+	public String listStatistice(Model model, HttpServletRequest request,Criteria cri){
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("account_num");
 		String account_num = String.valueOf(obj);
@@ -251,8 +256,11 @@ public class EventController  {
 		String o_num = eventService.getOnum(account_num);
 
 		log.info("---load statistics list---");
-		model.addAttribute("endEventList", eventService.listStatistics(o_num));
-	
+		
+		model.addAttribute("endEventList", eventService.listStatistics(o_num,cri));
+		int total = eventService.CountStatistics(o_num,cri);
+		//pageMaker
+    	model.addAttribute("pageMaker", new PageDTO (cri,total));
 		return "module/event/statisticsList";
 	}
 

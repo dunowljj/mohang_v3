@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.mohang.domain.AccountVO;
 import org.mohang.domain.ApproveVO;
+import org.mohang.domain.Criteria;
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventListDTO;
@@ -82,10 +83,8 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public List<EventListDTO> listApply(String account_num) {
-		System.out.println(account_num);
-		log.info(mapper.listApply(account_num));
-		return mapper.listApply(account_num);
+	public List<EventListDTO> listApply(String account_num,Criteria cri) {
+		return mapper.listApply(account_num,cri);
 	}
 
 	@Override
@@ -254,8 +253,8 @@ public class EventServiceImpl implements EventService {
 
 	// <-지혜
 	@Override
-	public List<EventVO> listStatistics(String o_num) {
-		return mapper.listStatistics(o_num);
+	public List<EventVO> listStatistics(String o_num, Criteria cri) {
+		return mapper.listStatistics(o_num,cri);
 	}
 
 	@Override
@@ -336,6 +335,16 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public int pay(String ap_num){
 		return mapper.pay(ap_num);
+	}
+	@Override
+	public int CountStatistics(String o_num , Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.CountStatistics(o_num,cri);
+	}
+	@Override
+	public int CountlistApply(String account_num, Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.CountlistApply(account_num,cri);
 	}
 	
 	

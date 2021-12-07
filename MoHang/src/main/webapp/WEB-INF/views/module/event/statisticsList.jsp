@@ -47,11 +47,73 @@
 			</c:forEach>
 				<!-- 행사 1 end -->
 			
-			
-			
+			<div class="page">
+				<ul class="pagination">
+				   <c:if test="${pageMaker.prev }">
+						<li class="page-item "><a class="page-link" href="${pageMaker.cri.pageNum -1}">&laquo;</a></li>
+				   </c:if>	
+				   <c:forEach var="num" begin="${pageMaker.startPage}"
+                     end="${pageMaker.endPage}">
+                     <li class="page-item  ${pageMaker.cri.pageNum == num ? "active":""} " >
+                        <a class="page-link" href="${num}">${num}</a>
+                     </li>
+                   </c:forEach>
+                    <c:if test="${pageMaker.next}">
+					<li class="page-item"><a class="page-link" href="${pageMaker.cri.pageNum +1 }">&raquo;</a></li>
+					</c:if>
+				</ul>
+		    </div>
+	    	<form id='actionForm' action="/event/listStatistics" method='get'>
+				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+				<input type='hidden' name='amount' value='${pageMaker.cri.keyword}'>
+		    </form>
+			<form class="d-flex" style=" float: left;" action="/event/listStatistics" method="get" id="searchForm">
+				 <input class="form-control me-sm-2"type="text" placeholder="행사 제목을 입력하세요" name ="keyword" style="width: auto;height:40px;margin-top: 8px;">
+				 <button class="btn btn-secondary my-2 my-sm-01" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
+			     <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/> 
+			     <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' />
+			</form>
 			</div>
+			
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
+	<script>
+var actionForm =$("#actionForm");
+
+$(".page-item a").on(
+		"click",
+		function(e) {
+
+			e.preventDefault();
+
+			console.log('click');
+
+			actionForm.find("input[name='pageNum']")
+					.val($(this).attr("href"));
+			actionForm.submit();
+});
+
+var searchForm = $("#searchForm")
+$("#searchForm button").on(
+		"click",
+		function(e) {
+
+
+			if (!searchForm.find(
+					"input[name='keyword']").val()) {
+				alert("키워드를 입력하세요");
+				return false;
+			}
+
+			searchForm.find("input[name='pageNum']")
+					.val("1");
+			e.preventDefault();
+
+			searchForm.submit();
+
+		});
+</script>	
 </body>
 </html>
