@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.ChatDTO;
 import org.mohang.domain.ChatVO;
 import org.mohang.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,7 +27,6 @@ import lombok.Data;
 import lombok.extern.log4j.Log4j;
 
 @RestController
-@Data
 @Log4j
 @RequestMapping("/chat/*")
 public class ChatController {
@@ -33,40 +35,71 @@ public class ChatController {
 	private ChatService service;
 	
 	@GetMapping("/Form")
-	public ModelAndView Form() {
+	public ModelAndView Form(HttpServletRequest req) {
 		log.info("Form Success");
 						
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("module/chat/chatForm");
+		
+		
+		String account_num = (String)req.getAttribute("account_num"); 
+		mav.addObject("account_num", account_num);
 		return mav;
 	}
 
-	@GetMapping("/test")
-	public ModelAndView test() {
-		log.info("Client Success");
-		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("msg", "Spring and Node");
-		mav.setViewName("module/chat/chat");
-
-		return mav;
-	}
-	
 	@GetMapping(value = "/list", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<AccountVO>> getList(HttpServletRequest request, Model model){
+	public ResponseEntity<List<ChatDTO>> getList(HttpServletRequest request){
 		HttpSession session = request.getSession();
-		//AccountVO accountVO = (AccountVO)session.getAttribute("account");
-		//String account_num = accountVO.getAccount_num(); 
+		AccountVO accountVO = (AccountVO)session.getAttribute("account");
+		String account_num;
+		if(accountVO != null) {
+			account_num = accountVO.getAccount_num(); 		
+		}else {
+			account_num ="0";
+		}
 		log.info("gggggggggggggggggggggggggggggggg");
-		String account_num = "1";
-		//model.addAttribute("account_num", account_num);
-		//return null;
+		
+		
+		
 		return new ResponseEntity<>(service.getList(account_num), HttpStatus.OK);
 	}
 	
+	
+
+	
 	@GetMapping(value = "/list/{room_num}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<ChatVO>> getMessageList(@PathVariable("room_num") String room_num){
+	public ResponseEntity<List<ChatVO>> getMessageList(@PathVariable("room_num") String room_num, Model model){
+		
 		
 		return new ResponseEntity<>(service.getChatList(room_num), HttpStatus.OK);
+	}
+	
+	@PostMapping(value ="/new", 
+			produces = {MediaType.TEXT_PLAIN_VALUE},
+			consumes = "application/json")
+	public ResponseEntity<String> createChatHistory(@RequestBody ChatVO chatVO){
+		log.info("chatVO : " + chatVO);
+		
+		int result = service.addChatLog(chatVO);
+		
+		return result == 1 ? new ResponseEntity<>("sucess", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@PostMapping(value ="/{room_num}", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> deleteChat(@PathVariable("room_num") String room_num){
+
+		log.info("delete room: " + room_num);
+		if(service.deleteChatLog(room_num) >= 0 ) {
+			log.info("chatLog delete");
+			if(service.deleteUser(room_num) > 1) {
+				log.info("chatList delete");
+				return service.deleteRoom(room_num) == 1 ? new ResponseEntity<>("success",HttpStatus.OK) :
+					new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
+		
+		
+		return new  ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
