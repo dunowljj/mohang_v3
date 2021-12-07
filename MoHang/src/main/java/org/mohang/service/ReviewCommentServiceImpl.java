@@ -2,6 +2,7 @@ package org.mohang.service;
 
 import java.util.List;
 
+import org.mohang.domain.ReviewCommentDTO;
 import org.mohang.domain.ReviewCommentVO;
 import org.mohang.mapper.ReviewCommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ReviewCommentServiceImpl implements ReviewCommentService {
 	}
 	
 	@Override
-	public List<ReviewCommentVO> getReviewComment(String review_num) {
+	public List<ReviewCommentDTO> getReviewComment(String review_num) {
 		return mapper.getReviewComment(review_num);
 	}
 

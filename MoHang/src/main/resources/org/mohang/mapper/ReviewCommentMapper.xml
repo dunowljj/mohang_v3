@@ -17,11 +17,15 @@
 		)
 	</insert>
 	
-	<select id="getReviewComment" resultType="org.mohang.domain.ReviewCommentVO">
-		select * from review_comment where review_num =#{review_num}
+	<select id="getReviewComment" resultType="org.mohang.domain.ReviewCommentDTO">
+		select r.review_comment_num, r.review_num, r.review_comment_content, 
+		r.review_comment_date, a.account_id
+		  from review_comment r, account a
+		 where r.account_num = a.account_num
+		 and review_num =#{review_num}
 	</select>
 	
-	<select id="getMyReviewComment" resultType="org.mohang.domain.ReviewCommentVO">
+	<select id="getMyReviewComment" resultType="org.mohang.domain.ReviewCommentDTO">
 		select * from review_comment where review_comment_num =#{review_comment_num}
 	
 	</select>
