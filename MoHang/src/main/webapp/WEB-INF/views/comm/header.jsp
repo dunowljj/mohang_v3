@@ -225,7 +225,7 @@
          for (var j = 0, len = list.length || 0; j < len; j++) {
               var testyear=0;
               year= year+'';
-                list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
+              list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
               list[j].e_endDate =moment(list[j].e_endDate).format("YYYY-MM-DD");
               var startMonth =list[j].e_startDate.substring(2,7);
               var endMonth = list[j].e_endDate.substring(2,7);
@@ -296,8 +296,7 @@
                }
             }
          }else{
-                     html += '<div>행사일정이 없습니다.</div>'
-                     console.log('1312312312312321321')
+                 html += '<div>행사일정이 없습니다.</div>'
         }
          $(".month_event_box_in").html(html);
       })
@@ -330,8 +329,8 @@
               document.getElementById("day").innerHTML = html;
              html = '';
              for (var j = 0, len = list.length || 0; j < len; j++) {
-                var testyear=0;
-                list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
+              var testyear=0;
+              list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
               list[j].e_endDate =moment(list[j].e_endDate).format("YYYY-MM-DD");
               var startMonth =list[j].e_startDate.substring(2,7);
               var endMonth = list[j].e_endDate.substring(2,7);
@@ -597,7 +596,7 @@
                      <li><a href="/organization/applyForm">단체 정보 신청</a></li>
                      <li><a href="#">1:1 채팅</a></li>
                      <li><a href="/general/reservationList">예약확인</a></li>
-                     <li><a href="/MoHang/general/reviewList.do">리뷰 작성 및 확인</a></li>
+                     <li><a href="/general/listMyPartIn">리뷰 작성 및 확인</a></li>
                      <li><a href="/general/updateInformation">회원 정보 수정</a></li>
                   </ul>
                </div>

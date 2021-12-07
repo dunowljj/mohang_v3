@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.mohang.domain.ApproveVO;
+import org.mohang.domain.Criteria;
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventListDTO;
@@ -27,7 +28,7 @@ public interface EventMapper {
 	
 	public int insertEventHallReservation(Event_Hall_ReservationVO eventHallReservationVO);
 	
-	public List<EventListDTO> listApply(String account_num);
+	public List<EventListDTO> listApply(@Param("account_num")String account_num, @Param("cri")Criteria cri);
 	
 	public EventVO getApply(String e_num);
 
@@ -58,7 +59,7 @@ public interface EventMapper {
 	//충돌 조심
 	public void updateuplike(@Param("account_num")String account_num, @Param("e_num")String e_num);
 
-	public List<EventVO> listStatistics(String o_num);
+	public List<EventVO> listStatistics(@Param("o_num")String o_num, @Param("cri")Criteria cri);
 	public List<StatisticsDetailDTO> getStatistics(String e_num);
 	//충돌 조심 용환 2021-12-03
 	public List<EventVO> listHitcountEvent();
@@ -85,5 +86,9 @@ public interface EventMapper {
 	
 	
 	public int pay(String ap_num);
+
+	public int CountStatistics(@Param("o_num")String o_num,@Param("cri") Criteria cri);
+
+	public int CountlistApply(@Param("account_num")String account_num, @Param("cri")Criteria cri);
 
 }

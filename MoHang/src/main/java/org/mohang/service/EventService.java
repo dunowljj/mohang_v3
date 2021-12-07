@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.mohang.domain.ApproveVO;
+import org.mohang.domain.Criteria;
 import org.mohang.domain.EventHallVO;
 import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventListDTO;
@@ -23,7 +24,7 @@ public interface EventService {
 	
 	public int insertApply(EventVO eventVO);
 	
-	public List<EventListDTO> listApply(String account_num);
+	public List<EventListDTO> listApply(String account_num, Criteria cri);
 	
 	public EventVO getApply(String e_num);
 	
@@ -72,7 +73,7 @@ public interface EventService {
 	public void updateuplike(String account_num, String e_num);
 
 	//<-지혜
-	public List<EventVO> listStatistics(String o_num);
+	public List<EventVO> listStatistics(String o_num, Criteria cri);
 	public StatisticsDTO getStatistics(String e_num);
 	public EventVO getApplyAndHitcount(String e_num); 
 
@@ -91,6 +92,10 @@ public interface EventService {
 	public List<EventVO> listDayEvent(String search);
 
 	public int pay(String ap_num);
+
+	public int CountStatistics(String o_num, Criteria cri);
+
+	public int CountlistApply(String account_num, Criteria cri);
 
 
 }

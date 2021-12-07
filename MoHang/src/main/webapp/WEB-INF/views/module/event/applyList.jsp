@@ -161,6 +161,18 @@
 								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6" style='opacity:0.3'/>
 								<figcaption>행사대기</figcaption>
 								</c:when>
+								<c:when test="${ 'N' eq check}"> 
+								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6" style='opacity:0.3'/>
+								<figcaption>행사대기</figcaption>
+								</c:when>
+								<c:when test="${ 'W' eq check}"> 
+								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6" style='opacity:0.3'/>
+								<figcaption>행사대기</figcaption>
+								</c:when>
+								<c:when test="${ 'Y' eq check}"> 
+								<img src="../resources/images/승인6.png" alt="행사대기" class="imageSize" id="img6" style='opacity:0.3'/>
+								<figcaption>행사대기</figcaption>
+								</c:when>
 							</c:choose>
 							</figure>
 							
@@ -174,16 +186,40 @@
 								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7" style='opacity:0.3'/>
 								<figcaption>행사진행중</figcaption>
 								</c:when>
+								<c:when test="${ 'N' eq check}"> 
+								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7" style='opacity:0.3'/>
+								<figcaption>행사진행중</figcaption>
+								</c:when>
+								<c:when test="${ 'W' eq check}"> 
+								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7" style='opacity:0.3'/>
+								<figcaption>행사진행중</figcaption>
+								</c:when>
+								<c:when test="${ 'Y' eq check}"> 
+								<img src="../resources/images/승인7.png" alt="행사진행중" class="imageSize" id="img7" style='opacity:0.3'/>
+								<figcaption>행사진행중</figcaption>
+								</c:when>
 							</c:choose>
 							</figure>
 							
 							<figure>
 								<c:choose >
-							<c:when test="${check eq 'P' && today>event.e_endDate}"> 
+								<c:when test="${check eq 'P' && today>event.e_endDate}"> 
 								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8"/>
 								<figcaption>행사완료</figcaption>
 								</c:when>
-							<c:when test="${ 'P' eq check}"> 
+								<c:when test="${ 'P' eq check}"> 
+								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8" style='opacity:0.3'/>
+								<figcaption>행사완료</figcaption>
+								</c:when>
+								<c:when test="${ 'N' eq check}"> 
+								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8" style='opacity:0.3'/>
+								<figcaption>행사완료</figcaption>
+								</c:when>
+								<c:when test="${ 'W' eq check}"> 
+								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8" style='opacity:0.3'/>
+								<figcaption>행사완료</figcaption>
+								</c:when>
+								<c:when test="${ 'Y' eq check}"> 
 								<img src="../resources/images/승인8.png" alt="행사완료" class="imageSize" id="img8" style='opacity:0.3'/>
 								<figcaption>행사완료</figcaption>
 								</c:when>
@@ -201,28 +237,74 @@
 		</table>
 
 		<div class="page">
-			<ul class="pagination">
-				<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a>
-				</li>
-				<li class="page-item active"><a class="page-link" href="#">1</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">4</a></li>
-				<li class="page-item"><a class="page-link" href="#">5</a></li>
-				<li class="page-item"><a class="page-link" href="#">&raquo;</a>
-				</li>
-			</ul>
-		</div>
+				<ul class="pagination">
+				   <c:if test="${pageMaker.prev }">
+						<li class="page-item "><a class="page-link" href="${pageMaker.cri.pageNum -1}">&laquo;</a></li>
+				   </c:if>	
+				   <c:forEach var="num" begin="${pageMaker.startPage}"
+                     end="${pageMaker.endPage}">
+                     <li class="page-item  ${pageMaker.cri.pageNum == num ? "active":""} " >
+                        <a class="page-link" href="${num}">${num}</a>
+                     </li>
+                   </c:forEach>
+                    <c:if test="${pageMaker.next}">
+					<li class="page-item"><a class="page-link" href="${pageMaker.cri.pageNum +1 }">&raquo;</a></li>
+					</c:if>
+				</ul>
+	    </div>
+    	<form id='actionForm' action="/event/listApply" method='get'>
+			<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+			<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+			<input type='hidden' name='amount' value='${pageMaker.cri.keyword}'>
+	    </form>
 		
 		<div class="search">
-		<form class="d-flex">
-			<input class="form-control me-sm-2" type="text" placeholder="Search">
-			<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-		</form>
+			<form class="d-flex" action="/event/listApply" method="get" id="searchForm">
+				 <input class="form-control me-sm-2"type="text" placeholder="행사 제목을 입력하세요" name ="keyword" style="margin-top: 8px;height: 40px; width: auto;">
+				 <button class="btn btn-secondary my-2 my-sm-01" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
+			     <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/> 
+			     <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' />
+			</form>
 		</div>
 		</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
+<script>
+var actionForm =$("#actionForm");
+
+$(".page-item a").on(
+		"click",
+		function(e) {
+
+			e.preventDefault();
+
+			console.log('click');
+
+			actionForm.find("input[name='pageNum']")
+					.val($(this).attr("href"));
+			actionForm.submit();
+});
+var searchForm = $("#searchForm")
+$("#searchForm button").on(
+		"click",
+		function(e) {
+
+
+			if (!searchForm.find(
+					"input[name='keyword']").val()) {
+				alert("키워드를 입력하세요");
+				return false;
+			}
+
+			searchForm.find("input[name='pageNum']")
+					.val("1");
+			e.preventDefault();
+
+			searchForm.submit();
+
+		});
+
+</script>			
+		
 </body>
 </html>

@@ -10,7 +10,8 @@
  	<select id="listApprove" resultType="org.mohang.domain.ApproveDTO">
        select a.ap_num, e.e_name, a.admin_num, a.ap_date, a.ap_check, e.e_num
        from approve a, event e, event_hall_reservation r
-       where r.eh_reservation_num = a.eh_reservation_num and  e.e_num = r.e_num
+       where r.eh_reservation_num = a.eh_reservation_num 
+       and  e.e_num = r.e_num
     </select>
     
     <!-- 페이징처리된 승인반려리스트 조회 -->
@@ -50,7 +51,7 @@
 	 
 	 <update id="updateApprovebtn">
 	 	update approve
-	 	set AP_Check = 'Y'
+	 	set AP_Check = 'Y', ap_date= sysdate
 	 	where ap_num =#{ap_num} and admin_num=#{admin_num}
 	 </update>
 	 

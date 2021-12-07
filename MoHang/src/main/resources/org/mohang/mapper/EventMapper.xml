@@ -9,7 +9,7 @@
 		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
           from event e, approve a,event_hall_reservation r
           where r.eh_reservation_num = a.eh_reservation_num
-               and e.e_num = r.e_num and a.ap_check='Y'
+               and e.e_num = r.e_num and a.ap_check='P' and sysdate >= e.e_endDate
           order by e.e_like desc
      ]]>
 	</select>
@@ -22,7 +22,7 @@
 		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
           from event e, approve a,event_hall_reservation r
           where r.eh_reservation_num = a.eh_reservation_num
-           		and e.e_num = r.e_num and a.ap_check='Y' and e.e_startdate like  '%'||#{search}||'%' or e.e_enddate like '%'||#{search}||'%' and e_enddate > sysdate 
+           		and e.e_num = r.e_num and a.ap_check='P' and (e.e_startdate like  '%'||#{search}||'%' or e.e_enddate like '%'||#{search}||'%') and e_enddate >= sysdate 
 	]]>
 	</select>
 	<select id="listDayEvent" resultType="org.mohang.domain.EventVO">
@@ -30,7 +30,7 @@
 		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
           from event e, approve a,event_hall_reservation r
           where r.eh_reservation_num = a.eh_reservation_num
-           		and e.e_num = r.e_num and a.ap_check='Y' and e.e_startdate <= #{search} and  e.e_endDate >= #{search} and e_enddate > sysdate order by e.e_startdate
+           		and e.e_num = r.e_num and a.ap_check='P' and e.e_startdate <= #{search} and  e.e_endDate >= #{search} and e_enddate > sysdate order by e.e_startdate
 	]]>
 	</select>
 	<!-- 충돌20211203 -->
@@ -39,7 +39,7 @@
 		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
           from event e, approve a,event_hall_reservation r
           where r.eh_reservation_num = a.eh_reservation_num
-          		and e.e_num = r.e_num and a.ap_check='Y' and
+          		and e.e_num = r.e_num and a.ap_check='P' and sysdate >= e.e_endDate
 		<foreach item="account_interest" collection="list" open="("
 			separator="or" close=")">
 				e.e_field = #{account_interest}
@@ -50,7 +50,7 @@
 		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
 	          from event e, approve a,event_hall_reservation r
 	          where r.eh_reservation_num = a.eh_reservation_num
-	          		and e.e_num = r.e_num and a.ap_check='Y'
+	          		and e.e_num = r.e_num and a.ap_check='P' and sysdate >= e.e_endDate
 	  		  order by e.e_hitcount desc
 	</select>
 
@@ -65,7 +65,7 @@
 	               	     select e.e_num as e_num,e.o_num as o_num,e.e_name as e_name,e.e_startdate as e_startDate,e.e_enddate as e_endDate,e.e_fname as e_fname,e.e_price as e_price,e.e_hitcount as e_hitcount
 	              	     from event e, approve a,event_hall_reservation r
 	                     where r.eh_reservation_num = a.eh_reservation_num
-	               	    	  and e.e_num = r.e_num and a.ap_check='Y'  and e_enddate > sysdate 
+	               	    	  and e.e_num = r.e_num and a.ap_check='P'  and e_enddate >= sysdate 
 		]]>
 			<if test="keyword !=null and !keyword.equals('') ">
 						and e.e_name like '%'||#{keyword}||'%' 
@@ -115,7 +115,7 @@
 			   select count(*)
                from event e, approve a,event_hall_reservation r
                where r.eh_reservation_num = a.eh_reservation_num
-             	    and e.e_num = r.e_num and a.ap_check='Y' and e_enddate > sysdate
+             	    and e.e_num = r.e_num and a.ap_check='P' and e_enddate >= sysdate
 			]]>
 			<if test="keyword !=null and !keyword.equals('') ">
 						and e.e_name like '%'||#{keyword}||'%'
@@ -230,15 +230,24 @@
 	</insert>
 
 	<select id="listApply" resultType="org.mohang.domain.EventListDTO">
-		select e.e_num, e.o_num,e_name,
-		e.eh_num,eh.account_num, e.e_startdate,
-		e.e_enddate, e.e_applydate,
-		a.ap_check, a.ap_num
-		from event e, approve a, event_hall_reservation eh
-		where
-		e.e_num = eh.e_num and eh.eh_reservation_num = a.eh_reservation_num
-		and eh.account_num = #{account_num}
-		order by e.e_applydate desc
+		  	 select * from (
+       		 select a.*, rownum as rnum from (
+                             select e.e_num, e.o_num,e_name,
+                    e.eh_num,eh.account_num, e.e_startdate,
+                    e.e_enddate, e.e_applydate,
+                    a.ap_check, a.ap_num
+                    from event e, approve a, event_hall_reservation eh
+                    where e.e_num = eh.e_num and eh.eh_reservation_num = a.eh_reservation_num
+                    and eh.account_num = #{account_num}
+                    <if test="cri.keyword !=null  and !cri.keyword.equals('')">
+							and LOWER(e_name) like '%'||#{cri.keyword}||'%' 
+					</if>
+                    order by e.e_applydate desc
+               )
+        	a) 
+        	<![CDATA[	
+        			 WHERE rnum > (#{cri.pageNum} -1) * #{cri.amount} and rnum <= (#{cri.pageNum} * #{cri.amount})
+			]]>
 	</select>
 
 	<select id="getApply" resultType="org.mohang.domain.EventVO">
@@ -272,7 +281,19 @@
 
 
 	<select id="listStatistics" resultType="org.mohang.domain.EventVO">
-		<![CDATA[ select * from event where sysdate >= e_endDate ]]> and o_num = #{o_num}
+     	select * from (
+       		 select a.*, rownum as rnum from (
+               <![CDATA[ select * from event where sysdate >= e_enddate ]]> 
+               	and o_num = #{o_num} 
+               	<if test="cri.keyword !=null  and !cri.keyword.equals('')">
+				and LOWER(e_name) like '%'||#{cri.keyword}||'%' 
+				</if>
+               	order by to_number(e_num) desc
+               )
+        	a) 
+        <![CDATA[ 
+        where rnum > (#{cri.pageNum} -1) * #{cri.amount}  and rnum <= #{cri.pageNum} * #{cri.amount}
+        ]]>
 	</select>
 
 
@@ -313,7 +334,22 @@
 	<update id="pay">
 		update approve set ap_check ='P' where ap_num = #{ap_num}
 	</update>
-	
-
+	<!-- 종료 행사 총 개수 -->
+	<select id="CountStatistics" resultType="int">
+	<![CDATA[ select count(*) from event where sysdate >= e_endDate ]]> and o_num = #{o_num}
+		<if test="cri.keyword !=null  and !cri.keyword.equals('')">
+				and LOWER(e_name) like '%'||#{cri.keyword}||'%' 
+		</if>
+	</select>
+	<select id="CountlistApply" resultType="int">
+		 select count(*)
+         from event e, approve a, event_hall_reservation eh
+         where e.e_num = eh.e_num and eh.eh_reservation_num = a.eh_reservation_num
+         and eh.account_num = #{account_num}
+         <if test="cri.keyword !=null  and !cri.keyword.equals('')">
+				and LOWER(e_name) like '%'||#{cri.keyword}||'%' 
+		</if>
+         order by e.e_applydate desc
+	</select>
 
 </mapper>

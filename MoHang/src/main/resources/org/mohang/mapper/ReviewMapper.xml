@@ -76,4 +76,13 @@
 			review_num =#{review_num}
 	</update>
 	
+	<select id="getReviewlistEntire" resultType="org.mohang.domain.ReviewVO">
+		SELECT
+			review_num,	review_title, review_writer, review_date, review_hitcount, review_scope
+		FROM
+			review
+		WHERE
+			account_num = #{account_num}
+	</select>
+	
 </mapper> 
