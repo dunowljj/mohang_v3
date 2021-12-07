@@ -32,5 +32,6 @@ public class GeneralMyReservationDTO {
 	private int ticket_payment_price;
 	private String ticket_attend;
 	private Date ticket_reservation_date;
+	private String ticket_review_status;
 }
 //
