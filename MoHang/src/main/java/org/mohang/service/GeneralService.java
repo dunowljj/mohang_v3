@@ -38,6 +38,7 @@ public interface GeneralService  {
 	
 	//reserveList
 	public List<GeneralMyReservationDTO> getListMyReservation(String account_num);
+	public List<GeneralMyReservationDTO> getListMyReservationWithPaging(String account_num,Criteria cri);
 	
 	//attend
 	public boolean attendEvent(String ticket_reservation_num);
@@ -50,12 +51,13 @@ public interface GeneralService  {
 	public int getRemainTicket(String e_num);
 	public int getTotalticket(String e_num);
 	
-//	public List<ReservationLikeDTO> listMyPartInEvent(String account_num);
-	public List<ReservationLikeDTO> listMyPartInEventWithPaging(String account_num, Criteria cri);
+	public List<ReservationLikeDTO> listMyPartInEvent(String account_num);
+//	public List<ReservationLikeDTO> listMyPartInEventWithPaging(String account_num, Criteria cri);
 	public Integer getTotalReservation(String account_num);
 	
 	
 	public boolean insertReview(ReviewVO reviewVO);
 	public boolean updateReview(ReviewVO reviewVO);
+	public List<ReviewVO> getReviewlist(String account_num);
 }
 

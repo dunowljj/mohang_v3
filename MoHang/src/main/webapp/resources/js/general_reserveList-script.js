@@ -7,7 +7,7 @@ function attendEvent(resNum){
 	if(answer==true){
 		form.submit();
 	}
-	alert("출석체크 되엇습니다.")
+	alert("출석체크 되었습니다.")
 }
 function cancelConfirm(){
 	var answer = confirm("정말 예약을 취소하시겠습니까?")

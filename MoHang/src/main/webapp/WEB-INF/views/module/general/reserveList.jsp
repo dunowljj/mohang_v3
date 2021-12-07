@@ -14,7 +14,7 @@
 	<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_reserveList-script.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_modal-script.js"></script>
-	<div id="container-box1" style='min-height:3000px'>
+	<div id="container-box1" style='min-height:2290px'>
 		<div id="container">
 			<div class="general_wrapper">
 				<div class="general_subhead">
@@ -103,11 +103,7 @@
 					
 					
 					<c:forEach var='reserve' items='${reserveList}' varStatus="status">
-					<!-- 클릭하면 해당 값 구분해야함. closest 사용불가 -> 값은 이미 뿌려져있음 -> 해당 래퍼의 속성만 변경하면됨
-					-> 하나 자식요소에 인덱스를 주고 parent 써서?..  클릭하는 순간 값을 알아야함, 버튼 아래에 히든태그나 속성으로 무언가를 넣기
-					그 값을 받아서 자식요소 선택 후 부모에서 속성변경!
-					$("cancel_form_image_wrap 3") 
-					 -->
+
 <form action='cancelReservation' class='cancel_form_modal ${status.index}' method='POST' onsubmit='cancelConfirm()'>
 	<div class='cancel_form_image_wrap'>
 		<img src='${pageContext.request.contextPath}/resources/images/${reserve.e_fname}'>
@@ -135,7 +131,6 @@
 		<a class='cancel_close-area'>목록으로</a>
 	</div>
 </form>
-
 <!-- cancel	modal end -->
 <!-- ticket modal start -->
 <div class='ticket_ModalPopup ${status.index}'>
@@ -161,59 +156,46 @@
 </div>
 	<!-- ticket modal end -->	
 	</c:forEach>				
-			
-			
-			</div>
+			<div class="page" style="margin-top:40px; margin-left:-35px;">
+				<ul class="pagination">
+				   <c:if test="${pageMaker.prev }">
+						<li class="page-item "><a class="page-link" href="${pageMaker.cri.pageNum -1}">&laquo;</a></li>
+				   </c:if>	
+				   <c:forEach var="num" begin="${pageMaker.startPage}"
+                     end="${pageMaker.endPage}">
+                     <li class="page-item  ${pageMaker.cri.pageNum == num ? "active":""} " >
+                        <a class="page-link" href="${num}">${num}</a>
+                     </li>
+                   </c:forEach>
+                    <c:if test="${pageMaker.next}">
+					<li class="page-item"><a class="page-link" href="${pageMaker.cri.pageNum +1 }">&raquo;</a></li>
+					</c:if>
+				</ul>
+	 		</div>
+	    	<form id='actionForm' action="/general/reservationList" method='get'>
+				<input type='hidden' name='keyword' value='${pageMaker.cri.keyword}'>
+				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+		    </form>
 		</div>
 	</div>
-	<jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
+</div>
+<jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
 <!-- cancel	modal start -->
 <div id='mask'></div>
-		
-<div class="page">
-	<ul class="pagination">
-	   <c:if test="${pageMaker.prev }">
-			<li class="page-item "><a class="page-link" href="${pageMaker.cri.pageNum -1}">&laquo;</a></li>
-	   </c:if>	
-  		<c:forEach var="num" begin="${pageMaker.startPage}"
-                end="${pageMaker.endPage}">
-       		<li class="page-item  ${pageMaker.cri.pageNum == num ? "active":""} " >
-           		<a class="page-link" href="${num}">${num}</a>
-       		</li>
-       	</c:forEach>
-           	
-        <c:if test="${pageMaker.next}">
-			<li class="page-item"><a class="page-link" href="${pageMaker.cri.pageNum +1 }">&raquo;</a></li>
-		</c:if>
-	</ul>
-</div>
-   	<form id='actionForm' action="/general/listMyPartIn" method='get'>
-		<input type='hidden' name='keyword' value='${pageMaker.cri.keyword}'>
-		<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
-		<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-    </form>
-		
-<!-- 	<div class="search"> -->
-<!-- 		<form class="d-flex" id="searchForm" action="/review/review" method="get"> -->
-<!-- 			<input class="form-control me-sm-2" type="text" name="keyword" placeholder="Search"> -->
-<%--             <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>  --%>
-<%--             <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' /> --%>
-<!-- 			<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> -->
-<!-- 		</form> -->
-<!-- 	</div> -->
 <script>
 var actionForm =$("#actionForm");
 
 $(".page-item a").on(
 		"click",
-		function(e) {
+	function(e) {
 
-			e.preventDefault();
-
-			actionForm.find("input[name='pageNum']")
-					.val($(this).attr("href"));
-			var inputs = $("input[type='hidden']");
-			actionForm.submit();
+		e.preventDefault();
+	
+		actionForm.find("input[name='pageNum']")
+				.val($(this).attr("href"));
+		var inputs = $("input[type='hidden']");
+		actionForm.submit();
 });
 var searchForm = $("#searchForm");
 $("#searchForm button").on(
@@ -236,7 +218,15 @@ $("#searchForm button").on(
 		searchForm.submit();
 
 });
+function updateReview(review_review_num){
+		location.href="/general/updateReview?review_num="+review_review_num;
+}
 
-</script>
+
+
+</script>		
+     
+		
+
 </body>
 </html>

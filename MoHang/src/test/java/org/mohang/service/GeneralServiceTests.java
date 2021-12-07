@@ -7,7 +7,9 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.Criteria;
 import org.mohang.domain.GeneralLikeListDTO;
+import org.mohang.domain.PageDTO;
 import org.mohang.service.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -47,8 +49,15 @@ public class GeneralServiceTests {
 //		log.info("isExecute???@@@"+isExecute);
 //		
 //	}
+//	@Test
+//	public void testMyReservationList(){
+//		service.listMyPartInEvent("41");
+//	}
 	@Test
-	public void testMyReservationList(){
-		service.listMyPartInEvent("41");
+	public void testPaging(){
+		Criteria cri = new Criteria();
+		new PageDTO(cri,12);
+//		 service.getListMyReservationWithPaging("41", cri);
+		 log.info( service.getListMyReservationWithPaging("41", cri));
 	}
 }

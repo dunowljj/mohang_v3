@@ -98,12 +98,8 @@
 	
 <!-- 예약목록 start -->
 	<select id='getListMyReservationWithPaging' resultType='org.mohang.domain.GeneralMyReservationDTO'>
-		SELECT  a.account_num, a.account_name, a.account_phoneNumber, a.account_email, a.account_id,
-			 e.e_num, e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e.e_fname, e.e_hitcount,
-			 eh.eh_location,
-			 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, 
-			 TO_CHAR(tr.ticket_reservation_time,'YYYY-MM-DD HH24:MI:SS') AS ticket_reservation_time, ticket_reservation_status,
-			 tp.ticket_attend, tp.ticket_payment_price, tp.ticket_payment_status, tp.ticket_review_status
+		SELECT
+			*
 		FROM
 			(
 			SELECT a.*, rownum as rnum 
@@ -117,21 +113,26 @@
 						 TO_CHAR(tr.ticket_reservation_time,'YYYY-MM-DD HH24:MI:SS') AS ticket_reservation_time, ticket_reservation_status,
 						 tp.ticket_attend, tp.ticket_payment_price, tp.ticket_payment_status, tp.ticket_review_status
 					FROM
-						 account a join ticket_reservation tr on a.account_num = tr.account_num
-						 join ticket_payment tp on tr.ticket_reservation_num = tp.ticket_reservation_num
-						 join event e on tr.e_num = e.e_num
-						 join event_hall eh on eh.eh_num = e.eh_num
+						 account a 
+						 JOIN ticket_reservation tr 
+						 	ON a.account_num = tr.account_num
+						 JOIN ticket_payment tp 
+						 	ON tr.ticket_reservation_num = tp.ticket_reservation_num
+						 JOIN event e 
+						 	ON tr.e_num = e.e_num
+						 JOIN event_hall eh 
+						 	ON eh.eh_num = e.eh_num
 					WHERE
-						a.account_num = #{account_num}
-					)
+						a.account_num = #{account_num} 
 <!-- 			<if test="keyword !=null and !keyword.equals('')"> -->
 <!-- 		    AND review_title like '%'||#{keyword}||'%' -->
 <!-- 	        </if> -->
-	        ORDER BY
-	        	to_number(tp.ticket_reservation_num) desc
-	        )
+			        ORDER BY
+			        	to_number(tp.ticket_reservation_num) desc
+			        )
     <![CDATA[
-	     a)  where rnum > (#{cri.pageNum} -1) * #{cri.amount}  and rnum <= #{cri.pageNum} * #{cri.amount}
+			       a) WHERE 
+			        	rnum > (#{cri.pageNum} -1) * #{cri.amount} AND rnum <= #{cri.pageNum} * #{cri.amount}
 	]]>
 	</select>
 	
@@ -148,24 +149,27 @@
 <!--    		</if> -->
 	</select>
 	
-	
-	
 
 	<select id='getListMyReservation' resultType='org.mohang.domain.GeneralMyReservationDTO'>
 		SELECT 
 			 a.account_num, a.account_name, a.account_phoneNumber, a.account_email, a.account_id,
 			 e.e_num, e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e.e_fname, e.e_hitcount,
-			 eh.eh_location,
+			 eh.eh_location, r.review_date,
 			 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, 
 			 TO_CHAR(tr.ticket_reservation_time,'YYYY-MM-DD HH24:MI:SS') AS ticket_reservation_time, ticket_reservation_status,
 			 tp.ticket_attend, tp.ticket_payment_price, tp.ticket_payment_status, tp.ticket_review_status
 		FROM
-			 account a join ticket_reservation tr on a.account_num = tr.account_num
-			 join ticket_payment tp on tr.ticket_reservation_num = tp.ticket_reservation_num
-			 join event e on tr.e_num = e.e_num
-			 join event_hall eh on eh.eh_num = e.eh_num
+			 account a join ticket_reservation tr ON a.account_num = tr.account_num
+			 join ticket_payment tp ON tr.ticket_reservation_num = tp.ticket_reservation_num
+			 join event e ON tr.e_num = e.e_num
+			 join event_hall eh ON eh.eh_num = e.eh_num
+			 join review r ON r.ticket_reservation_num = tp.ticket_reservation_num
 		WHERE
 			a.account_num = #{account_num}
+		AND
+			ticket_attend = '참여'
+		AND
+			ticket_review_status = '0'
 	</select>
 <!-- 예약목록 start -->
 	<insert id='insertTicketReservation'>
@@ -194,12 +198,12 @@
 		(
 			ticket_payment_num,	ticket_reservation_num,	e_num,
 			account_num, ticket_payment_method,	ticket_payment_time,
-			ticket_payment_price, ticket_payment_status, ticket_attend
+			ticket_payment_price, ticket_payment_status, ticket_attend, ticket_review_status
 		)
 		VALUES(
 			ticket_payment_seq.nextval, #{ticket_reservation_num}, #{payDTO.e_num},
 			#{payDTO.account_num}, #{payDTO.ticket_payment_method}, TO_DATE(#{RAP.S_ticket_payment_time},'YYYY-MM-DD HH24:MI:SS'),
-			#{payDTO.ticket_payment_price}, '결제완료', '미참여'
+			#{payDTO.ticket_payment_price}, '결제완료', '미참여', '0'
 		)
 	</insert>
 	
@@ -303,6 +307,7 @@
 		WHERE
 			ticket_reservation_num = #{ticket_reservation_num}
 	</update>
+	
 	
 	
 </mapper> 
