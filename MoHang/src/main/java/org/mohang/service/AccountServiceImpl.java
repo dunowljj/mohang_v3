@@ -1,5 +1,6 @@
 package org.mohang.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.mohang.domain.AccountVO;
 import org.mohang.mapper.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,12 @@ public class AccountServiceImpl implements AccountService {
 		return accountMapper.o_numCheck(account_num)!=null;
 	}
 
+	@Override
+	public void loginCheck(String account_login,  String account_num){
+		// TODO Auto-generated method stub
+		accountMapper.loginCheck(account_login,account_num);
+	}
+
+	
 	
 }
