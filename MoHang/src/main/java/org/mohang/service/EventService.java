@@ -16,6 +16,7 @@ import org.mohang.domain.Search;
 import org.mohang.domain.StatisticsAgeDTO;
 import org.mohang.domain.StatisticsDTO;
 import org.mohang.domain.StatisticsInterestDTO;
+import org.mohang.domain.StatisticsScopeDTO;
 
 public interface EventService {
 	public List<EventLikeDTO> listBestEvent(HttpServletRequest request);
@@ -97,5 +98,6 @@ public interface EventService {
 
 	public int CountlistApply(String account_num, Criteria cri);
 
+	public List<StatisticsScopeDTO> getReviewScope(String e_num);
 
 }

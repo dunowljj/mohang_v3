@@ -120,7 +120,8 @@ function showList(){
 
 		str +="날짜 :"+moment(reviewCommentList[i].review_comment_date).format("YYYY-MM-DD")+"<br>"
 		str +="댓글내용 :"+reviewCommentList[i].review_comment_content+"<br>"
-		
+		console.log("콘텐츠" + reviewCommentList[i].review_comment_content)
+		console.log("번호"+reviewCommentList[i].account_num)
 		//리뷰작성자만 수정 삭제 가능
 		if(reviewCommentList[i].account_num === loginAccountNum ){
 		str += "<div class='rcNum'><input type='hidden' name='review_comment_num' value='"+reviewCommentList[i].review_comment_num+"'>"

@@ -22,6 +22,7 @@ import org.mohang.domain.StatisticsAgeDTO;
 import org.mohang.domain.StatisticsDTO;
 import org.mohang.domain.StatisticsDetailDTO;
 import org.mohang.domain.StatisticsInterestDTO;
+import org.mohang.domain.StatisticsScopeDTO;
 import org.mohang.mapper.AdminMapper;
 import org.mohang.mapper.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -345,6 +346,11 @@ public class EventServiceImpl implements EventService {
 	public int CountlistApply(String account_num, Criteria cri) {
 		// TODO Auto-generated method stub
 		return mapper.CountlistApply(account_num,cri);
+	}
+	
+	@Override
+	public List<StatisticsScopeDTO> getReviewScope(String e_num) {
+		return mapper.getReviewScope(e_num);
 	}
 	
 	

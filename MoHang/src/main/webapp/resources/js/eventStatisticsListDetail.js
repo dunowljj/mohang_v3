@@ -36,6 +36,23 @@ var statistics = (function(){
 			});
 	 };
 	 
+	 //나이대별 별점 가져오는 함수생성
+	 function getScope(data, callback, error){
+		 var e_num = data.e_num;
+		 $.getJSON(
+				"/eventRest/statisticsListDetail_scope/"+e_num+".json",
+				function(data){
+					if(callback){
+						callback(data);
+					}
+				}).fail(function(xhr, status, err){
+					if(error){
+						error();
+					}
+				});
+	 };
+	 
+	 
 	 //관심사 가져오는 콜백함수 생성
 	 function getInterest(data, callback, error){
 		 	var e_num = data.e_num;
@@ -56,6 +73,7 @@ var statistics = (function(){
 	 
 	 return {
 		 getAgeGender: getAgeGender,
+		 getScope : getScope,
 		 getInterest : getInterest
 	 };
 })();
@@ -81,7 +99,7 @@ var statistics = (function(){
 google.charts.load('current', {'packages':['bar']});
 
       google.charts.setOnLoadCallback(drawChart1);
-     // google.charts.setOnLoadCallback(drawChart2);
+      google.charts.setOnLoadCallback(drawChart2);
       google.charts.setOnLoadCallback(drawChart3);
  
 
@@ -100,7 +118,9 @@ google.charts.load('current', {'packages':['bar']});
         			 console.log("1번차트:"+ageGenderArr);
         			 
         			 
-        	        var data = google.visualization.arrayToDataTable(ageGenderArr);
+        	        var data = google.visualization.arrayToDataTable(
+        	        	
+        	        		ageGenderArr);
 
         	        var options = {
         	          chart: {
@@ -118,6 +138,41 @@ google.charts.load('current', {'packages':['bar']});
       }		
 
       //2. 나이별_별점 그래프
+      function drawChart2() {
+    	  var e_num=$("input[name='e_num']").val();
+    	 
+
+    	statistics.getScope({"e_num":e_num}, function(result){
+        			console.log("ajax실행");
+        			var scopeArr = [['나이', '평균별점']];
+        			
+        			//result를 json({},{}로 불러와서 하나하나 배열에 넣어줌. )
+        			$.each(result, function(i, item){
+        				 var scope=[item.age,item.review_scope];
+        				 scopeArr.push(scope);
+        			 }) 
+        			 
+        			 
+        			 console.log("2번차트:"+scopeArr);
+        			 
+        	        var data = google.visualization.arrayToDataTable(
+        	        	
+        	        		scopeArr);
+
+        	        var options = {
+        	          chart: {
+        	            title: '행사결과_별점',
+        	            subtitle: '우리 행사가 어느 나이대의 사람들에게 인기있었는지 알려줍니다. ',
+        	          }
+        	        };
+
+        	        var chart2 = new google.charts.Bar(document.getElementById('columnchart_material2'));
+
+        	        chart2.draw(data, google.charts.Bar.convertOptions(options));
+		
+    	})
+    	
+      }		
       
       
       

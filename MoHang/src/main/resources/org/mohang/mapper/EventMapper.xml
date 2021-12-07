@@ -352,4 +352,10 @@
          order by e.e_applydate desc
 	</select>
 
+	<select id="getReviewScope" resultType="org.mohang.domain.StatisticsScopeDTO">
+
+select account_age as age, avg(review_scope) as review_scope from reviewscopeview  where e_num = #{e_num} group by account_age
+
+	</select>
+		
 </mapper>
