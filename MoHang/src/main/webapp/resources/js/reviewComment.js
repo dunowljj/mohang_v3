@@ -111,9 +111,11 @@ function showList(){
 	}
 	
 	for(var i = 0; i< reviewCommentList.length; i++){
+		var account_id = reviewCommentList[i].account_id;
+		
 		str +="<div class = 'reply_box'>"
 		str +="<hr>"
-		str +="작성자 :"+reviewCommentList[i].account_num+"<br>"
+		str +="작성자 :"+account_id.substring(0, Math.ceil((account_id.length)/2))+"*****<br>"
 		//moment(list[j].e_startDate).format("YYYY-MM-DD");
 
 		str +="날짜 :"+moment(reviewCommentList[i].review_comment_date).format("YYYY-MM-DD")+"<br>"

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mohang.domain.ReviewCommentDTO;
 import org.mohang.domain.ReviewCommentVO;
 import org.mohang.service.ReviewCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,10 +61,10 @@ public class ReviewCommentRestController {
 	
 	//리뷰번호에 대한 게시글 출력
 	@GetMapping("/getReviewComment/{review_num}")
-	public ResponseEntity<List<ReviewCommentVO>> getReviewComment(@PathVariable("review_num") String review_num, HttpServletRequest request){
+	public ResponseEntity<List<ReviewCommentDTO>> getReviewComment(@PathVariable("review_num") String review_num, HttpServletRequest request){
 		
 		log.info("--"+review_num+"번째 리뷰의 댓글 수신중--");
-		List<ReviewCommentVO> commentList =rcservice.getReviewComment(review_num);
+		List<ReviewCommentDTO> commentList =rcservice.getReviewComment(review_num);
 		return new ResponseEntity<>(commentList, HttpStatus.OK);
 	}
 	
