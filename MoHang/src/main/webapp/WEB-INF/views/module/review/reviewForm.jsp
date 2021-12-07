@@ -49,7 +49,7 @@
 						<option value="2">★★☆☆☆</option>
 						<option value="1">★☆☆☆☆</option>
 					</select>
-					<input type='hidden' name='account_num' value="<c:out value='${reserveDTO.account_num}'/>">
+					<input type='hidden' name='account_num' value="<c:out value='${account.account_num}'/>">
 					<input type='hidden' name='ticket_reservation_num' value="<c:out value='${reserveDTO.ticket_reservation_num}'/>">
 					<input type='hidden' name='e_num' value="<c:out value='${reserveDTO.e_num}'/>">
 					<input type='hidden' name='review_writer' value="<c:out value='${account.account_name}'/>">
@@ -63,7 +63,7 @@
 					<button type="submit">등록</button>
 	
 				</div>
-				</form>
+			</form>
 		</div>
 	</div>
 		<jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>

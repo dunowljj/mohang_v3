@@ -53,17 +53,27 @@
 	
 	<!-- 	예약 확인 -->
 	<insert id='insertReview'>
-		insert into
+		INSERT INTO
 			review
 			(
 			review_num, review_title, review_writer, review_hitcount, review_content, 
 			review_date, review_scope, account_num, e_num, ticket_reservation_num
 			)
-		values 
+		VALUES 
 			(
 			review_seq.nextval, #{review_title}, #{review_writer}, '0',	#{review_content},
 			sysdate, #{review_scope}, #{account_num},#{e_num}, #{ticket_reservation_num}
 			)
 	</insert>
+	
+	<update id='updateReview'>
+		UPDATE
+			review
+		SET
+			review_title =  #{review_title}, review_writer=#{review_writer}, review_content=#{review_content},
+			review_date=sysdate, review_scope=#{review_scope}
+		WHERE
+			review_num =#{review_num}
+	</update>
 	
 </mapper> 

@@ -23,10 +23,13 @@
 					<c:forEach items='${myPartInList}' var='myEvent'>
 						<c:set var="myReserve" value="${myEvent.myReservationDTO}"/>
 						<c:set var="myLike" value="${myEvent.likedVO}"/>
-							<c:if test="${'참여' eq myReserve.ticket_attend}">
+							<c:if test="${'참여' eq myReserve.ticket_attend and '0' eq myReserve.ticket_review_status}">
+								<c:if test="${empty myReserve}">
+								참여한 행사가 없습니다.
+								</c:if>
 								<form id='toRivew ${myReserve.ticket_reservation_num}' action='review' method='GET'>
-									<input type='hidden' name='' value='<c:out value='${myReserve.ticket_reservation_num}'/>'>
-									<input type='hidden' name='' value='<c:out value='${myReserve.e_num}'/>'>
+									<input type='hidden' name='ticket_reservation_num' value='<c:out value='${myReserve.ticket_reservation_num}'/>'>
+									<input type='hidden' name='e_num' value='<c:out value='${myReserve.e_num}'/>'>
 									<div class='review_event_wrap'>
 										<a href=''>
 											<img class='review_event' src='${pageContext.request.contextPath}/resources/images/${myReserve.e_fname}' alt='like_event'>
@@ -94,6 +97,76 @@
 			</div>
 		</div>
 	</div>
+	<div class="page">
+	<ul class="pagination">
+	   <c:if test="${pageMaker.prev }">
+			<li class="page-item "><a class="page-link" href="${pageMaker.cri.pageNum -1}">&laquo;</a></li>
+	   </c:if>	
+  		<c:forEach var="num" begin="${pageMaker.startPage}"
+                end="${pageMaker.endPage}">
+       		<li class="page-item  ${pageMaker.cri.pageNum == num ? "active":""} " >
+           		<a class="page-link" href="${num}">${num}</a>
+       		</li>
+       	</c:forEach>
+           	
+        <c:if test="${pageMaker.next}">
+			<li class="page-item"><a class="page-link" href="${pageMaker.cri.pageNum +1 }">&raquo;</a></li>
+		</c:if>
+	</ul>
+</div>
+   	<form id='actionForm' action="/general/listMyPartIn" method='get'>
+		<input type='hidden' name='keyword' value='${pageMaker.cri.keyword}'>
+		<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+		<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+    </form>
+		
+<!-- 	<div class="search"> -->
+<!-- 		<form class="d-flex" id="searchForm" action="/review/review" method="get"> -->
+<!-- 			<input class="form-control me-sm-2" type="text" name="keyword" placeholder="Search"> -->
+<%--             <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>  --%>
+<%--             <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' /> --%>
+<!-- 			<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> -->
+<!-- 		</form> -->
+<!-- 	</div> -->
+<script>
+var actionForm =$("#actionForm");
+
+$(".page-item a").on(
+		"click",
+		function(e) {
+
+			e.preventDefault();
+
+			actionForm.find("input[name='pageNum']")
+					.val($(this).attr("href"));
+			var inputs = $("input[type='hidden']");
+			actionForm.submit();
+});
+var searchForm = $("#searchForm");
+$("#searchForm button").on(
+		"click",
+	function(e) {
+	
+		if (!searchForm.find(
+				"input[name='keyword']").val()) {
+			alert("키워드를 입력하세요");
+			return false;
+		}
+	
+		searchForm.find("input[name='pageNum']")
+				.val("1");
+		e.preventDefault();
+		var inputs = $("input[type='hidden']");
+		$(inputs[0]).val("");
+		$(inputs[1]).val("");
+		$(inputs[2]).val("");
+		searchForm.submit();
+
+});
+
+</script>
+	
+	
 	<jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
 	
 </body>

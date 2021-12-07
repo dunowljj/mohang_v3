@@ -97,6 +97,60 @@
 	<!-- 관심목록 end-->
 	
 <!-- 예약목록 start -->
+	<select id='getListMyReservationWithPaging' resultType='org.mohang.domain.GeneralMyReservationDTO'>
+		SELECT  a.account_num, a.account_name, a.account_phoneNumber, a.account_email, a.account_id,
+			 e.e_num, e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e.e_fname, e.e_hitcount,
+			 eh.eh_location,
+			 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, 
+			 TO_CHAR(tr.ticket_reservation_time,'YYYY-MM-DD HH24:MI:SS') AS ticket_reservation_time, ticket_reservation_status,
+			 tp.ticket_attend, tp.ticket_payment_price, tp.ticket_payment_status, tp.ticket_review_status
+		FROM
+			(
+			SELECT a.*, rownum as rnum 
+				FROM 
+					(
+					SELECT
+						 a.account_num, a.account_name, a.account_phoneNumber, a.account_email, a.account_id,
+						 e.e_num, e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e.e_fname, e.e_hitcount,
+						 eh.eh_location,
+						 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, 
+						 TO_CHAR(tr.ticket_reservation_time,'YYYY-MM-DD HH24:MI:SS') AS ticket_reservation_time, ticket_reservation_status,
+						 tp.ticket_attend, tp.ticket_payment_price, tp.ticket_payment_status, tp.ticket_review_status
+					FROM
+						 account a join ticket_reservation tr on a.account_num = tr.account_num
+						 join ticket_payment tp on tr.ticket_reservation_num = tp.ticket_reservation_num
+						 join event e on tr.e_num = e.e_num
+						 join event_hall eh on eh.eh_num = e.eh_num
+					WHERE
+						a.account_num = #{account_num}
+					)
+<!-- 			<if test="keyword !=null and !keyword.equals('')"> -->
+<!-- 		    AND review_title like '%'||#{keyword}||'%' -->
+<!-- 	        </if> -->
+	        ORDER BY
+	        	to_number(tp.ticket_reservation_num) desc
+	        )
+    <![CDATA[
+	     a)  where rnum > (#{cri.pageNum} -1) * #{cri.amount}  and rnum <= #{cri.pageNum} * #{cri.amount}
+	]]>
+	</select>
+	
+	<select id="getTotalReservation" resultType="int">
+		select
+			count(*)
+		FROM
+			ticket_reservation
+		WHERE
+			account_num = #{account_num}
+<!-- 		<if test="keyword !=null and !keyword.equals('')"> -->
+<!--         AND -->
+<!--         	review_title like '%'||#{keyword}||'%' -->
+<!--    		</if> -->
+	</select>
+	
+	
+	
+
 	<select id='getListMyReservation' resultType='org.mohang.domain.GeneralMyReservationDTO'>
 		SELECT 
 			 a.account_num, a.account_name, a.account_phoneNumber, a.account_email, a.account_id,
@@ -104,7 +158,7 @@
 			 eh.eh_location,
 			 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, 
 			 TO_CHAR(tr.ticket_reservation_time,'YYYY-MM-DD HH24:MI:SS') AS ticket_reservation_time, ticket_reservation_status,
-			 tp.ticket_attend, tp.ticket_payment_price, tp.ticket_payment_status
+			 tp.ticket_attend, tp.ticket_payment_price, tp.ticket_payment_status, tp.ticket_review_status
 		FROM
 			 account a join ticket_reservation tr on a.account_num = tr.account_num
 			 join ticket_payment tp on tr.ticket_reservation_num = tp.ticket_reservation_num

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.Criteria;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
@@ -19,6 +20,7 @@ import org.mohang.domain.GeneralMyReservationDTO;
 import org.mohang.domain.GeneralPasswordVO;
 import org.mohang.domain.GeneralResPayTimeDTO;
 import org.mohang.domain.OrganizationVO;
+import org.mohang.domain.PageDTO;
 import org.mohang.domain.ReservationLikeDTO;
 import org.mohang.domain.ReviewVO;
 import org.mohang.domain.TicketPaymentDTO;
@@ -27,6 +29,7 @@ import org.mohang.mapper.GeneralMapper;
 import org.mohang.service.EventService;
 import org.mohang.service.GeneralService;
 import org.mohang.service.OrganizationService;
+import org.mohang.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -61,9 +64,9 @@ public class GeneralController {
 	@Autowired
 	private EventService eventService;
 	
-	
 	@Autowired
-	private GeneralMapper mapper;
+	private ReviewService reviewService;
+	
 	
 	@GetMapping("/updateInformation")
 	public String getInformation(HttpServletRequest request, Model model){
@@ -121,20 +124,7 @@ public class GeneralController {
 			rttr.addFlashAttribute("message", "비밀번호가 변경되었습니다.");
 			
 			return "redirect:/general/updateInformation";
-//				+ "?account_num="+account_num;
 	}
-//	@ControllerAdvice
-//	public class ExceptionController {
-//		//custom예외처리
-//		@ExceptionHandler(NoTicketException.class)
-//		public String noTicket(NoTicketException nte) {
-//
-//			
-//			
-//			return ;
-//		}
-//	    
-//	}
 	
 	@GetMapping("/insertReserve")
 	public String insertReserve(){
@@ -239,7 +229,6 @@ public class GeneralController {
 		//logIn checked
 		
 		
-		
 		log.info("MyReserveList");
 		model.addAttribute("reserveList", service.getListMyReservation(account_num));
 		return "module/general/reserveList";
@@ -284,9 +273,7 @@ public class GeneralController {
 		log.info(account_num);
 		log.info(e_num);
 		
-	if
-//	(true){
-	(!service.cancelLikeDisplay(account_num, e_num)){
+	if(!service.cancelLikeDisplay(account_num, e_num)){
 		return "failed";
 	}
 			log.info("success cancel heart");
@@ -297,7 +284,7 @@ public class GeneralController {
 	
 	
 	@GetMapping("/listMyPartIn")
-	public String listMyPartIn(HttpServletRequest request,Model model){
+	public String listMyPartIn(HttpServletRequest request,Model model,Criteria cri){
 		//logIn check
 		HttpSession session = request.getSession();
 		String account_num =String.valueOf(session.getAttribute("account_num"));
@@ -306,10 +293,13 @@ public class GeneralController {
 		}
 		//logIn checked
 		
+		List<ReservationLikeDTO> myPartInList =  service.listMyPartInEventWithPaging(account_num, cri);
 		
-		List<ReservationLikeDTO> myPartInList =  service.listMyPartInEvent(account_num);
 		model.addAttribute("myPartInList",myPartInList);
-		
+		int total = service.getTotalReservation(account_num);
+		log.info("@@@@total"+total);
+		model.addAttribute("pageMaker", new PageDTO(cri,total));
+		log.info("mypartin"+myPartInList);
 		return "module/general/reviewList";
 	}
 	
@@ -323,8 +313,8 @@ public class GeneralController {
 			return "redirect:/login/login";
 		}
 		//logIn checked
+		
 		AccountVO accountVO = (AccountVO)session.getAttribute("account");
-		log.info(accountVO.getAccount_name());
 		model.addAttribute("account", accountVO);
 		model.addAttribute("reserveDTO", myReservationDTO);
 		return "module/review/reviewForm";
@@ -347,9 +337,46 @@ public class GeneralController {
 			log.info("failed insertReview");
 		};
 		
+		return "redirect:/review/review";
+	}
+	
+	@GetMapping("/updateReview")
+	public String updateReviewForm(HttpServletRequest request,@RequestParam("review_num") String review_num, Model model){
+		//logIn check
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+		//logIn checked
+		
+		log.info("gigi"+review_num);
+		ReviewVO reviewVO = reviewService.reviewDetail(review_num);
+		model.addAttribute("review",reviewVO);
+		
+		return "module/review/reviewUpdateForm";
+		
+	}
+	@PostMapping("/updateReview")
+	public String updateReview(HttpServletRequest request,ReviewVO reviewVO, Model model){
+		//logIn check
+		HttpSession session = request.getSession();
+		String account_num =String.valueOf(session.getAttribute("account_num"));
+		if(("0").equals(account_num) || account_num=="null"|| ("null").equals(account_num)){
+			return "redirect:/login/login";
+		}
+			log.info("brfore"+reviewVO);
+		
+		if(service.updateReview(reviewVO)){
+			log.info("update review success");
+			log.info(reviewVO);
+		}else{
+			log.info("update review failed");
+		}
 		
 		return "redirect:/review/review";
 	}
+		//logIn checked
 	//프로필 사진 업로드
 //	@PostMapping("/uploadProfile")
 //	public String uploadProfile(MultipartFile uploadFile){

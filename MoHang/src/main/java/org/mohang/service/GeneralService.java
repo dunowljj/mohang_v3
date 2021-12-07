@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.Criteria;
 import org.mohang.domain.GeneralAttachFileDTO;
 import org.mohang.domain.GeneralAttachFileVO;
 import org.mohang.domain.GeneralLikeListDTO;
@@ -49,8 +50,12 @@ public interface GeneralService  {
 	public int getRemainTicket(String e_num);
 	public int getTotalticket(String e_num);
 	
-	public List<ReservationLikeDTO> listMyPartInEvent(String account_num);
+//	public List<ReservationLikeDTO> listMyPartInEvent(String account_num);
+	public List<ReservationLikeDTO> listMyPartInEventWithPaging(String account_num, Criteria cri);
+	public Integer getTotalReservation(String account_num);
+	
 	
 	public boolean insertReview(ReviewVO reviewVO);
+	public boolean updateReview(ReviewVO reviewVO);
 }
 

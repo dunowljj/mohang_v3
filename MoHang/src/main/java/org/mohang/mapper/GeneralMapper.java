@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.Criteria;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.GeneralLikeListDTO;
 import org.mohang.domain.GeneralMyReservationDTO;
@@ -27,7 +28,11 @@ public interface GeneralMapper {
 	public String getLikeStatusOfOne(@Param("account_num")String account_num,@Param("e_num") String e_num);
 	public int updateLikeStatusCancel(@Param("account_num") String account_num, @Param("e_num") String e_num);
 	
+	//예약목록
 	public List<GeneralMyReservationDTO> getListMyReservation(String account_num);
+	public List<GeneralMyReservationDTO> getListMyReservationWithPaging(@Param("account_num")String account_num, @Param("cri")Criteria cri);
+	public Integer getTotalReservation(String account_num);
+	
 	
 	//예약,결제
 	public int insertTicketReservation(@Param("RAP")GeneralResPayTimeDTO RAP,@Param("reservDTO")TicketReservationDTO reservDTO);
