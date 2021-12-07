@@ -58,9 +58,9 @@
 			<div>
 				<br>
 			</div>
-			<a href="javascript:kakaoLogin();"><img src="../resources/images/카카오.png"></a>
-			<a id="naver_id_login"><img src="../resources/images/네이버.png"></a>
-			<div class="g-signin2" data-onsuccess="onSignIn" style="width: 180px; height: 45px;"></div>
+			<a href="javascript:kakaoLogin();"><img src="../resources/images/카카오.png" style="width: 185px;height: 45px;"></a>
+			<div id="naver_id_login"></div>
+			<div class="g-signin2" data-onsuccess="onSignIn" style="width: 185px; height: 40px; margin: 0 auto;"></div>
 
 			<div>
 				<a href="javascript:kakaoLogout();">로그아웃</a> <a
@@ -129,6 +129,7 @@
   	var naver_id_login = new naver_id_login("MDRiA49_85RjXmufA7A9", "http://localhost:8081/Main");
   	var state = naver_id_login.getUniqState();
   	naver_id_login.setDomain("http://localhost:8081/login/login");
+  	naver_id_login.setButton("green", 3, 40);
   	naver_id_login.setState(state);
   	naver_id_login.init_naver_id_login();
 </script>
