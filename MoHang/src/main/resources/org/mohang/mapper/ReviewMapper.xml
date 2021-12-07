@@ -78,7 +78,7 @@
 	
 	<select id="getReviewlistEntire" resultType="org.mohang.domain.ReviewVO">
 		SELECT
-			review_num,	review_title, review_writer, review_date, review_hitcount, review_scope
+			review_num,	review_title, review_writer, review_date, review_hitcount, review_scope,ticket_reservation_num,e_num,account_num
 		FROM
 			review
 		WHERE

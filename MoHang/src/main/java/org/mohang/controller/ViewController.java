@@ -58,12 +58,12 @@ public class ViewController {
 		String search = year+"/"+month;
 		log.info("search :"+ search);
 		log.info("search :"+ eventService.listMonthEvent(search));
-		// List를 Set으로 변경
-		List<EventVO> list =eventService.listMonthEvent(search);
-		Set<EventVO> set = new HashSet<EventVO>(list);
-		// Set을 List로 변경
-		List<EventVO> newList =new ArrayList<EventVO>(set);
-		return new ResponseEntity<List<EventVO>>(newList,HttpStatus.OK);
+//		// List를 Set으로 변경
+//		List<EventVO> list =eventService.listMonthEvent(search);
+//		Set<EventVO> set = new HashSet<EventVO>(list);
+//		// Set을 List로 변경
+//		List<EventVO> newList =new ArrayList<EventVO>(set);
+		return new ResponseEntity<List<EventVO>>(eventService.listMonthEvent(search),HttpStatus.OK);
 	}
 	/*
 	 *	 월 ,일로 검색

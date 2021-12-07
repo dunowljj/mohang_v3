@@ -99,7 +99,7 @@ button.btn-light {
 				height="318" width="500px">
 			<div class="box">
 				<div class="card bg-light mb-3"
-					style="max-width: 25rem; height: 320px;">
+					style="max-width: 26rem; height: 320px;">
 					<div class="card-header">
 						전시회정보
 						<div style="display: inline-block; padding-left: 350px;">
@@ -140,11 +140,17 @@ button.btn-light {
 						</p>
 					</div>
 				</div>
+				<c:set var="now" value="<%=new java.util.Date()%>" />
+				<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
 				<%if(account != null) {%>
+				<c:if test="${sysYear<=event.e_endDate }">
 				<button type="button" id="like" class="btn btn-primary">좋아요</button>
+				</c:if>
 				<%} %>
 				<input type="hidden" name="e_num" value="${event.e_num}">
+				<c:if test="${sysYear<=event.e_endDate }">
 				<button type="button" class="btn btn-success" onclick="reserve();">예약하기</button>
+				</c:if>
 				<button type="button" class="btn btn-light">1:1 채팅문의</button>
 			</div>
 		</div>
@@ -154,7 +160,7 @@ button.btn-light {
 			width="300px" height="300px">
 		<hr>
 		<h1 style="font-size: 30px; margin-top: 30px; margin-bottom: 13rem;">
-			<span style="color: #000000;">${event.e_detail }</span>
+			<span style="color: #000000; font-size: 40px;">${event.e_detail }</span>
 		</h1>
 	</div>
 	
