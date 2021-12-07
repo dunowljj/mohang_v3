@@ -38,7 +38,7 @@
 		     <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' />
 		</form>
 		<a id="btn btn-secondary my-2 my-sm-02" class="btn_1" href= "/admin/listNotice" style="text-decoration:none;">공지사항</a>&nbsp;&nbsp;&nbsp;
-		<a id="btn btn-secondary my-2 my-sm-03" class="btn_1" href="/MoHang/admin/AdminReview.do" style ="color:red; text-decoration:none;"> 리뷰</a>
+		<a id="btn btn-secondary my-2 my-sm-03" class="btn_1" href="/admin/listReview" style ="color:red; text-decoration:none;"> 리뷰</a>
 	
 	
 	
