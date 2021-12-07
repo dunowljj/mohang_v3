@@ -4,9 +4,9 @@
 
 <mapper namespace="org.mohang.mapper.ChatMapper">
 	
-<select id="listChat" resultType="org.mohang.domain.AccountVO">
+<select id="listChat" resultType="org.mohang.domain.ChatDTO">
 <![CDATA[
-select a.account_name from room r, account a where a.account_num = r.account_num 
+select a.account_num, a.account_name, a.account_login, r.room_num from room r, account a where a.account_num = r.account_num 
 and room_num in(select room_num from room where account_num = #{account_num}) and r.account_num != #{account_num}
 ]]>
 
@@ -14,8 +14,25 @@ and room_num in(select room_num from room where account_num = #{account_num}) an
 
 <select id="listMessage" resultType="org.mohang.domain.ChatVO">
 <![CDATA[
-select /*+INDEX(chat idx_chat)*/ account_num, admin_num, chat_history, chat_date from chat where room_num = #{room_num}
+select /*+INDEX(chat_index_pk)*/ account_num, admin_num, chat_history, to_char(chat_date,'YYYY-MM-DD:HH24:MI:SS') from chat where room_num = #{room_num}
 ]]>
 </select>
 
+
+<insert id="addMessage">
+	insert into chat(chat_index, room_num, account_num, admin_num,chat_history,chat_date)
+	 values(chat_index_seq.nextval , #{room_num}, #{account_num}, #{admin_num},#{chat_history}, sysdate)
+</insert>
+
+<delete id="deleteChat">
+	delete from room where room_num = #{room_num}
+</delete>
+
+<delete id="deleteMessage">
+	delete from chat where room_num = #{room_num}
+</delete>
+
+<delete id="deleteRoom">
+	delete from room_list where room_num = #{room_num}
+</delete>
 </mapper>

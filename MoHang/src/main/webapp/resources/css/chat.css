@@ -268,3 +268,6 @@ li{
     }
 }
 
+.chat > .chat-history{
+	height : 400px;
+}

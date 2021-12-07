@@ -1,5 +1,6 @@
 package org.mohang.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.mohang.domain.AccountVO;
 import org.mohang.domain.OrganizationVO;
 
@@ -9,6 +10,10 @@ public interface AccountMapper {
 	
 	//아이디 중복 검사
 	public int idCheck(String account_id);
+	
+	
+	//로그인 체크
+	public void loginCheck(@Param("account_login") String account_login, @Param("account_num") String account_num);
 	
 	//로그인
 	public AccountVO accountLogin(AccountVO account);

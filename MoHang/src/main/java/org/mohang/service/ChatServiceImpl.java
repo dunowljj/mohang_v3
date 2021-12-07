@@ -3,6 +3,7 @@ package org.mohang.service;
 import java.util.List;
 
 import org.mohang.domain.AccountVO;
+import org.mohang.domain.ChatDTO;
 import org.mohang.domain.ChatVO;
 import org.mohang.mapper.ChatMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class ChatServiceImpl implements ChatService {
 	@Autowired
 	private ChatMapper mapper;
 	@Override
-	public List<AccountVO> getList(String account_num) {
+	public List<ChatDTO> getList(String account_num) {
 		log.info("채팅목록 불러오기............." );
 		return mapper.listChat(account_num);
 	}
@@ -27,6 +28,30 @@ public class ChatServiceImpl implements ChatService {
 	public List<ChatVO> getChatList(String room_num) {
 		// TODO Auto-generated method stub
 		return mapper.listMessage(room_num);
+	}
+
+	@Override
+	public int addChatLog(ChatVO chatVO) {
+		// TODO Auto-generated method stub
+		return mapper.addMessage(chatVO);
+	}
+
+	@Override
+	public int deleteChatLog(String room_num) {
+		// TODO Auto-generated method stub
+		return mapper.deleteMessage(room_num);
+	}
+
+	@Override
+	public int deleteUser(String room_num) {
+		// TODO Auto-generated method stub
+		return mapper.deleteChat(room_num);
+	}
+
+	@Override
+	public int deleteRoom(String room_num) {
+		// TODO Auto-generated method stub
+		return mapper.deleteRoom(room_num);
 	}
 
 }
