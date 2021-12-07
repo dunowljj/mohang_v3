@@ -22,4 +22,6 @@ public interface ReviewMapper {
 	
 	public int insertReview(ReviewVO reviewVO);
 	public int updateReview(ReviewVO reviewVO);
+	
+	public List<ReviewVO> getReviewlistEntire(String account_num);
 }

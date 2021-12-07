@@ -218,7 +218,7 @@ public class GeneralController {
 	
 	
 	@GetMapping("/reservationList")
-	public String listMyReserve(HttpServletRequest request, Model model){
+	public String listMyReserve(HttpServletRequest request, Model model,Criteria cri){
 
 		//logIn check
 		HttpSession session = request.getSession();
@@ -229,8 +229,12 @@ public class GeneralController {
 		//logIn checked
 		
 		
+		int total = service.getTotalReservation(account_num);
+		log.info("@@@@total"+total);
+		model.addAttribute("pageMaker", new PageDTO(cri,total));
+		log.info("myreserveCri"+cri);
 		log.info("MyReserveList");
-		model.addAttribute("reserveList", service.getListMyReservation(account_num));
+		model.addAttribute("reserveList", service.getListMyReservationWithPaging(account_num, cri));
 		return "module/general/reserveList";
 	}
 	
@@ -284,7 +288,7 @@ public class GeneralController {
 	
 	
 	@GetMapping("/listMyPartIn")
-	public String listMyPartIn(HttpServletRequest request,Model model,Criteria cri){
+	public String listMyPartIn(HttpServletRequest request,Model model){
 		//logIn check
 		HttpSession session = request.getSession();
 		String account_num =String.valueOf(session.getAttribute("account_num"));
@@ -293,13 +297,26 @@ public class GeneralController {
 		}
 		//logIn checked
 		
-		List<ReservationLikeDTO> myPartInList =  service.listMyPartInEventWithPaging(account_num, cri);
-		
+		List<ReservationLikeDTO> myPartInList =  service.listMyPartInEvent(account_num);
+		List<ReviewVO> myReview = service.getReviewlist(account_num);
+		log.info("@@@@@"+myPartInList);
+//		int count =0;
+//		if(myPartInList.size() ==0){
+//			myPartInList =new ArrayList<>();
+//		} else{
+//		
+//			for(int i=0; i<myPartInList.size(); i++){
+//				if(myPartInList.get(i).getMyReservationDTO().getTicket_review_status().equals("0")){
+//					count++;
+//				}
+//			}
+//			if(count == myPartInList.size()){
+//				myPartInList =new ArrayList<>();
+//			}
+//		}
 		model.addAttribute("myPartInList",myPartInList);
-		int total = service.getTotalReservation(account_num);
-		log.info("@@@@total"+total);
-		model.addAttribute("pageMaker", new PageDTO(cri,total));
-		log.info("mypartin"+myPartInList);
+		model.addAttribute("review",myReview);
+		
 		return "module/general/reviewList";
 	}
 	

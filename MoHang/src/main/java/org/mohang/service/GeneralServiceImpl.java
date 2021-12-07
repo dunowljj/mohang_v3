@@ -124,6 +124,10 @@ public class GeneralServiceImpl implements GeneralService {
 	public List<GeneralMyReservationDTO> getListMyReservation(String account_num) {
 		return mapper.getListMyReservation(account_num);
 	}
+	@Override
+	public List<GeneralMyReservationDTO> getListMyReservationWithPaging(String account_num, Criteria cri) {
+		return mapper.getListMyReservationWithPaging(account_num, cri);
+	}
 	//-----ReserveList----
 
 	//-----Reserve-----
@@ -189,40 +193,40 @@ public class GeneralServiceImpl implements GeneralService {
 		return mapper.getLikeStatusOfOne(account_num, e_num);
 	}
 
-	@Override
-	public List<ReservationLikeDTO> listMyPartInEventWithPaging(String account_num, Criteria cri) {
-		
-//		List<GeneralMyReservationDTO> myResList = new ArrayList<GeneralMyReservationDTO>();
-//				myResList = mapper.getListMyReservation(account_num);
-		List<ReservationLikeDTO> resLikeList = new ArrayList<>();
-		List<GeneralMyReservationDTO> gmrList =mapper.getListMyReservationWithPaging(account_num, cri);
-		;
-		for(int i=0; i<mapper.getListMyReservationWithPaging(account_num, cri).size(); i++){
-			resLikeList.add(new ReservationLikeDTO(gmrList.get(i),
-					eventMapper.listLikeEvent(account_num, mapper.getListMyReservationWithPaging(account_num, cri).get(i).getE_num())
-					)
-					//			mapper.getLikeStatusOfOne(account_num, myResList.get(i).getE_num())
-			);
-		}
-		return resLikeList;
-	}
 //	@Override
-//	public List<ReservationLikeDTO> listMyPartInEvent(String account_num) {
+//	public List<ReservationLikeDTO> listMyPartInEventWithPaging(String account_num, Criteria cri) {
 //		
 ////		List<GeneralMyReservationDTO> myResList = new ArrayList<GeneralMyReservationDTO>();
 ////				myResList = mapper.getListMyReservation(account_num);
 //		List<ReservationLikeDTO> resLikeList = new ArrayList<>();
-//		List<GeneralMyReservationDTO> gmrList =mapper.getListMyReservation(account_num);
+//		List<GeneralMyReservationDTO> gmrList =mapper.getListMyReservationWithPaging(account_num, cri);
 //		;
-//		for(int i=0; i<mapper.getListMyReservation(account_num).size(); i++){
+//		for(int i=0; i<mapper.getListMyReservationWithPaging(account_num, cri).size(); i++){
 //			resLikeList.add(new ReservationLikeDTO(gmrList.get(i),
-//					eventMapper.listLikeEvent(account_num, mapper.getListMyReservation(account_num).get(i).getE_num())
+//					eventMapper.listLikeEvent(account_num, mapper.getListMyReservationWithPaging(account_num, cri).get(i).getE_num())
 //					)
 //					//			mapper.getLikeStatusOfOne(account_num, myResList.get(i).getE_num())
-//					);
+//			);
 //		}
 //		return resLikeList;
 //	}
+	@Override
+	public List<ReservationLikeDTO> listMyPartInEvent(String account_num) {
+		
+//		List<GeneralMyReservationDTO> myResList = new ArrayList<GeneralMyReservationDTO>();
+//				myResList = mapper.getListMyReservation(account_num);
+		List<ReservationLikeDTO> resLikeList = new ArrayList<>();
+		List<GeneralMyReservationDTO> gmrList =mapper.getListMyReservation(account_num);
+		;
+		for(int i=0; i<mapper.getListMyReservation(account_num).size(); i++){
+			resLikeList.add(new ReservationLikeDTO(gmrList.get(i),
+					eventMapper.listLikeEvent(account_num, mapper.getListMyReservation(account_num).get(i).getE_num())
+					)
+					//			mapper.getLikeStatusOfOne(account_num, myResList.get(i).getE_num())
+					);
+		}
+		return resLikeList;
+	}
 	
 	@Transactional
 	@Override
@@ -235,6 +239,8 @@ public class GeneralServiceImpl implements GeneralService {
 	public boolean updateReview(ReviewVO reviewVO) {
 		return reviewMapper.updateReview(reviewVO)==1;
 	}
+	
+	
 
 	@Override
 	public Integer getTotalReservation(String account_num) {
@@ -243,6 +249,11 @@ public class GeneralServiceImpl implements GeneralService {
 			return 0;
 		};
 		return mapper.getTotalReservation(account_num);
+	}
+
+	@Override
+	public List<ReviewVO> getReviewlist(String account_num) {
+		return reviewMapper.getReviewlistEntire(account_num);
 	}
 	
 	
