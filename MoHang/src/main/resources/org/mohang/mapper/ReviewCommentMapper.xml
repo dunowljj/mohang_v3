@@ -19,7 +19,7 @@
 	
 	<select id="getReviewComment" resultType="org.mohang.domain.ReviewCommentDTO">
 		select r.review_comment_num, r.review_num, r.review_comment_content, 
-		r.review_comment_date, a.account_id
+		r.review_comment_date, a.account_id, r.account_num
 		  from review_comment r, account a
 		 where r.account_num = a.account_num
 		 and review_num =#{review_num}

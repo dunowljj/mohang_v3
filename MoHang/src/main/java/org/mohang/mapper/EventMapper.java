@@ -17,6 +17,7 @@ import org.mohang.domain.StatisticsAgeDTO;
 import org.mohang.domain.StatisticsDTO;
 import org.mohang.domain.StatisticsDetailDTO;
 import org.mohang.domain.StatisticsInterestDTO;
+import org.mohang.domain.StatisticsScopeDTO;
 
 public interface EventMapper {
 	
@@ -90,5 +91,7 @@ public interface EventMapper {
 	public int CountStatistics(@Param("o_num")String o_num,@Param("cri") Criteria cri);
 
 	public int CountlistApply(@Param("account_num")String account_num, @Param("cri")Criteria cri);
+
+	public List<StatisticsScopeDTO> getReviewScope(String e_num);
 
 }
