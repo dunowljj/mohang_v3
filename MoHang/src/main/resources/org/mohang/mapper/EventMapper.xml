@@ -9,7 +9,7 @@
 		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
           from event e, approve a,event_hall_reservation r
           where r.eh_reservation_num = a.eh_reservation_num
-               and e.e_num = r.e_num and a.ap_check='P' and sysdate >= e.e_endDate
+               and e.e_num = r.e_num and a.ap_check='P' and sysdate <= e.e_endDate
           order by e.e_like desc
      ]]>
 	</select>
@@ -30,7 +30,7 @@
 		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
           from event e, approve a,event_hall_reservation r
           where r.eh_reservation_num = a.eh_reservation_num
-           		and e.e_num = r.e_num and a.ap_check='P' and e.e_startdate <= #{search} and  e.e_endDate >= #{search} and e_enddate > sysdate order by e.e_startdate
+           		and e.e_num = r.e_num and a.ap_check='P' and e.e_startdate <= #{search} and  e.e_endDate >= #{search} and e_enddate >= sysdate order by e.e_startdate
 	]]>
 	</select>
 	<!-- 충돌20211203 -->
@@ -39,10 +39,12 @@
 		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
           from event e, approve a,event_hall_reservation r
           where r.eh_reservation_num = a.eh_reservation_num
-          		and e.e_num = r.e_num and a.ap_check='P' and sysdate >= e.e_endDate
-		<foreach item="account_interest" collection="list" open="("
+          		and e.e_num = r.e_num and a.ap_check='P' and 
+          		<![CDATA[sysdate >= e.e_endDate
+          		]]>
+		<foreach item="account_interest" collection="list" open="and("
 			separator="or" close=")">
-				e.e_field = #{account_interest}
+				 e.e_field = #{account_interest}
 		</foreach>
 		  order by e.e_hitcount desc
 	</select>
@@ -50,7 +52,9 @@
 		  select e.e_num,e.o_num,e.e_name,e.e_startdate,e.e_enddate,e.e_fname,e.e_price,e.e_hitcount
 	          from event e, approve a,event_hall_reservation r
 	          where r.eh_reservation_num = a.eh_reservation_num
-	          		and e.e_num = r.e_num and a.ap_check='P' and sysdate >= e.e_endDate
+	          		and e.e_num = r.e_num and a.ap_check='P' and 
+	          		<![CDATA[sysdate <= e.e_endDate
+	          		]]>
 	  		  order by e.e_hitcount desc
 	</select>
 
@@ -68,7 +72,7 @@
 	               	    	  and e.e_num = r.e_num and a.ap_check='P'  and e_enddate >= sysdate 
 		]]>
 			<if test="keyword !=null and !keyword.equals('') ">
-						and e.e_name like '%'||#{keyword}||'%' 
+						and LOWER(e.e_name) like '%'||#{keyword}||'%' 
 			</if>
 			<if test="field !=null and !field.equals('')">
 						and e.e_field = #{field}
@@ -118,7 +122,7 @@
              	    and e.e_num = r.e_num and a.ap_check='P' and e_enddate >= sysdate
 			]]>
 			<if test="keyword !=null and !keyword.equals('') ">
-						and e.e_name like '%'||#{keyword}||'%'
+						and LOWER(e.e_name) like '%'||#{keyword}||'%'
 			</if>
 			<if test="field !=null and !field.equals('') ">
 						and e.e_field = #{field}

@@ -184,12 +184,12 @@
 		(
 			ticket_reservation_num,	e_num, account_num,
 			ticket_reservation_price, ticket_reservation_amount,
-			ticket_reservation_status, ticket_reservation_time
+			ticket_reservation_status, ticket_reservation_time,ticket_reservation_date
 		)
 		VALUES(
 			#{reservDTO.ticket_reservation_num}, #{reservDTO.e_num}, #{reservDTO.account_num},
 			#{reservDTO.ticket_reservation_price},#{reservDTO.ticket_reservation_amount},
-			'예약완료', TO_DATE(#{RAP.S_ticket_reservation_time},'YYYY-MM-DD HH24:MI:SS')
+			'예약완료', TO_DATE(#{RAP.S_ticket_reservation_time},'YYYY-MM-DD HH24:MI:SS'),#{reservDTO.ticket_reservation_date}
 		)
 	</insert>
 	<insert id='insertTicketPay'>
