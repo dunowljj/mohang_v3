@@ -159,12 +159,12 @@
         if(list.length!=0){
            if(list.length>8){
                for(var i = 0, len = list.length || 0; i < 8; i++){
-                  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+                 list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
                  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-                  html +='<div class="eventbox4">'
+                 html +='<div class="eventbox4">'
                  html +=' <div class="eventbox_in1">'
                  html +='    <div class="eventbox_img">'
-                    html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+                 html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
                  html +='         style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
                  html +='    </div>'
                  html +='<div class="eventbox_context1">'
@@ -177,12 +177,12 @@
                }
            }else if(list.length<=8){
               for(var i = 0, len = list.length || 0; i < len; i++){
-                  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+                 list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
                  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-                  html +='<div class="eventbox4">'
+                 html +='<div class="eventbox4">'
                  html +=' <div class="eventbox_in1">'
                  html +='    <div class="eventbox_img">'
-                  html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+                 html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
                  html +='         style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
                  html +='    </div>'
                  html +='<div class="eventbox_context1">'
@@ -214,7 +214,7 @@
        
          var html = '<ul>';
          for (var i = 1; i <= lastDate; i++) {
-           i= leadingZeros(i,2);
+            i= leadingZeros(i,2);
             html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+","+year+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
          }
         
@@ -223,6 +223,10 @@
          html = '';
          
          for (var j = 0, len = list.length || 0; j < len; j++) {
+        	  var now = new Date(); // 현재 날짜 및 시간
+        	  var date = now.getDate(); // 일
+        	  date = leadingZeros(date,2);
+        	  console.log('date :'+date)
               var testyear=0;
               year= year+'';
               list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
@@ -239,11 +243,13 @@
               var startdate= list[j].e_startDate.substring(8,10);
               var enddate = list[j].e_endDate.substring(8,10);
               //시작 월 끝나는 월 
-              //
               if(startMonth<testyear ){
                  startdate= 0;
               }
-             
+              if(date>enddate){
+            	  startdate=0;
+            	  enddate=0;
+              }
           
               if(testyear<endMonth){
                  enddate= lastDate;
@@ -278,9 +284,9 @@
                }
             }else if(list.length<=8){
               for(var i = 0, len = list.length || 0; i < len; i++){
-                  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+                 list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
                  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-                  html +='<div class="eventbox4">'
+                 html +='<div class="eventbox4">'
                  html +=' <div class="eventbox_in1">'
                  html +='    <div class="eventbox_img">'
                  html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
@@ -333,6 +339,7 @@
               list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
               list[j].e_endDate =moment(list[j].e_endDate).format("YYYY-MM-DD");
               var startMonth =list[j].e_startDate.substring(2,7);
+              var startmonth =list[j].e_startDate.substring(4,7);
               var endMonth = list[j].e_endDate.substring(2,7);
               startMonth = startMonth+"";
               endMonth = endMonth+"";
@@ -345,16 +352,18 @@
               var enddate = list[j].e_endDate.substring(8,10);
               //시작 월 끝나는 월 
               //
+              
               if(startMonth<testyear ){
                  startdate= 0;
               }
-              console.log('prevtestyear :'+testyear);
-              console.log('prevendMonth :'+endMonth);
-              
-          
-              if(testyear<endMonth){
-                 enddate= lastDate;
+              console.log('month :'+month);
+              console.log('startMonth :'+startmonth);
+              if(month<=startmonth){
+            	  startdate=0;
+            	  enddate=0;
               }
+          
+            
               console.log('enddate :'+enddate);
               for(var i=startdate;i<=enddate;i++){
                  i = leadingZeros(i,2);
@@ -435,8 +444,11 @@
                          document.getElementById("day").innerHTML = html;
                         html = '';
                         for (var j = 0, len = list.length || 0; j < len; j++) {
-                           var testyear=0;
-                           list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
+                         var now = new Date(); // 현재 날짜 및 시간
+                         var date = now.getDate(); // 일
+                         date = leadingZeros(date,2);
+                         var testyear=0;
+                         list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
                          list[j].e_endDate =moment(list[j].e_endDate).format("YYYY-MM-DD");
                          var startMonth =list[j].e_startDate.substring(2,7);
                          var endMonth = list[j].e_endDate.substring(2,7);
@@ -454,7 +466,10 @@
                          if(startMonth<testyear ){
                             startdate= 0;
                          }
-                        
+                         if(date>enddate){
+                       	  startdate=0;
+                       	  enddate=0;
+                         }
                      
                          if(testyear<endMonth){
                             enddate= lastDate;
