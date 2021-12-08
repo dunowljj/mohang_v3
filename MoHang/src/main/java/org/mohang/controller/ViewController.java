@@ -15,6 +15,8 @@ import org.mohang.domain.EventLikeDTO;
 import org.mohang.domain.EventVO;
 import org.mohang.domain.LikedVO;
 import org.mohang.domain.Search;
+import org.mohang.mapper.AdminMapper;
+import org.mohang.mapper.EventMapper;
 import org.mohang.service.AdminService;
 import org.mohang.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,11 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/view")
 @Log4j
 public class ViewController {
+
+	@Autowired
+	private AdminMapper adminMapper;
+	@Autowired
+	private EventMapper mapper;
 	@Autowired
 	private EventService eventService;
 	@Autowired
@@ -48,7 +55,7 @@ public class ViewController {
 		return new ResponseEntity<List<EventLikeDTO>> (eventService.listBestEvent(request),HttpStatus.OK);
 	}
 	/*
-	 * 이달의 행사 -> 년 월로 조회수가 많은 행사 3개 출력
+	 * 이달의 행사 -> 년 월로 조회수가 많은 행사 8개 출력
 	 */
 	@GetMapping("/month/{year}/{month}")
 	public ResponseEntity<List<EventVO>> listMonthEvent(@PathVariable("year")String year, @PathVariable("month") String month){
@@ -81,6 +88,7 @@ public class ViewController {
 	@PostMapping(value ="/recommend")
 	public ResponseEntity<List<EventLikeDTO>> bestEvent(HttpServletRequest request){
 		log.info("recommend :"+ eventService.listRecommendEvent(request));
+		
 		return new ResponseEntity<List<EventLikeDTO>>(eventService.listRecommendEvent(request),HttpStatus.OK);
 	}
 }

@@ -66,6 +66,7 @@
 				<td></td>
 				<td></td>
 				<td></td>
+				<td></td>
 			</c:if>
 			<c:forEach items= "${Review}" var ="review">
 				<tr>
@@ -74,10 +75,11 @@
 				<td>${review.review_writer }</td>
 				<td><fmt:formatDate value ="${review.review_date }" pattern = "yyyy-MM-dd"/></td>
 				<td>${review.review_hitcount }</td>
+				<td>
 				<c:if test="${review.account_num.equals(account_num)}">
-				<td><button type="button" id="updateReview" onclick="updateReview('${review.review_num}')">수정</button>
-				</td>		
+					<button type="button" id="updateReview" onclick="updateReview('${review.review_num}')">수정</button>
 				</c:if>
+				</td>		
 				</tr>
 			</c:forEach>
 		</tbody>

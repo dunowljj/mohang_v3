@@ -13,7 +13,8 @@
 <div class ="dd" style= "display : none">	
 <jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 </div>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/reviewComment.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin.js"></script>
 <div id="container-box1">
 	<div id="container">
 리뷰게시판
@@ -25,18 +26,19 @@
 		[조회수] : ${detailReview.review_hitcount}
 	</div>
 </div>
-
+<input type='hidden' name="review_num" value="${detailReview.review_num }">
  글 내용 : ${detailReview.review_content}
 <hr>
 <div id = "ee">
-
   작성자 :  ${detailReview.review_writer}  작성일자 : <fmt:formatDate value="${detailReview.review_date }" pattern="yyyy-MM-dd"/><br>  
 </div>
 <hr>
-
+<div class="review_comment_box">
 
 </div>
 </div>
+</div>
+
 <jsp:include page="/WEB-INF/views/comm/footer.jsp"></jsp:include>
 </body>
 </html>

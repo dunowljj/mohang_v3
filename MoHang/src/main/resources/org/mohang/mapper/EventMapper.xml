@@ -40,7 +40,7 @@
           from event e, approve a,event_hall_reservation r
           where r.eh_reservation_num = a.eh_reservation_num
           		and e.e_num = r.e_num and a.ap_check='P' and 
-          		<![CDATA[sysdate >= e.e_endDate
+          		<![CDATA[sysdate <= e.e_endDate
           		]]>
 		<foreach item="account_interest" collection="list" open="and("
 			separator="or" close=")">
