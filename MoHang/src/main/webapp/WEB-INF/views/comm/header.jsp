@@ -183,7 +183,7 @@
                  html +=' <div class="eventbox_in1">'
                  html +='    <div class="eventbox_img">'
                  html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
-                 html +='         t: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
+                 html +='         style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
                  html +='    </div>'
                  html +='<div class="eventbox_context1">'
                  html +='<span>'+list[i].e_startDate+'~'+list[i].e_endDate+'</span>'
