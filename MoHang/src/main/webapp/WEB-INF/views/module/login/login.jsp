@@ -38,7 +38,7 @@
 
 					<div class="form-floating mb-3">
 						<input class="form-control" id="id_input"
-							placeholder="name@example.com"
+							placeholder="Id"
 							style="width: 300px; height: 30px;" name="account_id"> <label
 							for="floatingInput"></label>
 					</div>
@@ -58,14 +58,12 @@
 			<div>
 				<br>
 			</div>
+
 			<a href="javascript:kakaoLogin();"><img src="../resources/images/카카오.png" style="width: 185px;height: 45px;"></a>
+
 			<div id="naver_id_login"></div>
 			<div class="g-signin2" data-onsuccess="onSignIn" style="width: 185px; height: 40px; margin: 0 auto;"></div>
 
-			<div>
-				<a href="javascript:kakaoLogout();">로그아웃</a> <a
-					href="javascript:secession();">탈퇴</a>
-			</div>
 		</div>
 	</div>
 
@@ -76,11 +74,15 @@
 
    function kakaoLogin() {
        Kakao.Auth.login({
-         success: function (response) {
+    	  success: function (response) {
            Kakao.API.request({
              url: '/v2/user/me',
              success: function (response) {
-                console.log(response)
+            	response= JSON.stringify(response);
+                console.log(response)  
+                Kakao.Auth.authorize({
+          	 	  redirectUri: 'http://localhost:8081/login/join'
+          	 	});
              },
            })
          },
@@ -126,12 +128,20 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
-  	var naver_id_login = new naver_id_login("MDRiA49_85RjXmufA7A9", "http://localhost:8081/Main");
+
+  	var naver_id_login = new naver_id_login("MDRiA49_85RjXmufA7A9", "http://localhost:8081/login/join");
+	
   	var state = naver_id_login.getUniqState();
+  	//회원이 가입이 되었어 메인으로 로그인 되서 안되있으면 회원가입으로 가야되는데 
+  	//컨트롤러 일단 가야되는데 갈줄 몰라 
+  	
+  	naver_id_login.setButton("green", 3, 40)
   	naver_id_login.setDomain("http://localhost:8081/login/login");
   	naver_id_login.setButton("green", 3, 40);
   	naver_id_login.setState(state);
   	naver_id_login.init_naver_id_login();
+  	
+
 </script>
 
 

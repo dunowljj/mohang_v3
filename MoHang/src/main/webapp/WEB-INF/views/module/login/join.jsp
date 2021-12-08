@@ -40,7 +40,7 @@
 			<div class="form-group"
 				style="line-height: 30px; text-align: center;">
 				<span style="font-size: 22px;">회원가입을 하시오</span>
-
+			${kakaodata }
 			<div>
 				<form id="join_form" method="post">
 				
@@ -79,7 +79,7 @@
 					<div class="form-group">
 						<div class="user_email" style="color: red;">Email</div>
 						<div class="mail_input_box" id="mail_check_input_box_false" style="position: relative; padding-left: 89px;">
-							<input class="form-control" id="mail_input" placeholder="XXX@XXX.com" name="account_email">
+							<input class="form-control" id="mail_input" placeholder="XXX@XXX.com" name="account_email" value="">
 							<div class="mail_check_button" style="display: inline;">
  								<span>인증번호 전송</span>
 							</div>
@@ -338,6 +338,33 @@
 			return form.test(email);
 		}
 	</script>
+
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		//네이버
+		var naver_id_login = new naver_id_login("MDRiA49_85RjXmufA7A9", "http://localhost:8081/login/join");
+		
+		var email = (naver_id_login.getProfileData('email'));
+		var name = (naver_id_login.getProfileData('name'));
+		
+		  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+		  function naverSignInCallback() {
+		    console.log(naver_id_login.getProfileData('email'));
+		    console.log(naver_id_login.getProfileData('name'));
+		    console.log(naver_id_login.getProfileData('gender'));
+		    console.log(naver_id_login.getProfileData('birthday'));
+		    
+		    var email = (naver_id_login.getProfileData('email'));
+		    var name = (naver_id_login.getProfileData('name'));
+		    
+		    $('input[name = account_email]').attr('value', email);
+		    $('input[name = account_name]').attr('value', name);
+		  }
+		  naver_id_login.get_naver_userprofile("naverSignInCallback()");
+		
+	</script>
+	
 
 
 

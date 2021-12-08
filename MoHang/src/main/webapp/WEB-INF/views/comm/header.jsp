@@ -640,12 +640,8 @@
                      </c:if>
                        </div>   
                </c:if>
-               
             </ul>
-
-
          </div>
-
       </div>
    </nav>
    <!-- <script src="../jquery-ui-1.12.1/datepicker-ko.js"></script> -->
