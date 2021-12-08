@@ -6,11 +6,11 @@
 <mapper namespace="org.mohang.mapper.GeneralMapper">
 	
 	<!-- 회원 정보  업데이트폼-->
-	<select id="getInformation" resultType="org.mohang.domain.AccountVO" parameterType="String">
+	<select id="getInformation" resultType="org.mohang.domain.AccountVO">
 <!-- 	<![CDATA[ -->
 		SELECT
 			account_gender, account_birth_date, account_phoneNumber, account_num,
-			account_interest, account_email, account_address, account_name, account_id
+			account_interest, account_email, account_address, account_name, account_id, account_address2, account_address3
 		FROM
 			account
 		WHERE
@@ -27,7 +27,9 @@
 			account_phoneNumber = #{account_phoneNumber},
 			account_interest = #{account_interest},
 			account_email = #{account_email},
-			account_address = #{account_address}
+			account_address = #{account_address},
+			account_address2 = #{account_address2},
+			account_address3 = #{account_address3}
 		WHERE
 			account_num = #{account_num}
 	</update>

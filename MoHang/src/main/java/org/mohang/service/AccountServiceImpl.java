@@ -5,15 +5,18 @@ import org.mohang.domain.AccountVO;
 import org.mohang.mapper.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 	@Autowired
 	AccountMapper accountMapper;
 	
+	@Transactional
 	@Override
 	public void memberJoin(AccountVO account) throws Exception {
 		accountMapper.memberJoin(account);
+		accountMapper.memberJoinAttach(account.getAccount_num());
 		
 	}
 

@@ -79,8 +79,7 @@ public class GeneralController {
 		//logIn checked
 		
 		GeneralAttachFileDTO dto = service.getAttach(account_num);
-//		log.info("dfsafd" +dto.getAccount_path());
-//	log.info(dto.getAccount_path());
+		
 		model.addAttribute("account", service.getInformation(account_num));
 		if(dto != null){
 		model.addAttribute("attach",dto);
