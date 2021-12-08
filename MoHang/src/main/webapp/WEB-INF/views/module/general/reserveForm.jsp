@@ -71,6 +71,7 @@
 							<input type='hidden' id='ticket_payment_price' name='ticket_payment_price' value=''/>
 							<input type='hidden' id='S_ticket_reservation_time' name='S_ticket_reservation_time' value=''/>
 							<input type='hidden' id='S_ticket_payment_time' name=S_ticket_payment_time value=''/>
+							<input type='hidden' name=ticket_reservation_price value='${event.e_price}'/>
 
 <!-- 							<input type='hidden' id='ticket_reservation_time' name='ticket_reservation_time'> -->
 							<input type='hidden' name='account_num' value='<c:out value="${account.account_num}"/>'/>

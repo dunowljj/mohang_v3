@@ -11,7 +11,14 @@
 								   sysdate, 0, #{account_interest}, #{account_birth_date}, 
 								   #{account_gender}, #{account_phoneNumber}, #{account_address2}, #{account_address3},#{account_delete},#{account_login})
 	</insert>
-
+	
+	<insert id="memberJoinAttach">
+		insert into	account_attach
+			(account_uuid, account_path, account_filename, account_filetype, account_num)
+			values
+			('0','0','0','0', #{account_num})
+	</insert>
+	
 	<update id="loginCheck">
 		update ACCOUNT set account_login = #{account_login} where account_num = #{account_num}
 	</update>

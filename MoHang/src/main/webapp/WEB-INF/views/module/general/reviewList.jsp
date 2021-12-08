@@ -11,16 +11,16 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
-	<div id="container-box1" style='min-height:1700px;'>
+	<div id="container-box1" style='min-height:1700px; margin-bottom:5%;'>
 		<div id="container">
-			<div class='general_wrapper'>
+			<div class='general_wrapper' style='height:100%;'>
 				<div class='general_subhead'>
 					<h3>참가한 행사</h3>
 					<hr>
 				</div>
 				<!-- 행사 1 -->
 				
-				<div class="entire_review_event">
+				<div class="entire_review_event" style='height:100%;'>
 						<div class='pushpush'>
 						<c:if test="${empty myPartInList}">
 						참가한 행사가 없습니다.
@@ -86,6 +86,7 @@
 									<hr>
 								</div>
 							<div>
+							<div style='margin-bottom:20px; height:auto'>
 								<table class="table table-hover">
 									<tr class="table-active">
 										<th style='width:8%;'>번호</th>
@@ -110,6 +111,7 @@
 										</tr>
 									</c:forEach>
 								</table>
+							</div>
 							</div>
 				</div>
 			</div>

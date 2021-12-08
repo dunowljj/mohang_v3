@@ -30,18 +30,6 @@ function checkGender(){
 //});
 //성별 end
 
-//파일 업로드 비동기 
-//function uploadProfile(){
-//	$("#prof_up_btn").on("change")
-//	
-//	
-//	
-//}
-//function enlargeProfile(){
-//	$("#uploadImg").on('click', function(){
-//		this.css("width", "500px").css("height", "380px")
-//	})
-//}
 
 
 //리턴

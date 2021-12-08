@@ -7,6 +7,9 @@ import org.mohang.domain.OrganizationVO;
 public interface AccountMapper {
 	//회원가입
 	public void memberJoin(AccountVO account);
+	//가입시 기본 파일 로우 생성
+	public int memberJoinAttach(String account_num);
+	
 	
 	//아이디 중복 검사
 	public int idCheck(String account_id);

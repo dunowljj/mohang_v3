@@ -79,7 +79,7 @@
 							<c:out value="${reserve.account_id}"/>@<c:out value="${reserve.account_email}"/>
 						</td>
 						<td class='reserveList_d3'>
-							수량:<c:out value="${reserve.ticket_reservation_amount}"/>
+							수량:<c:out value="${reserve.ticket_reservation_amount}"/><br>
 							<c:out value="${reserve.ticket_reservation_price}"/>원
 						</td>
 						<td class='reserveList_d4'>
