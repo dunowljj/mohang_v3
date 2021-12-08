@@ -56,7 +56,7 @@
 		SELECT
 			a.account_num, 
 			e.e_num, eh.eh_location, e.e_name, e.e_hitcount,
-			e.e_price, e.e_startRecruiteDate, e.e_fname,
+			e.e_price, e.e_startRecruiteDate, e.e_fname, e.e_endrecruiteDate, e.e_startDate, e.e_endDate,
 			l.like_status
 		FROM
 			account a 
@@ -155,7 +155,7 @@
 			 a.account_num, a.account_name, a.account_phoneNumber, a.account_email, a.account_id,
 			 e.e_num, e.e_applydate, e.e_name, e.e_startDate, e.e_endDate, e.e_fname, e.e_hitcount,
 			 eh.eh_location, r.review_date,
-			 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, 
+			 tr.ticket_reservation_price, tr.ticket_reservation_amount, tr.ticket_reservation_num, tr.ticket_reservation_date,
 			 TO_CHAR(tr.ticket_reservation_time,'YYYY-MM-DD HH24:MI:SS') AS ticket_reservation_time, ticket_reservation_status,
 			 tp.ticket_attend, tp.ticket_payment_price, tp.ticket_payment_status, tp.ticket_review_status
 		FROM
@@ -163,7 +163,7 @@
 			 join ticket_payment tp ON tr.ticket_reservation_num = tp.ticket_reservation_num
 			 join event e ON tr.e_num = e.e_num
 			 join event_hall eh ON eh.eh_num = e.eh_num
-			 join review r ON r.ticket_reservation_num = tp.ticket_reservation_num
+			 Left join review r ON r.ticket_reservation_num = tp.ticket_reservation_num
 		WHERE
 			a.account_num = #{account_num}
 		AND
@@ -184,12 +184,12 @@
 		(
 			ticket_reservation_num,	e_num, account_num,
 			ticket_reservation_price, ticket_reservation_amount,
-			ticket_reservation_status, ticket_reservation_time
+			ticket_reservation_status, ticket_reservation_time, ticket_reservation_date
 		)
 		VALUES(
 			#{reservDTO.ticket_reservation_num}, #{reservDTO.e_num}, #{reservDTO.account_num},
 			#{reservDTO.ticket_reservation_price},#{reservDTO.ticket_reservation_amount},
-			'예약완료', TO_DATE(#{RAP.S_ticket_reservation_time},'YYYY-MM-DD HH24:MI:SS')
+			'예약완료', TO_DATE(#{RAP.S_ticket_reservation_time},'YYYY-MM-DD HH24:MI:SS'), #{reservDTO.ticket_reservation_date}
 		)
 	</insert>
 	<insert id='insertTicketPay'>

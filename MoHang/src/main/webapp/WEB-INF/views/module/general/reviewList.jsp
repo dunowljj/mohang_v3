@@ -37,27 +37,35 @@
 											</a>
 											<div class='review_event_exp'>
 												<div class="review_event_top">
-													<span><c:out value='${myReserve.e_name}'/></span><span>무료</span>
+													<span><c:out value='${myReserve.e_name}'/></span>
+													<c:if test="${e_price eq 0}">
+													<span>무료</span>
+													</c:if>
+													<c:if test="${e_price ne 0}">
+													<span>유료</span>
+													</c:if>
+													
 													<span><br><c:out value='${myReserve.eh_location}'/></span><br>
 												</div>
 													<div class="review_event_bottom">
-														<span>행사참여날짜 : <c:out value='${myReserve.ticket_reservation_date}'/></span>
-														작성일 : <fmt:formatDate value ="${myReserve.review_date}" pattern = "yyyy-MM-dd"/>
+														<span>
+															참여날짜 : <fmt:formatDate value ="${myReserve.ticket_reservation_date}" pattern ="yyyy-MM-dd"/>
+														</span>
 														<span class="review_event_bottom2">
-														조회수   <c:out value='${myReserve.e_hitcount}'/> 
-															<c:if test="${'1' eq myLike.like_status}">
-																<a href=''>
-																	<img src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt='좋아요' 
-																		style='margin: 1px 8px;width: 28px;'>
-																</a>
-																</c:if>
-																<c:if test="${'0' eq myLike.like_status}">
-																<a href=''>
-																	<img src='${pageContext.request.contextPath}/resources/images/빈하트.png' alt='좋아요' 
-																		style='margin: 1px 8px;width: 28px;'>
-																</a>
-																</c:if>
-	s													</span>
+															조회수   <c:out value='${myReserve.e_hitcount}'/> 
+<%-- 																<c:if test="${'1' eq myLike.like_status}"> --%>
+<!-- 																	<a href=''> -->
+<%-- 																		<img src='${pageContext.request.contextPath}/resources/images/찬하트.png' alt='좋아요'  --%>
+<!-- 																			style='margin: 1px 8px;width: 28px;'> -->
+<!-- 																	</a> -->
+<%-- 																</c:if> --%>
+<%-- 																<c:if test="${'0' eq myLike.like_status || empty myLike.like_status}"> --%>
+<!-- 																<a href=''> -->
+<%-- 																	<img src='${pageContext.request.contextPath}/resources/images/빈하트.png' alt='좋아요'  --%>
+<!-- 																		style='margin: 1px 8px;width: 28px;'> -->
+<!-- 																</a> -->
+<%-- 																</c:if> --%>
+													</span>
 												</div>	
 											</div>
 											<div id='review_event_right'>
@@ -80,11 +88,11 @@
 							<div>
 								<table class="table table-hover">
 									<tr class="table-active">
-										<th>번호</th>
-										<th>제목</th>
-										<th>작성자</th>
-										<th>작성일</th>
-										<th>조회수</th>
+										<th style='width:8%;'>번호</th>
+										<th style='width:40%;'>제목</th>
+										<th style='width:13%;'>작성자</th>
+										<th style='width:16%;'>작성일</th>
+										<th style='width:13%;'>조회수</th>
 										<th>별점</th>
 									</tr>
 									<c:forEach items='${review}' var='review'>
@@ -96,7 +104,7 @@
 												</a>
 											</td>
 											<td><c:out value='${review.review_writer}'/></td>
-											<td><c:out value='${review.review_date}'/></td>
+											<td><fmt:formatDate  value='${review.review_date}' pattern ="yyyy-MM-dd"/></td>
 											<td><c:out value='${review.review_hitcount}'/></td>
 											<td><c:out value='${review.review_scope}'/></td>
 										</tr>

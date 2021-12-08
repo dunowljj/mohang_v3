@@ -13,7 +13,7 @@
 	<jsp:include page="/WEB-INF/views/comm/header.jsp"></jsp:include>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/general_like-script.js"></script>
 	
-	<div id="container-box1">
+	<div id="container-box1" style='margin: 200px 0px;'>
 		<div id="container">
 			<div class='like_container'>
 				<div class='general_subhead'>
@@ -49,7 +49,7 @@
 								</div> 
 								<div class="like_one_wrap_bottom">
 									<div class=''>
-										<c:out value="${like.e_startRecruiteDate}"/><c:out value="${like.eh_location}"/>
+										<c:out value="${like.e_startRecruiteDate}"/>~<c:out value="${like.e_endrecruiteDate}"/>&nbsp;<c:out value="${like.eh_location}"/>
 									</div>
 									<div >
 										<a href='/event/eventDetail?e_num=${like.e_num}'>
@@ -58,7 +58,13 @@
 									</div>
 									<div class="like_event_bottom">
 										<div>
-										무료
+											<c:if test="${like.e_price eq 0}">
+												무료
+											</c:if>
+<!-- 											style="background-color: black; color: white; padding: 3px 14px; font-size: 12px;" -->
+											<c:if test="${like.e_price ne 0}">
+												유료
+											</c:if>
 										</div>
 									<div></div>
 									<div>

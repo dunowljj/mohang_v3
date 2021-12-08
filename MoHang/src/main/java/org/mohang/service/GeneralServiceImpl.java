@@ -217,7 +217,6 @@ public class GeneralServiceImpl implements GeneralService {
 //				myResList = mapper.getListMyReservation(account_num);
 		List<ReservationLikeDTO> resLikeList = new ArrayList<>();
 		List<GeneralMyReservationDTO> gmrList =mapper.getListMyReservation(account_num);
-		;
 		for(int i=0; i<mapper.getListMyReservation(account_num).size(); i++){
 			resLikeList.add(new ReservationLikeDTO(gmrList.get(i),
 					eventMapper.listLikeEvent(account_num, mapper.getListMyReservation(account_num).get(i).getE_num())
