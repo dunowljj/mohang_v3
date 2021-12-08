@@ -86,6 +86,7 @@ public interface AdminMapper {
 	
 	/*티켓에약리스트 삭제*/
 	public int deleteTicketReservation(String ticket_reservation_num);
+	
 	/*행사 반려*/
 	public void updatestatuswait(@Param("ap_num") String ap_num,@Param("admin_num") String admin_num);
 

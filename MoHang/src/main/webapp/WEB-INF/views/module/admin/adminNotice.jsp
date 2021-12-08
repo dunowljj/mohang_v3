@@ -71,7 +71,7 @@
 		<tbody>
 		<c:forEach items= "${notice}" var ="NoticeVO" varStatus ="status">
 			<tr>
-			    <th scope="row"><input type="checkbox" name="check" value="${Notice.notice_num }"></th>
+			    <th scope="row"><input type="checkbox" name="checks" value="${NoticeVO.notice_num }"></th>
 				<th scope="row"><font style="vertical-align: inherit;">${NoticeVO.notice_num}</font></th>
 				<td><a href="/admin/noticeDetail?notice_num=${NoticeVO.notice_num}"><font style="vertical-align: inherit;">${NoticeVO.notice_title}</font></a></td>
 				<td><font style="vertical-align: inherit;">${NoticeVO.notice_writer}</font></td>
@@ -113,12 +113,12 @@
 	
 		
 		<div class="choice_cancel">
-			<button type="cancel" class="btn btn-secondary btn-sm" type="reset" style="margin-top: 32px;
-             	float: right;">선택삭제</button>
+			<button type="button" class="btn btn-secondary btn-sm" name="delete" style="margin-top: 32px;
+             	float: right;">전체삭제</a></button>
 			<button type="button" class="btn btn-secondary btn-sm" style="margin-top: 32px;
              	float: right; margin-right: 20px;"><a href="/admin/noticeInsertForm" style="text-decoration:none;">글쓰기</a></button>
 		</div>
-		
+
 	</div>
 </div>
 

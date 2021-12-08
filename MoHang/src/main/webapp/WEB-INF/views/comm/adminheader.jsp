@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,12 +41,14 @@
 	<nav> 
 	<div id="admin_main1">
 	<ul> 
-		<li><a href = "#">금일날짜</a></li> 
-		<li><a href = "#">관리자admin</a></li> 
-		<li><a href = "#">로그아웃</a></li> 
+		<li></li> 
+		<li>관리자admin</li> 
+		<!-- <li><a href = "#">로그아웃</a></li>  -->
+		<li><a href="/Main">메인</a></li>
 	</ul> 
 	</div>
 </nav>
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin.js"></script>
 </html>
 
