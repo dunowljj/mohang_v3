@@ -26,7 +26,7 @@ public class GeneralMyReservationDTO {
 	private int ticket_reservation_amount;
 	private String ticket_reservation_num;
 	private String ticket_reservation_status;
-	private int ticket__reservation_price;
+	private int ticket_reservation_price;
 	private String ticket_reservation_time;
 	private String ticket_payment_status;
 	private int ticket_payment_price;

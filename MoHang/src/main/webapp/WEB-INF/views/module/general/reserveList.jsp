@@ -52,9 +52,10 @@
 							</div>
 						</td>
 						<td class='reserveList_d3'>
-<%-- 						일시 : <fmt:formatDate value="${reserve.ticket_reservation_time}" pattern="yyyy-MM-dd HH:mm:ss"/><br> --%>
-						일시 : <c:out value="${reserve.ticket_reservation_time}"/><br>
-						행사 장소 : <c:out value="${reserve.eh_location}"/>
+							<fmt:formatDate value="${reserve.e_startDate}" pattern="yyyy-MM-dd"/>~
+							<fmt:formatDate value="${reserve.e_endDate}" pattern="yyyy-MM-dd"/>
+							<br>
+							행사 장소 : <c:out value="${reserve.eh_location}"/>
 						</td>
 						<td class='reserveList_d4'>
 							최종금액 <c:out value="${reserve.ticket_payment_price}"/> 원
@@ -79,9 +80,9 @@
 						</td>
 						<td class='reserveList_d3'>
 							수량:<c:out value="${reserve.ticket_reservation_amount}"/>
+							<c:out value="${reserve.ticket_reservation_price}"/>원
 						</td>
 						<td class='reserveList_d4'>
-							<c:out value="${reserve.ticket_payment_price}"/>원
 						</td>
 						<td class='reserveList_d5'>
 						</td>
@@ -90,7 +91,7 @@
 						</td>
 						<td class='reserveList_d7'>
 							<c:if test="${'미참여' eq reserve.ticket_attend && '결제완료' eq reserve.ticket_payment_status}">
-								<button class='' onclick='attendEvent(${reserve.ticket_reservation_num})' value="참여">참석하기</button>
+								<button onclick='attendEvent(${reserve.ticket_reservation_num})' value="참여">참석하기</button>
 									<form id="${reserve.ticket_reservation_num}" action='attendEvent' method='POST'>
 										<input type='hidden' name='ticket_reservation_num' value="${reserve.ticket_reservation_num}">
 									</form>
@@ -149,7 +150,6 @@
 		<span class='ticket_nano_title'>신청자 정보</span><br>
 		이름 : <c:out value="${reserve.account_name}"/>  
 		이메일 :<c:out value="${reserve.account_id}"/>@<c:out value="${reserve.account_email}"/><br>
-<!-- 					연락처 : 010-xxxx-xxxx<br>   -->
 		신청일 : <c:out value="${reserve.ticket_reservation_time}"/>
 		<span id="ticket_code">티켓코드 : <c:out value="${reserve.ticket_reservation_num}"/></span>
 	</div> 

@@ -99,13 +99,13 @@ button{
 	background-color: #E0ECF8;
 }
 .reserveList_row1 td:not(:first-child){
-	height: 250px;
+	height: 200px;
 }
 .reserveList_row1 td:first-child{
 	border-bottom: 1px solid gray;
 }
 .reserveList_row2 td{
-	height : 150px;
+	height : 130px;
 	border-bottom: 1px solid gray;
 	border-top: 1px solid gray;
 }
