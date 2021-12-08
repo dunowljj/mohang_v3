@@ -155,6 +155,7 @@ $(document).ready(function () {
 	    //추천 행사
 		eventService.recommend(function(list){
 			for(var i=0, len = list.length||0;i<len;i++){
+				console.log("list:"+list)
 				list[i].list.e_startDate =moment(list[i].list.e_startDate).format("YYYY-MM-DD");
 				list[i].list.e_endDate =moment(list[i].list.e_endDate).format("YYYY-MM-DD");
 				if(nowdate<list[i].list.e_endDate){

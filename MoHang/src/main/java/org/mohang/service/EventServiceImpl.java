@@ -109,7 +109,7 @@ public class EventServiceImpl implements EventService {
 				}
 				List<EventVO> list=mapper.listRecommendEvent(account_interest);
 				if(list.isEmpty()){
-						list=mapper.listHitcountEvent();
+					list=mapper.listHitcountEvent();
 					for(int i=0;i<list.size();i++){
 						if(mapper.listLikeEvent(account_num,list.get(i).getE_num())==null){
 							mapper.firstinsertLikeEvent(list.get(i).getE_num(), account_num);
@@ -120,7 +120,7 @@ public class EventServiceImpl implements EventService {
 					}
 				}else{
 					for(int i=0;i<list.size();i++){
-						log.info("test :"+mapper.listLikeEvent(account_num,list.get(i).getE_num()));
+						
 						if(mapper.listLikeEvent(account_num,list.get(i).getE_num())==null){
 							mapper.firstinsertLikeEvent(list.get(i).getE_num(), account_num);
 						}
@@ -142,6 +142,7 @@ public class EventServiceImpl implements EventService {
 					likelist.add( new EventLikeDTO (list.get(i),  mapper.listLikeEvent(account_num,list.get(i).getE_num())));
 				}
 		}
+		
 		return likelist;
 	}
 

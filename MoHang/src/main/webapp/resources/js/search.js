@@ -232,10 +232,9 @@ $(function() {
 		}
 	}
 	// 체크박스 하나만
-    $('input[type="checkbox"]').bind('click',function() {
-    	    $('input[type="checkbox"]').not(this).prop("checked", false);
+    $('input[id="check"]').bind('click',function() {
+    	    $('input[id="check"]').not(this).prop("checked", false);
     	    $("#second_search").submit();
-    	   
     });
  
 	// 페이지 이동

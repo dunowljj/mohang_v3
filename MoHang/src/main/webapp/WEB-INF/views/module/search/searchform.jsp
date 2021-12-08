@@ -189,9 +189,9 @@
 				<span class="eventtitle">행사</span>
 				<form action="/search/secondsearch" method="post" id="second_search">
 					<div class="filter-box">
-						<input type="checkbox" name='s_like' value='s_like'>좋아요 순 
-						<input type="checkbox" name='s_hitcount' value='s_hitcount'>조회수 순
-						<input type="checkbox" name='s_price' value='s_price'>가격순
+						<input type="checkbox" id="check" name='s_like' value='s_like'>좋아요 순 
+						<input type="checkbox" id="check" name='s_hitcount' value='s_hitcount'>조회수 순
+						<input type="checkbox" id="check" name='s_price' value='s_price'>가격순
 						<input type='hidden' name='pageNum' value='${pageMaker.search.pageNum}'>
 						<input type='hidden' name='amount' value='${pageMaker.search.amount}'>
 						<input type="hidden" name="field" value="<c:out value='${search.field.replace(","," ")}' />">
