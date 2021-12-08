@@ -45,6 +45,7 @@
 		<li>관리자admin</li> 
 		<!-- <li><a href = "#">로그아웃</a></li>  -->
 		<li><a href="/Main">메인</a></li>
+		<li><a href="/admin/mohang">관리자메인</a></li>
 	</ul> 
 	</div>
 </nav>
