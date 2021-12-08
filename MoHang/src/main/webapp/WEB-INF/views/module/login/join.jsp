@@ -126,10 +126,10 @@
 						<div class="user_gender" style="color: red;">Gender</div> 
 						<label class="form-check-label"> <input type="radio"
 							class="form-check-input" name="account_gender"
-							id="optionsRadios1" value="남자" checked=""> 남자
+							id="optionsRadios1" value="m" checked=""> 남자
 						</label> <label class="form-check-label"> <input type="radio"
 							class="form-check-input" name="account_gender"
-							id="optionsRadios2" value="여자"> 여자
+							id="optionsRadios2" value="f"> 여자
 						</label>
 					</div>
 

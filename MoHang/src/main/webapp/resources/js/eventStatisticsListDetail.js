@@ -99,7 +99,7 @@ var statistics = (function(){
 google.charts.load('current', {'packages':['bar']});
 
       google.charts.setOnLoadCallback(drawChart1);
-      google.charts.setOnLoadCallback(drawChart2);
+     // google.charts.setOnLoadCallback(drawChart2);
       google.charts.setOnLoadCallback(drawChart3);
  
 
@@ -110,17 +110,61 @@ google.charts.load('current', {'packages':['bar']});
     	statistics.getAgeGender({"e_num":e_num}, function(result){
         			console.log("ajax실행");
         			var ageGenderArr = [['나이', '남', '여']];
+        		
+        			var m10 = 0;
+        			var f10 = 0;
+        			var m20 = 0;
+        			var f20 = 0;
+        			var m20 = 0;
+        			var f20 = 0;
+        			var m30= 0;
+        			var f30 = 0;
+        			var m40 = 0;
+        			var f40 = 0;
+        			var m50 = 0;
+        			var f50 = 0;
+        			var m60 = 0;
+        			var f60 = 0;
+        		
         			
         			$.each(result, function(i, item){
-        				 var ageGender=[item.age, item.m_count, item.f_count];
-        				 ageGenderArr.push(ageGender);
+        			if(item.age === "10" || item.age==="0"){
+        					 m10 += item.m_count;
+                			 f10 += item.f_count;
+        				} else if(item.age === "20"){
+        					 m20 += item.m_count;
+                			 f20 += item.f_count;
+        				} else if(item.age === "30"){
+        					 m30 += item.m_count;
+                			 f30 += item.f_count;
+        				}else if(item.age === "40"){
+        					 m40 += item.m_count;
+                			 f40 += item.f_count;
+        				} else if(item.age === "50"){
+        					 m50 += item.m_count;
+                			 f50 += item.f_count;
+        				} else if(item.age === "60" || item.age ==="70" ||item.age ==="80" ){
+        					 m60 += item.m_count;
+                			 f60 += item.f_count;
+        				}
+        				
+        				/*var ageGender=[item.age, item.m_count, item.f_count];
+        				 ageGenderArr.push(ageGender);*/
         			 })
         			 console.log("1번차트:"+ageGenderArr);
         			 
         			 
-        	        var data = google.visualization.arrayToDataTable(
-        	        	
-        	        		ageGenderArr);
+        	        //var data = google.visualization.arrayToDataTable(ageGenderArr);
+        	        var data = google.visualization.arrayToDataTable([
+        	        	['나이', '남', '여'],
+        	        	["10대",m10, f10],
+        	        	["20대",m20, f20],
+        	        	["30대",m30, f30],
+        	        	["40대",m40, f40],
+        	        	["50대",m50, f50],
+        	        	["60대 이상",m60, f60]
+       
+        	        ]);
 
         	        var options = {
         	          chart: {
@@ -133,7 +177,7 @@ google.charts.load('current', {'packages':['bar']});
 
         	        chart.draw(data, google.charts.Bar.convertOptions(options));
 		
-    	})
+    	});
     	
       }		
 
@@ -144,20 +188,47 @@ google.charts.load('current', {'packages':['bar']});
 
     	statistics.getScope({"e_num":e_num}, function(result){
         			console.log("ajax실행");
-        			var scopeArr = [['나이', '평균별점']];
+        			//var scopeArr = [['나이', '평균별점']];
+        			var s10 = 0;
+        			var s20 = 0;
+        			var s30= 0;
+        			var s40 = 0;
+        			var s50 = 0;
+        			var s60 = 0;
+        		
         			
         			//result를 json({},{}로 불러와서 하나하나 배열에 넣어줌. )
         			$.each(result, function(i, item){
-        				 var scope=[item.age,item.review_scope];
-        				 scopeArr.push(scope);
+        				if(item.age === "10" || item.age==="0"){
+       					 s10 += item.item.review_scope;
+       				} else if(item.age === "20"){
+       					 s20 += item.item.review_scope;
+       				} else if(item.age === "30"){
+       					 s30 += item.item.review_scope;
+       				}else if(item.age === "40"){
+       					 s40 += item.item.review_scope;
+       				} else if(item.age === "50"){
+       					 s50 += item.item.review_scope;
+       				} else if(item.age === "60" || item.age ==="70" ||item.age ==="80" ){
+       					 s60 += item.item.review_scope;
+       				}
+        			/*	var scope=[item.age,item.item.review_scope];
+        				 scopeArr.push(scope);*/
         			 }) 
         			 
         			 
         			 console.log("2번차트:"+scopeArr);
         			 
-        	        var data = google.visualization.arrayToDataTable(
-        	        	
-        	        		scopeArr);
+        			  var data = google.visualization.arrayToDataTable([
+        				['나이', '평균별점'],
+          	        	["10대",s10],
+          	        	["20대",s20],
+          	        	["30대",s30],
+          	        	["40대",s40],
+          	        	["50대",s50],
+          	        	["60대 이상",s60]
+         
+          	        ]);
 
         	        var options = {
         	          chart: {
@@ -170,7 +241,7 @@ google.charts.load('current', {'packages':['bar']});
 
         	        chart2.draw(data, google.charts.Bar.convertOptions(options));
 		
-    	})
+    	});
     	
       }		
       
