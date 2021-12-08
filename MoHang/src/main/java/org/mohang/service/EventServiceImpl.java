@@ -270,9 +270,9 @@ public class EventServiceImpl implements EventService {
 
 		//한글로 수정..?
 		for (int i = 0; i < statisticsList.size(); i++) {
-			if (statisticsList.get(i).getTicket_reservation_status().equals("n")) {
-				cancelTicket += statisticsList.get(i).getTicket_reservation_amount();
-			} else {
+			if (statisticsList.get(i).getTicket_reservation_status().equals("예약취소")) {
+				cancelTicket  += statisticsList.get(i).getTicket_reservation_amount();
+			} else{
 				realTicket += statisticsList.get(i).getTicket_reservation_amount();
 			}
 		};
@@ -294,8 +294,8 @@ public class EventServiceImpl implements EventService {
 		if (eventVO.getE_hitcount() == 0 || realTicket == 0 || cancelTicket == 0 || totalTicket == 0) {
 			ratioReservation = 0;
 		} else {
-			ratioReservation = ((double) realTicket / eventVO.getE_hitcount()) * 100;
-			rationReservationCancel = ((double) cancelTicket / totalTicket) * 100;
+			ratioReservation =	Math.round((double)realTicket / eventVO.getE_hitcount() * 100*100)/100.0;
+			rationReservationCancel = Math.round((double) cancelTicket / totalTicket * 100 *100) /100.0;
 		}
 		
 		statistics.setRatioReservation(ratioReservation);
