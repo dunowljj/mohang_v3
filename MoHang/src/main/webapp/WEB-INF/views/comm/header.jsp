@@ -601,18 +601,18 @@
 					<c:if test="${account != null}">
 						<div class="login_success_area">
                         	<span>${account.account_name}님 반갑습니다</span>
-                        	<span>마일리지 : ${account.account_mileage}원</span>
-                        	<span onclick="location.href='/login/logout'" style="color: #ff0000">로그아웃</span>	
-                        	<c:if test="${account.account_id == 'admin'}">
-								<a href="/admin/mohang">관리자 페이지</a>
-							</c:if>
+                        	<span>마일리지 : ${account.account_mileage}원</span>                   
+                        	<span onclick="location.href='/login/logout'" style="color: red;">로그아웃</span>	
+	                        <c:if test="${account.account_id == 'admin'}">
+								<span onclick="location.href='/admin/mohang'" style="color: red;">관리자 페이지</span>
+							</c:if>					
                     	</div>	
 					</c:if>
 					
 				</ul>
 
 
-			</div>
+<!-- 			</div> -->
 
 		</div>
 	</nav>
