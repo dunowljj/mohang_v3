@@ -114,7 +114,7 @@
 	 <!-- 티켓예약리스트 조회 -->
 	 <select id="listreservationTicket" resultType ="org.mohang.domain.TicketReservationDTO">
 	 	select a.account_name, t.ticket_reservation_time, t.ticket_reservation_price,
-		t.ticket_reservation_status, t.ticket_reservation_num
+		t.ticket_reservation_status, t.ticket_reservation_num, t.ticket_reservation_check
 		from account a , ticket_reservation t
 		where t.account_num = a.account_num
 	 </select>
@@ -125,7 +125,7 @@
 	 	SELECT * FROM (
        		 SELECT a.*, ROWNUM as rnum FROM (
             select a.account_name, t.ticket_reservation_time, t.ticket_reservation_price,
-			t.ticket_reservation_status, t.ticket_reservation_num
+			t.ticket_reservation_status, t.ticket_reservation_num,t.ticket_reservation_check
 			from account a , ticket_reservation t
 			where t.account_num = a.account_num   order by to_number(ticket_reservation_num) desc
                )
@@ -133,6 +133,14 @@
         where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}
 		]]> 
 	 </select>
+	 
+	 
+	 <!-- 티켓예약 리스트 삭제여부를 N -> Y으로 -->
+	 <update id="deleteTicketReservation" >
+	 	update ticket_reservation
+	 	set ticket_reservation_check = 'N' , ticket_reservation_status = '예약취소'
+	 	where ticket_reservation_num = #{ticket_reservation_num}
+	 </update>
 	 
 	 <!-- 리뷰리스트 조회 -->
 	 <select id="listReview" resultType ="org.mohang.domain.ReviewVO">
@@ -210,7 +218,7 @@
 	
 	<!-- 리뷰게시판 리스트 삭제 -->
 	<delete id="deleteReview">
-		delete review where review_num = #{review_num}
+		delete review where review_num = #{review_num} 
 	</delete>
 	
 	
@@ -222,11 +230,7 @@
 	</select>
 	
 	 
-	 <!-- 티켓예매리스트에서 예매취소 버튼 눌렀을시 리스트에서 삭제되게 -->
-	 <delete id="deleteTicketReservation">
-		 delete ticket_reservation where ticket_reservation_num = #{ticket_reservation_num}
-	 </delete>
-	 
+	
 	 
 	 <!-- 공지사항 게시판 페이징처리랑 제목기준으로 검색하기위한  select문-->
 	 <select id="getNoticePaging" resultType="org.mohang.domain.NoticeVO">
@@ -279,6 +283,7 @@
 	 
 	 <select id="getTicketReservationTotal" resultType="int">
 	 	select count(*) from Ticket_Reservation
+	 	where ticket_reservation_check = 'Y'
 	 </select>
 	 
 	  <select id="getAccountTotal" resultType="int">

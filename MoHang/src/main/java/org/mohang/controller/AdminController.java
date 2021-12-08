@@ -110,6 +110,7 @@ public class AdminController {
 	@GetMapping("listReservationTicket")
 	public String listreservationTicket(Criteria cri, Model model) {
 		model.addAttribute("ticket",service.getlistreservationTicketPaging(cri));
+		log.info("test"+service.getlistreservationTicketPaging(cri));
 		int total = service.getTicketReservationTotal();
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		return "module/admin/adminReservationTicketManagement";
@@ -120,7 +121,7 @@ public class AdminController {
 	public String deleteTicket(@RequestParam("ticket_reservation_num") String ticket_reservation_num) {
 		log.info("티켓리스트 삭제");
 		if(service.deleteTicketReservation(ticket_reservation_num)==1){
-			
+			log.info("@@@@@@@@@@@@@@@@@@@@@update확인");
 		}
 		return "redirect:listReservationTicket";
 	}
@@ -172,6 +173,22 @@ public class AdminController {
 		return "redirect:listNotice";
 	}
 
+	
+	/*게시판 공지사항에서 밑에 전체삭제 버튼 눌렀을시 전체 목록에서 삭제되게 끔*/
+	@GetMapping("noticeAllDelete")
+	public String noticeAllDelete(@RequestParam("notice_num") String notice_num){
+		log.info("noticfe_num :"+notice_num);
+		// , split list 배열에 담아 
+		// 마이바티스에 foreach 그걸 사용해서 식제 
+		String[] splitStr = notice_num.split(",");
+		for(int i =0; i<splitStr.length; i++){
+			log.info(splitStr[i]);
+		  service.deleteNotice(splitStr[i]);
+		}
+	
+		return "redirect:listNotice";
+	}
+	
 	/* 공지사항게시판에서 글쓰기를 눌렀을시 등록폼으로 이동할 수 있게 하는 부분 */
 	@GetMapping("noticeInsertForm")
 	public String noticeInsertForm() {

@@ -53,12 +53,14 @@
 		<tbody>
 		<c:forEach items="${ticket}" var="TicketReservationDTO">
 			<tr>
+				<c:if test="${TicketReservationDTO.ticket_reservation_check eq 'Y'}">
 				<th scope="row"><font style="vertical-align: inherit;">${TicketReservationDTO.account_name}</font></th>
 				<td><font style="vertical-align: inherit;">
 						<fmt:formatDate value = "${TicketReservationDTO.ticket_reservation_time}" pattern="yyyy-MM-dd"/></font></td>
 				<td><font style="vertical-align: inherit;">${TicketReservationDTO.ticket_reservation_price}</font></td>
 				<td><font style="vertical-align: inherit;">${TicketReservationDTO.ticket_reservation_status}</font></td>
 				<td><font style="vertical-align: inherit;"><a href="/admin/deleteTicket?ticket_reservation_num=${TicketReservationDTO.ticket_reservation_num}" ><button>예약취소</button></a></font></td>
+				</c:if>
 			</tr>
 			</c:forEach>
 			

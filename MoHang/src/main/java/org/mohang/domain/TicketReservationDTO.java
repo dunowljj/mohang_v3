@@ -21,4 +21,5 @@ public class TicketReservationDTO {
 	private String ticket_reservation_status;
 	private int ticket_reservation_amount;
 	private Date ticket_reservation_date;
+	private String ticket_reservation_check;
 }
