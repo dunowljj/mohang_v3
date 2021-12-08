@@ -221,13 +221,13 @@ google.charts.load('current', {'packages':['bar']});
 //                  console.log("2번차트:"+scopeArr);
                   
                    var data = google.visualization.arrayToDataTable([
-                	    ['나이', '평균별점', { role: 'style' }],
-                        ["10대",s10,"#efc810"],
-                        ["20대",s20,"#efc810"],
-                        ["30대",s30,"#efc810"],
-                        ["40대",s40,"#efc810"],
-                        ["50대",s50,"#efc810"],
-                        ["60대 이상",s60,"#efc810"]
+                    ['나이', '평균별점'],
+                        ["10대",s10],
+                        ["20대",s20],
+                        ["30대",s30],
+                        ["40대",s40],
+                        ["50대",s50],
+                        ["60대 이상",s60]
          
                      ]);
 
