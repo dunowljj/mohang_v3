@@ -265,9 +265,9 @@
          if(list.length!=0){
             if(list.length>8){
                for(var i = 0, len = list.length || 0; i < 8; i++){
-                  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+                 list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
                  list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-                  html +='<div class="eventbox4">'
+                 html +='<div class="eventbox4">'
                  html +=' <div class="eventbox_in1">'
                  html +='    <div class="eventbox_img">'
                  html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
@@ -316,9 +316,9 @@
                 year = parseInt(year) - 1;
                
              }
-            year = year +'';
-            month = parseInt(month) - 1;
-            eventService.monthview({year:year,month:month},function(list){
+             year = year +'';
+             month = parseInt(month) - 1;
+             eventService.monthview({year:year,month:month},function(list){
               
              document.getElementById("month").innerHTML = '<em>'
                    + year + '년</em>' + '<em>' + month
@@ -331,55 +331,61 @@
                 html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+","+year+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
              }
               
-              html += '</ul>';
-              document.getElementById("day").innerHTML = html;
+             html += '</ul>';
+             document.getElementById("day").innerHTML = html;
              html = '';
              for (var j = 0, len = list.length || 0; j < len; j++) {
-              var testyear=0;
-              list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
-              list[j].e_endDate =moment(list[j].e_endDate).format("YYYY-MM-DD");
-              var startMonth =list[j].e_startDate.substring(2,7);
-              var startmonth =list[j].e_startDate.substring(4,7);
-              var endMonth = list[j].e_endDate.substring(2,7);
-              startMonth = startMonth+"";
-              endMonth = endMonth+"";
-              startMonth = startMonth.replace("-","");
-              endMonth = endMonth.replace("-","");
-              testyear = year.substring(2,4);
-              month = leadingZeros(month,2);
-              testyear = testyear+month
-              var startdate= list[j].e_startDate.substring(8,10);
-              var enddate = list[j].e_endDate.substring(8,10);
-              //시작 월 끝나는 월 
-              //
-              
-              if(startMonth<testyear ){
-                 startdate= 0;
-              }
-              console.log('month :'+month);
-              console.log('startMonth :'+startmonth);
-              if(month<=startmonth){
-            	  startdate=0;
-            	  enddate=0;
-              }
-          
-            
-              console.log('enddate :'+enddate);
-              for(var i=startdate;i<=enddate;i++){
-                 i = leadingZeros(i,2);
-                 $('#day ul li .on'+i).attr('class','active')
-              }
-          }
+            	  var now = new Date(); // 현재 날짜 및 시간
+            	  var year1 = now.getFullYear(); // 연도
+            	  var month1 = now.getMonth() + 1; // 월
+	              var testyear=0;
+            	  year1 = year1+"";
+            	  month1 = month1+"";
+	              list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
+	              list[j].e_endDate   =moment(list[j].e_endDate).format("YYYY-MM-DD");
+	              var startMonth =list[j].e_startDate.substring(2,7);
+	              var startmonth =list[j].e_startDate.substring(5,7);
+	              var endMonth = list[j].e_endDate.substring(2,7);
+	              startMonth = startMonth+"";
+	              endMonth = endMonth+"";
+	              startMonth = startMonth.replace("-","");
+	              endMonth = endMonth.replace("-","");
+	              testyear = year1.substring(2,4);
+	              month1 = leadingZeros(month1,2);
+	              testyear = testyear+month1
+	              var startdate= list[j].e_startDate.substring(8,10);
+	              var enddate = list[j].e_endDate.substring(8,10);
+	              //시작 월 끝나는 월 
+	              
+	             
+	              console.log('month :'+month);
+	              console.log('startMonth :'+startMonth);
+	              if(month<startmonth){
+	            	 	 startdate=0;
+	            	 	 enddate=0;
+	              }
+	              if(startMonth<testyear ){
+		                 startdate= 0;
+		                 enddate=0;
+		          }
+	            
+	              console.log('testyear :'+testyear);
+	              console.log('enddate :'+enddate);
+	              for(var i=startdate;i<=enddate;i++){
+	                 i = leadingZeros(i,2);
+	                 $('#day ul li .on'+i).attr('class','active')
+	              }
+             }
              var html = "";
              if(list.length!=0){
                 if(list.length>8){
                     for(var i = 0, len = list.length || 0; i < 8; i++){
-                        list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+                       list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
                        list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-                        html +='<div class="eventbox4">'
+                       html +='<div class="eventbox4">'
                        html +=' <div class="eventbox_in1">'
                        html +='    <div class="eventbox_img">'
-                        html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+                       html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
                        html +='         style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
                        html +='    </div>'
                        html +='<div class="eventbox_context1">'
@@ -394,10 +400,10 @@
                    for(var i = 0, len = list.length || 0; i < len; i++){
                         list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
                        list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-                        html +='<div class="eventbox4">'
+                       html +='<div class="eventbox4">'
                        html +=' <div class="eventbox_in1">'
                        html +='    <div class="eventbox_img">'
-                        html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+                       html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
                        html +='         style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
                        html +='    </div>'
                        html +='<div class="eventbox_context1">'
@@ -438,16 +444,21 @@
                         for (var i = 1; i <= lastDate; i++) {
                           i= leadingZeros(i,2);
                            html +="<li><a href=\"javascript: clickpage(\'"+i+","+month+","+year+"\')\"  class=\"on"+i+"\">"+i+"</a></li>";
-                       }
+                        }
                          
-                         html += '</ul>';
-                         document.getElementById("day").innerHTML = html;
+                        html += '</ul>';
+                        document.getElementById("day").innerHTML = html;
                         html = '';
                         for (var j = 0, len = list.length || 0; j < len; j++) {
                          var now = new Date(); // 현재 날짜 및 시간
                          var date = now.getDate(); // 일
+                         var year1 = now.getFullYear(); // 연도
+	                   	 var month1 = now.getMonth() + 1; // 월
+	       	             var testyear=0;
+	                   	 year1 = year1+"";
+	                   	 month1 = month1+"";
                          date = leadingZeros(date,2);
-                         var testyear=0;
+                         var testyear1=0;
                          list[j].e_startDate =moment(list[j].e_startDate).format("YYYY-MM-DD");
                          list[j].e_endDate =moment(list[j].e_endDate).format("YYYY-MM-DD");
                          var startMonth =list[j].e_startDate.substring(2,7);
@@ -457,22 +468,30 @@
                          startMonth = startMonth.replace("-","");
                          endMonth = endMonth.replace("-","");
                          testyear = year.substring(2,4);
+                         testyear1 = year1.substring(2,4);
                          month = leadingZeros(month,2);
                          testyear = testyear+month
+                         testyear1 = testyear1+month1;
                          var startdate= list[j].e_startDate.substring(8,10);
                          var enddate = list[j].e_endDate.substring(8,10);
+                         var datemonth = "";
+                         datemonth = month1+date;
                          //시작 월 끝나는 월 
                          //
+                         
                          if(startMonth<testyear ){
                             startdate= 0;
                          }
-                         if(date>enddate){
-                       	  startdate=0;
-                       	  enddate=0;
-                         }
-                     
+                       
                          if(testyear<endMonth){
                             enddate= lastDate;
+                         }
+                         if(testyear1<endMonth){
+                        	 startdate=0;
+                         }
+                         if(datemonth>endMonth){
+                          	 startdate=0;
+                          	 enddate=0;
                          }
                          for(var i=startdate;i<=enddate;i++){
                             i = leadingZeros(i,2);
@@ -483,12 +502,12 @@
                         if(list.length!=0){
                            if(list.length>8){
                                for(var i = 0, len = list.length || 0; i < 8; i++){
-                                   list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
+                                  list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
                                   list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-                                   html +='<div class="eventbox4">'
+                                  html +='<div class="eventbox4">'
                                   html +=' <div class="eventbox_in1">'
                                   html +='    <div class="eventbox_img">'
-                                   html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+                                  html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
                                   html +='         style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
                                   html +='    </div>'
                                   html +='<div class="eventbox_context1">'
@@ -503,10 +522,10 @@
                               for(var i = 0, len = list.length || 0; i < len; i++){
                                    list[i].e_startDate =moment(list[i].e_startDate).format("YYYY-MM-DD");
                                   list[i].e_endDate =moment(list[i].e_endDate).format("YYYY-MM-DD");
-                                   html +='<div class="eventbox4">'
+                                  html +='<div class="eventbox4">'
                                   html +=' <div class="eventbox_in1">'
                                   html +='    <div class="eventbox_img">'
-                                   html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
+                                  html +='      <a href=\"/event/eventDetail?e_num='+list[i].e_num+'\">'+'<img src=\"../resources/images/'+list[i].e_fname+'\" alt=""'
                                   html +='         style="width: 290px; height: 190px; border: 1px solid #333; margin-left: 4px; border-radius: 10px;"></a>'
                                   html +='    </div>'
                                   html +='<div class="eventbox_context1">'

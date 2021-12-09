@@ -48,7 +48,7 @@ public class LoginController{
 	public String joinPost(AccountVO account) throws Exception{
 		log.info("join진입");
 		account.setAccount_login("0");
-		account.setAccount_delete("N");
+		account.setAccount_delete("Y");
 		accountService.memberJoin(account);
 		log.info("서비스 성공");
 		return "redirect:/Main";
