@@ -32,7 +32,7 @@
 		insert into	account_attach
 			(account_uuid, account_path, account_filename, account_filetype, account_num)
 			values
-			('0','0','0','0', #{account_num})
+			(uuid_seq.nextval,'0','0','0', #{account_num})
 	</insert>
 	
 	<update id="loginCheck">
