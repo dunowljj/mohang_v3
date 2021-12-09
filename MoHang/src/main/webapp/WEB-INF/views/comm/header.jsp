@@ -477,22 +477,7 @@
                          var datemonth = "";
                          datemonth = month1+date;
                          //시작 월 끝나는 월 
-                         //
                          
-                         if(startMonth<testyear ){
-                            startdate= 0;
-                         }
-                       
-                         if(testyear<endMonth){
-                            enddate= lastDate;
-                         }
-                         if(testyear1<endMonth){
-                        	 startdate=0;
-                         }
-                         if(datemonth>endMonth){
-                          	 startdate=0;
-                          	 enddate=0;
-                         }
                          for(var i=startdate;i<=enddate;i++){
                             i = leadingZeros(i,2);
                             $('#day ul li .on'+i).attr('class','active')
