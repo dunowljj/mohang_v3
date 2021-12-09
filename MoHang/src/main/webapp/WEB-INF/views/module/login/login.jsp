@@ -81,7 +81,6 @@
             	response= JSON.stringify(response);
                 console.log(response)  
                 Kakao.Auth.authorize({
-          	 	  redirectUri: 'http://localhost:8081/login/join'
           	 	});
              },
            })
@@ -91,36 +90,6 @@
          },
        })
      }
-        
-   function kakaoLogout() {
-       if (Kakao.Auth.getAccessToken()) {
-         Kakao.API.request({
-           url: '/v1/user/unlink',
-           success: function (response) {
-              console.log(response)
-           },
-           fail: function (error) {
-             console.log(error)
-           },
-         })
-         Kakao.Auth.setAccessToken(undefined)
-       }
-     }  
-    
-    function secession() {
-       Kakao.API.request({
-           url: '/v1/user/unlink',
-           success: function(response) {
-              console.log(response);
-              //callback(); //연결끊기(탈퇴)성공시 서버에서 처리할 함수
-              window.location.href='/Main'
-           },
-           fail: function(error) {
-              console.log('탈퇴 미완료')
-              console.log(error);
-           },
-       });
-    };
     
 </script>
 
