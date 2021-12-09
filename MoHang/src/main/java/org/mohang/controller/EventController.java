@@ -180,6 +180,7 @@ public class EventController  {
 	public String pay(@RequestParam("ap_num") String ap_num){
 			//결제시 ap_check바꿔주는거. 
 		eventService.pay(ap_num);
+		//흠....값을 가져와서 db에 저장해줘야하는거아님?ajax로 해야하나...?
 		return "redirect:listApply";
 }
 	
@@ -192,36 +193,45 @@ public class EventController  {
 			HttpSession session = request.getSession();
 			Object obj = session.getAttribute("account_num");
 			String account_num = String.valueOf(obj);
-					
-			eventVO.setO_num(account_num);
-		//파일 저장
-				log.info("----Ready to file save----");
-				String uploadFolder = request.getSession().getServletContext().getRealPath("/");
-				
+			
+			eventVO.setO_num(eventService.getOnum(account_num));
+			
+			String uploadFolder = request.getSession().getServletContext().getRealPath("/");
+			uploadFolder+="resources/images/";
+			File saveE_file = null;
+			File saveE_dfile = null;
+			
+			//파일을 입력하지 않은 경우, 디폴트 이미지가 들어가도록 형성. 
+			if(e_file.isEmpty()){ //multipartfile객체는 isEmpty로 null확인
+				eventVO.setE_fname(eventService.getF_name(eventVO.getE_num())); //기존의 사진값을 가져오는 메서드 만들어야할듯. 
+			}else{
 				String e_fname = e_file.getOriginalFilename();
-				String e_dfname = e_dfile.getOriginalFilename();
-				
-				
 				eventVO.setE_fname(e_fname);
-				eventVO.setE_dfname(e_dfname);
-		
 				e_fname = e_fname.substring(e_fname.lastIndexOf("\\")+1);
+				saveE_file=new File(uploadFolder, e_fname);	
+			}
+			
+			
+			if(e_dfile.isEmpty()){
+				eventVO.setE_dfname(eventService.getDf_name(eventVO.getE_num()));
+			}else{
+				String e_dfname = e_dfile.getOriginalFilename();
+				eventVO.setE_dfname(e_dfname);
 				e_dfname = e_dfname.substring(e_dfname.lastIndexOf("\\")+1);
-				
-				File saveE_file=new File(uploadFolder, e_fname);
-				File saveE_dfile=new File(uploadFolder, e_dfname);
-				
-				try {
-					e_file.transferTo(saveE_file);
-					e_dfile.transferTo(saveE_dfile);
-				} catch (Exception e) {
-					log.error(e.getMessage());	
-				}
-				log.info("----file save success----");
+				saveE_dfile=new File(uploadFolder, e_dfname);	
+			}
+
+			try {
+				e_file.transferTo(saveE_file);
+				e_dfile.transferTo(saveE_dfile);
+			} catch (Exception e) {
+				log.error(e.getMessage());	
+			}
+			log.info("----file save success----");
 				
 				eventService.updateApply(eventVO);
-		log.info("----Update success----");
-		return "redirect:";
+				log.info("----Update success----");
+		return "redirect:listApply";
 	}
 	//충돌~~~~~~2021-12-03~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//행사정보확인페이지 

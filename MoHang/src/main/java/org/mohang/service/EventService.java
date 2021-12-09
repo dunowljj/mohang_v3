@@ -100,4 +100,8 @@ public interface EventService {
 
 	public List<StatisticsScopeDTO> getReviewScope(String e_num);
 
+	public String getF_name(String e_num);
+
+	public String getDf_name(String e_num);
+
 }

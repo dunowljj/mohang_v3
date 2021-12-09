@@ -137,7 +137,6 @@
 										<img alt="image" src="../resources/images/${event.e_fname }" id="titleImage" width="30%" >&nbsp&nbsp
 										<input type="file" class="form-select-sm" accept='image/*'
 											onchange='openFile(event)' name="e_file">
-											<input type="hidden" name="e_file">
 									</div>
 								</td>
 							</tr>
