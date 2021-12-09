@@ -12882,6 +12882,7 @@ span {
 .heart1{
 	z-index: 10000;
 	display: inline-block;
+	position: absolute;
 	
 }
 .heart1:hover{
