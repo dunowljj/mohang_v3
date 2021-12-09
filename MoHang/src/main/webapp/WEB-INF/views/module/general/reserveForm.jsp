@@ -35,7 +35,7 @@
 							기본정보
 							<hr><br>
 							이메일(ID)	<br>
-							<c:out value="${account.account_id}"/>@<c:out value="${account.account_email}"/>
+							<c:out value="${account.account_email}"/>
 							<br><br>
 							이름/기업명<br>
 							<c:out value="${account.account_name}"/>/<c:out value="${organization.o_name}"/>
@@ -124,12 +124,15 @@
 	
 	$.getJSON("/general/getAttach",{account_num: account_num}, function(attach){
 		
-        var uploadImg = $(".form_left img");
-		var fileCallPath =  encodeURIComponent(attach.account_path + "/s_"+attach.account_uuid +"_"+attach.account_fileName);
-		if(attach.account_fileName != null){
-		uploadImg.attr('src', '/general/display?filename='+fileCallPath);
-		}
+		if(attach.account_path != 0){
+			
+	        var uploadImg = $(".form_left img");
+			var fileCallPath =  encodeURIComponent(attach.account_path + "/s_"+attach.account_uuid +"_"+attach.account_fileName);
+			if(attach.account_fileName != null){
+			uploadImg.attr('src', '/general/display?filename='+fileCallPath);
+			}
 		
+		}
 	});
 	
 	

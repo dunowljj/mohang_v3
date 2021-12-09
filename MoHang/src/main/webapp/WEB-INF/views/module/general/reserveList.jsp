@@ -1,8 +1,8 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +39,16 @@
 					<tr class='reserveList_row1'>
 						<td class='reserveList_d1' rowspan="2">
 							<c:out value="${reserve.ticket_reservation_time}"/>
-							<div>진행중</div>
+							<c:set var="now" value="<%=new java.util.Date()%>" />
+							<c:set var="nowDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
+							
+							<c:if test="${nowDate > reserve.e_endDate}">
+								<div>종료</div>
+							</c:if>
+							
+							<c:if test="${nowDate <= reserve.e_endDate}">
+								<div>진행중</div>
+							</c:if>
 						</td>
 						<td class='reserveList_d2'>
 							<a href='/event/eventDetail?e_num=${reserve.e_num}'>
@@ -57,16 +66,27 @@
 							<br>
 							행사 장소 : <c:out value="${reserve.eh_location}"/>
 						</td>
+						
 						<td class='reserveList_d4'>
 							최종금액 <c:out value="${reserve.ticket_payment_price}"/> 원
 						</td>
+						
 						<td class='reserveList_d5'>
 						</td>
+						
 						<td class='reserveList_d6'>
-						<c:out value="${reserve.ticket_payment_status}"/>
+							<c:out value="${reserve.ticket_payment_status}"/>
 						</td>
 						<td class='reserveList_d7'>
-							<c:if test="${'미참여' eq reserve.ticket_attend and '예약완료' eq reserve.ticket_reservation_status}">
+							<c:set var="nowPlus3" value="<%=new Date(new Date().getTime() + 1000 * 60 * 60 * 24*3)%>"/>
+							<c:set var="refundDate"><fmt:formatDate value="${nowPlus3}" pattern="yyyy-MM-dd" /></c:set> 
+							<c:if test="${refundDate >= reserve.e_endDate and nowDate < reserve.e_endDate}">
+								<span style='color:red;'>환불불가기간</span>
+							</c:if>
+							<c:if test="${nowDate >= reserve.e_endDate}">
+								<span style='color:red;'>행사종료</span>
+							</c:if>
+							<c:if test="${refundDate < reserve.e_endDate and '미참여' eq reserve.ticket_attend and '예약완료' eq reserve.ticket_reservation_status}">
 								<button id='${status.index}' class='cancel_openMask' value="예약취소">예약취소</button><br>
 							</c:if>
 							<button id='${status.index}' class='ticket_openMask' value="상세보기">상세보기</button>
@@ -222,10 +242,7 @@ function updateReview(review_review_num){
 		location.href="/general/updateReview?review_num="+review_review_num;
 }
 
-
-
 </script>		
-     
 		
 
 </body>

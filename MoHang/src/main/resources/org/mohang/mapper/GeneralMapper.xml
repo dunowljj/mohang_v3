@@ -310,7 +310,19 @@
 		WHERE
 			ticket_reservation_num = #{ticket_reservation_num}
 	</update>
-	
+<!-- 	<update id='updateMileageSaveTwoPercent'> -->
+<!-- 		UPDATE -->
+<!-- 			account -->
+<!-- 		SET -->
+<!-- 			a.account_mileage =  -->
+<!-- 				(SELECT  -->
+<!-- 					a.account_mileage&#43;tp.ticket_payment_price&#42;0.02 -->
+<!-- 				FROM -->
+<!-- 					account a JOIN ticket_payment tp ON a.account_num = tp.account_num -->
+<!-- 				WHERE -->
+<!-- 					account_num = #{account_num} -->
+<!-- 				) -->
+<!-- 	</update> -->
 	
 	
 </mapper> 

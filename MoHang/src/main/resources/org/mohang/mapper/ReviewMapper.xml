@@ -83,6 +83,8 @@
 			review
 		WHERE
 			account_num = #{account_num}
+		ORDER BY
+			to_number(review_num) desc
 	</select>
 	
 </mapper> 
