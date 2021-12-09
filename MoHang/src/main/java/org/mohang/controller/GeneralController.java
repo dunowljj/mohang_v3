@@ -79,16 +79,15 @@ public class GeneralController {
 		//logIn checked
 		
 		GeneralAttachFileDTO dto = service.getAttach(account_num);
-		
 		model.addAttribute("account", service.getInformation(account_num));
-		if(dto != null){
+//		if(dto !=null){
 		model.addAttribute("attach",dto);
-		}
+//		}
 		return "module/general/informationUpdateForm";
 	}
 	
 	@PostMapping("/updateInformation")
-	public String updateInformation(HttpServletRequest request, AccountVO account, GeneralAttachFileVO attach, Model model){
+	public String updateInformation(HttpServletRequest request, AccountVO account, GeneralAttachFileVO attach){
 		//logIn check
 		HttpSession session = request.getSession();
 		String account_num =String.valueOf(session.getAttribute("account_num"));
@@ -96,7 +95,6 @@ public class GeneralController {
 			return "redirect:/login/login";
 		}
 		//logIn checked
-		
 		if(service.updateInformation(account, attach)){
 			log.info("success");
 		}

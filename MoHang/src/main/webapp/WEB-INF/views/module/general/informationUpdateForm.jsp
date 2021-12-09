@@ -43,8 +43,8 @@
 							
 							</div>
 <!-- 							onclick='changeUploadImg()' -->
-							<br><input type="file" name="uploadFile">
-<!-- 							 value='data-type="" data-fileName="" data-path="" data-uuid=""'> -->
+							<br><input type="file" name="uploadFile"
+							 value='data-type="" data-fileName="" data-path="" data-uuid=""'>
 							<div id='fileDat'>
 <!-- 							<input type="hidden" name="attach.account_num" value="A-2"> -->
 							<input type="hidden" name="account_uuid" value="">
@@ -161,7 +161,7 @@
 		   	console.log(files[0]);
 			var file = files[0];
 			if(file == undefined){
-		    	 $("#uploadImg").attr('src', '${pageContext.request.contextPath}/resources/images/프로필.png')
+		    	 $("#uploadImg").attr('src', '${pageContext.request.contextPath}/resources/images/프로필2.png')
 			}	      
 			if(!checkExtension(file.name, file.size) ){
 		        return false;
@@ -205,23 +205,26 @@
 		
 		$.getJSON("/general/getAttach",{account_num: account_num}, function(attach){
 			
-			var uploadFile = $("input[name='uploadFile']");
-	        var uploadImg = $("#uploadImg");
-			var fileCallPath =  encodeURIComponent(attach.account_path + "/s_"+attach.account_uuid +"_"+attach.account_fileName);
-			uploadFile.data('uuid', attach.account_uuid);
-			uploadFile.data('fileName', attach.account_fileName);
-			uploadFile.data('type', attach.account_fileType);
-			uploadFile.data('path', attach.account_path);
-			
-			$("#fileDat input[name='account_uuid']").val(attach.account_uuid)
-		    $("#fileDat input[name='account_path']").val(attach.account_path)
-		    $("#fileDat input[name='account_fileName']").val(attach.account_fileName)
-		    $("#fileDat input[name='account_fileType']").val(attach.account_fileType)
-		    $("#uploadFile").attr("filename",attach.account_fileName);
-			if(attach.account_fileName != null){
-			uploadImg.attr('src', '/general/display?filename='+fileCallPath);
+			if(attach.account_path != 0){
+				
+				var uploadFile = $("input[name='uploadFile']");
+		        var uploadImg = $("#uploadImg");
+				var fileCallPath =  encodeURIComponent(attach.account_path + "/s_"+attach.account_uuid +"_"+attach.account_fileName);
+				uploadFile.data('uuid', attach.account_uuid);
+				uploadFile.data('fileName', attach.account_fileName);
+				uploadFile.data('type', attach.account_fileType);
+				uploadFile.data('path', attach.account_path);
+				
+				$("#fileDat input[name='account_uuid']").val(attach.account_uuid)
+			    $("#fileDat input[name='account_path']").val(attach.account_path)
+			    $("#fileDat input[name='account_fileName']").val(attach.account_fileName)
+			    $("#fileDat input[name='account_fileType']").val(attach.account_fileType)
+// 			    $("#uploadFile").attr("filename",attach.account_fileName);
+// 				if(attach.account_fileName != null){
+					uploadImg.attr('src', '/general/display?filename='+fileCallPath);
+// 				}
+				
 			}
-			
 			
 		});
 	

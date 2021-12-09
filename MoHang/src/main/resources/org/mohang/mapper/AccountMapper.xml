@@ -5,11 +5,27 @@
 <mapper namespace="org.mohang.mapper.AccountMapper">
 	<!-- 회원가입 -->
 	<insert id="memberJoin">
-		insert into ACCOUNT values(
-								   account_seq.nextval ,#{account_id}, #{account_password}, 
-								   #{account_name}, #{account_email}, #{account_address},
-								   sysdate, 0, #{account_interest}, #{account_birth_date}, 
-								   #{account_gender}, #{account_phoneNumber}, #{account_address2}, #{account_address3},#{account_delete},#{account_login})
+	
+		<selectKey keyProperty="account_num" 
+			order="BEFORE" resultType="String">
+			SELECT account_seq.nextval from dual
+		</selectKey>	
+			
+		insert into account
+		(
+			account_num,account_id,account_password, account_name, account_email, account_address,
+			account_join_date, account_mileage, account_interest, account_birth_date,
+			account_gender,account_phonenumber, account_delete, 
+			account_login, account_address2, account_address3
+		)
+		values
+		(
+			#{account_num}, #{account_id}, #{account_password}, #{account_name}, 
+			#{account_email}, #{account_address},sysdate, 0, 
+			#{account_interest}, #{account_birth_date},
+			#{account_gender}, #{account_phoneNumber}, #{account_delete},
+			#{account_login}, #{account_address2}, #{account_address3}
+		)
 	</insert>
 	
 	<insert id="memberJoinAttach">

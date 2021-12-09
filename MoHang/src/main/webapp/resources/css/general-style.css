@@ -579,6 +579,12 @@ tr.reserveList_table td:last-child{
 	float:right;
 	font-size: 23px
 }
+.cancel_close-area:hover{
+	text-decoration: none;
+}
+.cancel_close-area a:link{
+	text-decoration: none;
+}
 .cancel_form_modal{
     display:none;
     position: absolute;
@@ -621,6 +627,7 @@ tr.reserveList_table td:last-child{
 	font-size:22px;
 	padding-top: 26px;
     padding-bottom: 46.5px;
+    color:black;
 }
 
 .cancel_form_btns{
