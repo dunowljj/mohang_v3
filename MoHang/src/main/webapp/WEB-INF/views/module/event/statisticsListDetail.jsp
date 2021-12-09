@@ -12,6 +12,8 @@
  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.2.0/exceljs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/js/eventStatisticsListDetail.js"
 	type="text/javascript"></script>
@@ -141,7 +143,7 @@
 				</div>
 
 				<div class="btnPage">
-					<button type="button" class="btn btn-primary btn-sm">엑셀로
+					<button type="button" class="btn btn-primary btn-sm" onclick="excelDownload()">엑셀로
 						보내기</button>
 				</div>
 			</div>

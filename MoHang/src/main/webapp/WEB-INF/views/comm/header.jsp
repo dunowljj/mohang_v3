@@ -592,7 +592,7 @@
                      <li><a href="/event/toinsertForm">행사 신청</a></li>
                      <li><a href="/event/listApply">my 행사 리스트</a></li>
                      <li><a href="/event/listStatistics">결과 분석 그래프</a></li>
-                     <li><a href="#">1:1 채팅</a></li>
+                     <li><a href="/chat/Form">1:1 채팅</a></li>
                      <li><a href="/general/reservationList">예약확인</a></li>
                      <li><a href="/general/listMyPartIn">리뷰 작성 및 확인</a></li>
                      <li><a href="/general/updateInformation">회원 정보 수정</a></li>
