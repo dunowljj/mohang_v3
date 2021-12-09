@@ -354,6 +354,16 @@ public class EventServiceImpl implements EventService {
 		return mapper.getReviewScope(e_num);
 	}
 	
+	@Override
+	public String getF_name(String e_num) {
+		return mapper.getF_name(e_num);
+	}
+	
+	@Override
+	public String getDf_name(String e_num) {
+		return mapper.getDf_name(e_num);
+	}
+	
 	
 	
 	

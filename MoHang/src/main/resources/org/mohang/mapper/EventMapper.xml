@@ -338,6 +338,8 @@
 	<update id="pay">
 		update approve set ap_check ='P' where ap_num = #{ap_num}
 	</update>
+	
+	
 	<!-- 종료 행사 총 개수 -->
 	<select id="CountStatistics" resultType="int">
 	<![CDATA[ select count(*) from event where sysdate >= e_endDate ]]> and o_num = #{o_num}
@@ -357,9 +359,16 @@
 	</select>
 
 	<select id="getReviewScope" resultType="org.mohang.domain.StatisticsScopeDTO">
-
-select account_age as age, avg(review_scope) as review_scope from reviewscopeview  where e_num = #{e_num} group by account_age
-
+		select account_age as age, avg(review_scope) as review_scope from reviewscopeview  where e_num = #{e_num} group by account_age
 	</select>
+	
+	<select id="getF_name" resultType="String">
+		select e_fname from event where e_num = #{e_num}
+	</select>
+	
+	<select id="getDf_name" resultType="String">
+		select e_dfname from event where e_num = #{e_num}
+	</select>
+	
 		
 </mapper>
