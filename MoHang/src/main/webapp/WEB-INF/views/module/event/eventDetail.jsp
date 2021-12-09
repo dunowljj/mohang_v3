@@ -79,6 +79,11 @@ button.btn-light {
 			var e_num = $("input[name='e_num']").val();
 			location.href='/general/reserve?e_num='+e_num;
 		}
+		
+		function chatAdd(){
+			var o_num = $("input[name='o_num']").val();
+			location.href='/chat/add?o_num='+o_num;
+		}
 	</script>
 	<div id="header_nav">
 		<ul>
@@ -148,10 +153,11 @@ button.btn-light {
 				</c:if>
 				<%} %>
 				<input type="hidden" name="e_num" value="${event.e_num}">
+				<input type="hidden" name="o_num" value="${event.o_num}">
 				<c:if test="${sysYear<=event.e_endDate }">
 				<button type="button" class="btn btn-success" onclick="reserve();">예약하기</button>
 				</c:if>
-				<button type="button" class="btn btn-light">1:1 채팅문의</button>
+				<button type="button" class="btn btn-light" onclick="chatAdd();">1:1 채팅문의</button>
 			</div>
 		</div>
 		

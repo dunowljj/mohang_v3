@@ -21,13 +21,15 @@
 			
 			var accountData = $("#accountData");
 			var account_num = accountData.find("input[name='account_num']").val();
-			var room_num_temp='';
+			var room_num_temp=''; // 방번호 전역으로 쉽게쓰고싶어서...
+			
 			// 서버와의 소켓연결 
 			var socket = io("http://localhost:1577");
 			
 			// 접속자 소켓에 추가
 			socket.emit('addUser', account_num);
 			
+			//채팅 목록 갱신..
 			chatUserList();
 			
 			//setInterval(chatUserList, 10000);
@@ -45,12 +47,13 @@
 					var scrollBottom = ul_chatlist.scrollTop() + height;
 					
 					
-					var login;
+					var login="";
 					if (list == null || list.length == 0) {
 						return;
 					}
 
 					for (var i = 0, len = list.length || 0; i < len; i++) {
+						console.log(list[i].account_name);
 							if(list[i].account_login == '0'){
 								login = '<i class="fa fa-circle offline">'
 							}else{
@@ -112,7 +115,7 @@
 						var chat = {
 								room_num: room_num_temp,
 								account_num : account_num,
-								admin_num : "null",
+								admin_num : "0",
 								chat_history: msg
 						}
 						
@@ -129,7 +132,7 @@
 				chatService.message(socket);
 		
 			function chatShowList(){
-				console.log("111")
+				console.log("123")
 				$(".people-list .chat-list").on('click','li', function(e){
 					
 					e.preventDefault();

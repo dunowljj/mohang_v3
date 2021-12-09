@@ -5,6 +5,7 @@ import java.util.List;
 import org.mohang.domain.AccountVO;
 import org.mohang.domain.ChatDTO;
 import org.mohang.domain.ChatVO;
+import org.mohang.domain.RoomVO;
 
 public interface ChatService {
 
@@ -23,4 +24,8 @@ public interface ChatService {
 	
 	//채팅방 삭제
 	public int deleteRoom(String room_num);
+	
+	public void addchatList(String account_num ,String writerAccount_num);
+	
+	public String getWriterAccount_num(String o_num);
 }

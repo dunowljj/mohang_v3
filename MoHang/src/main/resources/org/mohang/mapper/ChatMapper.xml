@@ -12,12 +12,29 @@ and room_num in(select room_num from room where account_num = #{account_num}) an
 
 </select>
 
+
+<select id="test" resultType="org.mohang.domain.RoomVO">
+	select * from room
+</select>
+
 <select id="listMessage" resultType="org.mohang.domain.ChatVO">
 <![CDATA[
 select /*+INDEX(chat_index_pk)*/ account_num, admin_num, chat_history, to_char(chat_date,'YYYY-MM-DD:HH24:MI:SS') from chat where room_num = #{room_num}
 ]]>
 </select>
 
+
+<insert id="addRoom" parameterType="org.mohang.domain.RoomVO" useGeneratedKeys="true" keyColumn="room_num">
+	insert into room_list values(room_seq.nextval)
+</insert>
+
+<insert id="addUser" parameterType="org.mohang.domain.RoomVO">
+	insert into room values(room_idx_seq.nextval,#{account_num}, #{admin_num}, #{room_num})
+</insert>
+
+<select id="getAddUserAccountNum" resultType="String">
+	select a.account_num from event e, account a, organization o where e.o_num = o.o_num and o.account_num = a.account_num and e.o_num = #{o_num} group by a.account_num
+</select>
 
 <insert id="addMessage">
 	insert into chat(chat_index, room_num, account_num, admin_num,chat_history,chat_date)
