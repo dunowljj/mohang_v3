@@ -24,7 +24,7 @@
       			 where r.eh_reservation_num = a.eh_reservation_num and  e.e_num = r.e_num
 				 									<if test="keyword !=null  and !keyword.equals('')">
 															  and e.e_name like '%'||#{keyword}||'%' 
-													</if> order by to_number(admin_num) desc
+													</if> order by to_number(ap_num) desc
                )
         	a) 
        <![CDATA[ 
@@ -127,7 +127,7 @@
             select a.account_name, t.ticket_reservation_time, t.ticket_reservation_price,
 			t.ticket_reservation_status, t.ticket_reservation_num,t.ticket_reservation_check
 			from account a , ticket_reservation t
-			where t.account_num = a.account_num   order by to_number(ticket_reservation_num) desc
+			where t.account_num = a.account_num  and t.ticket_reservation_check ='Y' order by to_number(ticket_reservation_num) desc
                )
         	a) 
         where rnum > (#{pageNum} -1) * #{amount}  and rnum <= #{pageNum} * #{amount}

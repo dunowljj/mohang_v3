@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.mohang.domain.OrganizationVO;
+import org.mohang.service.EventService;
 import org.mohang.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,8 @@ public class OrganizationController  {
 	
 	@Autowired
 	OrganizationService service;
-	
+	@Autowired
+	EventService eventservice;
 	//단체정보신청페이지
 	@GetMapping("/applyForm")
 	public String applyForm(){
@@ -31,7 +33,7 @@ public class OrganizationController  {
 		return "module/organization/applyForm";
 	}
 	
-//단체정보신청
+	//단체정보신청
 	@PostMapping("/insertOrganization")
 	public String insertOrganization(HttpServletRequest request,OrganizationVO organizationVO, RedirectAttributes rttr ){
 		HttpSession session = request.getSession();
@@ -55,9 +57,9 @@ public class OrganizationController  {
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("account_num");
 		String account_num = String.valueOf(obj);
-		
-		OrganizationVO organizationVO = service.getOrganization(account_num);
-		log.info("--get Organization--");
+		String o_num = eventservice.getOnum(account_num);
+		OrganizationVO organizationVO = service.getOrganization(o_num);
+		log.info("--get Organization--"+organizationVO);
 		model.addAttribute("organization", organizationVO);
 		return "module/organization/informationUpdateForm";
 	}

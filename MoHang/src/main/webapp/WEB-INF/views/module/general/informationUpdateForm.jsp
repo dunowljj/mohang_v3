@@ -73,10 +73,11 @@
 							
 							<div class="interest_gender">
 							성별 :
+							
 							  <input type="hidden" value="<c:out value='${account.account_gender}'></c:out>">
-							  <input type="radio" id="male" name="account_gender" value="남" checked>
+							  <input type="radio" id="male" name="account_gender" value="m">
 							  <label for="male">남</label>
-							  <input type="radio" id="female" name="account_gender" value="여">
+							  <input type="radio" id="female" name="account_gender" value="f">
 							  <label for="female">여</label>
 							</div>
 							출생년도 : <input type="date" name='account_birth_date' min="1910-01-01" max="2021-11" value="<c:out value="${account.account_birth_date}"/>"><br>
@@ -277,10 +278,11 @@
 		history.replaceState({}, null, null);
 
 		function messagePop(message) {
-
+		
 			if (message === '' || history.state) {
 				return;
 			}
+			alert(message);
 		
 		}
 	

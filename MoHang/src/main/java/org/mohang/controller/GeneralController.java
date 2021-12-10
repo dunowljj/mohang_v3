@@ -104,7 +104,10 @@ public class GeneralController {
 	
 	
 	@PostMapping("/updatePassword")
-	public String updatePassword(GeneralPasswordVO pw, @RequestParam String account_num, RedirectAttributes rttr){
+	public String updatePassword(GeneralPasswordVO pw, @RequestParam("account_num") String account_num, RedirectAttributes rttr){
+		log.info("pw:"+pw);
+		log.info("account_num:"+account_num);
+		log.info("??"+service.matchPresentPassword(account_num, pw.getPassword()));
 		if(!service.matchPresentPassword(account_num, pw.getPassword())){
 			
 			rttr.addFlashAttribute("message", "현재 비밀번호가 일치하지 않습니다.");

@@ -1,5 +1,6 @@
 package org.mohang.service;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -11,14 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface ExcelService {
 
-	
-
-	public void downloadExcel(HttpServletResponse response, List<ExcelDTO> excelUriList) throws Exception;
-	
-	public void setChart(SXSSFWorkbook workbook, SXSSFSheet sheet, List<ExcelDTO> excelUriList);
-
-	void setChart(SXSSFWorkbook workbook, SXSSFSheet sheet, String excelUriList);
-
-	void downloadExcel(HttpServletResponse response) throws Exception;
-	
+	public List<File> ownloadExcel(HttpServletResponse response) throws Exception;
+	public void saveFile(String[] uriList);
 }

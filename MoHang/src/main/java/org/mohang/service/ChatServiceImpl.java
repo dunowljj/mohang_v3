@@ -62,7 +62,7 @@ public class ChatServiceImpl implements ChatService {
 		RoomVO roomVO = new RoomVO();
 		
 		roomVO.setAccount_num(account_num);
-		roomVO.setAdmin_num("0");
+		roomVO.setAdmin_num("1");
 		
 		//나를 채팅방에 추가 
 		if(mapper.addRoom(roomVO) == 1) {

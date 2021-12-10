@@ -20,6 +20,6 @@ public class ExcelTestController {
 	
 	@GetMapping("test")
 	public void test(HttpServletResponse res) throws Exception {
-		service.downloadExcel(res);
+//		service.downloadExcel(res);
 	}
 }

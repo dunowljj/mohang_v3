@@ -17,7 +17,7 @@ function checkInterest(){
 //성별 받아오기
 function checkGender(){
 	var gender = $(".interest_gender input[type='hidden']").val();
-	if(gender == "남"){
+	if(gender == "m"){
 		$("#male").attr('checked',true);
 	}else{
 		$("#female").attr('checked',true);

@@ -25,7 +25,10 @@ select /*+INDEX(chat_index_pk)*/ account_num, admin_num, chat_history, to_char(c
 
 
 <insert id="addRoom" parameterType="org.mohang.domain.RoomVO" useGeneratedKeys="true" keyColumn="room_num">
-	insert into room_list values(room_seq.nextval)
+	<selectKey  resultType="String" keyProperty="room_num" order="BEFORE">
+			select room_seq.nextval FROM DUAL
+	</selectKey>
+	insert into room_list values(#{room_num})
 </insert>
 
 <insert id="addUser" parameterType="org.mohang.domain.RoomVO">
