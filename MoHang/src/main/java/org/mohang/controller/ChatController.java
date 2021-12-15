@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.print.attribute.standard.Media;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.mohang.domain.AccountVO;
@@ -56,25 +57,24 @@ public class ChatController {
 		return mav;
 	}
 	
-	@GetMapping("/add")
-	public ModelAndView addChat(HttpServletRequest req, @RequestParam("o_num") String o_num) {
+	@GetMapping("/add/{o_num}")
+	public void addChat(HttpServletRequest req, HttpServletResponse res,@PathVariable("o_num") String o_num)
+	throws Exception{
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("module/chat/chatForm");
 		
 		HttpSession session = req.getSession();
 		String account_num = (String)session.getAttribute("account_num");
-		
-		mav.addObject("account_num", account_num);
 		
 		
 		int parse_O_num = Integer.parseInt(o_num);
 		
 			log.info("@@@@@@@@@@@ Chat Add@@@@@@@@@@@");
 			String writerAccount_num = service.getWriterAccount_num(o_num);
-			
+			log.info("WriterAccount: "+ writerAccount_num);
 			service.addchatList(account_num, writerAccount_num);
-		return mav;
+			
+			
+			res.sendRedirect("/chat/Form");
 	}
 
 

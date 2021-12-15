@@ -82,7 +82,7 @@ button.btn-light {
 		
 		function chatAdd(){
 			var o_num = $("input[name='o_num']").val();
-			location.href='/chat/add?o_num='+o_num;
+			location.href='/chat/add/'+o_num;
 		}
 	</script>
 	<div id="header_nav">

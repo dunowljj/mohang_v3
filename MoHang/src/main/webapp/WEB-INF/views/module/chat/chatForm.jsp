@@ -28,9 +28,11 @@
 			
 			// 접속자 소켓에 추가
 			socket.emit('addUser', account_num);
+			chatUserList();
 			
 			//채팅 목록 갱신..
-			chatUserList();
+			setInterval(chatUserList, 5000);
+			
 			
 			//setInterval(chatUserList, 10000);
 			
@@ -136,7 +138,6 @@
 				$(".people-list .chat-list").on('click','li', function(e){
 					
 					e.preventDefault();
-					$(".people-list .chat-list").children().addClass('clearfix');
 					
 					$(this).addClass('clearfix active');
 					
@@ -160,6 +161,7 @@
 						if(list == null || list == 0){
 							return;
 						}	
+						$("ul.m-b-0").children().remove();
 						for(var i = 0, len = list.length || 0; i < len ; i++){
 							var date = chatService.timeEvent();
 							if(list[i].account_num == account_num){

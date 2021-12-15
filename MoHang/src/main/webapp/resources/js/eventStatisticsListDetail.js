@@ -299,29 +299,23 @@ function drawChart3() {
 
 function excelDownload() {
 
+	
 $.ajax({
 			type: 'post',
-			url : '/excel/Downloadtest/',
+			url : '/excel/imageDownload',
 			data : JSON.stringify(imageUrlList),
-			contentType : "application/json; charset=utf-8",
-			success : function(data){
-				$.ajax({
-					type: 'get',
-					url : '/excel/Downloadtest/OK',
-					data : JSON.stringify(data),
-					contentType : "application/json; charset=utf-8",
-					success : function(){
-						console.log('okkkkkkkkk');
-					},
-					error : function(error){
-				console.log("실패ddddd패");
-			}
-				});
+			contentType : "application/json;utf-8",	
+			success : function(){
+				console.log("Okay");
+				location.href = "/excel/excelDownload"
 			},
 			error : function(error){
-				console.log("실패패");
+				console.log(error);
 			}
 		});
+	
+	
+
 	
 }
 

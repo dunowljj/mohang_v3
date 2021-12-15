@@ -3,53 +3,59 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.mohang.mapper.ChatMapper">
-	
-<select id="listChat" resultType="org.mohang.domain.ChatDTO">
+
+	<select id="listChat" resultType="org.mohang.domain.ChatDTO">
 <![CDATA[
 select a.account_num, a.account_name, a.account_login, r.room_num from room r, account a where a.account_num = r.account_num 
 and room_num in(select room_num from room where account_num = #{account_num}) and r.account_num != #{account_num}
 ]]>
 
-</select>
+	</select>
 
 
-<select id="test" resultType="org.mohang.domain.RoomVO">
-	select * from room
-</select>
+	
 
-<select id="listMessage" resultType="org.mohang.domain.ChatVO">
+	<select id="listMessage" resultType="org.mohang.domain.ChatVO">
 <![CDATA[
 select /*+INDEX(chat_index_pk)*/ account_num, admin_num, chat_history, to_char(chat_date,'YYYY-MM-DD:HH24:MI:SS') from chat where room_num = #{room_num}
 ]]>
-</select>
+	</select>
 
 
-<insert id="addRoom" parameterType="org.mohang.domain.RoomVO" useGeneratedKeys="true" keyColumn="room_num">
-	insert into room_list values(room_seq.nextval)
-</insert>
+	<insert id="addRoom" parameterType="org.mohang.domain.RoomVO" useGeneratedKeys="true" keyColumn="room_num">
+		<selectKey resultType="String" keyProperty="room_num"
+			order="BEFORE">
+			select room_seq.nextval FROM DUAL
+		</selectKey>
+		insert into room_list values(#{room_num})
+	</insert>
 
-<insert id="addUser" parameterType="org.mohang.domain.RoomVO">
-	insert into room values(room_idx_seq.nextval,#{account_num}, #{admin_num}, #{room_num})
-</insert>
+	<insert id="addUser" parameterType="org.mohang.domain.RoomVO">
+		insert into room values(room_idx_seq.nextval,#{account_num}, #{admin_num},
+		#{room_num})
+	</insert>
 
-<select id="getAddUserAccountNum" resultType="String">
-	select a.account_num from event e, account a, organization o where e.o_num = o.o_num and o.account_num = a.account_num and e.o_num = #{o_num} group by a.account_num
-</select>
+	<select id="getAddUserAccountNum" resultType="String">
+		select a.account_num from event e, account a, organization o where e.o_num =
+		o.o_num and o.account_num = a.account_num and e.o_num = #{o_num} group
+		by a.account_num
+	</select>
 
-<insert id="addMessage">
-	insert into chat(chat_index, room_num, account_num, admin_num,chat_history,chat_date)
-	 values(chat_index_seq.nextval , #{room_num}, #{account_num}, #{admin_num},#{chat_history}, sysdate)
-</insert>
+	<insert id="addMessage">
+		insert into chat(chat_index, room_num, account_num,
+		admin_num,chat_history,chat_date)
+		values(chat_index_seq.nextval , #{room_num}, #{account_num}, #{admin_num},#{chat_history}, sysdate)
+	</insert>
 
-<delete id="deleteChat">
-	delete from room where room_num = #{room_num}
-</delete>
+	<delete id="deleteChat">
+		delete from room where room_num = #{room_num}
+	</delete>
 
-<delete id="deleteMessage">
-	delete from chat where room_num = #{room_num}
-</delete>
+	<delete id="deleteMessage">
+		delete from chat where room_num = #{room_num}
+	</delete>
 
-<delete id="deleteRoom">
-	delete from room_list where room_num = #{room_num}
-</delete>
+	<delete id="deleteRoom">
+		delete from room_list where room_num = #{room_num}
+	</delete>
 </mapper>

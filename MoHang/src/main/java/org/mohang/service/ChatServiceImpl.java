@@ -60,6 +60,8 @@ public class ChatServiceImpl implements ChatService {
 		String room_num="";
 		
 		RoomVO roomVO = new RoomVO();
+		mapper.addRoom(roomVO);
+		room_num = roomVO.getRoom_num();
 		
 		roomVO.setAccount_num(account_num);
 		roomVO.setAdmin_num("0");
@@ -70,12 +72,13 @@ public class ChatServiceImpl implements ChatService {
 			mapper.addUser(roomVO);
 			roomVO.setAccount_num(writerAccount_num);
 			roomVO.setRoom_num(room_num);
-			log.info("내 채팅 들어왔다@@@@@@@@@");
 			//상대방을 채팅방에 넣어줌
 			if(mapper.addUser(roomVO) == 1) {
 				log.info("상대방 채팅 들어왔다@@@@@@@@@");
 			}
 		}
+		
+	
 		 
 		
 		

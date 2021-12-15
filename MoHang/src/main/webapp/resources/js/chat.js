@@ -112,6 +112,7 @@ var chatService = (function() {
 				if(callback){
 					callback(deleteResult);
 				}
+				
 			},
 			error: function(xhr,status,er){
 				if(error){

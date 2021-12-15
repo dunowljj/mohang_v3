@@ -1,5 +1,6 @@
 package org.mohang.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,32 +33,25 @@ public class ExcelController {
 	@Autowired
 	ExcelService service;
 
-//	@RequestMapping(value = "/Downloadtest", method = {RequestMethod.GET, RequestMethod.POST} ,produces = { MediaType.TEXT_PLAIN_VALUE }, consumes = "application/json")
-//	public void test(HttpServletResponse res, @RequestBody List<ExcelDTO> excelUriList) throws Exception {
-//		String test = excelUriList.get(0).getUrl();
-//		String test1 = excelUriList.get(1).getUrl();
-//		String test2 = excelUriList.get(2).getUrl();
-//		log.info("@@@@@@@@@2 excel : " + test);
-//		log.info("@@@@@@@@@2 excel : " + test1);
-//		log.info("@@@@@@@@@2 excel : " + test2);
-//		service.downloadExcel(res,excelUriList);
-//	}
-	
-	
-	@RequestMapping(value = "/Downloadtest",method = {RequestMethod.POST} ,produces = { MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<List<ExcelDTO>> test(@RequestBody List<ExcelDTO> excelUriList) throws Exception {
+	@PostMapping(value = "imageDownload" ,produces = { MediaType.APPLICATION_JSON_UTF8_VALUE },
+			consumes = "application/json;utf-8")
+	public void test(HttpServletResponse res,@RequestBody List<ExcelDTO> excelUriList) throws Exception {
+		String tempStr[] = new String[excelUriList.size()];
+		for(int i = 0 ; i < excelUriList.size() ; i++) {
+			tempStr[i] = excelUriList.get(i).getUrl();
+		}
 		
-		String test2 = excelUriList.get(2).getUrl();
-		log.info("@@@@@@@@@2 excel : " + test2);
+		service.saveFile(tempStr);
 		
-		return new ResponseEntity<>(excelUriList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/Downloadtest/OK")
-	public void test1(HttpServletResponse res,@RequestBody List<ExcelDTO> excelUriList) throws Exception {
-		service.downloadExcel(res, excelUriList);
-		log.info("get OK");
+	@GetMapping("/excelDownload")
+	public void test2(HttpServletResponse res) throws Exception {
+		List<File> list = service.ownloadExcel(res);
+		String path = System.getProperty("user.dir"); 
+		System.out.println("현재 작업 경로: " + path);
+
+		log.info("files size: " + list.size());
 	}
-	
 	
 }

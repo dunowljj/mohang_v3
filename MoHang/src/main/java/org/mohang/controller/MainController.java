@@ -28,9 +28,9 @@ public class MainController {
 		if(account_num=="null"||("null").equals(account_num)||("0").equals(account_num)||account_num=="0"){
 			session.setAttribute("account_num", "0");
 		}
-		List <NoticeVO> notice = service.getNotice();
-		log.info(notice.get(0));
-		model.addAttribute("notice", notice.get(0));
+//		List <NoticeVO> notice = service.getNotice();
+//		log.info(notice.get(0));
+//		model.addAttribute("notice", notice.get(0));
 
 		return "Main";
 	}
